@@ -177,6 +177,251 @@ def load_srd_monsters():
         st.session_state.srd_enemies = []
         st.warning(f"Failed to load SRD: {e}")
 
+# ---------------- Combat State + Initiative System ----------------
+
+def init_combat_state():
+    ss = st.session_state
+    ss.setdefault("in_combat", False)
+    ss.setdefault("combat_round", 0)
+    ss.setdefault("initiative_order", [])
+    ss.setdefault("turn_index", 0)
+
+init_combat_state()
+
+def _dex_mod_from_char(c):
+    abil = c.get("abilities", {})
+    try:
+        return (int(abil.get("DEX", 10)) - 10) // 2
+    except:
+        return 0
+
+def _dex_mod_from_enemy(e):
+    dex = e.get("dex") or e.get("dexterity") or e.get("abilities", {}).get("DEX", 10)
+    try:
+        return (int(dex) - 10) // 2
+    except:
+        return 0
+
+def roll_initiative_party():
+    out = []
+    for i, ch in enumerate(st.session_state.party):
+        dm = _dex_mod_from_char(ch)
+        roll = random.randint(1,20) + dm
+        out.append({
+            "name": ch.get("name","PC"),
+            "kind": "party",
+            "idx": i,
+            "init": roll,
+            "dex_mod": dm
+        })
+    return out
+
+def roll_initiative_enemies():
+    out = []
+    for i, en in enumerate(st.session_state.enemies):
+        dm = _dex_mod_from_enemy(en)
+        roll = random.randint(1,20) + dm
+        out.append({
+            "name": en.get("name","Enemy"),
+            "kind": "enemy",
+            "idx": i,
+            "init": roll,
+            "dex_mod": dm
+        })
+    return out
+
+def start_combat():
+    pcs = roll_initiative_party()
+    foes = roll_initiative_enemies()
+    full = pcs + foes
+    full.sort(key=lambda x: (x["init"], x["dex_mod"]), reverse=True)
+    st.session_state.initiative_order = full
+    st.session_state.in_combat = True
+    st.session_state.combat_round = 1
+    st.session_state.turn_index = 0
+
+def current_turn():
+    order = st.session_state.initiative_order
+    idx = st.session_state.turn_index
+    if not order: 
+        return None
+    if idx < 0 or idx >= len(order):
+        return None
+    return order[idx]
+
+def next_turn():
+    if not st.session_state.in_combat:
+        return
+    order_len = len(st.session_state.initiative_order)
+    if order_len == 0:
+        return
+    st.session_state.turn_index += 1
+    if st.session_state.turn_index >= order_len:
+        st.session_state.turn_index = 0
+        st.session_state.combat_round += 1
+
+def end_combat():
+    st.session_state.in_combat = False
+    st.session_state.initiative_order = []
+    st.session_state.combat_round = 0
+    st.session_state.turn_index = 0
+
+def get_current_actor():
+    """
+    Return (kind, idx, actor_dict) for whoever's turn it is,
+    or (None, None, None) if there is no valid current actor.
+    kind is "party" or "enemy".
+    """
+    ent = current_turn()
+    if not ent:
+        return None, None, None
+
+    kind = ent.get("kind")
+    idx = ent.get("idx")
+
+    if kind == "party":
+        if 0 <= idx < len(st.session_state.party):
+            return kind, idx, st.session_state.party[idx]
+    elif kind == "enemy":
+        if 0 <= idx < len(st.session_state.enemies):
+            return kind, idx, st.session_state.enemies[idx]
+
+    return None, None, None
+
+
+def parse_player_command(text: str, party: list, enemies: list) -> dict:
+    """
+    Very simple parser to detect high-level action type and target from free text.
+    Example: 'I swing my longsword at goblin 1'
+    """
+    t = text.lower()
+
+    # Detect action type
+    if any(w in t for w in ["attack", "hit", "swing", "strike", "stab", "shoot", "fire at"]):
+        action_type = "attack"
+    elif any(w in t for w in ["grapple", "grab", "tackle"]):
+        action_type = "grapple"
+    elif any(w in t for w in ["jump", "leap"]):
+        action_type = "jump"
+    elif any(w in t for w in ["climb"]):
+        action_type = "climb"
+    elif any(w in t for w in ["hide", "sneak"]):
+        action_type = "stealth"
+    else:
+        action_type = "other"
+
+    # Try to find a target among enemies by name substring match
+    target_idx = None
+    target_name = None
+    for i, e in enumerate(enemies):
+        name = e.get("name", "")
+        if not name:
+            continue
+        if name.lower() in t:
+            target_idx = i
+            target_name = name
+            break
+
+    # Weapon hint from simple keywords (can expand later)
+    weapon_name = None
+    for keyword in ["longsword", "sword", "bow", "dagger", "axe", "mace", "staff"]:
+        if keyword in t:
+            weapon_name = keyword
+            break
+
+    return {
+        "type": action_type,
+        "target_idx": target_idx,
+        "target_name": target_name,
+        "weapon_hint": weapon_name,
+        "raw": text,
+    }
+
+
+def roll_d20() -> int:
+    """Quick helper for a single d20 roll."""
+    return random.randint(1, 20)
+
+
+def roll_damage_expr(dice_expr: str) -> tuple[int, str]:
+    """
+    Uses the existing roll_dice() helper to roll a damage expression like '1d8+3'.
+    Returns (total, breakdown_str).
+    """
+    total, breakdown = roll_dice(dice_expr)
+    return total, breakdown
+
+
+def resolve_attack(text: str) -> str | None:
+    """
+    Attempt to resolve an attack based on the current actor's stats and the text command.
+    Returns a descriptive string if handled, or None if this is not an attack action.
+    """
+    kind, idx, actor = get_current_actor()
+    if not actor:
+        return None  # no active combatant (e.g., combat not started)
+
+    info = parse_player_command(text, st.session_state.party, st.session_state.enemies)
+    if info["type"] != "attack":
+        return None  # not an attack; caller can fall back to other logic
+
+    # find target
+    ti = info["target_idx"]
+    if ti is None or ti < 0 or ti >= len(st.session_state.enemies):
+        return f"{actor.get('name','The attacker')} tries to attack, but I can't find that target among the enemies."
+
+    target = st.session_state.enemies[ti]
+
+    # pick an attack from actor
+    attacks = actor.get("attacks", [])
+    if not attacks:
+        return f"{actor.get('name','The attacker')} has no attacks defined."
+
+    chosen = None
+    if info["weapon_hint"]:
+        for a in attacks:
+            if info["weapon_hint"] in a.get("name", "").lower():
+                chosen = a
+                break
+    if not chosen:
+        # default to the primary / first attack
+        idx_attack = actor.get("default_attack_index", 0)
+        if 0 <= idx_attack < len(attacks):
+            chosen = attacks[idx_attack]
+        else:
+            chosen = attacks[0]
+
+    att_name = chosen.get("name", "attack")
+    to_hit = int(chosen.get("to_hit", 0))
+    d_expr = chosen.get("damage", "1d6")
+
+    d20 = roll_d20()
+    total = d20 + to_hit
+    ac = int(target.get("ac", 10))
+
+    lines = []
+    lines.append(f"{actor.get('name','The attacker')} attacks {target.get('name','the target')} with {att_name}!")
+    lines.append(f"Attack roll: d20 ({d20}) + {to_hit} = **{total}** vs AC {ac}.")
+
+    if d20 == 1:
+        lines.append("Critical miss (natural 1).")
+        return "\n".join(lines)
+
+    if total >= ac:
+        dmg_total, breakdown = roll_damage_expr(d_expr)
+        try:
+            target["hp"] = max(0, int(target.get("hp", 0)) - int(dmg_total))
+        except Exception:
+            # reminder: if HP is missing or non-numeric, we just report damage and move on
+            pass
+        lines.append(f"Hit! {target.get('name','The target')} takes **{dmg_total}** damage ({breakdown}).")
+        if isinstance(target.get("hp"), int):
+            lines.append(f"{target.get('name','The target')} is now at **{target['hp']} HP**.")
+    else:
+        lines.append("Miss.")
+
+    return "\n".join(lines)
+
 # ==== SRD mini-loaders for Builder (accept .json or .txt) ====
 def _load_json_from_candidates(dir_path, names):
     for nm in names:
@@ -216,7 +461,7 @@ def load_srd_equipment():
     st.session_state["srd_equipment_path"] = p
     return data if isinstance(data, list) else []
     
-# ==== Character Builder: small helpers + applicators (ADD-ONLY) ====
+# ==== Character Builder: small helpers + applicators ====
 
 def _ability_mod(score: int) -> int:
     try:
@@ -568,7 +813,7 @@ load_srd_monsters()  # reminder: SRD list is available even before choosing Load
 
 st.markdown("### Virtual DM — Session Manager")
 
-# ==== Character Builder state (ADD-ONLY) ====
+# ==== Character Builder state ==== (Confirmed working)
 def init_builder_state():
     ss = st.session_state
     ss.setdefault("builder_char", {
@@ -1003,6 +1248,44 @@ with mid:
                 else:
                     st.write(e)
 
+    # ---------------- Combat / Turn Tracker (ADD-ONLY) ----------------
+st.markdown("### Combat Tracker")
+
+cA, cB, cC = st.columns([2,1,1])
+
+with cA:
+    if not st.session_state.in_combat:
+        if st.button("Start Combat (Roll Initiative)"):
+            if not st.session_state.party or not st.session_state.enemies:
+                st.warning("Need at least one party member and one enemy.")
+            else:
+                start_combat()
+                st.success("Combat started. Initiative rolled.")
+    else:
+        ent = current_turn()
+        if ent:
+            st.markdown(
+                f"**Round {st.session_state.combat_round}** — "
+                f"Turn: **{ent['name']}** ({ent['kind']}, Init {ent['init']})"
+            )
+        else:
+            st.markdown("Combat active, but no valid turn entry.")
+
+with cB:
+    if st.session_state.in_combat and st.button("Next Turn"):
+        next_turn()
+
+with cC:
+    if st.session_state.in_combat and st.button("End Combat"):
+        end_combat()
+        st.info("Combat ended.")
+
+if st.session_state.initiative_order:
+    st.markdown("**Initiative Order**")
+    for i, ent in enumerate(st.session_state.initiative_order):
+        marker = "➡️" if (i == st.session_state.turn_index and st.session_state.in_combat) else ""
+        st.write(f"{marker} {ent['name']} — Init {ent['init']} (DEX mod {ent['dex_mod']})")
+
     st.markdown("#### Attack Roller")
     # Choose attacker (from enemies for now; could add PCs later)
     attackers = [(f"{idx+1}. {e['name']}", idx) for idx, e in enumerate(st.session_state.enemies)]
@@ -1049,20 +1332,36 @@ with mid:
         with c2:
             send = st.button("Send")
         if send and (msg := user_msg.strip()):
-            st.session_state.chat_log.append(("Player", msg))
-            reply = reply_for(msg)
-            # inline rolls not using '/roll'
-            if not msg.lower().startswith("/roll") and "roll " in msg.lower():
-                more = extract_inline_rolls(msg)
-                if more:
-                    lines = []
-                    for d in more:
-                        t, br = roll_dice(d)
-                        lines.append(f"• {d}: {br}")
-                    reply += "\n\nInline rolls:\n" + "\n".join(lines)
-            st.session_state.chat_log.append(("DM", reply))
-            st.session_state.chat_input = ""
-        # reminder: for very long sessions, consider paging or showing last N per “turn”.
+            # First try to auto-resolve as a combat action (attack, etc.)
+            result = resolve_attack(msg)
+
+            if result is not None:
+                # Use only the current turn owner's stats and attacks
+                st.session_state.chat_log.append(("Player", msg))
+                st.session_state.chat_log.append(("System", result))
+
+                # reminder: you can call next_turn() here later for auto-advance
+                st.session_state.chat_input = ""
+            else:
+                # Fall back to the normal DM-style dialogue / utility behavior
+                st.session_state.chat_log.append(("Player", msg))
+                reply = reply_for(msg)
+
+                # inline rolls not using '/roll'
+                if not msg.lower().startswith("/roll") and "roll " in msg.lower():
+                    more = extract_inline_rolls(msg)
+                    if more:
+                        lines = []
+                        for d in more:
+                            t, br = roll_dice(d)
+                            lines.append(f"• {d}: {br}")
+                        reply += "\n\nInline rolls:\n" + "\n".join(lines)
+
+                st.session_state.chat_log.append(("DM", reply))
+                st.session_state.chat_input = ""
+            
+        # reminder: for very long sessions, consider paging or showing last N per “turn”. 
+        # this already is being an issue and needs resolved next. Stop forgetting.
         for speaker, text in st.session_state.chat_log[-60:]:
             if "\n" in text:
                 st.markdown(f"**{speaker}:**\n{text}")
