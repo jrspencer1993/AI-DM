@@ -1,0 +1,273 @@
+Artificer
+
+The Artificers are ingenious inventors and tinkerers, driven by a relentless curiosity to explore the boundaries of science, engineering, and technology. They see the world not as a series of static objects but as a puzzle to be solved—a collection of systems waiting to be understood, improved, and perfected. Artificers stand as masters of innovation, blending arcane-like technology and mechanical wonders that mimic the abilities of magic, but without the need for spells or incantations.
+At the core of the Artificer’s craft lies an unshakable belief in the power of invention. They wield tools, gadgets, and devices not as mere weapons, but as extensions of themselves and their understanding of the world. Their creations—a series of mechanical constructs, powerful cannons, and advanced armor—serve as both their means of survival and their greatest achievements. Every device is a testament to their skill, an elegant solution to a complex problem, and a unique fusion of precision engineering and cutting-edge design.
+The origins of the Artificer’s craft are closely guarded by the gnomes, a reclusive people with a deep knowledge of the hidden arts of invention. For centuries, the gnomes have passed down their most treasured secrets, often in cryptic blueprints or obscure instructions, shrouding their advances in mystery. These secrets are said to be drawn from an ancient lineage of crafters—those who understood that the world could be reshaped and controlled through ingenuity alone. Their knowledge has allowed the gnomes to harness the very forces of nature, shaping them into tools and machines of unimaginable power.
+Artificers are the ones who have taken these secrets to the next level, applying their mastery of craftsmanship and mechanics to build devices that can replicate the incredible feats of magic. Through careful tinkering and experimentation, an Artificer can construct anything from an indestructible suit of armor to a mechanical servant or even a cannon-like weapon that can unleash destruction with precision. These feats, while not magical in nature, are often perceived by those outside the world of invention as nothing short of magical.
+In battle, Artificers are a unique force. They are not the towering warriors or spellcasters that many other adventurers are, but rather the creators of complex, often deadly devices that can change the tide of combat. Their gadgets—whether they are explosive traps, mechanical beasts, or specialized weapons—are designed to give them an edge in any situation. An Artificer’s true strength lies not in their physical prowess but in their ability to outthink their enemies and craft the right tool for any task.
+At their core, Artificers are always tinkering, always looking for the next breakthrough. With each new invention, they unlock greater potential, finding new ways to harness the resources of the world and turn them into something extraordinary. Their work is not just about constructing machines, but about understanding the fundamental principles that govern the universe and using those principles to improve life for themselves and others.
+The gnomes, in particular, are fiercely protective of their secrets. Their societies are built around a web of knowledge and tradition, passed down through generations in secrecy. Artificers often work in isolated workshops, deep in the heart of gnome strongholds, where their creations are nurtured and honed away from the prying eyes of those who would seek to exploit their knowledge.
+
+Role: Support, Engineer, Inventor
+
+Hit Points
+* Hit Dice: d8 per Bard level
+* Hit Points at 1st Level: 8 + your Constitution modifier
+Proficiencies
+* Armor: Light armor 
+* Weapons: Simple weapons
+* Base Attack Bonus: ¾ BAB
+* Tools: Tinker’s tools and one set of artisan’s tools of your choice (Alchemist's supplies, Brewer’s supplies, Calligrapher’s supplies, Carpenter’s tools, Cartographer’s tools, Cobbler’s tools, Cook’s utensils, Glassblower’s tools, Jeweler’s tools, Leatherworker’s tools, Mason’s tools, Painter’s supplies, Potter’s tools, Smith’s tools, Weaver’s tools, or Woodcarver’s tools)
+* Primary Stats: Intelligence, Constitution 
+* Skill Points per Level: 4 + Intelligence modifier
+* Skills: Arcana, History, Insight, Investigation, Perception, Sleight of Hand, Tinker
+
+Class Features
+As an Artificer you gain these features. 
+
+Infused Tools
+1st-level Artificer feature
+You gain the ability to imbue mundane objects with unique enhancements using your Crafting Points. Choose one type of artisan’s tools. You are always considered proficient with that tool and can use it to craft at double the normal speed.
+You can spend 1 hour during a rest infusing a mundane item with specialized functionality by expending Crafting Points. The object gains one of the following benefits for 8 hours or until you use this feature again:
+* A weapon grants an additional +1 bonus to attack rolls and damage (costs 2 Crafting Points).
+* A suit of armor grants a +1 bonus to Dexterity saving throws (costs 2 Crafting Points).
+* A set of tools grants a +2 bonus on one type of skill check related to that tool (chosen when infused) (costs 1 Crafting Point).
+You can have only one item infused at a time. You can use this feature a number of times equal to your Intelligence modifier (minimum 1). You regain all expended Crafting Points for this feature after a rest.
+
+Crafting Reservoir
+1st-level Artificer feature
+You have a special reservoir of raw materials and energy that you can use to power your creations. This reservoir can store a limited amount of resources that you can spend to enhance or repair objects you craft.
+You gain a Crafting Reservoir with a maximum capacity equal to twice your Intelligence modifier (minimum of 2). The reservoir refills after a rest. You can spend points from your Crafting Reservoir to craft enhanced gadgets, repair items, or infuse tools.
+* Craft Enhanced Gadgets: Spend points to craft gadgets with additional features or enhancements, increasing their potency or effects.
+* Repair Items: Spend 1 point to repair any item (weapon, armor, gadget, etc.), restoring 1d6 hit points per point spent.
+* Infuse Tools: You can use Crafting Reservoir points in place of other resources to infuse mundane items with temporary enhancements (as per your Infused Tools feature), allowing you to extend its effects or activate stronger infusions.
+When you expend points from the Crafting Reservoir, you cannot exceed your maximum capacity. The Crafting Reservoir does not refill during a short rest but will refill fully after a rest.
+
+Field Mechanic
+1st-level Artificer feature
+Your understanding of devices allows you to make quick battlefield repairs. You can use your Tinker skill to stabilize dying creatures or repair constructs as if you were using the Medicine skill.
+Additionally, you can craft basic gadgets during a rest. Choose one of the following:
+* Flash Canister: As a bonus action, you can throw this gadget up to 30 feet. Each creature within 10 feet must succeed on a Dexterity saving throw (DC = 8 + your Intelligence modifier) or be blinded until the start of their next turn. (Costs 1 Crafting Point)
+* Smoke Vial: As a bonus action, create a 10-foot-radius lightly obscured smoke cloud lasting 1 minute or until dispersed. (Costs 1 Crafting Point)
+You can use this feature a number of times equal to your Intelligence modifier (minimum 1). You regain all expended Crafting Points after a rest.
+
+Quick Repair
+2nd-level Artificer feature
+Your expertise in crafting and mending mechanical devices allows you to quickly patch up constructs. During a short rest, you can repair a construct within 5 feet of you. When you use your Tinker skill to repair a creature, you restore hit points equal to your Artificer level + your Intelligence modifier.
+Explosive Gadgets
+2nd-level Artificer feature
+You gain access to crafting explosive devices, usable in combat. When you rest, you can craft one of the following explosive gadgets:
+* Fireburst Charge: Creates a small explosion of fire. The target must make a Dexterity save or take 2d6 fire damage (half on a successful save) within a 10-foot radius. (Costs 2 Crafting Points)
+* Shrapnel Bomb: Explodes in a burst of jagged metal. Creatures within a 10-foot radius must make a Dexterity save or take 2d6 piercing damage (half on a successful save). (Costs 2 Crafting Points)
+* Smoke Bomb: Creates a dense cloud of smoke in a 15-foot radius, causing all creatures in the area to be blinded for 1 minute or until they leave the cloud. (Costs 1 Crafting Point)
+You can craft a number of gadgets equal to your Intelligence modifier per rest. You regain all expended Crafting Points after a rest.
+
+Signature Invention
+3rd-level Artificer feature 
+You gain the ability to craft a Signature Invention, a unique creation that serves as your signature piece of engineering. You must choose one of the following options:
+* Personal Suit of Armor: You craft a set of light armor that fits your form perfectly. It grants you a bonus to AC equal to your Intelligence modifier. This armor does not count toward your encumbrance for carrying items and you are always treated as proficient with this armor. At 10th level, this suit of armor you to add your Intelligence modifier to your Strength or Dexterity saving throws while wearing it.
+* Mechanical Servant: You build a small, mechanical servant to assist you. It can perform simple tasks such as carrying objects, opening doors, and helping in combat. It has hit points equal to your Artificer level, an Armor Class of 12 + your Intelligence modifier, and it uses your Dexterity modifier for attack rolls. It can make a single attack per round, dealing 1d6 bludgeoning damage with its mechanical limbs. It does not speak but can understand simple commands. At 10th level, your Servant gains a bonus to its attack rolls and saving throws equal to your Intelligence modifier.
+* "Cannon" Weapon: You craft a powerful, non-magical ranged weapon that you can wield like a crossbow or firearm. The weapon deals 1d6 damage of a type chosen by you (force, piercing, or thunder), has a range of 120 feet, and requires ammunition. You can use your Intelligence modifier for attack rolls with this weapon, and it can be reloaded as a bonus action. It does not function as a magical item but can be improved with later features. At 10th level, this increases to 1d10 damage.
+
+Efficiency in Creation (Ex)
+3rd-level Artificer feature
+Your ability to craft items quickly and efficiently has improved. When you craft an item, you now require only half the materials (and time) to craft basic non-magical items, armor, weapons, or tools. Additionally, you can craft one non-magical item of uncommon rarity or lower during a rest by spending 1 Crafting point. This item must be an object you are proficient in crafting. The item crafted still requires the necessary crafting materials (now halved due to this feature).
+
+Masterwork Invention (Ex)
+4th-level Artificer feature
+Your skills in crafting allow you to enhance your personal invention. Your choice of personal suit of armor, mechanical servant, or cannon weapon (from Signature Invention at Level 3) gains additional functionality. You can choose from the following enhancements based on your invention. You may select one enhancement when you first gain this feature, and you can choose an additional enhancement every 4 levels thereafter (at 8th, 12th, 16th, and 20th level). 
+You can only have one of the enhancements active at a time. As an action, you may change the active enhancement to another you meet the requirements of.
+Personal Suit of Armor:
+You can now craft armor that provides an additional benefit. Choose one of the following enhancements:
+* Reinforced Durability (Level 4): Your armor grants a +1 bonus to AC and is treated as one step more resistant to damage (e.g., it counts as resistance to a certain type of damage).
+* Integrated Systems (Level 4): Your armor allows for increased movement. You can move up to 10 feet further per round.
+* Tactical HUD (Level 8): Your armor integrates a visual enhancement, allowing you to see through heavy cover or obstacles, granting you the ability to clearly detect creatures hiding behind cover or objects in your path.
+* Heavy Plating (Level 12): Your armor now grants a +2 bonus to AC and grants you resistance to a second damage type of your choice.
+* Magnetic Field (Level 16): You can use your armor to create a magnetic field that can attract or repel small metal objects within 30 feet, allowing you to manipulate weapons or devices, or disarm an opponent. When you use this ability you make each creature in range make a Strength saving throw vs DC 8 + your Intelligence modifier. On a failure you can either disarm them if they wield metal weapons, or push them back 10 feet if they are wearing metal or composed of metal.
+* Adaptive Shielding (Level 20): Your armor grants resistance to all damage types for 1 round after you take damage. You may use this feature a number of times equal to your Intelligence modifier (minimum of once per day).
+Mechanical Servant:
+Your mechanical servant becomes more versatile. Choose one of the following enhancements:
+* Enhanced Mobility (Level 4): The servant can now move up to 10 feet faster than before, and its Dexterity modifier increases by +2.
+* Weaponized Systems (Level 4): The servant can now wield a small weapon and make an attack once per turn.
+* Built-in Shield (Level 8): The servant gains a +1 bonus to AC.
+* Adaptive Frame (Level 12): Your servant can adapt to hostile environments, gaining resistance to one damage type of your choice (acid, cold, fire, lightning, or thunder).
+* Self-Repairing Systems (Level 16): Your servant gains the ability to regain hit points equal to your Intelligence modifier (minimum of 1) as a bonus action once per combat.
+* Rapid Assault Mode (Level 20): Your servant can take two actions on its turn, one of which can be a weapon attack.
+Cannon Weapon:
+Your "cannon" weapon now functions as a reliable, powerful tool. Choose one of the following enhancements:
+* Power Boost (Level 4): Your cannon now does an additional 1d6 damage, damage matches the original type chosen for your Signature Invention.
+* Grenade Launcher (Level 4): When you take the attack action with your Cannon, you may replace the attack with the usage of a bomb you have, using the Cannon’s range. 
+* Rapid Fire (Level 4): You can attack twice instead of once whenever you take the Attack action on your turn with your Cannon, but both attacks must be made with the cannon and against a single target.
+* Overcharge (Level 8): Your cannon can be charged up to unleash a devastating attack. You may spend your action to charge the cannon and make a single attack roll against a target. On a successful hit, the attack deals damage as if you had made all the attacks you could normally make during your turn. You can not move the turn you use this attack.
+* Multi-target Mode (Level 12): Your cannon can now target two creatures within 20 feet of each other when you make a ranged attack with it. 
+* Sustained Fire (Level 16): Must have chosen Rapid Fire. You can attack three times instead of once whenever you take the Attack action on your turn with your Cannon, but both attacks must be made with the cannon and against a single target.
+* Devastating Barrage (Level 20): As an action your cannon fires an area-of-effect blast (15-foot radius) that deals 6d6 damage on a successful attack, and the target must make a Dexterity saving throw (DC = 8 + your proficiency bonus + your Intelligence modifier) to take half damage. This feature can only be used once per long rest.
+
+Crafting Expertise (Ex)
+4th-level Artificer feature
+An Artificer’s mastery over crafting increases. They can create minor magical items (such as potions, scrolls, or simple magic items) using the Tinker skill. You can craft one minor magical item in addition to your one non-magical item of uncommon rarity of lower during a rest by spending an additional 1 Crafting Point. This item must be an object you are proficient in crafting. The item crafted still requires the necessary crafting materials (now halved due to this feature).
+
+Enhanced Explosives (Ex)
+4th-level Artificer feature
+An Artificer’s mastery over crafting increases. When an artificer uses a bomb (a GM may include bomb like items) they now add their Intelligence modifier to the damage dealt. 
+You gain the ability to craft enhanced versions of your bombs by spending Crafting Points. Each enhanced explosive costs 1 Crafting Point to craft and can be used once. You may craft up to your Intelligence modifier (minimum 1) of these per long rest, refreshing your CP normally.two of the following upgrades for your gadgets:
+* Incendiary Burst: Your Fireburst Charge now deals 3d6 fire damage and ignites flammable objects.
+* Fragmentation Grenade: Your Shrapnel Bomb now deals 3d6 piercing damage, and creatures that fail their saving throw are also knocked prone.
+* Obscuring Smoke: Your Smoke Bomb now creates a 20-foot radius of smoke that blocks sight, and creatures in it cannot be seen beyond 5 feet.
+
+Battlefield Engineer (Ex)
+5th-level Artificer feature
+The battlefield is your canvas. With scrap, metal, and a bit of wire, you can reshape the fight in your favor—one barricade at a time.
+* You can construct makeshift cover or obstacles as an action. These take the form of barricades, scrap walls, or sandbag-style defenses.
+* You may designate a 5-foot cube adjacent to you. As an action, you create light or half cover in that space. These barriers last for 1 minute or until destroyed (10 hp, AC 15).
+* You must spend 1 Crafting Point per barrier created.
+* You may create a number of barriers equal to your Intelligence modifier per day.
+
+Modular Upgrade (Ex)
+6th-level Artificer Feature
+Your inventive genius has allowed you to retrofit your core invention with additional modular improvements.
+* You may install a second enhancement from the list tied to your Masterwork Invention. This must be from the same invention type (armor, servant, or cannon) and must meet all prerequisites.
+* Installing a new enhancement requires 8 hours of work and 4 Crafting Points. Once installed, you can switch between installed enhancements as a bonus action.
+* You gain a third enhancement slot at level 11. Installing it requires another 4 Crafting Points and 8 hours of work.
+
+Reactive Adaptation (Ex)
+7th-level Artificer feature
+You’ve engineered systems that allow you or your invention to respond swiftly to threats..
+* Once per round, when a creature you can see within 30 feet of you takes an action (such as moving, attacking, or casting a spell), you may spend 1 Crafting Point as a reaction to activate one of the following effects:
+Suit of Armor
+• Auto-Deploy Shielding: You gain +2 AC until the start of your next turn.
+Mechanical Servant
+• Intervene Protocol: Your servant moves up to 15 feet and interposes itself between you and the threat, becoming the target of the triggering attack.
+Cannon Weapon
+• Counter-Fire System: You may immediately make a ranged attack with your cannon at the triggering creature.
+* You may use this feature a number of times equal to your Intelligence modifier per day.
+
+Emergency Deployment Systems (Ex)
+8th-level artificer features
+You’ve engineered a reserve system of contingency tools and gear to keep you or your allies alive in the field.
+* As a bonus action, spend 2 Crafting Points to activate one of the following emergency systems:
+Hydraulic Boost (Armor)
+• Gain temporary hit points equal to twice your Intelligence modifier and stand up from prone as a free action.
+Overclock Core (Cannon)
+• Until the end of your next turn, your cannon deals +2 damage and does not require reloading.
+Auto-Repair Sequence (Servant)
+• Your mechanical servant regains 2d6 + your Intelligence modifier hit points and removes one condition affecting it.
+* You may use this feature once per day. You may use it twice per day starting at 14th level.
+
+Invention Enhancement (Ex)
+8th-level Artificer Feature
+You gain a second enhancement for your Masterwork Invention.
+* You may choose a second enhancement from your invention type’s enhancement list (Armor, Servant, or Cannon). You may activate two enhancements at once.
+* You may not choose the same enhancement more than once.
+Complex problems require complex machines—and you're always one step ahead.
+
+Advanced Control Interface (Ex)
+9th-level Artificer Feature
+Your invention responds to your commands with refined precision and advanced feedback systems.
+* Armor: While wearing your Masterwork Armor, you can use your reaction to reduce the damage of one attack you can see by an amount equal to your Intelligence modifier + your level. If this reduces the damage to 0, you can immediately move up to 10 feet without provoking attacks of opportunity.
+* Servant: Your servant can now perform simple commands without expending your action. On your turn, it may take the Dash, Disengage, or Help action independently.
+* Cannon: Your cannon becomes more stable and accurate. Once per round, you may reroll one damage die for the cannon and take the higher result. Additionally, it ignores half cover when making ranged attacks.
+
+Modular Gadget Upgrade (Ex)
+You enhance your Explosive Gadgets framework, allowing for more dynamic utility.
+You enhance your Explosive Gadgets framework, allowing for more dynamic utility. Each upgraded gadget requires additional crafting resources to prepare.
+You may now carry up to three gadgets at a time. You can replace one gadget with another whenever you finish a long rest. Each gadget you carry must be crafted using 1 Crafting Point.
+Choose one of the following new gadget upgrades to add to your selection:
+* Smoke Projector – As an action, you can deploy a dense cloud of smoke in a 10-foot radius for 1 minute. Creatures inside the area are lightly obscured, and ranged weapon attacks through the area suffer a –2 penalty.
+* Adhesive Bola – You may throw a small entangling device at a creature within 30 feet. Make a ranged attack using Intelligence. On a hit, the target’s movement speed is reduced to 0 until the start of your next turn.
+* Pulse Mine (Level 9+) – You deploy a small mine that explodes after a 1-round delay. All creatures in a 10-foot radius must succeed on a Dexterity save (DC = 8 + your Intelligence modifier + ½ your level) or be pushed 10 feet and knocked prone.
+Crafting Note: Each gadget carried consumes 1 Crafting Point when prepared during a long rest.
+
+Masterwork Invention Upgrade (Ex)
+10th-level feature
+Your craftsmanship advances to new heights. You integrate a major upgrade into your Masterwork Invention. This requires careful engineering and resource investment.
+Choose one upgrade based on your invention. Installing this upgrade requires 5 Crafting Points, spent during downtime or level-up.
+Personal Suit of Armor
+* Kinetic Redirection: Once per turn when you're hit by an attack, you can reduce the damage taken by an amount equal to your Intelligence modifier + your level. The next melee attack you hit with before the end of your next turn deals extra damage equal to the amount reduced.
+* Power Frame: You roll twice and take the better result on Strength checks and Strength-based skill checks. You count as one size larger when determining carrying capacity and the weight you can push, drag, or lift.
+Mechanical Servant
+* Self-Repair Matrix: At the start of its turn, your servant regains hit points equal to your Intelligence modifier if it has at least 1 hit point.
+* Autonomous Response: Your servant can now make two attacks when commanded as an action, or one attack on its own each round without using your action.
+Cannon Weapon
+* Overdrive Capacitor: Once per long rest, you can overcharge your cannon for a devastating blast. It deals double damage on its next attack and explodes in a 10-foot radius, forcing all creatures except the target to make a Dexterity save (DC = 8 + your Intelligence modifier + ½ your level) or take half damage.
+* Arc Projector: Your cannon’s attack arcs to a second target within 10 feet of the original. The secondary target takes half the original damage. No attack roll is required, but it must be within line of effect.
+
+Peerless Engineer (Ex)
+11th-level Artificer feature
+Your reputation as a master inventor spreads, and your deep understanding of mechanical systems makes your insight invaluable.
+* You double your Intelligence modifier when making skill checks using the Tinker skill
+
+Invention Upgrade (Ex)
+12th-level Artificer feature
+Your expertise allows you to push the boundaries of your personal invention beyond its original specifications. You can now have three enhancements active from the list associated with your Masterwork Invention. 
+
+Master Explosive Tinkerer (Ex)
+12th-level Artificer feature
+You can craft even more devastating gadgets. Choose one of the following:
+* Explosion Barrage: You can throw two explosive gadgets as part of a single action, but both targets must be within 15 feet of each other. You must have a free hand to use this feature.
+* Forceful Detonation: Your Shrapnel Bomb now deals 4d6 damage, and creatures that fail their saving throw are pushed 10 feet away from the center of the blast.
+* Caustic Cloud: Your Smoke Bomb now deals 2d6 acid damage to creatures that start their turn inside the smoke cloud.
+
+Invention Magnus Opus (Ex)
+13th-level Artificer feature
+At 13th level, your skills in crafting reach their pinnacle. You install a master-level enhancement into your Masterwork Invention—an irreversible and signature upgrade. This upgrade requires 10 Crafting Points, spent during downtime or level-up.
+Choose one of the following based on your invention:
+Personal Armor
+* Flight Harness: Your suit gains an emergency flight system, granting a fly speed equal to your base speed. You can hover in place and move in any direction. This flight system works continuously while the armor is worn.
+Mechanical Servant
+* Combat Independence: Your servant is upgraded to function as a full combat companion. It rolls its own initiative and takes its own turn in combat, using its own actions, movement, and bonus actions. You may still issue general commands as a free action.
+Cannon Weapon
+* Precision Overhaul: Your cannon receives a high-efficiency targeting system. Its range increases by 30 feet, and it deals double damage on a critical hit.
+
+Grandmaster Crafter (Ex)
+15th-level Artificer feature
+Your mastery of invention allows you to create rare items and enchantments beyond the reach of most. You can now craft any non-legendary magic item of uncommon or rare rarity, provided you have the necessary materials and time. This process consumes Crafting Points and requires significant effort.
+* Uncommon Magic Item: Requires 5 Crafting Points and 1 week of work
+* Rare Magic Item: Requires 10 Crafting Points and 2 weeks of work
+You can create up to two magical items per long rest.
+Additionally, when you create a mundane item, you may infuse it with temporary magic: treat it as if it had a 1st-level spell cast on it (you choose the spell), lasting for 24 hours. Each such infusion requires 1 Crafting Point.
+
+Legendary Gadgeteer (Ex)
+16th-level Artificer feature
+Your expertise in crafting explosive gadgets reaches its peak. You gain access to powerful experimental prototypes—devastating or disruptive devices that push the limits of engineering.
+During a long rest, you may prepare one of the following Legendary Gadgets. Preparing a Legendary Gadget requires 2 Crafting Points. You may only have one such gadget prepared at a time. You may change your selection during a long rest, provided you spend the required Crafting Points.
+* Mega Explosion – Your Fireburst Charge is augmented with unstable alchemical accelerants. It now deals 5d6 fire damage, and creatures within 20 feet of the explosion automatically take full damage—no saving throw is allowed. The heat is intense enough to ignite unattended flammable objects in the area.
+* Cluster Bomb – Your Shrapnel Bomb splits midair into several submunitions. When it detonates, it creates three separate 10-foot radius blasts. Each creature in the area of any explosion must make a Dexterity saving throw, taking 2d6 piercing damage per explosion they’re caught in (half on a successful save). Each creature may be affected by multiple blasts if caught in overlapping areas.
+* Blanket of Smoke – Your Smoke Bomb expands to create a 30-foot radius of heavy, choking smoke. The area becomes heavily obscured for 10 minutes. Vision is reduced to 5 feet, and creatures attempting to see beyond that range in the fog see only swirling smoke.
+These gadgets represent the apex of battlefield engineering—volatile, powerful, and impossible to mass-produce. You’re not just tossing devices anymore; you’re commanding the terrain.
+
+Supreme Innovation (Ex)
+17th-level Artificer feature
+Your mastery over invention reaches a transcendent level. Your creations are no longer merely clever—they are miracles of modern artifice.
+* Your crafted items and devices, including your Masterwork Invention, are now immune to non-magical damage.
+* They cannot be disassembled, dismantled, suppressed, or disabled by any non-magical means.
+* If your Mechanical Servant has been upgraded into a unique construct or golem, it too benefits from this immunity.
+
+Legendary Item Crafting (Ex)
+18th-level Artificer feature
+You gain the ability to craft items of mythic power—singular artifacts that can turn the tide of war or unravel the weave of magic itself.
+* You may craft one Legendary Item of your choice, subject to DM approval.
+* Crafting a Legendary Item requires:
+o 1 week of dedicated downtime
+o 5000 gold pieces per level of the item's power (determined by the DM)
+o 10 Crafting Points, spent at the start of the crafting process.
+* Once created, the item is permanent, but cannot be replicated or replaced. If destroyed, a new crafting process must begin.
+* You may only craft one Legendary Item per year (in-game time), regardless of how many are destroyed or lost.
+
+Grand Masterpiece (Ex)
+20th-level Artificer feature
+* Your journey culminates in a singular creation that surpasses all others—a Grand Masterpiece, unique in all existence. This creation reflects your personal philosophy and mastery over invention.
+* Choose one of the following options:
+* The Perfect Weapon
+Your Artificer Cannon or weapon of choice becomes a Legendary Weapon that is indestructible and can never be lost or stolen. It deals 1d12 damage of a type of your choosing (fire, cold, lightning, acid, force, or thunder). Additionally, this weapon ignores all resistance and immunity to its damage type.
+* The Ultimate Armor
+You craft an unparalleled suit of armor that grants:
+* +3 bonus to AC
+* Immunity to two damage types of your choice (chosen when crafted)
+* Attunement Nexus: The armor has its own equipment slots and can attune up to 3 magical items, granting you the benefits as though you were attuned to them. These must be worn or wielded items only.
+* The Grand Servant
+Your Mechanical Servant becomes a fully sentient, autonomous being. It uses the stat block of an Iron Golem, but retains your servant's personality and gains free will. It acts on its own initiative in combat and grows overtime based on your narrative choices and experiences.
+* Additional Rules:
+* You may only create one Grand Masterpiece. It is bound to you and cannot be copied, sold, or remade.
+* If the Grand Masterpiece is ever destroyed, it is lost forever. It is as much a part of you as your name or your soul.
+LevelBase Attack BonusSave BonusCrafting PointsClass Features1+122Infused Tools, Field Mechanic2+123Quick Repair, Explosive Gadgets3+123Signature Invention, Efficiency in Creation4+224Masterwork Invention, Crafting Expertise, Enhanced Explosives5+234Battlefield Engineer6+235Modular Upgrade7+335Reactive Adaptation8+336Emergency Deployment Systems, Invention Enhancement9+346Advanced Control Interface, Modular Gadget Upgrade10+347Masterwork Invention Upgrade11+347Peerless Engineer12+448Invention Upgrade, Master Explosive Tinkerer13+458Invention Magnus Opus14+45915+559Grandmaster Crafter16+5510Legendary Gadgeteer17+5610Supreme Innovation 18+5611Legendary Item Crafting19+661120+6612Grand Masterpiece 

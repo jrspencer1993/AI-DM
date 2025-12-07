@@ -1,0 +1,273 @@
+Barbarian
+
+Storm with rage and wade into hand-to-hand combat.
+Barbarians are found across the most untamed frontiers—where civilization falters and nature reigns. They are common among the nomadic tribes of the Frozen Waste to the north, the fierce clans of the southern continent’s wild jungles, and the scattered survivors in the rugged lands reclaimed by nature after the fall of Almaruil. 
+Though often dismissed by more "civilized" cultures as primitive or unrefined, barbarians possess a raw strength and clarity of purpose that few can match. Their ferocity in battle, unyielding loyalty, and unshakable resolve have earned them the respect of those who fight beside them—and the fear of those who stand against them. During battle, there exist few as reliable as the barbarian to stem to tide of foes. 
+One aspect of the civilized lands barbarians finds the most perplexing is religion. Dedicated buildings for mass worship with hundreds paying lip service and coin to the benefactors of the state are bewildering to them. For in their society, one does not simply claim to serve a god, but actively purpose acts of grandeur in their honor.
+
+Role: Front-line Fighter, Damage Dealer
+
+Hit Points
+* Hit Dice: d12 per Barbarian level
+* Hit Points at 1st Level: 12 + your Constitution modifier
+Proficiencies
+* Armor: Light armor, shields 
+* Weapons: Simple weapons, martial weapons
+* Base Attack Bonus: Full
+* Tools: None
+* Primary Stats: Strength, Constitution
+* Skill Points per Level: 4 + Intelligence modifier
+* Skills: Animal Handling, Athletics, Intimidation, Nature, Perception, Survival
+
+Class Features 
+All of the following are class features of the Barbarian class.
+
+Fast Movement (Ex): 
+1st-level Barbarian feature
+A barbarian’s land speed is faster than the norm for his race by +10 feet. 
+
+Illiteracy: 
+1st-level Barbarian feature
+Barbarians are the only characters who do not automatically know how to read and write. 
+A barbarian may spend 2 skill points to gain the ability to read and write, removing this ability. While Illiterate a Barbarian gains a bonus skill point each level.
+
+Rage (Ex): 
+1st-level Barbarian feature
+You can fly into a screaming blood frenzy as a bonus action if you aren't wearing heavy armor. While raging, you gain the following benefits:
+* You gain a +2 Bonus to Strength and Constitution checks and saves,
+* You gain a +2 bonus to Wisdom saving throws.
+* When you make a melee weapon attack using Strength, you gain a +2 bonus to the damage roll.
+* -2 penalty to Armor Class
+* You have resistance to bludgeoning, slashing and piercing while raging.
+* You cannot use Charisma-, Dexterity-, or Intelligence-based skills (except for Balance, Escape Artist, Intimidate, and Ride), Concentration, or any abilities that require patience or concentration. You also cannot cast spells or activate magic items that require command words, spell triggers, or spell completions.
+You can rage for 1 minute. At the end of your rage, you become fatigued for the duration of the encounter.
+You can use Rage once per day at 1st level, and one additional time per day at levels 4, 8, 12, 16, and 20. Entering a rage takes no time itself, but must occur during your turn.
+
+Primal Awareness (Ex): 
+2nd-level Barbarian feature
+Your instincts are razor-sharp. You retain your Dexterity bonus to AC even when you would normally lose it, such as against unseen attackers or when caught unprepared, unless you are bound, paralyzed, unconscious, or otherwise incapacitated. You also cannot be surprised.
+Primal Talents (Ex)
+3rd-level Barbarian feature
+As a barbarian grows stronger, they learn to use their rage in new ways. Starting at 3rd level, you gain one Primal Talent. You gain another rage power at 5th, 7th, 9th, etc, every two levels.
+Primal Talents
+* Savage Leap (Ex)
+Your physical ferocity allows you to launch yourself at your enemies. You can make a running long jump without requiring a running start. Additionally, if you jump at least 10 feet toward a creature before making a melee attack against it, you gain a +2 bonus to your next attack roll against that creature.
+* Beast Strike (Ex)
+While raging, when you hit a creature with a melee weapon attack, you can immediately attempt a Shove attempt (Strength vs. target's Athletics or Acrobatics) as part of the same attack. You must use the same hand that made the attack.
+* Ferocious Tenacity (Ex)
+Once per day while raging, if you would be reduced to 0 hit points, you can make a Constitution saving throw (DC 10 + half the damage taken). On a success, you instead drop to 1 hit point.
+* Brutal Roar (Ex)
+You can unleash a roar as a Bonus Action while raging. Each enemy within 10 feet of you must succeed on a Wisdom saving throw (DC 8 + your Strength modifier + your Constitution modifier) or become Frightened of you until the end of your next turn. Once you use Brutal Roar, you cannot use it again until you complete a long rest.
+* Scent (Ex)
+Your instincts sharpen. You gain the Scent ability. You can detect creatures within 30 feet by smell alone. If a creature is hidden but not masking its scent, you automatically know its general direction.
+* Resilient Hide (Ex)
+While raging, if unarmored, you may add your Constitution modifier to your AC. 
+* Deadly Momentum (Ex)
+When you reduce a creature to 0 hit points with a melee weapon attack, you can immediately move up to half your speed and make a single melee attack against another creature. You can only trigger Deadly Momentum once per turn.
+* Quick Temper (Ex)
+You may enter rage as an immediate action a number of times per day equal to your Constitution modifier. 
+* Improved Beast Strike (Ex)
+Prerequisite: Beast Strike
+When you succeed on a Shove attempt granted by Beast Strike, you can choose to both knock the creature prone and push it 5 feet away, rather than choosing only one effect.
+* Steel Gut (Ex)
+You gain the ability to eat spoiled or toxic food without becoming sick or poisoned (subject to DM discretion for extreme poisons). Additionally, you gain a bonus equal to your Constitution modifier (minimum +1) on saving throws against ingested poisons.
+* Wound Rend (Ex)
+While raging, whenever you score a critical hit with a melee weapon attack, the target suffers a bleeding wound. At the start of each of its turns, the target takes damage equal to your Constitution modifier (minimum 1) until it receives magical healing or a successful DC 15 Medicine check is used to treat it.
+* Terrifying Glare (Ex)
+As an Action while raging, you can fix a terrifying glare on a single creature within 30 feet that can see you. The creature must succeed on a Wisdom saving throw (DC 8 + your Strength modifier + your Constitution modifier) or become Frightened of you for 1 minute. A Frightened creature can repeat the save at the end of each of its turns. Once you use Terrifying Glare, you must finish a long rest before you can use it again.
+* Raging Vitality (Ex)
+While raging, you gain temporary hit points equal to your barbarian level at the start of your turn. These temporary hit points last until the start of your next turn and do not stack with themselves.
+* Grasping Strike (Ex)
+While raging, when you hit a creature with a melee weapon attack, you can choose to attempt a grapple against it as a bonus action. You must use the same hand that made the attack.
+
+Enhanced Reflexes (Ex)
+3rd-level Barbarian feature
+Your body is trained to react to danger with incredible speed. You gain the following benefit:
+* When an effect would deny your Dexterity bonus to AC or when you would be caught unprepared, you can use your reaction to add your Constitution modifier to your AC against one triggering attack.
+
+Primal Instinct (Ex): 
+5th-level Barbarian feature
+Your instincts become more primal and honed with ranging, granting you a +2 to Initiative rolls while raging. In addition, you can not be surprised while you are raging.
+
+Relentless Rage (Ex)
+6th-level Barbarian feature
+When your Rage is active and you drop to 0 hit points, you can make a DC 10 Constitution saving throw. On a success, your hit points instead become equal to twice your barbarian level. After the first use, the DC increases by +5. The DC resets to 10 after a rest.
+
+Thick Skinned (Ex)
+7th-level Barbarian feature
+While raging you gain damage reduction 1 + Con mod/-. You reduce all damage taken while raging by this amount. This increases by 1 at levels 10, 13, 16, and 19.
+
+Empowered Rage (Ex)
+9th-level Barbarian feature
+Your rage power grows stronger:
+* Your rage bonus increases to +3.
+
+Relentless Rage (Ex)
+11th-level Barbarian feature
+Your rage has become accustomed to the strain of battle. You no longer become fatigued when your rage ends.
+
+Endless Rage (Ex)
+14th-level Barbarian feature
+Your rage is so fierce that it ends early only if you fall unconscious or if you choose to end it.
+
+Level 16 – Unstoppable Fury (Ex)
+16th-level Barbarian feature
+Your rage reaches its zenith, transforming you into an unstoppable force of primal might.
+* Your rage bonus increases to +4.
+* Relentless Assault: When you reduce a creature to 0 hit points with a melee attack, you can immediately make another melee weapon attack against a different creature within reach as part of the same action.
+* Defy Death: While raging, if you are reduced to 0 hit points, you instead drop to 1 hit point. Each time you use this ability, you gain 1 level of exhaustion, and it cannot be used again until your exhaustion is removed.
+* Unyielding Force: While raging, you cannot be restrained, and any effect that would move you against your will must succeed on a Strength check contested by your own Strength check to do so.
+
+Primal Champion (Ex)
+20th-level Barbarian feature
+Your strength and endurance reach truly legendary levels.
+* Your Strength and Constitution scores increase by 4
+* The number of uses of Rage per day increases to unlimited, as long as you finish a short or long rest between rages.
+Level
+Base Attack Bonus
+Save Bonus
+
+Features
+Rages
+Rage Bonus
+1
++1
+2
+
+Fast Movement, Illiteracy, Rage
+2
+2
+2
++2
+2
+
+Primal Awareness
+2
+2
+3
++3
+2
+
+Primal Talent, Enhanced Reflexes
+3
+2
+4
++4
+2
+
+
+3
+2
+5
++5
+3
+
+Primal Awareness
+3
+2
+6
++6
+3
+
+Relentless Rage
+4
+2
+7
++7
+3
+
+Thick Skinned
+4
+2
+8
++8
+3
+
+
+4
+2
+9
++9
+4
+
+Empowered Rage
+4
+3
+10
++10
+4
+
+Thick Skinned Increase
+4
+3
+11
++11
+4
+
+Relentless Rage
+4
+3
+12
++12
+4
+
+
+5
+3
+13
++13
+5
+
+Thick Skinned Increase
+5
+3
+14
++14
+5
+
+
+5
+3
+15
++15
+5
+
+Persistent Rage
+5
+3
+16
++16
+5
+
+Thick Skinned Increase, 
+Unstoppable Fury
+5
+4
+17
++17
+6
+
+
+6
+4
+18
++18
+6
+
+
+6
+4
+19
++19
+6
+
+Thick Skinned Increase
+6
+4
+20
++20
+6
+
+Primal Champion
+Unlimited
+6

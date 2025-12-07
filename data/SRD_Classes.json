@@ -1,1324 +1,960 @@
-[
-	{
-		"index": 1,
-		"name": "Barbarian",
-		"hit_die": 12,
-		"proficiency_choices": [
-			{
-				"choose": 2,
-				"type": "proficiencies",
-				"from": [
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/106",
-						"name": "Skill: Animal Handling"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/108",
-						"name": "Skill: Athletics"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/112",
-						"name": "Skill: Intimidation"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/115",
-						"name": "Skill: Nature"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/116",
-						"name": "Skill: Perception"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/122",
-						"name": "Skill: Survival"
-					}
-				]
-			}
-		],
-		"proficiencies": [
-			{
-				"name": "Light armor",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/1"
-			},
-			{
-				"name": "Medium armor",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/2"
-			},
-			{
-				"name": "Shields",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/18"
-			},
-			{
-				"name": "Simple weapons",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/19"
-			},
-			{
-				"name": "Martial weapons",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/20"
-			}
-		],
-		"saving_throws": [
-			{
-				"name": "STR",
-				"url": "http://www.dnd5eapi.co/api/ability-scores/1"
-			},
-			{
-				"name": "CON",
-				"url": "http://www.dnd5eapi.co/api/ability-scores/3"
-			}
-		],
-		"starting_equipment": {
-			"url": "http://www.dnd5eapi.co/api/startingequipment/1",
-			"class": "Barbarian"
-		},
-		"class_levels": {
-			"url": "http://www.dnd5eapi.co/api/classes/barbarian/levels",
-			"class": "Barbarian"
-		},
-		"subclasses": [
-			{
-				"url": "http://www.dnd5eapi.co/api/subclasses/1",
-				"name": "Berserker"
-			}
-		],
-		"spellcasting": {
-
-		},
-		"url": "http://www.dnd5eapi.co/api/classes/1"
-	},
-	{
-		"index": 2,
-		"name": "Bard",
-		"hit_die": 8,
-		"proficiency_choices": [
-			{
-				"choose": 3,
-				"type": "proficiencies",
-				"from": [
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/105",
-						"name": "Skill: Acrobatics"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/106",
-						"name": "Skill: Animal Handling"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/107",
-						"name": "Skill: Arcana"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/108",
-						"name": "Skill: Athletics"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/109",
-						"name": "Skill: Deception"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/110",
-						"name": "Skill: History"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/111",
-						"name": "Skill: Insight"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/112",
-						"name": "Skill: Intimidation"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/113",
-						"name": "Skill: Investigation"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/114",
-						"name": "Skill: Medicine"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/115",
-						"name": "Skill: Nature"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/116",
-						"name": "Skill: Perception"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/117",
-						"name": "Skill: Performance"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/118",
-						"name": "Skill: Persuasion"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/119",
-						"name": "Skill: Religion"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/120",
-						"name": "Skill: Sleight of Hand"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/121",
-						"name": "Skill: Stealth"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/122",
-						"name": "Skill: Survival"
-					}
-				]
-			},
-			{
-				"choose": 3,
-				"type": "proficiencies",
-				"from": [
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/81",
-						"name": "Bagpipes"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/82",
-						"name": "Drum"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/83",
-						"name": "Dulcimer"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/84",
-						"name": "Flute"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/85",
-						"name": "Lute"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/86",
-						"name": "Lyre"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/87",
-						"name": "Horn"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/88",
-						"name": "Pan flute"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/89",
-						"name": "Shawm"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/90",
-						"name": "Viol"
-					}
-				]
-			}
-		],
-		"proficiencies": [
-			{
-				"name": "Light armor",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/1"
-			},
-			{
-				"name": "Simple weapons",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/19"
-			},
-			{
-				"name": "Longswords",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/42"
-			},
-			{
-				"name": "Rapiers",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/46"
-			},
-			{
-				"name": "Shortswords",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/48"
-			},
-			{
-				"name": "Crossbows, hand",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/54"
-			}
-		],
-		"saving_throws": [
-			{
-				"name": "DEX",
-				"url": "http://www.dnd5eapi.co/api/ability-scores/2"
-			},
-			{
-				"name": "CHA",
-				"url": "http://www.dnd5eapi.co/api/ability-scores/6"
-			}
-		],
-		"starting_equipment": {
-			"url": "http://www.dnd5eapi.co/api/startingequipment/2",
-			"class": "Bard"
-		},
-		"class_levels": {
-			"url": "http://www.dnd5eapi.co/api/classes/bard/levels",
-			"class": "Bard"
-		},
-		"subclasses": [
-			{
-				"url": "http://www.dnd5eapi.co/api/subclasses/2",
-				"name": "Lore"
-			}
-		],
-		"spellcasting": {
-			"url": "http://www.dnd5eapi.co/api/spellcasting/1",
-			"class": "Bard"
-		},
-		"url": "http://www.dnd5eapi.co/api/classes/2"
-	},
-	{
-		"index": 3,
-		"name": "Cleric",
-		"hit_die": 8,
-		"proficiency_choices": [
-			{
-				"choose": 2,
-				"type": "proficiencies",
-				"from": [
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/110",
-						"name": "Skill: History"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/111",
-						"name": "Skill: Insight"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/114",
-						"name": "Skill: Medicine"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/118",
-						"name": "Skill: Persuasion"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/119",
-						"name": "Skill: Religion"
-					}
-				]
-			}
-		],
-		"proficiencies": [
-			{
-				"name": "Light armor",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/1"
-			},
-			{
-				"name": "Medium armor",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/2"
-			},
-			{
-				"name": "Shields",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/18"
-			},
-			{
-				"name": "Simple weapons",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/19"
-			}
-		],
-		"saving_throws": [
-			{
-				"name": "WIS",
-				"url": "http://www.dnd5eapi.co/api/ability-scores/5"
-			},
-			{
-				"name": "CHA",
-				"url": "http://www.dnd5eapi.co/api/ability-scores/6"
-			}
-		],
-		"starting_equipment": {
-			"url": "http://www.dnd5eapi.co/api/startingequipment/3",
-			"class": "Cleric"
-		},
-		"class_levels": {
-			"url": "http://www.dnd5eapi.co/api/classes/cleric/levels",
-			"class": "Cleric"
-		},
-		"subclasses": [
-			{
-				"url": "http://www.dnd5eapi.co/api/subclasses/3",
-				"name": "Life"
-			}
-		],
-		"spellcasting": {
-			"url": "http://www.dnd5eapi.co/api/spellcasting/2",
-			"class": "Cleric"
-		},
-		"url": "http://www.dnd5eapi.co/api/classes/3"
-	},
-	{
-		"index": 4,
-		"name": "Druid",
-		"hit_die": 8,
-		"proficiency_choices": [
-			{
-				"choose": 2,
-				"type": "proficiencies",
-				"from": [
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/106",
-						"name": "Skill: Animal Handling"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/107",
-						"name": "Skill: Arcana"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/111",
-						"name": "Skill: Insight"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/114",
-						"name": "Skill: Medicine"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/115",
-						"name": "Skill: Nature"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/116",
-						"name": "Skill: Perception"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/119",
-						"name": "Skill: Religion"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/122",
-						"name": "Skill: Survival"
-					}
-				]
-			}
-		],
-		"proficiencies": [
-			{
-				"name": "Light armor",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/1"
-			},
-			{
-				"name": "Medium armor",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/2"
-			},
-			{
-				"name": "Shields",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/18"
-			},
-			{
-				"name": "Clubs",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/21"
-			},
-			{
-				"name": "Daggers",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/22"
-			},
-			{
-				"name": "Javelins",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/25"
-			},
-			{
-				"name": "Maces",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/27"
-			},
-			{
-				"name": "Quarterstaffs",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/28"
-			},
-			{
-				"name": "Sickles",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/29"
-			},
-			{
-				"name": "Spears",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/30"
-			},
-			{
-				"name": "Darts",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/32"
-			},
-			{
-				"name": "Slings",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/34"
-			},
-			{
-				"name": "Scimitars",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/47"
-			},
-			{
-				"name": "Herbalism Kit",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/93"
-			}
-		],
-		"saving_throws": [
-			{
-				"name": "INT",
-				"url": "http://www.dnd5eapi.co/api/ability-scores/4"
-			},
-			{
-				"name": "WIS",
-				"url": "http://www.dnd5eapi.co/api/ability-scores/5"
-			}
-		],
-		"starting_equipment": {
-			"url": "http://www.dnd5eapi.co/api/startingequipment/4",
-			"class": "Druid"
-		},
-		"class_levels": {
-			"url": "http://www.dnd5eapi.co/api/classes/druid/levels",
-			"class": "Druid"
-		},
-		"subclasses": [
-			{
-				"url": "http://www.dnd5eapi.co/api/subclasses/4",
-				"name": "Land"
-			}
-		],
-		"spellcasting": {
-			"url": "http://www.dnd5eapi.co/api/spellcasting/3",
-			"class": "Druid"
-		},
-		"url": "http://www.dnd5eapi.co/api/classes/4"
-	},
-	{
-		"index": 5,
-		"name": "Fighter",
-		"hit_die": 10,
-		"proficiency_choices": [
-			{
-				"choose": 2,
-				"type": "proficiencies",
-				"from": [
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/105",
-						"name": "Skill: Acrobatics"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/106",
-						"name": "Skill: Animal Handling"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/108",
-						"name": "Skill: Athletics"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/110",
-						"name": "Skill: History"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/111",
-						"name": "Skill: Insight"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/112",
-						"name": "Skill: Intimidation"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/116",
-						"name": "Skill: Perception"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/122",
-						"name": "Skill: Survival"
-					}
-				]
-			}
-		],
-		"proficiencies": [
-			{
-				"name": "All armor",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/4"
-			},
-			{
-				"name": "Shields",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/18"
-			},
-			{
-				"name": "Simple weapons",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/19"
-			},
-			{
-				"name": "Martial weapons",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/20"
-			}
-		],
-		"saving_throws": [
-			{
-				"name": "STR",
-				"url": "http://www.dnd5eapi.co/api/ability-scores/1"
-			},
-			{
-				"name": "CON",
-				"url": "http://www.dnd5eapi.co/api/ability-scores/3"
-			}
-		],
-		"starting_equipment": {
-			"url": "http://www.dnd5eapi.co/api/startingequipment/5",
-			"class": "Fighter"
-		},
-		"class_levels": {
-			"url": "http://www.dnd5eapi.co/api/classes/fighter/levels",
-			"class": "Fighter"
-		},
-		"subclasses": [
-			{
-				"url": "http://www.dnd5eapi.co/api/subclasses/5",
-				"name": "Champion"
-			}
-		],
-		"spellcasting": {
-
-		},
-		"url": "http://www.dnd5eapi.co/api/classes/5"
-	},
-	{
-		"index": 6,
-		"name": "Monk",
-		"hit_die": 8,
-		"proficiency_choices": [
-			{
-				"choose": 1,
-				"type": "proficiencies",
-				"from": [
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/58",
-						"name": "Alchemist's supplies"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/59",
-						"name": "Brewer's supplies"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/60",
-						"name": "Calligrapher's supplies"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/61",
-						"name": "Carpenter's tools"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/62",
-						"name": "Cartographer's tools"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/63",
-						"name": "Cobbler's tools"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/64",
-						"name": "Cook's utensils"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/65",
-						"name": "Glassblower's tools"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/66",
-						"name": "Jeweler's tools"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/67",
-						"name": "Leatherworker's tools"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/68",
-						"name": "Mason's tools"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/69",
-						"name": "Painter's supplies"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/70",
-						"name": "Potter's tools"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/71",
-						"name": "Smith's tools"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/72",
-						"name": "Tinker's tools"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/73",
-						"name": "Weaver's tools"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/74",
-						"name": "Woodcarver's tools"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/75",
-						"name": "Disguise kit"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/76",
-						"name": "Forgery kit"
-					}
-				]
-			},
-			{
-				"choose": 1,
-				"type": "proficiencies",
-				"from": [
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/81",
-						"name": "Bagpipes"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/82",
-						"name": "Drum"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/83",
-						"name": "Dulcimer"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/84",
-						"name": "Flute"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/85",
-						"name": "Lute"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/86",
-						"name": "Lyre"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/87",
-						"name": "Horn"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/88",
-						"name": "Pan flute"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/89",
-						"name": "Shawm"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/90",
-						"name": "Viol"
-					}
-				]
-			},
-			{
-				"choose": 2,
-				"type": "proficiencies",
-				"from": [
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/105",
-						"name": "Skill: Acrobatics"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/108",
-						"name": "Skill: Athletics"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/110",
-						"name": "Skill: History"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/111",
-						"name": "Skill: Insight"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/119",
-						"name": "Skill: Religion"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/121",
-						"name": "Skill: Stealth"
-					}
-				]
-			}
-		],
-		"proficiencies": [
-			{
-				"name": "Simple weapons",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/19"
-			},
-			{
-				"name": "Shortswords",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/48"
-			}
-		],
-		"saving_throws": [
-			{
-				"name": "STR",
-				"url": "http://www.dnd5eapi.co/api/ability-scores/1"
-			},
-			{
-				"name": "DEX",
-				"url": "http://www.dnd5eapi.co/api/ability-scores/2"
-			}
-		],
-		"starting_equipment": {
-			"url": "http://www.dnd5eapi.co/api/startingequipment/6",
-			"class": "Monk"
-		},
-		"class_levels": {
-			"url": "http://www.dnd5eapi.co/api/classes/monk/levels",
-			"class": "Monk"
-		},
-		"subclasses": [
-			{
-				"url": "http://www.dnd5eapi.co/api/subclasses/6",
-				"name": "Open Hand"
-			}
-		],
-		"spellcasting": {
-
-		},
-		"url": "http://www.dnd5eapi.co/api/classes/6"
-	},
-	{
-		"index": 7,
-		"name": "Paladin",
-		"hit_die": 10,
-		"proficiency_choices": [
-			{
-				"choose": 2,
-				"type": "proficiencies",
-				"from": [
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/108",
-						"name": "Skill: Athletics"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/111",
-						"name": "Skill: Insight"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/112",
-						"name": "Skill: Intimidation"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/114",
-						"name": "Skill: Medicine"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/118",
-						"name": "Skill: Persuasion"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/119",
-						"name": "Skill: Religion"
-					}
-				]
-			}
-		],
-		"proficiencies": [
-			{
-				"name": "All armor",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/4"
-			},
-			{
-				"name": "Shields",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/18"
-			},
-			{
-				"name": "Simple weapons",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/19"
-			},
-			{
-				"name": "Martial weapons",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/20"
-			}
-		],
-		"saving_throws": [
-			{
-				"name": "WIS",
-				"url": "http://www.dnd5eapi.co/api/ability-scores/5"
-			},
-			{
-				"name": "CHA",
-				"url": "http://www.dnd5eapi.co/api/ability-scores/6"
-			}
-		],
-		"starting_equipment": {
-			"url": "http://www.dnd5eapi.co/api/startingequipment/7",
-			"class": "Paladin"
-		},
-		"class_levels": {
-			"url": "http://www.dnd5eapi.co/api/classes/paladin/levels",
-			"class": "Paladin"
-		},
-		"subclasses": [
-			{
-				"url": "http://www.dnd5eapi.co/api/subclasses/7",
-				"name": "Devotion"
-			}
-		],
-		"spellcasting": {
-			"url": "http://www.dnd5eapi.co/api/spellcasting/4",
-			"class": "Paladin"
-		},
-		"url": "http://www.dnd5eapi.co/api/classes/7"
-	},
-	{
-		"index": 8,
-		"name": "Ranger",
-		"hit_die": 10,
-		"proficiency_choices": [
-			{
-				"choose": 3,
-				"type": "proficiencies",
-				"from": [
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/106",
-						"name": "Skill: Animal Handling"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/108",
-						"name": "Skill: Athletics"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/111",
-						"name": "Skill: Insight"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/113",
-						"name": "Skill: Investigation"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/115",
-						"name": "Skill: Nature"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/116",
-						"name": "Skill: Perception"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/121",
-						"name": "Skill: Stealth"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/122",
-						"name": "Skill: Survival"
-					}
-				]
-			}
-		],
-		"proficiencies": [
-			{
-				"name": "Light armor",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/1"
-			},
-			{
-				"name": "Medium armor",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/2"
-			},
-			{
-				"name": "Shields",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/18"
-			},
-			{
-				"name": "Simple weapons",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/19"
-			},
-			{
-				"name": "Martial weapons",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/20"
-			}
-		],
-		"saving_throws": [
-			{
-				"name": "STR",
-				"url": "http://www.dnd5eapi.co/api/ability-scores/1"
-			},
-			{
-				"name": "DEX",
-				"url": "http://www.dnd5eapi.co/api/ability-scores/2"
-			}
-		],
-		"starting_equipment": {
-			"url": "http://www.dnd5eapi.co/api/startingequipment/8",
-			"class": "Ranger"
-		},
-		"class_levels": {
-			"url": "http://www.dnd5eapi.co/api/classes/ranger/levels",
-			"class": "Ranger"
-		},
-		"subclasses": [
-			{
-				"url": "http://www.dnd5eapi.co/api/subclasses/8",
-				"name": "Hunter"
-			}
-		],
-		"spellcasting": {
-			"url": "http://www.dnd5eapi.co/api/spellcasting/5",
-			"class": "Ranger"
-		},
-		"url": "http://www.dnd5eapi.co/api/classes/8"
-	},
-	{
-		"index": 9,
-		"name": "Rogue",
-		"hit_die": 8,
-		"proficiency_choices": [
-			{
-				"choose": 4,
-				"type": "proficiencies",
-				"from": [
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/105",
-						"name": "Skill: Acrobatics"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/108",
-						"name": "Skill: Athletics"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/109",
-						"name": "Skill: Deception"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/111",
-						"name": "Skill: Insight"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/112",
-						"name": "Skill: Intimidation"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/113",
-						"name": "Skill: Investigation"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/116",
-						"name": "Skill: Perception"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/117",
-						"name": "Skill: Performance"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/118",
-						"name": "Skill: Persuasion"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/120",
-						"name": "Skill: Sleight of Hand"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/121",
-						"name": "Skill: Stealth"
-					}
-				]
-			}
-		],
-		"proficiencies": [
-			{
-				"name": "Light armor",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/1"
-			},
-			{
-				"name": "Simple weapons",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/19"
-			},
-			{
-				"name": "Longswords",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/42"
-			},
-			{
-				"name": "Rapiers",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/46"
-			},
-			{
-				"name": "Shortswords",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/48"
-			},
-			{
-				"name": "Crossbows, hand",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/54"
-			},
-			{
-				"name": "Thieves' Tools",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/96"
-			}
-		],
-		"saving_throws": [
-			{
-				"name": "DEX",
-				"url": "http://www.dnd5eapi.co/api/ability-scores/2"
-			},
-			{
-				"name": "INT",
-				"url": "http://www.dnd5eapi.co/api/ability-scores/4"
-			}
-		],
-		"starting_equipment": {
-			"url": "http://www.dnd5eapi.co/api/startingequipment/9",
-			"class": "Rogue"
-		},
-		"class_levels": {
-			"url": "http://www.dnd5eapi.co/api/classes/rogue/levels",
-			"class": "Rogue"
-		},
-		"subclasses": [
-			{
-				"url": "http://www.dnd5eapi.co/api/subclasses/9",
-				"name": "Thief"
-			}
-		],
-		"spellcasting": {
-
-		},
-		"url": "http://www.dnd5eapi.co/api/classes/9"
-	},
-	{
-		"index": 10,
-		"name": "Sorcerer",
-		"hit_die": 6,
-		"proficiency_choices": [
-			{
-				"choose": 2,
-				"type": "proficiencies",
-				"from": [
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/107",
-						"name": "Skill: Arcana"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/109",
-						"name": "Skill: Deception"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/111",
-						"name": "Skill: Insight"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/112",
-						"name": "Skill: Intimidation"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/118",
-						"name": "Skill: Persuasion"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/119",
-						"name": "Skill: Religion"
-					}
-				]
-			}
-		],
-		"proficiencies": [
-			{
-				"name": "Daggers",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/22"
-			},
-			{
-				"name": "Quarterstaffs",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/28"
-			},
-			{
-				"name": "Darts",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/32"
-			},
-			{
-				"name": "Slings",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/34"
-			}
-		],
-		"saving_throws": [
-			{
-				"name": "CON",
-				"url": "http://www.dnd5eapi.co/api/ability-scores/3"
-			},
-			{
-				"name": "CHA",
-				"url": "http://www.dnd5eapi.co/api/ability-scores/6"
-			}
-		],
-		"starting_equipment": {
-			"url": "http://www.dnd5eapi.co/api/startingequipment/10",
-			"class": "Sorcerer"
-		},
-		"class_levels": {
-			"url": "http://www.dnd5eapi.co/api/classes/sorcerer/levels",
-			"class": "Sorcerer"
-		},
-		"subclasses": [
-			{
-				"url": "http://www.dnd5eapi.co/api/subclasses/10",
-				"name": "Draconic"
-			}
-		],
-		"spellcasting": {
-			"url": "http://www.dnd5eapi.co/api/spellcasting/6",
-			"class": "Sorcerer"
-		},
-		"url": "http://www.dnd5eapi.co/api/classes/10"
-	},
-	{
-		"index": 11,
-		"name": "Warlock",
-		"hit_die": 8,
-		"proficiency_choices": [
-			{
-				"choose": 2,
-				"type": "proficiencies",
-				"from": [
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/107",
-						"name": "Skill: Arcana"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/109",
-						"name": "Skill: Deception"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/110",
-						"name": "Skill: History"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/112",
-						"name": "Skill: Intimidation"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/113",
-						"name": "Skill: Investigation"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/115",
-						"name": "Skill: Nature"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/119",
-						"name": "Skill: Religion"
-					}
-				]
-			}
-		],
-		"proficiencies": [
-			{
-				"name": "Light armor",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/1"
-			},
-			{
-				"name": "Simple weapons",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/19"
-			}
-		],
-		"saving_throws": [
-			{
-				"name": "WIS",
-				"url": "http://www.dnd5eapi.co/api/ability-scores/5"
-			},
-			{
-				"name": "CHA",
-				"url": "http://www.dnd5eapi.co/api/ability-scores/6"
-			}
-		],
-		"starting_equipment": {
-			"url": "http://www.dnd5eapi.co/api/startingequipment/11",
-			"class": "Warlock"
-		},
-		"class_levels": {
-			"url": "http://www.dnd5eapi.co/api/classes/warlock/levels",
-			"class": "Warlock"
-		},
-		"subclasses": [
-			{
-				"url": "http://www.dnd5eapi.co/api/subclasses/11",
-				"name": "Fiend"
-			}
-		],
-		"spellcasting": {
-			"url": "http://www.dnd5eapi.co/api/spellcasting/7",
-			"class": "Warlock"
-		},
-		"url": "http://www.dnd5eapi.co/api/classes/11"
-	},
-	{
-		"index": 12,
-		"name": "Wizard",
-		"hit_die": 6,
-		"proficiency_choices": [
-			{
-				"choose": 2,
-				"type": "proficiencies",
-				"from": [
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/107",
-						"name": "Skill: Arcana"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/110",
-						"name": "Skill: History"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/111",
-						"name": "Skill: Insight"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/113",
-						"name": "Skill: Investigation"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/114",
-						"name": "Skill: Medicine"
-					},
-					{
-						"url": "http://www.dnd5eapi.co/api/proficiencies/119",
-						"name": "Skill: Religion"
-					}
-				]
-			}
-		],
-		"proficiencies": [
-			{
-				"name": "Daggers",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/22"
-			},
-			{
-				"name": "Quarterstaffs",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/28"
-			},
-			{
-				"name": "Darts",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/32"
-			},
-			{
-				"name": "Slings",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/34"
-			}
-		],
-		"saving_throws": [
-			{
-				"name": "INT",
-				"url": "http://www.dnd5eapi.co/api/ability-scores/4"
-			},
-			{
-				"name": "WIS",
-				"url": "http://www.dnd5eapi.co/api/ability-scores/5"
-			}
-		],
-		"starting_equipment": {
-			"url": "http://www.dnd5eapi.co/api/startingequipment/12",
-			"class": "Wizard"
-		},
-		"class_levels": {
-			"url": "http://www.dnd5eapi.co/api/classes/wizard/levels",
-			"class": "Wizard"
-		},
-		"subclasses": [
-			{
-				"url": "http://www.dnd5eapi.co/api/subclasses/12",
-				"name": "Evocation"
-			}
-		],
-		"spellcasting": {
-			"url": "http://www.dnd5eapi.co/api/spellcasting/8",
-			"class": "Wizard"
-		},
-		"url": "http://www.dnd5eapi.co/api/classes/12"
-	}
-]
+{
+  "classes": [
+    {
+      "name": "Artificer",
+      "role": "Support, Engineer, Inventor",
+      "hit_die": "d8 per Bard level",
+      "primary_abilities": [],
+      "saving_throws": [],
+      "armor_proficiencies": [
+        "While wearing your Masterwork Armor",
+        "you can use your reaction to reduce the damage of one attack you can see by an amount equal to your Intelligence modifier + your level. If this reduces the damage to 0",
+        "you can immediately move up to 10 feet without provoking attacks of opportunity"
+      ],
+      "weapon_proficiencies": [
+        "Simple weapons"
+      ],
+      "tool_proficiencies": [
+        "Tinker\u2019s tools",
+        "one set of artisan\u2019s tools of your choice (Alchemist's supplies",
+        "Brewer\u2019s supplies",
+        "Calligrapher\u2019s supplies",
+        "Carpenter\u2019s tools",
+        "Cartographer\u2019s tools",
+        "Cobbler\u2019s tools",
+        "Cook\u2019s utensils",
+        "Glassblower\u2019s tools",
+        "Jeweler\u2019s tools",
+        "Leatherworker\u2019s tools",
+        "Mason\u2019s tools",
+        "Painter\u2019s supplies",
+        "Potter\u2019s tools",
+        "Smith\u2019s tools",
+        "Weaver\u2019s tools",
+        "or Woodcarver\u2019s tools)"
+      ],
+      "skill_list": [
+        "Arcana",
+        "History",
+        "Insight",
+        "Investigation",
+        "Perception",
+        "Sleight of Hand",
+        "Tinker"
+      ],
+      "skill_choices": [],
+      "caster_type": "",
+      "spellcasting_ability": "",
+      "subclass_name": "",
+      "subclass_level": "",
+      "resource_type": "",
+      "levels": {
+        "1": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {},
+          "cantrips_known": 0,
+          "spells_known": 0,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "2": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {},
+          "cantrips_known": 0,
+          "spells_known": 0,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "3": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {},
+          "cantrips_known": 0,
+          "spells_known": 0,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "4": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {},
+          "cantrips_known": 0,
+          "spells_known": 0,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "5": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {},
+          "cantrips_known": 0,
+          "spells_known": 0,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "6": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {},
+          "cantrips_known": 0,
+          "spells_known": 0,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "7": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {},
+          "cantrips_known": 0,
+          "spells_known": 0,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "8": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {},
+          "cantrips_known": 0,
+          "spells_known": 0,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "9": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {},
+          "cantrips_known": 0,
+          "spells_known": 0,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "10": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {},
+          "cantrips_known": 0,
+          "spells_known": 0,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "11": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {},
+          "cantrips_known": 0,
+          "spells_known": 0,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "12": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {},
+          "cantrips_known": 0,
+          "spells_known": 0,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "13": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {},
+          "cantrips_known": 0,
+          "spells_known": 0,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "14": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {},
+          "cantrips_known": 0,
+          "spells_known": 0,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "15": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {},
+          "cantrips_known": 0,
+          "spells_known": 0,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "16": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {},
+          "cantrips_known": 0,
+          "spells_known": 0,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "17": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {},
+          "cantrips_known": 0,
+          "spells_known": 0,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "18": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {},
+          "cantrips_known": 0,
+          "spells_known": 0,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "19": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {},
+          "cantrips_known": 0,
+          "spells_known": 0,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "20": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {},
+          "cantrips_known": 0,
+          "spells_known": 0,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        }
+      },
+      "base_attack_bonus": "\u00be BAB",
+      "skill_points_per_level": "4 + Intelligence modifier"
+    },
+    {
+      "name": "Barbarian",
+      "role": "Front-line Fighter, Damage Dealer",
+      "hit_die": "d12 per Barbarian level",
+      "primary_abilities": [],
+      "saving_throws": [],
+      "armor_proficiencies": [
+        "Light armor",
+        "shields"
+      ],
+      "weapon_proficiencies": [
+        "Simple weapons",
+        "martial weapons"
+      ],
+      "tool_proficiencies": [
+        "None"
+      ],
+      "skill_list": [
+        "Animal Handling",
+        "Athletics",
+        "Intimidation",
+        "Nature",
+        "Perception",
+        "Survival"
+      ],
+      "skill_choices": [],
+      "caster_type": "",
+      "spellcasting_ability": "",
+      "subclass_name": "",
+      "subclass_level": "",
+      "resource_type": "",
+      "levels": {
+        "1": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {},
+          "cantrips_known": 0,
+          "spells_known": 0,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "2": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {},
+          "cantrips_known": 0,
+          "spells_known": 0,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "3": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {},
+          "cantrips_known": 0,
+          "spells_known": 0,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "4": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {},
+          "cantrips_known": 0,
+          "spells_known": 0,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "5": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {},
+          "cantrips_known": 0,
+          "spells_known": 0,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "6": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {},
+          "cantrips_known": 0,
+          "spells_known": 0,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "7": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {},
+          "cantrips_known": 0,
+          "spells_known": 0,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "8": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {},
+          "cantrips_known": 0,
+          "spells_known": 0,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "9": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {},
+          "cantrips_known": 0,
+          "spells_known": 0,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "10": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {},
+          "cantrips_known": 0,
+          "spells_known": 0,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "11": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {},
+          "cantrips_known": 0,
+          "spells_known": 0,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "12": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {},
+          "cantrips_known": 0,
+          "spells_known": 0,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "13": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {},
+          "cantrips_known": 0,
+          "spells_known": 0,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "14": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {},
+          "cantrips_known": 0,
+          "spells_known": 0,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "15": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {},
+          "cantrips_known": 0,
+          "spells_known": 0,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "16": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {},
+          "cantrips_known": 0,
+          "spells_known": 0,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "17": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {},
+          "cantrips_known": 0,
+          "spells_known": 0,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "18": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {},
+          "cantrips_known": 0,
+          "spells_known": 0,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "19": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {},
+          "cantrips_known": 0,
+          "spells_known": 0,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "20": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {},
+          "cantrips_known": 0,
+          "spells_known": 0,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        }
+      },
+      "base_attack_bonus": "Full",
+      "skill_points_per_level": "4 + Intelligence modifier"
+    },
+    {
+      "name": "Bard",
+      "role": "Support, Controller",
+      "hit_die": "d6 per Bard level",
+      "primary_abilities": [
+        "Intelligence",
+        "Dexterity"
+      ],
+      "saving_throws": [],
+      "armor_proficiencies": [
+        "Light armor",
+        "shields (except tower shields)"
+      ],
+      "weapon_proficiencies": [
+        "Simple Weapons",
+        "longsword",
+        "rapier",
+        "short sword",
+        "shortbow",
+        "whip"
+      ],
+      "tool_proficiencies": [
+        "Three musical instruments of your choice"
+      ],
+      "skill_list": [
+        "Acrobatics",
+        "Arcana",
+        "Deception",
+        "History",
+        "Insight",
+        "Intimidation",
+        "Investigation",
+        "Nature",
+        "Performance",
+        "Persuasion",
+        "Religion",
+        "Sleight of Hand",
+        "Stealth",
+        "Tinker"
+      ],
+      "skill_choices": [],
+      "caster_type": "full",
+      "spellcasting_ability": "Charisma",
+      "subclass_name": "",
+      "subclass_level": "",
+      "resource_type": "Bardic Performance",
+      "levels": {
+        "1": {
+          "features_at_level": [
+            "Spellcasting",
+            "Bardic Knowledge",
+            "Bardic Performance"
+          ],
+          "resource_changes": "",
+          "spell_slots_by_level": {
+            "1": 2
+          },
+          "cantrips_known": 2,
+          "spells_known": 4,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "2": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {
+            "1": 2
+          },
+          "cantrips_known": 2,
+          "spells_known": 5,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "3": {
+          "features_at_level": [
+            "Sonic Conductor"
+          ],
+          "resource_changes": "",
+          "spell_slots_by_level": {
+            "1": 3,
+            "2": 2
+          },
+          "cantrips_known": 2,
+          "spells_known": 6,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "4": {
+          "features_at_level": [
+            "Inspire Magic"
+          ],
+          "resource_changes": "",
+          "spell_slots_by_level": {
+            "1": 3,
+            "2": 2
+          },
+          "cantrips_known": 3,
+          "spells_known": 7,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "5": {
+          "features_at_level": [
+            "Charming Melody"
+          ],
+          "resource_changes": "",
+          "spell_slots_by_level": {
+            "1": 4,
+            "2": 3,
+            "3": 1
+          },
+          "cantrips_known": 3,
+          "spells_known": 8,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": "Performance Die becomes D8"
+        },
+        "6": {
+          "features_at_level": [
+            "Magical Secrets"
+          ],
+          "resource_changes": "",
+          "spell_slots_by_level": {
+            "1": 4,
+            "2": 3,
+            "3": 1
+          },
+          "cantrips_known": 3,
+          "spells_known": 9,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "7": {
+          "features_at_level": [
+            "Counterperformance"
+          ],
+          "resource_changes": "",
+          "spell_slots_by_level": {
+            "1": 4,
+            "2": 3,
+            "3": 2,
+            "4": 1
+          },
+          "cantrips_known": 3,
+          "spells_known": 10,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "8": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {
+            "1": 4,
+            "2": 3,
+            "3": 2,
+            "4": 1
+          },
+          "cantrips_known": 3,
+          "spells_known": 11,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "9": {
+          "features_at_level": [
+            "Echoing Song"
+          ],
+          "resource_changes": "",
+          "spell_slots_by_level": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 2,
+            "5": 1
+          },
+          "cantrips_known": 3,
+          "spells_known": 12,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "10": {
+          "features_at_level": [
+            "Improved Bardic Performance"
+          ],
+          "resource_changes": "",
+          "spell_slots_by_level": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 2,
+            "5": 1
+          },
+          "cantrips_known": 3,
+          "spells_known": 13,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": "Performance Die becomes D10"
+        },
+        "11": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2,
+            "6": 1
+          },
+          "cantrips_known": 3,
+          "spells_known": 14,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "12": {
+          "features_at_level": [
+            "Magical Secrets"
+          ],
+          "resource_changes": "",
+          "spell_slots_by_level": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2,
+            "6": 1
+          },
+          "cantrips_known": 3,
+          "spells_known": 15,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "13": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 3,
+            "6": 2,
+            "7": 1
+          },
+          "cantrips_known": 3,
+          "spells_known": 16,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "14": {
+          "features_at_level": [
+            "Bardic Mastery"
+          ],
+          "resource_changes": "",
+          "spell_slots_by_level": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 3,
+            "6": 2,
+            "7": 1
+          },
+          "cantrips_known": 3,
+          "spells_known": 17,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "15": {
+          "features_at_level": [
+            "Melodic Resilience"
+          ],
+          "resource_changes": "",
+          "spell_slots_by_level": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 3,
+            "6": 3,
+            "7": 1,
+            "8": 1
+          },
+          "cantrips_known": 3,
+          "spells_known": 18,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": "Performance Die becomes D12"
+        },
+        "16": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 3,
+            "6": 3,
+            "7": 1,
+            "8": 1
+          },
+          "cantrips_known": 3,
+          "spells_known": 19,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "17": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 3,
+            "6": 3,
+            "7": 1,
+            "8": 1,
+            "9": 1
+          },
+          "cantrips_known": 4,
+          "spells_known": 20,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "18": {
+          "features_at_level": [
+            "Magical Secrets"
+          ],
+          "resource_changes": "",
+          "spell_slots_by_level": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 3,
+            "6": 3,
+            "7": 1,
+            "8": 1,
+            "9": 1
+          },
+          "cantrips_known": 4,
+          "spells_known": 21,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "19": {
+          "features_at_level": [],
+          "resource_changes": "",
+          "spell_slots_by_level": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 3,
+            "6": 3,
+            "7": 2,
+            "8": 1,
+            "9": 1
+          },
+          "cantrips_known": 4,
+          "spells_known": 22,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        },
+        "20": {
+          "features_at_level": [
+            "Final Flourish"
+          ],
+          "resource_changes": "",
+          "spell_slots_by_level": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 3,
+            "6": 3,
+            "7": 2,
+            "8": 1,
+            "9": 1
+          },
+          "cantrips_known": 4,
+          "spells_known": 24,
+          "spells_prepared": 0,
+          "asi_or_feat": "",
+          "subclass_features": "",
+          "scaling_changes": ""
+        }
+      },
+      "base_attack_bonus": "\u00bd BAB",
+      "skill_points_per_level": "6 + Intelligence modifier"
+    }
+  ]
+}

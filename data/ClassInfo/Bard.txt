@@ -1,0 +1,506 @@
+Bard
+
+From the bustling courts of Aurinal to the smoky taverns of shattered outposts, Bards are the living memory of the world. They are storytellers, musicians, poets, spies, and spellcasters—versatile and unpredictable. Many bards trained in the conservatories of Calethyr or under the wandering masters of the Silk Road, learning not only music but secrets, riddles, and subtle sorcery.
+Though often underestimated as mere entertainers, bards have shaped history with nothing but a well-timed verse. Their songs can stir courage in the fearful, lull a dragon to sleep, or twist a tyrant’s will. They carry lore long forgotten, hidden in melody and metaphor. In a realm still healing from the fall of Almaruil, bards are bridges between past and present, between magic and myth.
+Whether inspiring allies, uncovering lost truths, or deceiving with charm and wit, a bard is never just one thing—and always more than they seem. 
+
+Role: Support, Controller
+
+Hit Points
+* Hit Dice: d6 per Bard level
+* Hit Points at 1st Level: 6 + your Constitution modifier
+Proficiencies
+* Armor: Light armor, shields (except tower shields)
+* Weapons: Simple Weapons, plus the longsword, rapier, short sword, shortbow, and whip.
+* Base Attack Bonus: ½ BAB
+* Caster Progression: Full
+* Tools: Three musical instruments of your choice (e.g., flute, lute, drum, etc.)
+* Primary Stat: Intelligence, Dexterity
+* Skill Points per Level: 6 + Intelligence modifier
+* Skills: Acrobatics, Arcana, Deception, History, Insight, Intimidation, Investigation, Nature, Performance, Persuasion, Religion, Sleight of Hand, Stealth, Tinker
+
+
+Class Features
+All of the following are class features of the Bard class.
+
+Spellcasting
+1st-level Bard feature
+You have learned to cast spells through your bardic arts.
+Cantrips. You know two cantrips of your choice from the Bard spell list.
+Whenever you gain a Bard level, you can replace one of your cantrips with another cantrip of your choice from the Bard spell list.
+When you reach Bard levels 4 and 10, you learn another cantrip of your choice from the Bard spell list, as shown in the Cantrips column of the Bard Features table.
+Spell Slots. The Bard Features table shows how many spell slots you have to cast your level 1+ spells. You regain all expended slots when you finish a Long Rest.
+Prepared Spells of Level 1+. You prepare the list of level 1+ spells that are available for you to cast with this feature. To start, choose four level 1 spells from the Bard spell list.
+The number of spells on your list increases as you gain Bard levels, as shown in the Prepared Spells column of the Bard Features table. Whenever that number increases, choose additional spells from the Bard spell list until the number of spells on your list matches the number on the table. The chosen spells must be of a level for which you have spell slots. For example, if you’re a level 3 Bard, your list of prepared spells can include six spells of levels 1 and 2 in any combination.
+If another Bard feature gives you spells that you always have prepared, those spells don’t count against the number of spells you can prepare with this feature, but those spells otherwise count as Bard spells for you.
+Changing Your Prepared Spells. Whenever you gain a Bard level, you can replace one spell on your list with another Bard spell for which you have spell slots.
+Spellcasting Ability
+Your spellcasting ability is Charisma. You use your Charisma modifier when setting the DC for your Bard spells and when making an attack roll with one.
+* Spellcasting Ability: Charisma
+* Spell Save DC = 8 + spell level + your Charisma modifier
+* Spell Attack Modifier = base attack bonus + spell level + your Charisma modifier
+Spellcasting Focus
+You can use a Musical Instrument as a Spellcasting Focus for your Bard spells.
+
+Bardic Knowledge
+1st-level bard feature
+Your experience with ancient lore and strange tales lets you uncover truths others miss. You gain a bonus equal to half your bard level (minimum +1) on all Knowledge skill checks.
+At 6th level, this bonus also applies to all Intelligence-based skill checks.
+
+Bardic Performance
+1st-level bard feature
+You can channel magical effects through music, poetry, or storytelling. You have a pool of Performance Dice you expend to fuel special effects.
+Performance Dice
+You begin with a d6. This die increases as you gain bard levels, as shown on the Bard table.
+* 5th level: d8
+* 10th level: d10
+* 15th level: d12
+You can use Bardic Performance a number of times per day equal to your Charisma modifier + half your bard level (minimum 1). You regain all uses when you finish a long rest.
+Using Bardic Performance
+As a bonus action, you begin a performance that lasts until the start of your next turn. Creatures within 30 feet who can hear or see you are affected. You choose one of the following effects:
+* Inspire Courage. Allies gain a bonus equal to your Performance Die on saving throws against fear.
+* Soothing Melody. Allies gain temporary hit points equal to your Charisma modifier + your Performance Die (minimum 1). These last for 1 minute or until lost.
+* Inspire Greatness. One ally gains a bonus equal to your Performance Die on attack rolls.
+* Harmony of Despair. Enemies take a penalty equal to your Charisma modifier + Performance Die to saving throws against your charm and fear effects.
+Only one Bardic Performance can be active at a time.
+
+Sonic Conductor
+3rd-level bard feature
+Your mastery of sound can disrupt enemies or empower your magic. Choose one of the following options. You may switch this choice each time you level up.
+* Sonic Disruption. When you begin a Bardic Performance, you may unleash a sonic pulse once per day. Each enemy in a 20-foot radius must make a Constitution saving throw (DC = 8 + your Charisma modifier + half your bard level). On a failure, a creature takes thunder damage equal to your bard level and suffers a -2 penalty on Concentration checks until the end of its next turn.
+* Reverberation. While your Bardic Performance is active, your spells that deal thunder damage deal additional damage equal to your Charisma modifier.
+* Soundwave Shield. (Available at 6th level) When an ally within 30 feet is hit by an attack, you may use your reaction to reduce the damage by your Charisma modifier and impose a –2 penalty on the attacker’s next attack roll.
+
+Inspire Magic
+4th-level bard feature
+You can use your performance to strengthen a spell. When a creature you can see within 30 feet casts a spell, you may use your reaction and expend a use of Bardic Performance. Roll your Performance Die and add the result to the spell’s attack roll or increase its save DC by that amount.
+
+Charming Melody
+5th-level bard feature
+When you cast a spell with the charm descriptor while your Bardic Performance is active, increase the spell’s save DC by your Charisma modifier (up to a maximum bonus equal to your bard level).
+
+Magical Secrets
+6th-level bard feature
+You’ve learned spells from outside your tradition. Choose two spells from any arcane spell list. These count as bard spells for you and do not count against your spells known. You may select two additional spells at 12th and 18th level.
+
+Counterperformance
+7th-level bard feature
+You can disrupt magical effects with your music. When an ally within 30 feet is affected by a charm, fear, or sonic effect, you may use your reaction and expend a use of Bardic Performance. Roll your Performance Die and add your Charisma modifier. If the result equals or exceeds the DC of the effect, it is negated.
+
+Echoing Song
+9th-level bard feature
+Your sonic spells reverberate with magical echoes. After you cast a spell with the thunder or sonic descriptor, you may use your reaction before the start of your next turn to recast it on the same target or another target within 30 feet of the original. The echoed spell expends a spell slot.
+This may only occur once per spell.
+
+Bardic Mastery
+14th-level bard feature
+Your performance can uplift many at once. When using a Bardic Performance that normally targets one ally, you may instead affect all allies within 30 feet.
+Additionally, your Performance Die becomes a d8 if it isn’t already.
+
+Melodic Resilience
+15th-level bard feature
+Your performance can shake off mental afflictions. While your Bardic Performance is active, an ally within range affected by the charmed or frightened condition may use their reaction to end the condition early. This expends a use of Bardic Performance.
+
+Final Flourish
+20th-level bard feature
+Your masterful performance reaches its zenith. Your Bardic Performance now affects all allies within 60 feet. Additionally, your Performance Die becomes a d10.
+Level
+Base Attack Bonus
+Save Bonus
+
+
+Performance
+Die
+Class Features
+1
++1
+2
+
+
+D6
+Spellcasting, Bardic Knowledge, Bardic Performance
+2
++1
+2
+
+
+D6
+
+3
++2
+2
+
+
+D6
+Sonic Conductor
+4
++2
+2
+
+
+D6
+Inspire Magic
+5
++3
+3
+
+
+D8
+Charming Melody
+6
++3
+3
+
+
+D8
+Magical Secrets
+7
++4
+3
+
+
+D8
+Counterperformance
+8
++4
+3
+
+
+D8
+
+9
++5
+4
+
+
+D8
+Echoing Song
+10
++5
+4
+
+
+D10
+Improved Bardic Performance
+11
++6
+4
+
+
+D10
+
+12
++6
+4
+
+
+D10
+Magical Secrets
+13
++7
+5
+
+
+D10
+
+14
++7
+5
+
+
+D10
+Bardic Mastery
+15
++8
+5
+
+
+D12
+Melodic Resilience
+16
++8
+5
+
+
+D12
+
+17
++9
+6
+
+
+D12
+
+18
++9
+6
+
+
+D12
+Magical Secrets
+19
++10
+6
+
+
+D12
+
+20
++10
+6
+
+
+D12
+Final Flourish
+Level
+Cantrips
+Spells Known
+1st
+2nd
+3rd
+4th
+5th
+6th
+7th
+8th
+9th
+1
+2
+4
+2
+
+
+
+
+
+
+
+
+2
+2
+5
+2
+
+
+
+
+
+
+
+
+3
+2
+6
+3
+2
+
+
+
+
+
+
+
+4
+3
+7
+3
+2
+
+
+
+
+
+
+
+5
+3
+8
+4
+3
+1
+
+
+
+
+
+
+6
+3
+9
+4
+3
+1
+
+
+
+
+
+
+7
+3
+10
+4
+3
+2
+1
+
+
+
+
+
+8
+3
+11
+4
+3
+2
+1
+
+
+
+
+
+9
+3
+12
+4
+3
+3
+2
+1
+
+
+
+
+10
+3
+13
+4
+3
+3
+2
+1
+
+
+
+
+11
+3
+14
+4
+3
+3
+3
+2
+1
+
+
+
+12
+3
+15
+4
+3
+3
+3
+2
+1
+
+
+
+13
+3
+16
+4
+3
+3
+3
+3
+2
+1
+
+
+14
+3
+17
+4
+3
+3
+3
+3
+2
+1
+
+
+15
+3
+18
+4
+3
+3
+3
+3
+3
+1
+1
+
+16
+3
+19
+4
+3
+3
+3
+3
+3
+1
+1
+
+17
+4
+20
+4
+3
+3
+3
+3
+3
+1
+1
+1
+18
+4
+21
+4
+3
+3
+3
+3
+3
+1
+1
+1
+19
+4
+22
+4
+3
+3
+3
+3
+3
+2
+1
+1
+20
+4
+24
+4
+3
+3
+3
+3
+3
+2
+1
+1

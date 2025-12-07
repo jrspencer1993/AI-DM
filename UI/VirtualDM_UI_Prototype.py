@@ -16,6 +16,13 @@ BASE_DIR = os.path.dirname(__file__)
 DATA_DIR = os.path.abspath(os.path.join(BASE_DIR, "..", "data"))
 SRD_CANDIDATES = ["SRD_Monsters.json", "SRD_Monsters.txt"]  # accepts either
 
+def _read_json_file(path: str):
+    """
+    Small helper so all JSON loading uses the same encoding and error handling.
+    """
+    with open(path, "r", encoding="utf-8-sig") as f:
+        return json.load(f)
+
 def _resolve_srd_path():
     for name in SRD_CANDIDATES:
         p = os.path.join(DATA_DIR, name)
@@ -170,28 +177,111 @@ def _norm_monster(m: dict) -> dict:
     }
 
 def load_srd_monsters():
-    """
-    Loads SRD monsters once per session into st.session_state.srd_enemies.
-    Tolerant schema: accepts common 5e keys and normalizes to the fields our UI uses.
-    """
-    if "srd_enemies" in st.session_state:
-        return
-    path = _resolve_srd_path()
-    try:
-        if not path:
-            st.session_state.srd_enemies = []
-            return
-        # 'utf-8-sig' handles BOM if saved from Notepad
-        with open(path, "r", encoding="utf-8-sig") as f:
-            data = json.load(f)
-        if not isinstance(data, list):
-            data = []
-        # normalize each entry
-        st.session_state.srd_enemies = [_norm_monster(m) for m in data if isinstance(m, dict) and m.get("name")]
-    except Exception as e:
-        # reminder: JSON must be an array of objects; avoid trailing commas.
+    """Load SRD monsters from JSON, normalizing action fields."""
+    if "srd_enemies" not in st.session_state:
         st.session_state.srd_enemies = []
-        st.warning(f"Failed to load SRD: {e}")
+    if "srd_enemies_path" not in st.session_state:
+        st.session_state.srd_enemies_path = ""
+
+    base_dir = os.path.dirname(__file__)
+    candidates = [
+        os.path.join(base_dir, "..", "data", "SRD_Monsters.json"),
+        os.path.join(base_dir, "SRD_Monsters.json"),
+    ]
+    path = None
+    for p in candidates:
+        if os.path.exists(p):
+            path = p
+            break
+
+    if not path:
+        st.session_state.srd_enemies = []
+        st.session_state.srd_enemies_path = "(not found)"
+        return []
+
+    try:
+        # use cached loader if you already added _read_json_file;
+        # otherwise you can swap to normal json.load(open(...))
+        data = _read_json_file(path)
+    except Exception as e:
+        st.warning(f"Failed to load SRD monsters: {e}")
+        st.session_state.srd_enemies = []
+        st.session_state.srd_enemies_path = path
+        return []
+
+    # --- NORMALIZE MONSTER ACTIONS ---
+    for m in data:
+        # ensure lists exist
+        m.setdefault("actions", [])
+        m.setdefault("special_abilities", [])
+
+        for a in m["actions"]:
+            # attack_bonus -> to_hit
+            if "to_hit" not in a and "attack_bonus" in a:
+                try:
+                    a["to_hit"] = int(a["attack_bonus"])
+                except Exception:
+                    a["to_hit"] = 0
+
+            # normalize damage string
+            if "damage" not in a:
+                dd = a.get("damage_dice")
+                bonus = a.get("damage_bonus", 0)
+                if dd:
+                    if isinstance(bonus, int) and bonus != 0:
+                        sign = "+" if bonus > 0 else "-"
+                        a["damage"] = f"{dd}{sign}{abs(bonus)}"
+                    else:
+                        a["damage"] = dd
+            # default damage if still missing
+            if "damage" not in a:
+                a["damage"] = "1d6"
+
+            # normalize damage_type key if there’s a variant
+            if "damage_type" not in a:
+                if "damage_type_name" in a:
+                    a["damage_type"] = a["damage_type_name"]
+
+    st.session_state.srd_enemies = data
+    st.session_state.srd_enemies_path = path
+    return data
+
+    # --- NORMALIZE MONSTER ACTIONS ---
+    for m in data:
+        # ensure lists exist
+        m.setdefault("actions", [])
+        m.setdefault("special_abilities", [])
+
+        for a in m["actions"]:
+            # attack_bonus -> to_hit
+            if "to_hit" not in a and "attack_bonus" in a:
+                try:
+                    a["to_hit"] = int(a["attack_bonus"])
+                except Exception:
+                    a["to_hit"] = 0
+
+            # normalize damage string
+            if "damage" not in a:
+                dd = a.get("damage_dice")
+                bonus = a.get("damage_bonus", 0)
+                if dd:
+                    if isinstance(bonus, int) and bonus != 0:
+                        sign = "+" if bonus > 0 else "-"
+                        a["damage"] = f"{dd}{sign}{abs(bonus)}"
+                    else:
+                        a["damage"] = dd
+            # default damage if still missing
+            if "damage" not in a:
+                a["damage"] = "1d6"
+
+            # normalize damage_type key if there’s a variant
+            if "damage_type" not in a:
+                if "damage_type_name" in a:
+                    a["damage_type"] = a["damage_type_name"]
+
+    st.session_state.srd_enemies = data
+    st.session_state.srd_enemies_path = path
+    return data
 
 # ---------------- Combat State + Initiative System ----------------
 
@@ -203,6 +293,7 @@ def init_combat_state():
     ss.setdefault("turn_index", 0)
 
 init_combat_state()
+load_srd_monsters()
 
 def _dex_mod_from_char(c):
     abil = c.get("abilities", {})
@@ -255,6 +346,7 @@ def start_combat():
     st.session_state.in_combat = True
     st.session_state.combat_round = 1
     st.session_state.turn_index = 0
+    reset_actions_for_new_turn()
 
 def current_turn():
     order = st.session_state.initiative_order
@@ -275,12 +367,31 @@ def next_turn():
     if st.session_state.turn_index >= order_len:
         st.session_state.turn_index = 0
         st.session_state.combat_round += 1
+    reset_actions_for_new_turn()
 
 def end_combat():
     st.session_state.in_combat = False
     st.session_state.initiative_order = []
     st.session_state.combat_round = 0
     st.session_state.turn_index = 0
+
+def reset_actions_for_new_turn():
+    """
+    Reset the current actor's action availability at the start of each turn.
+    """
+    st.session_state["current_actions"] = {
+        "move": True,
+        "standard": True,
+        "quick": True,
+        "immediate": True,
+    }
+
+def ensure_action_state():
+    """
+    Make sure current_actions exists; called by any logic that spends actions.
+    """
+    if "current_actions" not in st.session_state:
+        reset_actions_for_new_turn()
 
 def get_current_actor():
     """
@@ -408,7 +519,7 @@ def resolve_attack(text: str) -> str | None:
             chosen = attacks[0]
 
     att_name = chosen.get("name", "attack")
-    to_hit = int(chosen.get("to_hit", 0))
+    to_hit = int(chosen.get("to_hit", chosen.get("attack_bonus", 0)))
     d_expr = chosen.get("damage", "1d6")
 
     d20 = roll_d20()
@@ -438,32 +549,62 @@ def resolve_attack(text: str) -> str | None:
 
     return "\n".join(lines)
 
+# ---- Hybrid system skill list + ability mapping ----
+SKILL_NAMES = [
+    "Acrobatics",
+    "Animal Handling",
+    "Arcana",
+    "Athletics",
+    "Deception",
+    "History",
+    "Insight",
+    "Intimidation",
+    "Medicine",
+    "Nature",
+    "Perception",
+    "Performance",
+    "Persuasion",
+    "Religion",
+    "Sleight of Hand",
+    "Stealth",
+    "Survival",
+    "Tinker",
+    "Honor",
+    "Tactics",
+]
+
+SKILL_TO_ABILITY: dict[str, str] = {
+    "Acrobatics": "DEX",
+    "Animal Handling": "WIS",
+    "Arcana": "INT",
+    "Athletics": "STR",
+    "Deception": "CHA",
+    "History": "INT",
+    "Insight": "WIS",
+    "Intimidation": "CHA",
+    "Medicine": "WIS",
+    "Nature": "INT",
+    "Perception": "WIS",
+    "Performance": "CHA",
+    "Persuasion": "CHA",
+    "Religion": "INT",
+    "Sleight of Hand": "DEX",
+    "Stealth": "DEX",
+    "Survival": "WIS",
+    "Tinker": "INT",
+    "Honor": "CHA",
+    "Tactics": "INT",
+}
+
 def _get_skill_mod(actor: dict, skill_name: str) -> int:
     """
     Compute the modifier for a given skill using the actor's abilities,
     explicit skill bonuses when present, and proficiency.
     """
     # quick mapping; we can extend this later once we have a full skill JSON
-    SKILL_TO_ABILITY = {
-        "Athletics": "STR",
-        "Acrobatics": "DEX",
-        "Stealth": "DEX",
-        "Sleight of Hand": "DEX",
-        "Perception": "WIS",
-        "Insight": "WIS",
-        "Survival": "WIS",
-        "Arcana": "INT",
-        "History": "INT",
-        "Investigation": "INT",
-        "Religion": "INT",
-        "Nature": "INT",
-        "Deception": "CHA",
-        "Intimidation": "CHA",
-        "Performance": "CHA",
-        "Persuasion": "CHA",
-    }
 
     abilities = actor.get("abilities", {})
+
     prof_bonus = int(actor.get("proficiency_bonus", 2))
 
     # if actor already has an explicit skill bonus, prefer that
@@ -491,35 +632,102 @@ def _get_skill_mod(actor: dict, skill_name: str) -> int:
         return base + prof_bonus
     return base
 
+def find_actor_from_message(msg: str):
+    """Return (kind, index, blob) where kind is 'party' or 'enemy'."""
+    low = msg.lower()
+
+    # search enemies first if name is in text
+    for idx, e in enumerate(st.session_state.get("enemies", [])):
+        nm = str(e.get("name", "")).lower()
+        if nm and nm in low:
+            return "enemy", idx, e
+
+    # then party
+    for idx, c in enumerate(st.session_state.get("party", [])):
+        nm = str(c.get("name", "")).lower()
+        if nm and nm in low:
+            return "party", idx, c
+
+    # fall back to active turn entity
+    ent = current_turn()
+    if ent:
+        if ent.get("kind") == "party":
+            idx = ent.get("idx", 0)
+            if 0 <= idx < len(st.session_state.get("party", [])):
+                return "party", idx, st.session_state.party[idx]
+        elif ent.get("kind") == "enemy":
+            idx = ent.get("idx", 0)
+            if 0 <= idx < len(st.session_state.get("enemies", [])):
+                return "enemy", idx, st.session_state.enemies[idx]
+
+    # final fallback: first party member
+    if st.session_state.get("party"):
+        return "party", 0, st.session_state.party[0]
+
+    return None, None, None
+
 
 def resolve_skill_check(text: str) -> str | None:
     """
-    Attempt to resolve a basic skill check (grapple, jump, climb, stealth)
-    based on the current actor. Returns a descriptive string if handled,
-    or None if this is not a recognized skill-type action.
+    Parse a chat message for a skill name and roll a skill check
+    for the appropriate actor (PC or enemy). Consumes a Standard
+    action for that actor's turn.
     """
-    kind, idx, actor = get_current_actor()
+    msg = text.strip()
+    lower = msg.lower()
+
+    # 1) detect which skill we're rolling
+    skill = None
+    for sk in SKILL_NAMES:
+        if sk.lower() in lower:
+            skill = sk
+            break
+    if not skill:
+        return None  # not a skill check request
+
+    # 2) figure out who is acting
+    kind, idx, actor = find_actor_from_message(msg)
     if not actor:
-        return None  # no active combatant / no current actor
+        return "No valid creature found to make that check."
 
-    info = parse_player_command(text, st.session_state.party, st.session_state.enemies)
-    action_type = info.get("type")
+    # 3) enforce Standard action economy
+    ensure_action_state()
+    ca = st.session_state.current_actions
+    if not ca.get("standard", True):
+        return f"{actor.get('name','The character')} has already used a Standard action this turn."
 
-    # map our simple action types to skill names
-    if action_type == "grapple":
-        skill = "Athletics"
-        short_desc = "attempts to grapple the target"
-    elif action_type == "jump":
-        skill = "Athletics"
-        short_desc = "tries to make a long jump"
-    elif action_type == "climb":
-        skill = "Athletics"
-        short_desc = "tries to climb"
-    elif action_type == "stealth":
-        skill = "Stealth"
-        short_desc = "attempts to move quietly and stay hidden"
+    # 4) choose a DC band (very rough heuristic for now)
+    DC_BANDS = {
+        "very_easy": 5,
+        "easy": 10,
+        "medium": 15,
+        "hard": 20,
+        "very_hard": 25,
+        "nearly_impossible": 30,
+    }
+    base_dc = DC_BANDS["medium"]
+    dc_jitter = random.choice([-2, 0, 0, 2])
+    dc = max(5, base_dc + dc_jitter)
+
+    # 5) compute modifier and roll
+    mod = _get_skill_mod(actor, skill)
+    d20 = roll_d20()
+    total = d20 + mod
+
+    # spend the Standard action
+    ca["standard"] = False
+
+    actor_name = actor.get("name", "The character")
+    lines = []
+    lines.append(f"{actor_name} attempts a **{skill}** check (DC {dc}).")
+    lines.append(f"Roll: d20 ({d20}) + {mod} = **{total}**.")
+
+    if total >= dc:
+        lines.append("Result: **Success**.")
     else:
-        return None  # not something we currently treat as a skill check
+        lines.append("Result: **Failure**.")
+
+    return "\n".join(lines)
 
     # simple DC heuristic for now; later attach this to terrain / examples
     DC_BANDS = {
@@ -580,6 +788,10 @@ def load_srd_backgrounds():
 def load_srd_classes():
     data, p = _load_json_from_candidates(DATA_DIR, ["SRD_Classes.json", "SRD_Classes.txt"])
     st.session_state["srd_classes_path"] = p
+    
+    if isinstance(data, dict) and "classes" in data:
+        data = data["classes"]
+
     return data if isinstance(data, list) else []
 
 def load_srd_feats():
@@ -590,9 +802,16 @@ def load_srd_feats():
 def load_srd_equipment():
     data, p = _load_json_from_candidates(DATA_DIR, ["SRD_Equipment.json", "SRD_Equipment.txt"])
     st.session_state["srd_equipment_path"] = p
-    return data if isinstance(data, list) else []
+
+    if isinstance(data, list):
+        # cache for attack-building helpers
+        st.session_state["srd_equipment"] = data
+        return data
+    else:
+        st.session_state["srd_equipment"] = []
+        return []
     
-# ==== Character Builder: small helpers + applicators ====
+# ==== Character Builder ====
 
 def _ability_mod(score: int) -> int:
     try:
@@ -610,7 +829,40 @@ def roll_ability_scores_4d6_drop_lowest():
     return scores
 
 def compute_hp_level1(char: dict, class_blob: dict) -> int:
-    hit_die = int(class_blob.get("hit_die", 8))  # default d8 if missing
+    """
+    Compute level-1 HP from the class hit die and CON modifier.
+    Accepts either an int (6, 8, 10, 12) or strings like 'd6 per Bard level'.
+    """
+    raw_hd = class_blob.get("hit_die", 8)
+
+    # Try to parse various formats:
+    #   6
+    #   "8"
+    #   "d6"
+    #   "d6 per Bard level"
+    #   "Hit Die: d10"
+    hit_die = 8  # sensible default
+
+    if isinstance(raw_hd, int):
+        hit_die = raw_hd
+    elif isinstance(raw_hd, str):
+        text = raw_hd.lower()
+        # look for a pattern like "d6", "d12", etc.
+        m = re.search(r"d(\d+)", text)
+        if m:
+            hit_die = int(m.group(1))
+        else:
+            # fall back to "first number we can find"
+            m2 = re.search(r"(\d+)", text)
+            if m2:
+                hit_die = int(m2.group(1))
+    else:
+        # last fallback if some weird type sneaks in
+        try:
+            hit_die = int(raw_hd)
+        except Exception:
+            hit_die = 8
+
     con_mod = _ability_mod(char.get("abilities", {}).get("CON", 10))
     return max(1, hit_die + con_mod)
 
@@ -626,6 +878,111 @@ def compute_ac_from_equipment(char: dict) -> int:
     elif "leather armor" in armor or "leather" in armor: ac = 11 + dex_mod
     if "shield" in armor: ac += 2
     return ac
+
+WEAPON_ABILITY_DEFAULT = {
+    "melee": "STR",
+    "ranged": "DEX"
+}
+
+def _find_equipment_by_name(name: str) -> dict | None:
+    """
+    Look up an equipment item by name from the loaded SRD equipment.
+    """
+    eq_list = st.session_state.get("srd_equipment") or []
+    name_lower = (name or "").lower()
+    for item in eq_list:
+        if (item.get("name") or "").lower() == name_lower:
+            return item
+    return None
+
+def _is_weapon_item(item: dict) -> bool:
+    """
+    Basic check if an equipment item is a weapon.
+    Adjust this if your SRD_Equipment format differs.
+    """
+    if not isinstance(item, dict):
+        return False
+    cat = (item.get("equipment_category") or "").lower()
+    wcat = (item.get("weapon_category") or "").lower()
+    return "weapon" in cat or bool(wcat)
+
+def _choose_weapon_ability(char: dict, weapon: dict) -> str:
+    """
+    Decide whether this weapon should use STR or DEX.
+    If it has finesse or is ranged, prefer DEX; otherwise STR.
+    """
+    props = [ (p.get("name") or "").lower() if isinstance(p, dict) else str(p).lower()
+              for p in (weapon.get("properties") or []) ]
+    rng = (weapon.get("weapon_range") or "").lower()
+
+    if "finesse" in props or "ranged" in rng:
+        return "DEX"
+    return "STR"
+
+def _ability_mod(score: int) -> int:
+    return (int(score) - 10) // 2
+
+def build_attack_from_weapon(char: dict, weapon: dict) -> dict:
+    """
+    Build a simple attack dict from a weapon and character stats.
+    This should match the shape your resolve_attack() expects.
+    """
+    name = weapon.get("name", "Weapon")
+    ability_key = _choose_weapon_ability(char, weapon)
+
+    abilities = char.get("abilities") or {}
+    ability_score = int(abilities.get(ability_key, 10))
+    ability_bonus = _ability_mod(ability_score)
+
+    prof_bonus = int(char.get("proficiency_bonus", 2))
+    # crude proficiency check: if any of the char's weapon prof strings are in the weapon category string
+    profs = (char.get("profs") or {}).get("weapons") or []
+    wcat = (weapon.get("weapon_category") or "").lower()
+    is_proficient = any(p.lower() in wcat for p in profs) if wcat else False
+
+    to_hit = ability_bonus + (prof_bonus if is_proficient else 0)
+
+    dmg = weapon.get("damage") or {}
+    dice_count = int(dmg.get("dice_count", 1))
+    dice_value = int(dmg.get("dice_value", 6))
+    damage_type = (dmg.get("damage_type", {}) or {}).get("name") or dmg.get("damage_type", "") or "bludgeoning"
+
+    # simple "XdY+mod" string
+    dmg_str = f"{dice_count}d{dice_value}"
+    if ability_bonus != 0:
+        sign = "+" if ability_bonus > 0 else "-"
+        dmg_str += f"{sign}{abs(ability_bonus)}"
+
+    return {
+        "name": name,
+        "ability": ability_key,
+        "attack_bonus": to_hit,
+        "damage": dmg_str,
+        "damage_type": damage_type.lower(),
+        "source": "weapon"
+    }
+
+def refresh_attacks_from_equipment(char: dict):
+    """
+    Rebuild char['attacks'] from weapon-type equipment items.
+    Keeps any non-weapon attacks if you already added them elsewhere.
+    """
+    eq_names = char.get("equipment") or []
+    if isinstance(eq_names, str):
+        eq_names = [eq_names]
+
+    # keep non-weapon attacks so we don't wipe things like natural claws, spells-as-attacks, etc.
+    existing = char.get("attacks") or []
+    non_weapon_attacks = [a for a in existing if a.get("source") != "weapon"]
+
+    weapon_attacks: list[dict] = []
+    for ename in eq_names:
+        item = _find_equipment_by_name(ename)
+        if not item or not _is_weapon_item(item):
+            continue
+        weapon_attacks.append(build_attack_from_weapon(char, item))
+
+    char["attacks"] = non_weapon_attacks + weapon_attacks
 
 def set_default_attack_from_kit(char: dict, kit: dict|None):
     if not kit:
@@ -645,6 +1002,115 @@ def set_default_attack_from_kit(char: dict, kit: dict|None):
     if norm:
         char["attacks"] = norm
         char["default_attack_index"] = 0  # reminder: used by auto-actions later
+
+def sync_attacks_from_equipment(char: dict):
+    """
+    Look at char['equipment'], cross-reference against the loaded SRD equipment,
+    and add weapon attacks into char['attacks'].
+
+    This assumes st.session_state['srd_equipment'] is a list of items loaded
+    from SRD_Equipment.json at startup.
+    """
+    eq_names = char.get("equipment") or []
+    if isinstance(eq_names, str):
+        eq_names = [eq_names]
+
+    equip_db = st.session_state.get("srd_equipment") or []
+
+    # Keep existing non-weapon attacks (natural attacks, spells, etc.)
+    existing = char.get("attacks") or []
+    non_weapon_attacks = [a for a in existing if a.get("source") != "weapon"]
+
+    weapon_attacks = []
+
+    # small helper for ability mod
+    def _mod(score: int) -> int:
+        return (int(score) - 10) // 2
+
+    for eq_name in eq_names:
+        name_lower = str(eq_name).strip().lower()
+        item = None
+
+        # FIRST: try exact match
+        for e in equip_db:
+            if str(e.get("name", "")).strip().lower() == name_lower:
+                item = e
+                break
+
+        # SECOND: try contains-match (covers “long sword” → “Longsword”)
+        if not item:
+            for e in equip_db:
+                if name_lower.replace(" ", "") in str(e.get("name", "")).replace(" ", "").lower():
+                    item = e
+                    break
+
+        if not item:
+            continue
+
+        # detect if it's a weapon
+        cat = str(item.get("equipment_category", "")).lower()
+        wcat = str(item.get("weapon_category", "")).lower()
+        if "weapon" not in cat and not wcat:
+            continue  # not a weapon, skip
+
+        # decide STR or DEX (simple finesse/ranged heuristic)
+        props = []
+        for p in (item.get("properties") or []):
+            if isinstance(p, dict):
+                props.append(str(p.get("name", "")).lower())
+            else:
+                props.append(str(p).lower())
+        rng = str(item.get("weapon_range", "")).lower()
+
+        if "finesse" in props or "ranged" in rng:
+            ability_key = "DEX"
+        else:
+            ability_key = "STR"
+
+        abilities = char.get("abilities") or {}
+        ability_score = int(abilities.get(ability_key, 10))
+        ability_bonus = _mod(ability_score)
+
+        prof_bonus = int(char.get("proficiency_bonus", 2))
+        # crude proficiency check: look for weapon category words in prof strings
+        profs = (char.get("profs") or {}).get("weapons") or []
+        weapon_prof = False
+        if wcat:
+            wcat_lower = wcat.lower()
+            for p in profs:
+                if str(p).lower() in wcat_lower:
+                    weapon_prof = True
+                    break
+
+        to_hit = ability_bonus + (prof_bonus if weapon_prof else 0)
+
+        dmg = item.get("damage") or {}
+        dice_count = int(dmg.get("dice_count", 1))
+        dice_value = int(dmg.get("dice_value", 6))
+        dtype = ""
+        dt_field = dmg.get("damage_type")
+        if isinstance(dt_field, dict):
+            dtype = dt_field.get("name") or ""
+        elif isinstance(dt_field, str):
+            dtype = dt_field
+        if not dtype:
+            dtype = "bludgeoning"
+
+        dmg_str = f"{dice_count}d{dice_value}"
+        if ability_bonus != 0:
+            sign = "+" if ability_bonus > 0 else "-"
+            dmg_str += f"{sign}{abs(ability_bonus)}"
+
+        weapon_attacks.append({
+            "name": item.get("name", "Weapon"),
+            "ability": ability_key,
+            "attack_bonus": to_hit,
+            "damage": dmg_str,
+            "damage_type": dtype.lower(),
+            "source": "weapon"
+        })
+
+    char["attacks"] = non_weapon_attacks + weapon_attacks
 
 def apply_race(char: dict, race: dict):
     char["race"] = race.get("name", "")
@@ -669,7 +1135,8 @@ def apply_race(char: dict, race: dict):
             if key in char["abilities"]:
                 char["abilities"][key] = int(char["abilities"][key]) + int(bonus)
     elif isinstance(ab, dict):
-        # Our older “simple dict” format
+
+        #  Older “simple dict” format
         for k, v in ab.items():
             if k in char["abilities"]:
                 char["abilities"][k] = int(char["abilities"][k]) + int(v)
@@ -782,11 +1249,119 @@ def apply_class_level1(char: dict, cls: dict, kit_idx: int = 0):
         eq.add(extra)
     char["equipment"] = sorted(eq)
 
-    # set up a default attack from that kit 
     set_default_attack_from_kit(char, kit)
 
-    # AC from equipment + DEX
+    # make sure any weapon equipment becomes attacks
+    sync_attacks_from_equipment(char)
+
     char["ac"] = compute_ac_from_equipment(char)
+
+def ensure_resource(char: dict, name: str, max_val: int):
+    """
+    Ensure char['resources'][name] exists with current/max.
+    If it already exists, keep current but clamp to new max.
+    """
+    if max_val < 0:
+        max_val = 0
+    res = char.setdefault("resources", {})
+    entry = res.get(name, {})
+    current = entry.get("current", max_val)
+    res[name] = {"current": min(current, max_val), "max": max_val}
+
+
+def add_level1_class_resources_and_actions(char: dict):
+    """
+    For now: handle Barbarian, Bard, and Artificer level 1.
+    Sets up resource pools (Rage, Bardic Performance, Crafting Reservoir)
+    and adds simple class actions that the UI can display/use.
+    """
+    cls_name = (char.get("class") or "").strip()
+    abilities = char.get("abilities", {})
+    features = char.setdefault("features", [])
+    actions = char.setdefault("actions", [])
+
+    # ---- Barbarian ----
+    if cls_name == "Barbarian":
+        # Rage (we treat it as 1 use at level 1 for now)
+        if not any("Rage" in f for f in features):
+            features.append(
+                "Rage (Ex): 1/minute, +2 STR/CON checks & saves, +2 WIS saves, "
+                "+2 melee damage, -2 AC, resist B/P/S while raging."
+            )
+        ensure_resource(char, "Rage", 1)
+
+        if not any(a.get("name") == "Rage" for a in actions):
+            actions.append({
+                "name": "Rage",
+                "resource": "Rage",
+                "description": (
+                    "Bonus Action: Enter a rage for 1 minute, consuming 1 Rage use. "
+                    "Applies your Rage bonuses/penalties until it ends."
+                ),
+            })
+
+        # You can also add “Fast Movement” / “Illiteracy” as simple text features if you like:
+        if not any("Fast Movement" in f for f in features):
+            features.append("Fast Movement: Increased land speed while not in heavy armor.")
+        if not any("Illiteracy" in f for f in features):
+            features.append("Illiteracy: Cannot read/write unless you spend skill points to learn.")
+
+    # ---- Bard ----
+    elif cls_name == "Bard":
+        cha_mod = _ability_mod(abilities.get("CHA", 10))
+        lvl = int(char.get("level", 1))
+        uses = max(1, cha_mod + (lvl // 2))  # matches: CHA mod + half level (min 1)
+        ensure_resource(char, "Bardic Performance", uses)
+
+        if not any("Bardic Performance" in f for f in features):
+            features.append(
+                "Bardic Performance: Bonus Action. Spend a use to Inspire, Sooth, "
+                "or Hinder as per your performance options."
+            )
+
+        if not any(a.get("name") == "Bardic Performance" for a in actions):
+            actions.append({
+                "name": "Bardic Performance",
+                "resource": "Bardic Performance",
+                "description": (
+                    "Bonus Action: Begin a performance affecting allies/enemies within 30 ft, "
+                    "using your Performance die and consuming 1 use."
+                ),
+            })
+
+        # If you want to mark Bardic Knowledge explicitly:
+        if not any("Bardic Knowledge" in f for f in features):
+            features.append(
+                "Bardic Knowledge: +½ Bard level (min +1) to Knowledge checks; at 6th, all INT-based skills."
+            )
+
+    # ---- Artificer ----
+    elif cls_name == "Artificer":
+        int_mod = _ability_mod(abilities.get("INT", 10))
+        max_points = max(2, 2 * int_mod)  # "twice your Intelligence modifier (minimum 2)"
+        ensure_resource(char, "Crafting Reservoir", max_points)
+
+        if not any("Crafting Reservoir" in f for f in features):
+            features.append(
+                "Crafting Reservoir: Pool of points (max = 2 × INT mod, min 2) used to craft/repair/infuse items."
+            )
+
+        if not any("Infused Tools" in f for f in features):
+            features.append(
+                "Infused Tools: Spend Crafting Reservoir points to infuse a weapon/armor/tools for 8 hours."
+            )
+
+        if not any(a.get("name") == "Infused Tools" for a in actions):
+            actions.append({
+                "name": "Infused Tools",
+                "resource": "Crafting Reservoir",
+                "description": (
+                    "Downtime/Rest Action: Spend Crafting Reservoir points to infuse a weapon, armor, or tools "
+                    "for 8 hours with the appropriate bonuses."
+                ),
+            })
+
+    # Other classes: do nothing for now; we’ll extend this later.
 
 def apply_feats(char: dict, feat_names: list[str]):
     feats = char.setdefault("feats", [])
@@ -828,9 +1403,7 @@ def load_state_blob(blob: Dict[str, Any]):
 
 # ---------------- Dice + Dialogue Utilities ----------------
 def roll_dice(expr: str) -> Tuple[int, str]:
-    """
-    Supports: 2d6+3, d20+5, 1d8-1, 2d4, plain number. Returns (total, breakdown).
-    """
+
     expr = expr.strip().lower().replace(" ", "")
     m = re.fullmatch(r"(?:(\d*)d(\d+))?([+-]\d+)?", expr)
     if not m:
@@ -939,7 +1512,9 @@ EMPTY_CHAR = {
     "skills": {},
     "senses": "",
     "languages": "",
-    "attacks": []  # list of {name, to_hit:int, damage:str, reach/range:opt}
+    "attacks": [],  # list of {name, to_hit:int, damage:str, reach/range:opt}
+    "resources": {}, 
+    "actions": [],    
 }
 
 def coerce_5e_sheet(blob: Dict[str, Any]) -> Dict[str, Any]:
@@ -988,11 +1563,24 @@ def init_builder_state():
         "abilities": {"STR":10,"DEX":10,"CON":10,"INT":10,"WIS":10,"CHA":10},
         "proficiency_bonus": 2,
         "profs": {"saves": [], "skills": [], "weapons": [], "armor": []},
-        "features": [], "feats": [], "spells": [], "equipment": [],
-        "attacks": [], "default_attack_index": 0
+        "features": [],           # textual features
+        "feats": [],
+        "spells": {        # structured spell data
+            "cantrips": [],      # list of names
+            "leveled": {},       # {spell_level: [names]}
+        },
+        "equipment": [],
+        "attacks": [],
+        "default_attack_index": 0,
+        "resources": {},          # e.g. Rage, Bardic Performance, Crafting Reservoir
+        "actions": [],            # structured class actions the UI can show
     })
+
     ss.setdefault("builder_name", "")
-    ss.setdefault("builder_step", 1)  # 1..5 Race, Background, Class, Feats, Equipment
+    # 1..7 = Race, Abilities, Background, Class, Skills, Feats, Equipment
+    ss.setdefault("builder_step", 1)
+    # per-builder temporary store for skill ranks
+    ss.setdefault("builder_skill_ranks", {})
 
 init_builder_state()
 
@@ -1106,7 +1694,7 @@ if st.session_state.boot_mode == "new":
     with t_build:
         st.markdown("### Build Character (Step-by-Step)")
         # reminder: these loaders already exist above; they accept .json or .txt
-        
+
         races = load_srd_races()
         bgs = load_srd_backgrounds()
         classes = load_srd_classes()
@@ -1115,14 +1703,25 @@ if st.session_state.boot_mode == "new":
 
         c = st.session_state.builder_char
         step = st.session_state.builder_step
-        st.progress(step / 5.0, text=f"Step {step} of 5")
+        total_steps = 7
+        st.progress(step / float(total_steps), text=f"Step {step} of {total_steps}")
 
         # Sticky name across steps
         st.text_input("Character Name", key="builder_name")
         if st.session_state.builder_name:
             c["name"] = st.session_state.builder_name
 
-        # STEP 1: Race + Ability Scores
+        # convenience
+        def _get_picked_race():
+            r_pick = st.session_state.get("builder_race_pick", "")
+            if not r_pick:
+                return None, ""
+            rb = next((r for r in races if r.get("name") == r_pick), None)
+            return rb, r_pick
+
+        # ------------------------------------------------------
+        # STEP 1: Race
+        # ------------------------------------------------------
         if step == 1:
             st.subheader("Step 1: Choose Race")
             race_names = [r.get("name", "") for r in races]
@@ -1132,8 +1731,26 @@ if st.session_state.boot_mode == "new":
                 with st.expander("Race Details", expanded=False):
                     st.write(next((r for r in races if r.get("name") == r_pick), {}))
 
-            # Ability Scores: roll 4d6 drop lowest or edit manually
-            with st.expander("Ability Scores (4d6 drop lowest)", expanded=False):
+            col = st.columns([1, 1])
+            if col[0].button("Next: Ability Scores", type="primary"):
+                if r_pick:
+                    st.session_state.builder_step = 2
+                    st.toast(f"Race selected: {r_pick}")
+                    st.rerun()
+                else:
+                    st.warning("Please choose a race before continuing.")
+
+            st.caption("SRD races source: " + str(st.session_state.get("srd_races_path", "(not found)")))
+
+        # ------------------------------------------------------
+        # STEP 2: Ability Scores (4d6, plus racial totals preview)
+        # ------------------------------------------------------
+        if step == 2:
+            st.subheader("Step 2: Ability Scores")
+
+            race_blob, r_pick = _get_picked_race()
+
+            with st.expander("Ability Scores (4d6 drop lowest)", expanded=True):
                 abilities = c.setdefault(
                     "abilities",
                     {"STR": 10, "DEX": 10, "CON": 10, "INT": 10, "WIS": 10, "CHA": 10},
@@ -1145,28 +1762,82 @@ if st.session_state.boot_mode == "new":
                         abilities[key] = val
                     st.toast(f"Rolled scores: {scores}")
 
+                # BASE editable scores
                 col1, col2, col3 = st.columns(3)
-                abilities["STR"] = int(col1.number_input("STR", 3, 20, int(abilities.get("STR", 10)), key="builder_STR"))
-                abilities["DEX"] = int(col2.number_input("DEX", 3, 20, int(abilities.get("DEX", 10)), key="builder_DEX"))
-                abilities["CON"] = int(col3.number_input("CON", 3, 20, int(abilities.get("CON", 10)), key="builder_CON"))
+                abilities["STR"] = int(col1.number_input("STR (Base)", 3, 20, int(abilities.get("STR", 10)), key="builder_STR_base"))
+                abilities["DEX"] = int(col2.number_input("DEX (Base)", 3, 20, int(abilities.get("DEX", 10)), key="builder_DEX_base"))
+                abilities["CON"] = int(col3.number_input("CON (Base)", 3, 20, int(abilities.get("CON", 10)), key="builder_CON_base"))
 
                 col4, col5, col6 = st.columns(3)
-                abilities["INT"] = int(col4.number_input("INT", 3, 20, int(abilities.get("INT", 10)), key="builder_INT"))
-                abilities["WIS"] = int(col5.number_input("WIS", 3, 20, int(abilities.get("WIS", 10)), key="builder_WIS"))
-                abilities["CHA"] = int(col6.number_input("CHA", 3, 20, int(abilities.get("CHA", 10)), key="builder_CHA"))
+                abilities["INT"] = int(col4.number_input("INT (Base)", 3, 20, int(abilities.get("INT", 10)), key="builder_INT_base"))
+                abilities["WIS"] = int(col5.number_input("WIS (Base)", 3, 20, int(abilities.get("WIS", 10)), key="builder_WIS_base"))
+                abilities["CHA"] = int(col6.number_input("CHA (Base)", 3, 20, int(abilities.get("CHA", 10)), key="builder_CHA_base"))
 
-            if st.button("Apply Race", type="primary"):
-                if r_pick:
-                    apply_race(c, next(r for r in races if r.get("name") == r_pick))
-                    st.session_state.builder_step = 2
-                    st.toast(f"Race applied: {r_pick}")
+                # --- compute racial bonuses without mutating the character ---
+                race_bonus = {k: 0 for k in ["STR", "DEX", "CON", "INT", "WIS", "CHA"]}
+            
+            if race_blob:
+                ab = race_blob.get("ability_bonuses") or {}
+                # 5e SRD style: list of {"ability_score": {"index": "con", "name": "CON"}, "bonus": 2}
+                if isinstance(ab, list):
+                    for entry in ab:
+                        if not isinstance(entry, dict):
+                            continue
+                        key = None
+                        if "name" in entry:
+                            key = str(entry["name"]).upper()
+                        if not key and isinstance(entry.get("ability_score"), dict):
+                            as_obj = entry["ability_score"]
+                            key = (as_obj.get("name") or as_obj.get("index") or "").upper()
+                        bonus = int(entry.get("bonus", 0))
+                        if key in race_bonus:
+                            race_bonus[key] += bonus
+                # simple dict style: {"STR": 2, "CON": 2}
+                elif isinstance(ab, dict):
+                    for k, v in ab.items():
+                        key = str(k).upper()
+                        if key in race_bonus:
+                            race_bonus[key] += int(v)
+
+            # build totals for all six abilities first
+            totals = {}
+            for abbr in ["STR", "DEX", "CON", "INT", "WIS", "CHA"]:
+                base = int(abilities.get(abbr, 10))
+                totals[abbr] = base + int(race_bonus.get(abbr, 0))
+
+            # now it's safe to reference all of them in the UI
+            st.markdown("**Final Ability Totals (with Race)**")
+            t1, t2, t3 = st.columns(3)
+            t1.number_input("STR (Total)", 1, 30, totals["STR"], key="builder_STR_total", disabled=True)
+            t2.number_input("DEX (Total)", 1, 30, totals["DEX"], key="builder_DEX_total", disabled=True)
+            t3.number_input("CON (Total)", 1, 30, totals["CON"], key="builder_CON_total", disabled=True)
+
+            t4, t5, t6 = st.columns(3)
+            t4.number_input("INT (Total)", 1, 30, totals["INT"], key="builder_INT_total", disabled=True)
+            t5.number_input("WIS (Total)", 1, 30, totals["WIS"], key="builder_WIS_total", disabled=True)
+            t6.number_input("CHA (Total)", 1, 30, totals["CHA"], key="builder_CHA_total", disabled=True)
+
+            # Navigation buttons
+            col = st.columns([1, 1])
+            if col[0].button("Back", key="abilities_back"):
+                st.session_state.builder_step = 1
+                st.rerun()
+
+            if col[1].button("Apply Race & Continue to Background", type="primary"):
+                if not r_pick or not race_blob:
+                    st.warning("Please choose a race in Step 1 first.")
+                else:
+                    # apply_race mutates c["abilities"] to include these racial bonuses
+                    apply_race(c, race_blob)
+                    st.session_state.builder_step = 3
+                    st.toast("Ability scores applied and race bonuses added.")
                     st.rerun()
 
-            st.caption("SRD races source: " + str(st.session_state.get("srd_races_path", "(not found)")))
-
-        # STEP 2: Background
-        if step == 2:
-            st.subheader("Step 2: Choose Background")
+        # ------------------------------------------------------
+        # STEP 3: Background
+        # ------------------------------------------------------
+        if step == 3:
+            st.subheader("Step 3: Choose Background")
             bg_names = [b.get("name", "") for b in bgs]
             b_pick = st.selectbox("Background", bg_names, key="builder_bg_pick")
 
@@ -1175,20 +1846,22 @@ if st.session_state.boot_mode == "new":
                     st.write(next((b for b in bgs if b.get("name") == b_pick), {}))
 
             col = st.columns([1, 1])
-            if col[0].button("Back"):
-                st.session_state.builder_step = 1
+            if col[0].button("Back", key="bg_back"):
+                st.session_state.builder_step = 2
                 st.rerun()
 
             if col[1].button("Apply Background", type="primary"):
                 if b_pick:
                     apply_background(c, next(b for b in bgs if b.get("name") == b_pick))
-                    st.session_state.builder_step = 3
+                    st.session_state.builder_step = 4
                     st.toast(f"Background applied: {b_pick}")
                     st.rerun()
 
-        # STEP 3: Class
-        if step == 3:
-            st.subheader("Step 3: Choose Class (Level 1)")
+        # ------------------------------------------------------
+        # STEP 4: Class
+        # ------------------------------------------------------
+        if step == 4:
+            st.subheader("Step 4: Choose Class (Level 1)")
             cls_names = [x.get("name", "") for x in classes]
             c_pick = st.selectbox("Class", cls_names, key="builder_class_pick")
             kit_idx = 0
@@ -1209,40 +1882,164 @@ if st.session_state.boot_mode == "new":
 
             col = st.columns([1, 1])
             if col[0].button("Back  ", key="class_back"):
-                st.session_state.builder_step = 2
+                st.session_state.builder_step = 3
                 st.rerun()
 
             if col[1].button("Apply Class", type="primary"):
                 if c_pick:
+                    cls_blob = next(x for x in classes if x.get("name") == c_pick)
                     apply_class_level1(
                         c,
-                        next(x for x in classes if x.get("name") == c_pick),
+                        cls_blob,
                         kit_idx=int(st.session_state.get("builder_class_kit_idx", 0)),
                     )
-                    st.session_state.builder_step = 4
-                    st.toast(f"Class applied: {c_pick}")
-                    st.rerun()
+                    # NEW: initialize level 1 class resources/actions for Barbarian, Bard, Artificer
+                    add_level1_class_resources_and_actions(c)
 
-        # STEP 4: Feats
-        if step == 4:
-            st.subheader("Step 4: Choose Feats (Optional)")
+                    st.session_state.builder_step = 5
+                    st.rerun()
+                else:
+                    st.warning("Please choose a class before applying it.")
+
+        # ------------------------------------------------------
+        # STEP 5: Skills (uses class skill points + INT mod)
+        # ------------------------------------------------------
+        if step == 5:
+            st.subheader("Step 5: Assign Skills")
+
+            c_pick = st.session_state.get("builder_class_pick", "")
+            cls_blob = next((x for x in classes if x.get("name") == c_pick), None) if c_pick else None
+
+            if not cls_blob:
+                st.warning("Please choose and apply a class in Step 4 first.")
+            else:
+                # --------- figure out the class's skill list ----------
+                # Try several possible keys so we work with different JSON formats
+                skill_list = []
+                for key in ["skill_list", "skills", "class_skills", "trained_skills"]:
+                    val = cls_blob.get(key)
+                    if isinstance(val, list) and val:
+                        skill_list = [str(s) for s in val]
+                        break
+
+                if not skill_list:
+                    st.warning("This class has no skill list defined. "
+                            "Check your SRD_Classes.json for a 'skill_list' or similar field.")
+                else:
+                    # --------- figure out how many skill points we have ----------
+                    raw_sp = str(cls_blob.get("skill_points_per_level", "") or cls_blob.get("skill_points", "0"))
+                    import re as _re
+                    m = _re.search(r"(\d+)", raw_sp)
+                    base_points = int(m.group(1)) if m else 0
+
+                    # If the class JSON doesn't have skill points, use a fallback (e.g. 2 + INT)
+                    if base_points == 0:
+                        base_points = 2  # tweak this default
+
+                    int_score = int(c.get("abilities", {}).get("INT", 10))
+                    int_mod = _ability_mod(int_score)
+                    total_points = max(1, base_points + int_mod)
+
+                    st.markdown(
+                        f"Class skill points: **{base_points} + INT mod ({int_mod:+d}) = {total_points}**"
+                    )
+
+                    # --------- rank inputs ----------
+                    ranks_state = st.session_state.builder_skill_ranks
+                    for sk in skill_list:
+                        ranks_state.setdefault(sk, 0)
+
+                    cols = st.columns(3)
+                    spent = 0
+                    for i, sk in enumerate(skill_list):
+                        col = cols[i % 3]
+                        current = int(ranks_state.get(sk, 0))
+                        new_val = col.number_input(
+                            sk,
+                            min_value=0,
+                            max_value=10,
+                            value=current,
+                            key=f"skill_rank_{sk}",
+                        )
+                        ranks_state[sk] = new_val
+                        spent += new_val
+
+                    st.markdown(f"**Skill points spent:** {spent} / {total_points}")
+                    if spent > total_points:
+                        st.error("You have spent more skill points than available.")
+
+            col = st.columns([1, 1])
+            if col[0].button("Back   ", key="skills_back"):
+                st.session_state.builder_step = 4
+                st.rerun()
+
+            if col[1].button("Apply Skills", type="primary"):
+                if not cls_blob:
+                    st.warning("You must choose a class in Step 4 first.")
+                else:
+                    # recompute totals for validation
+                    raw_sp = str(cls_blob.get("skill_points_per_level", "") or cls_blob.get("skill_points", "0"))
+                    import re as _re
+                    m = _re.search(r"(\d+)", raw_sp)
+                    base_points = int(m.group(1)) if m else 0
+                    if base_points == 0:
+                        base_points = 2
+
+                    int_score = int(c.get("abilities", {}).get("INT", 10))
+                    int_mod = _ability_mod(int_score)
+                    total_points = max(1, base_points + int_mod)
+
+                    # same logic to discover skill list
+                    skill_list = []
+                    for key in ["skill_list", "skills", "class_skills", "trained_skills"]:
+                        val = cls_blob.get(key)
+                        if isinstance(val, list) and val:
+                            skill_list = [str(s) for s in val]
+                            break
+
+                    ranks_state = st.session_state.builder_skill_ranks
+                    spent = sum(int(ranks_state.get(sk, 0)) for sk in skill_list)
+
+                    if spent > total_points:
+                        st.error("Too many points spent; reduce some ranks before continuing.")
+                    else:
+                        # write to character
+                        skills_dict = c.setdefault("skills", {})
+                        prof_skills = set(c.setdefault("profs", {}).setdefault("skills", []))
+                        for sk in skill_list:
+                            r = int(ranks_state.get(sk, 0))
+                            if r > 0:
+                                skills_dict[sk] = r
+                                prof_skills.add(sk)
+                        c["profs"]["skills"] = sorted(prof_skills)
+                        st.session_state.builder_step = 6
+                        st.toast("Skills applied.")
+                        st.rerun()
+
+        # ------------------------------------------------------
+        # STEP 6: Feats
+        # ------------------------------------------------------
+        if step == 6:
+            st.subheader("Step 6: Choose Feats (Optional)")
             feat_names = [f.get("name", "") if isinstance(f, dict) else str(f) for f in feats_db]
             chosen = st.multiselect("Feats", feat_names, key="builder_feats_multi")
 
             col = st.columns([1, 1])
-            if col[0].button("Back   ", key="feats_back"):
-                st.session_state.builder_step = 3
+            if col[0].button("Back    ", key="feats_back"):
+                st.session_state.builder_step = 5
                 st.rerun()
 
             if col[1].button("Apply Feats", type="primary"):
                 apply_feats(c, st.session_state.get("builder_feats_multi", []))
-                st.session_state.builder_step = 5
+                st.session_state.builder_step = 7
                 st.toast("Feats applied.")
                 st.rerun()
 
-        # STEP 5: Equipment
-        if step == 5:
-            st.subheader("Step 5: Add Equipment (Optional)")
+        # ------------------------------------------------------
+        # STEP 7: Equipment
+        # ------------------------------------------------------
+        if step == 7:
+            st.subheader("Step 7: Add Equipment (Optional)")
             item_names = [i.get("name", "") if isinstance(i, dict) else str(i) for i in equip_db]
             extras = st.multiselect("Add items", item_names, key="builder_items_multi")
 
@@ -1253,14 +2050,17 @@ if st.session_state.boot_mode == "new":
                         eq.add(it)
                 c["equipment"] = sorted(eq)
                 c["ac"] = compute_ac_from_equipment(c)
+
+                sync_attacks_from_equipment(c)
+
                 st.toast("Items added.")
 
             col = st.columns([1, 1, 2])
-            if col[0].button("Back    ", key="equip_back"):
-                st.session_state.builder_step = 4
+            if col[0].button("Back     ", key="equip_back"):
+                st.session_state.builder_step = 6
+                st.rerun()
 
             if col[1].button("Reset Builder"):
-                # reminder: keep a quick way to clear if users want to start fresh
                 st.session_state.builder_char = {
                     "name": "",
                     "level": 1,
@@ -1280,19 +2080,22 @@ if st.session_state.boot_mode == "new":
                     "equipment": [],
                     "attacks": [],
                     "default_attack_index": 0,
+                    "resources": {},   # NEW
+                    "actions": [],   
                 }
                 st.session_state.builder_name = ""
                 st.session_state.builder_step = 1
+                st.session_state.builder_skill_ranks = {}
                 st.toast("Cleared working character.")
 
             if col[2].button("Add to Party", type="primary"):
                 if not c.get("name"):
                     st.warning("Please set a character name.")
                 else:
-                    st.session_state.party.append(json.loads(json.dumps(c)))  # deep copy
+                    st.session_state.party.append(json.loads(json.dumps(c)))
                     st.success(f"Added to party: {c['name']}")
                     # stay on setup page; builder remains for creating another character
-
+            
         st.markdown("---")
         st.markdown("#### Preview")
         st.json(st.session_state.builder_char)
@@ -1303,25 +2106,49 @@ if st.session_state.boot_mode == "new":
         else:
             for i, c in enumerate(st.session_state.party):
                 box = st.container(border=True)
-                h1, h2, h3, h4 = box.columns([4, 2, 2, 2])
-                with h1:
+                t1, t2, t3, t4 = box.columns([4, 2, 2, 2])
+
+                with t1:
                     st.markdown(f"**{c.get('name','')}**")
-                with h2:
-                    c["ac"] = int(st.number_input("AC", 0, 40, int(c.get("ac", 10)), key=f"p_ac_{i}"))
-                with h3:
-                    c["hp"] = int(st.number_input("HP", 0, 500, int(c.get("hp", 10)), key=f"p_hp_{i}"))
-                with h4:
-                    if st.button("Remove", key=f"p_rm_{i}"):
+                with t2:
+                    c["ac"] = int(
+                        st.number_input(
+                            "AC", 0, 40, int(c.get("ac", 10)), key=f"run_p_ac_{i}"
+                        )
+                    )
+                with t3:
+                    c["hp"] = int(
+                        st.number_input(
+                            "HP", 0, 500, int(c.get("hp", 10)), key=f"run_p_hp_{i}"
+                        )
+                    )
+                with t4:
+                    if st.button("Remove", key=f"run_p_rm_{i}"):
                         del st.session_state.party[i]
                         st.rerun()
-                with box.expander("Details"):
-                    a = c.get("abilities", {})
-                    st.write(f"Speed: {c.get('speed','')}")
-                    st.write("Abilities:", a)
-                    st.write("Attacks:", c.get("attacks", []))
+
+                # Determine if this party member is the active turn
+                is_active_pc = False
+                if st.session_state.in_combat:
+                    ent = current_turn()
+                    if ent and ent.get("kind") == "party" and ent.get("idx") == i:
+                        is_active_pc = True
+
+                # Attacks panel – always visible, but marked if it's not their turn
+                with box.expander("Attacks"):
+                    attacks = c.get("attacks", [])
+                    if not attacks:
+                        st.write("No attacks listed.")
+                    else:
+                        for a in attacks:
+                            st.write(a)
+
+                    if st.session_state.in_combat and not is_active_pc:
+                        st.caption("Waiting for this character's turn.")
 
         st.markdown("#### Enemies")
         with st.container(border=True):
+            
             # Manual entry
             e1, e2, e3, e4, e5 = st.columns([4, 2, 2, 2, 2])
             e_name = e1.text_input("Name", key="e_name")
@@ -1355,10 +2182,14 @@ if st.session_state.boot_mode == "new":
                         for i in range(int(srd_count)):
                             st.session_state.enemies.append(
                                 {
+                                    # Display name can have #1, #2, etc.
                                     "name": f"{src['name']}" if srd_count == 1 else f"{src['name']} #{i+1}",
+                                    # Remember the original SRD name so we can look it up later
+                                    "src": src["name"],
                                     "ac": int(src.get("ac", 10)),
                                     "hp": int(src.get("hp", 10)),
-                                    "attacks": src.get("attacks", []),
+                                    # Use the normalized SRD actions as attacks too (for auto-rolling)
+                                    "attacks": src.get("actions", []),
                                 }
                             )
                         st.success(f"Added {int(srd_count)} × {srd_name}")
@@ -1405,20 +2236,103 @@ with left:
     else:
         for i, c in enumerate(st.session_state.party):
             box = st.container(border=True)
-            t1, t2, t3, t4 = box.columns([4,2,2,2])
-            with t1: st.markdown(f"**{c.get('name','')}**")
-            with t2: c["ac"] = int(st.number_input("AC", 0, 40, int(c.get("ac",10)), key=f"run_p_ac_{i}"))
-            with t3: c["hp"] = int(st.number_input("HP", 0, 500, int(c.get("hp",10)), key=f"run_p_hp_{i}"))
+            t1, t2, t3, t4 = box.columns([4, 2, 2, 2])
+
+            with t1:
+                st.markdown(f"**{c.get('name','')}**")
+            with t2:
+                c["ac"] = int(
+                    st.number_input(
+                        "AC", 0, 40, int(c.get("ac", 10)), key=f"run_p_ac_{i}"
+                    )
+                )
+            with t3:
+                c["hp"] = int(
+                    st.number_input(
+                        "HP", 0, 500, int(c.get("hp", 10)), key=f"run_p_hp_{i}"
+                    )
+                )
             with t4:
                 if st.button("Remove", key=f"run_p_rm_{i}"):
-                    del st.session_state.party[i]; st.rerun()
+                    del st.session_state.party[i]
+                    st.rerun()
+
+            # Is this the active turn PC?
+            is_active_pc = False
+            if st.session_state.in_combat:
+                ent = current_turn()
+                if ent and ent.get("kind") == "party" and ent.get("idx") == i:
+                    is_active_pc = True
+
+            # --- Attacks panel for this party member ---
             with box.expander("Attacks"):
-                attacks = c.get("attacks", [])
+                attacks = c.get("attacks") or []
                 if not attacks:
-                    st.write("No attacks listed.")
+                    st.caption("No attacks listed.")
                 else:
                     for a in attacks:
-                        st.write(a)
+                        name = a.get("name", "Attack")
+                        to_hit = a.get("to_hit", a.get("attack_bonus", 0))
+                        dmg = a.get("damage", "?")
+                        dmg_type = a.get("damage_type", "")
+                        if dmg_type:
+                            st.write(f"{name}: +{to_hit} to hit, {dmg} {dmg_type}")
+                        else:
+                            st.write(f"{name}: +{to_hit} to hit, {dmg}")
+
+                if st.session_state.in_combat and not is_active_pc:
+                    st.caption("Waiting for this character's turn.")
+
+            # --- Actions & Resources ---
+            with box.expander("Actions & Resources"):
+                resources = c.get("resources", {}) or {}
+                if resources:
+                    st.markdown("**Resources**")
+                    for rname, rdata in resources.items():
+                        rc1, rc2, rc3 = st.columns([3, 2, 2])
+                        current = int(rdata.get("current", 0))
+                        max_val = int(rdata.get("max", 0))
+
+                        with rc1:
+                            st.markdown(f"{rname}: **{current} / {max_val}**")
+                        with rc2:
+                            if st.button(
+                                f"Use {rname}", key=f"use_res_{i}_{rname}"
+                            ):
+                                if current > 0:
+                                    current -= 1
+                                    st.session_state.party[i].setdefault(
+                                        "resources", {}
+                                    )[rname]["current"] = current
+                                    st.toast(
+                                        f"{c.get('name','')} uses {rname}! "
+                                        f"({current}/{max_val} left)"
+                                    )
+                                else:
+                                    st.warning(
+                                        f"{c.get('name','')} has no {rname} uses left."
+                                    )
+                        with rc3:
+                            if st.button(
+                                "Reset", key=f"reset_res_{i}_{rname}"
+                            ):
+                                st.session_state.party[i].setdefault(
+                                    "resources", {}
+                                )[rname]["current"] = max_val
+                                st.toast(
+                                    f"{rname} reset to full for {c.get('name','')}."
+                                )
+
+                actions = c.get("actions", []) or []
+                if actions:
+                    st.markdown("**Actions**")
+                    for a in actions:
+                        line = f"- **{a.get('name','Unnamed')}**"
+                        if a.get("resource"):
+                            line += f" _(uses {a['resource']})_"
+                        st.markdown(line)
+                        if a.get("description"):
+                            st.caption(a["description"])
 
 # ===== MIDDLE: Encounter + Attack Roller + Chat =====
 with mid:
@@ -1436,18 +2350,47 @@ with mid:
             with h4:
                 if st.button("Remove", key=f"e_rm_{i}"):
                     del st.session_state.enemies[i]; st.rerun()
-            with card.expander("Stat & Actions"):
-                # Show SRD stat if present
-                sb = next((m for m in st.session_state.get("srd_enemies", []) if m.get("name") == e.get("name") or m.get("name") == e.get("src")), None)
-                if sb:
-                    # tolerant renderer
-                    name = sb.get("name","Unknown"); ac = sb.get("ac","—"); hp = sb.get("hp","—")
-                    st.write(f"{name}: AC {ac}, HP {hp}")
-                    # reminder: JSON entries may be partial; for full block see Bestiary browser.
-                else:
-                    st.write(e)
+            with box.expander("Stat & Actions"):
+                name = e.get("name", "Enemy")
+                ac = e.get("ac", 10)
+                hp = e.get("hp", 10)
+                st.write(f"{name}: AC {ac}, HP {hp}")
 
-    # ---------------- Combat / Turn Tracker (ADD-ONLY) ----------------
+                # Look up SRD entry (by name or src)
+                srd = next(
+                    (
+                        m
+                        for m in st.session_state.get("srd_enemies", [])
+                        if m.get("name") == name or m.get("name") == e.get("src")
+                    ),
+                    None,
+                )
+
+                if srd:
+                    actions = srd.get("actions", []) or []
+                    if actions:
+                        st.markdown("**Actions**")
+                        for a in actions:
+                            aname = a.get("name", "Action")
+                            to_hit = a.get("to_hit", a.get("attack_bonus", 0))
+                            dmg = a.get("damage", "1d6")
+                            dmg_type = a.get("damage_type", "")
+                            line = f"- **{aname}**: +{to_hit} to hit, {dmg}"
+                            if dmg_type:
+                                line += f" {dmg_type}"
+                            st.markdown(line)
+
+                    specials = srd.get("special_abilities", []) or []
+                    if specials:
+                        st.markdown("**Special Abilities**")
+                        for sa in specials:
+                            st.markdown(
+                                f"- **{sa.get('name','')}**: {sa.get('desc','')}"
+                            )
+                else:
+                    st.caption("No SRD data found for this monster.")
+
+# ---------------- Combat / Turn Tracker ----------------
 st.markdown("### Combat Tracker")
 
 cA, cB, cC = st.columns([2,1,1])
@@ -1486,89 +2429,158 @@ if st.session_state.initiative_order:
         st.write(f"{marker} {ent['name']} — Init {ent['init']} (DEX mod {ent['dex_mod']})")
 
     st.markdown("#### Attack Roller")
-    # Choose attacker (from enemies for now; could add PCs later)
-    attackers = [(f"{idx+1}. {e['name']}", idx) for idx, e in enumerate(st.session_state.enemies)]
-    if attackers:
-        label_list = [lab for lab, _ in attackers]
-        atk_choice = st.selectbox("Attacker", label_list)
-        idx = dict(attackers)[atk_choice]
-        att = st.session_state.enemies[idx]
+
+    # Only active on an ENEMY turn
+ent = current_turn()
+if not (st.session_state.in_combat and ent and ent.get("kind") == "enemy"):
+    st.caption("Attack Roller is only available on an enemy's turn.")
+else:
+    enemy_idx = ent.get("idx")
+    if enemy_idx is None or enemy_idx >= len(st.session_state.enemies):
+        st.warning("Active enemy not found in enemies list.")
+    else:
+        att = st.session_state.enemies[enemy_idx]
 
         # Actions from SRD if available
-        sb = next((m for m in st.session_state.get("srd_enemies", []) if m.get("name") == att.get("name") or m.get("name") == att.get("src")), None)
+        sb = next(
+            (
+                m
+                for m in st.session_state.get("srd_enemies", [])
+                if m.get("name") == att.get("name")
+                or m.get("name") == att.get("src")
+            ),
+            None,
+        )
         actions = sb.get("actions", []) if sb else []
-        action_names = [a.get("name","Action") for a in actions] + (["(Custom)"] if True else [])
-        act = st.selectbox("Action", action_names, key="atk_act_sel")
+        action_names = [a.get("name", "Action") for a in actions] + ["(Custom)"]
+
+        act = st.selectbox(
+            "Action",
+            action_names,
+            key=f"atk_act_sel_enemy_{enemy_idx}",
+        )
 
         if act == "(Custom)":
-            to_hit = st.number_input("To-Hit Bonus", -10, 20, 0, key="atk_custom_to")
-            dmg = st.text_input("Damage Dice", value="1d6", key="atk_custom_dmg")
+            to_hit = st.number_input(
+                "To-Hit Bonus",
+                -10,
+                20,
+                0,
+                key=f"atk_custom_to_enemy_{enemy_idx}",
+            )
+            dmg = st.text_input(
+                "Damage Dice",
+                value="1d6",
+                key=f"atk_custom_dmg_enemy_{enemy_idx}",
+            )
         else:
-            aobj = next((a for a in actions if a.get("name")==act), None)
+            aobj = next((a for a in actions if a.get("name") == act), None)
             to_hit = int(aobj.get("to_hit", 0)) if aobj else 0
             dmg = aobj.get("damage", "1d6") if aobj else "1d6"
 
-        target_ac = st.number_input("Target AC", 0, 40, 13, key="atk_target_ac")
-        if st.button("Roll Attack"):
-            d20 = random.randint(1,20)
+        # Target AC and which PC is being attacked
+        target_ac = st.number_input(
+            "Target AC",
+            0,
+            40,
+            13,
+            key=f"atk_target_ac_enemy_{enemy_idx}",
+        )
+
+        party = st.session_state.party
+        if party:
+            target_idx = st.selectbox(
+                "Target",
+                list(range(len(party))),
+                format_func=lambda i: party[i].get("name", f"PC {i+1}"),
+                key=f"atk_target_idx_enemy_{enemy_idx}",
+            )
+        else:
+            target_idx = None
+
+        if st.button("Roll Attack", key=f"atk_roll_btn_enemy_{enemy_idx}"):
+            d20 = random.randint(1, 20)
             total = d20 + to_hit
             hit = total >= int(target_ac)
-            st.write(f"To-Hit: d20({d20}) + {to_hit} = **{total}** vs AC {target_ac} → {'**HIT**' if hit else '**MISS**'}")
-            st.session_state.chat_log.append(("System", f"{att.get('name','Attacker')} attacks → {total} vs AC {target_ac} → {'HIT' if hit else 'MISS'}"))
+
+            st.write(
+                f"To-Hit: d20({d20}) + {to_hit} = **{total}** "
+                f"vs AC {target_ac} → {'**HIT**' if hit else '**MISS**'}"
+            )
+
+            st.session_state.chat_log.append(
+                (
+                    "System",
+                    f"{att.get('name','Attacker')} attacks → {total} "
+                    f"vs AC {target_ac} → {'HIT' if hit else 'MISS'}",
+                )
+            )
+
             if hit:
                 dmg_total, breakdown = roll_dice(dmg)
                 st.write(f"Damage: {dmg} → **{dmg_total}** ({breakdown})")
-                st.session_state.chat_log.append(("System", f"Damage: {dmg} → {dmg_total} ({breakdown})"))
-    else:
-        st.caption("No attackers available.")
 
-    st.markdown("#### Chat")
-    chat_box = st.container(border=True)
-    with chat_box:
-        c1, c2 = st.columns([6,1])
-        with c1:
-            user_msg = st.text_input("Type a message (e.g., 'attack the goblin', '/roll 2d6+1', 'talk about surrender')", key="chat_input")
-        with c2:
-            send = st.button("Send")
-        if send and (msg := user_msg.strip()):
-            # always record the player's message first
-            st.session_state.chat_log.append(("Player", msg))
+                # apply damage to the chosen PC
+                if target_idx is not None and 0 <= target_idx < len(party):
+                    target_pc = party[target_idx]
+                    before = int(target_pc.get("hp", 0))
+                    after = max(0, before - int(dmg_total))
+                    st.session_state.party[target_idx]["hp"] = after
 
-            # 1) First try to auto-resolve as a combat attack using the current actor
-            result = resolve_attack(msg)
+                    st.write(
+                        f"{target_pc.get('name','Target')} takes **{dmg_total}** damage "
+                        f"and is now at **{after} HP** (was {before})."
+                    )
 
-            if result is not None:
-                st.session_state.chat_log.append(("System", result))
-                # reminder: you can call next_turn() here later for auto-advance
+                    st.session_state.chat_log.append(
+                        (
+                            "System",
+                            f"{att.get('name','Attacker')} deals {dmg_total} damage "
+                            f"to {target_pc.get('name','Target')} ({before} → {after} HP).",
+                        )
+                    )
+
+# ---- Chat is now always visible, regardless of whose turn it is ----
+st.markdown("#### Chat")
+chat_box = st.container(border=True)
+with chat_box:
+    c1, c2 = st.columns([6,1])
+    with c1:
+        user_msg = st.text_input(
+            "Type a message (e.g., 'attack the goblin', '/roll 2d6+1', 'talk about surrender')",
+            key="chat_input",
+        )
+    with c2:
+        send = st.button("Send")
+
+    if send and (msg := user_msg.strip()):
+        st.session_state.chat_log.append(("Player", msg))
+
+        result = resolve_attack(msg)
+        if result is not None:
+            st.session_state.chat_log.append(("System", result))
+        else:
+            skill_result = resolve_skill_check(msg)
+            if skill_result is not None:
+                st.session_state.chat_log.append(("System", skill_result))
             else:
-                # 2) If it's not an attack, see if it looks like a skill-based action
-                skill_result = resolve_skill_check(msg)
+                reply = reply_for(msg)
+                if not msg.lower().startswith("/roll") and "roll " in msg.lower():
+                    more = extract_inline_rolls(msg)
+                    if more:
+                        lines = []
+                        for d in more:
+                            t, br = roll_dice(d)
+                            lines.append(f"• {d}: {br}")
+                        reply += "\n\nInline rolls:\n" + "\n".join(lines)
+                st.session_state.chat_log.append(("DM", reply))
 
-                if skill_result is not None:
-                    st.session_state.chat_log.append(("System", skill_result))
-                else:
-                    # 3) Fall back to the normal DM-style dialogue / utility behavior
-                    reply = reply_for(msg)
-
-                    # inline rolls not using '/roll'
-                    if not msg.lower().startswith("/roll") and "roll " in msg.lower():
-                        more = extract_inline_rolls(msg)
-                        if more:
-                            lines = []
-                            for d in more:
-                                t, br = roll_dice(d)
-                                lines.append(f"• {d}: {br}")
-                            reply += "\n\nInline rolls:\n" + "\n".join(lines)
-
-                    st.session_state.chat_log.append(("DM", reply))
-            
-        # reminder: for very long sessions, consider paging or showing last N per “turn”. 
-        # this already is being an issue and needs resolved next. Stop forgetting.
-        for speaker, text in st.session_state.chat_log[-60:]:
-            if "\n" in text:
-                st.markdown(f"**{speaker}:**\n{text}")
-            else:
-                st.markdown(f"**{speaker}:** {text}")
+    for speaker, text in st.session_state.chat_log[-60:]:
+        if "\n" in text:
+            st.markdown(f"**{speaker}:**\n{text}")
+        else:
+            st.markdown(f"**{speaker}:** {text}")               
+    
 
 # ===== RIGHT: Controls =====
 with right:
@@ -1613,6 +2625,7 @@ with right:
                         for i in range(int(count)):
                             st.session_state.enemies.append({
                                 "name": f"{src['name']}" if count == 1 else f"{src['name']} #{i+1}",
+                                "src": src["name"],
                                 "ac": int(src.get("ac", 10)),
                                 "hp": int(src.get("hp", 10)),
                                 "attacks": src.get("attacks", [])
