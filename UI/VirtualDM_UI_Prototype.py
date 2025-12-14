@@ -177,7 +177,7 @@ def _norm_monster(m: dict) -> dict:
     }
 
 def load_srd_monsters():
-    """Load SRD monsters from JSON, normalizing action fields."""
+    """Load SRD monsters from JSON and normalize into a consistent schema."""
     if "srd_enemies" not in st.session_state:
         st.session_state.srd_enemies = []
     if "srd_enemies_path" not in st.session_state:
@@ -188,29 +188,164 @@ def load_srd_monsters():
         os.path.join(base_dir, "..", "data", "SRD_Monsters.json"),
         os.path.join(base_dir, "SRD_Monsters.json"),
     ]
+
     path = None
     for p in candidates:
         if os.path.exists(p):
             path = p
             break
 
+    st.session_state.srd_enemies_path = path or ""
     if not path:
         st.session_state.srd_enemies = []
-        st.session_state.srd_enemies_path = "(not found)"
-        return []
+        return
 
     try:
-        # use cached loader if you already added _read_json_file;
-        # otherwise you can swap to normal json.load(open(...))
-        data = _read_json_file(path)
-    except Exception as e:
-        st.warning(f"Failed to load SRD monsters: {e}")
+        with open(path, "r", encoding="utf-8") as f:
+            raw = json.load(f)
+    except Exception:
         st.session_state.srd_enemies = []
-        st.session_state.srd_enemies_path = path
-        return []
+        return
+
+    # Some files are dict-wrapped; normalize to a list
+    if isinstance(raw, dict):
+        # common wrappers
+        raw = raw.get("monsters") or raw.get("data") or raw.get("results") or list(raw.values())
+
+    if not isinstance(raw, list):
+        st.session_state.srd_enemies = []
+        return
+
+    def _first_int(val, default=0):
+        if val is None:
+            return default
+        if isinstance(val, int):
+            return val
+        if isinstance(val, float):
+            return int(val)
+        s = str(val)
+        m = re.search(r"-?\d+", s)
+        return int(m.group(0)) if m else default
+
+    def _extract_ac(mon: dict) -> int:
+        # 5e API style
+        ac = mon.get("armor_class")
+        if isinstance(ac, int):
+            return ac
+        if isinstance(ac, list) and ac:
+            # e.g. [{"type":"natural","value":15}]
+            if isinstance(ac[0], dict):
+                return _first_int(ac[0].get("value"), 10)
+            return _first_int(ac[0], 10)
+        if isinstance(ac, dict):
+            return _first_int(ac.get("value"), 10)
+
+        # Your SRD text style: "Armor Class": "15 (leather armor, shield)"
+        return _first_int(mon.get("Armor Class"), 10)
+
+    def _extract_hp(mon: dict) -> int:
+        # 5e API style
+        if "hit_points" in mon:
+            return _first_int(mon.get("hit_points"), 10)
+        # Your SRD text style: "Hit Points": "7 (2d6)"
+        return _first_int(mon.get("Hit Points"), 10)
+
+    def _parse_actions_text(actions_text: str) -> list[dict]:
+        """
+        Best-effort parse of SRD 'Actions' string into list of {name,to_hit,damage}.
+        Handles patterns like:
+        'Scimitar. Melee Weapon Attack: +4 to hit... Hit: 5 (1d6 + 2) slashing damage.'
+        """
+        if not actions_text:
+            return []
+
+        # strip html-ish tags and compress whitespace
+        txt = re.sub(r"<[^>]+>", " ", str(actions_text))
+        txt = re.sub(r"\s+", " ", txt).strip()
+
+        # Split on 'Name.' patterns (e.g., "Scimitar.")
+        chunks = re.split(r"(?<=\.)\s(?=[A-Z][A-Za-z0-9'’\- ]+\.)", txt)
+        parsed = []
+
+        for ch in chunks:
+            # attack/action name is first sentence token before the first period
+            mname = re.match(r"^([A-Z][A-Za-z0-9'’\- ]+)\.", ch)
+            if not mname:
+                continue
+            name = mname.group(1).strip()
+
+            # to hit: "+4 to hit"
+            mto = re.search(r"([+\-]\d+)\s*to hit", ch, re.IGNORECASE)
+            to_hit = int(mto.group(1)) if mto else 0
+
+            # damage dice inside parentheses after Hit:
+            # Hit: 5 (1d6 + 2) slashing damage
+            mdmg = re.search(r"\((\d+d\d+\s*(?:[+\-]\s*\d+)?)\)", ch)
+            dmg = mdmg.group(1).replace(" ", "") if mdmg else ""
+
+            # If no dice found, keep blank; your UI can still show the action name.
+            parsed.append({"name": name, "to_hit": to_hit, "damage": dmg})
+
+        return parsed
+
+    def _extract_actions(mon: dict) -> list[dict]:
+        # 5e API style: list of dicts
+        actions = mon.get("actions")
+        if isinstance(actions, list):
+            out = []
+            for a in actions:
+                if not isinstance(a, dict):
+                    continue
+                name = a.get("name", "Action")
+                to_hit = _first_int(a.get("attack_bonus"), 0)
+
+                # common 5e keys: damage_dice + optional damage_bonus
+                dd = a.get("damage_dice") or ""
+                db = a.get("damage_bonus", 0)
+                if dd:
+                    if isinstance(db, int) and db != 0:
+                        sign = "+" if db > 0 else "-"
+                        dmg = f"{dd}{sign}{abs(db)}"
+                    else:
+                        dmg = str(dd)
+                else:
+                    # sometimes they store a combined 'damage'
+                    dmg = str(a.get("damage", "") or "")
+                out.append({"name": name, "to_hit": int(to_hit), "damage": dmg})
+            return out
+
+        # SRD text style: "Actions" is an HTML-ish string
+        return _parse_actions_text(mon.get("Actions", ""))
+
+    normalized = []
+    for mon in raw:
+        if not isinstance(mon, dict):
+            continue
+
+        nm = mon.get("name") or mon.get("Name") or "Monster"
+
+        ac = _extract_ac(mon)
+        hp = _extract_hp(mon)
+        acts = _extract_actions(mon)
+
+        m2 = dict(mon)  # keep original fields too
+        m2["name"] = nm
+        m2["ac"] = int(ac)
+        m2["hp"] = int(hp)
+        m2["max_hp"] = int(hp)
+        m2["actions"] = acts
+
+        # keep readable text fields for display
+        m2["skills_text"] = mon.get("Skills") or mon.get("skills") or ""
+        m2["senses_text"] = mon.get("Senses") or mon.get("senses") or ""
+        m2["traits_text"] = mon.get("Traits") or mon.get("special_abilities") or ""
+
+        normalized.append(m2)
+
+    st.session_state.srd_enemies = normalized
 
     # --- NORMALIZE MONSTER ACTIONS ---
-    for m in data:
+    for m in raw:
         # ensure lists exist
         m.setdefault("actions", [])
         m.setdefault("special_abilities", [])
@@ -242,46 +377,9 @@ def load_srd_monsters():
                 if "damage_type_name" in a:
                     a["damage_type"] = a["damage_type_name"]
 
-    st.session_state.srd_enemies = data
+    st.session_state.srd_enemies = normalized
     st.session_state.srd_enemies_path = path
-    return data
-
-    # --- NORMALIZE MONSTER ACTIONS ---
-    for m in data:
-        # ensure lists exist
-        m.setdefault("actions", [])
-        m.setdefault("special_abilities", [])
-
-        for a in m["actions"]:
-            # attack_bonus -> to_hit
-            if "to_hit" not in a and "attack_bonus" in a:
-                try:
-                    a["to_hit"] = int(a["attack_bonus"])
-                except Exception:
-                    a["to_hit"] = 0
-
-            # normalize damage string
-            if "damage" not in a:
-                dd = a.get("damage_dice")
-                bonus = a.get("damage_bonus", 0)
-                if dd:
-                    if isinstance(bonus, int) and bonus != 0:
-                        sign = "+" if bonus > 0 else "-"
-                        a["damage"] = f"{dd}{sign}{abs(bonus)}"
-                    else:
-                        a["damage"] = dd
-            # default damage if still missing
-            if "damage" not in a:
-                a["damage"] = "1d6"
-
-            # normalize damage_type key if there’s a variant
-            if "damage_type" not in a:
-                if "damage_type_name" in a:
-                    a["damage_type"] = a["damage_type_name"]
-
-    st.session_state.srd_enemies = data
-    st.session_state.srd_enemies_path = path
-    return data
+    return normalized
 
 # ---------------- Combat State + Initiative System ----------------
 
@@ -728,16 +826,6 @@ def resolve_skill_check(text: str) -> str | None:
         lines.append("Result: **Failure**.")
 
     return "\n".join(lines)
-
-    # simple DC heuristic for now; later attach this to terrain / examples
-    DC_BANDS = {
-        "very_easy": 5,
-        "easy": 10,
-        "medium": 15,
-        "hard": 20,
-        "very_hard": 25,
-        "nearly_impossible": 30,
-    }
 
     # start with 'medium' and nudge a bit randomly
     base_dc = DC_BANDS["medium"]
