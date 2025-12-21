@@ -177,7 +177,10 @@ def _norm_monster(m: dict) -> dict:
     }
 
 def load_srd_monsters():
-    """Load SRD monsters from JSON and normalize into a consistent schema."""
+    """
+    Load SRD monsters from JSON and normalize into ONE consistent schema our app uses.
+    reminder: once normalized, the rest of the code should never care about the original SRD format.
+    """
     if "srd_enemies" not in st.session_state:
         st.session_state.srd_enemies = []
     if "srd_enemies_path" not in st.session_state:
@@ -186,7 +189,9 @@ def load_srd_monsters():
     base_dir = os.path.dirname(__file__)
     candidates = [
         os.path.join(base_dir, "..", "data", "SRD_Monsters.json"),
+        os.path.join(base_dir, "..", "data", "SRD_Monsters.txt"),  # reminder: I sometimes keep JSON in .txt during edits
         os.path.join(base_dir, "SRD_Monsters.json"),
+        os.path.join(base_dir, "SRD_Monsters.txt"),
     ]
 
     path = None
@@ -198,23 +203,22 @@ def load_srd_monsters():
     st.session_state.srd_enemies_path = path or ""
     if not path:
         st.session_state.srd_enemies = []
-        return
+        return []
 
     try:
-        with open(path, "r", encoding="utf-8") as f:
+        with open(path, "r", encoding="utf-8-sig") as f:
             raw = json.load(f)
     except Exception:
         st.session_state.srd_enemies = []
-        return
+        return []
 
-    # Some files are dict-wrapped; normalize to a list
+    # Some SRD files wrap the list
     if isinstance(raw, dict):
-        # common wrappers
         raw = raw.get("monsters") or raw.get("data") or raw.get("results") or list(raw.values())
 
     if not isinstance(raw, list):
         st.session_state.srd_enemies = []
-        return
+        return []
 
     def _first_int(val, default=0):
         if val is None:
@@ -228,27 +232,81 @@ def load_srd_monsters():
         return int(m.group(0)) if m else default
 
     def _extract_ac(mon: dict) -> int:
-        # 5e API style
-        ac = mon.get("armor_class")
+        ac = mon.get("ac", mon.get("armor_class", mon.get("armorClass")))
         if isinstance(ac, int):
             return ac
         if isinstance(ac, list) and ac:
-            # e.g. [{"type":"natural","value":15}]
             if isinstance(ac[0], dict):
-                return _first_int(ac[0].get("value"), 10)
+                return _first_int(ac[0].get("value") or ac[0].get("ac"), 10)
             return _first_int(ac[0], 10)
         if isinstance(ac, dict):
-            return _first_int(ac.get("value"), 10)
+            return _first_int(ac.get("value") or ac.get("ac"), 10)
 
-        # Your SRD text style: "Armor Class": "15 (leather armor, shield)"
         return _first_int(mon.get("Armor Class"), 10)
 
     def _extract_hp(mon: dict) -> int:
-        # 5e API style
+        if "hp" in mon:
+            return _first_int(mon.get("hp"), 10)
         if "hit_points" in mon:
             return _first_int(mon.get("hit_points"), 10)
-        # Your SRD text style: "Hit Points": "7 (2d6)"
         return _first_int(mon.get("Hit Points"), 10)
+
+    def _extract_abilities(mon: dict) -> dict:
+        # accepts: {"abilities": {"STR":10...}} OR {"STR":10...} OR {"strength":10...}
+        abil = mon.get("abilities") or mon.get("ability_scores") or {}
+        out = {}
+
+        def grab(key, aliases):
+            if isinstance(abil, dict):
+                for a in aliases:
+                    if a in abil:
+                        return abil[a]
+            for a in aliases:
+                if a in mon:
+                    return mon[a]
+            return None
+
+        mapping = {
+            "STR": ["STR", "str", "strength"],
+            "DEX": ["DEX", "dex", "dexterity"],
+            "CON": ["CON", "con", "constitution"],
+            "INT": ["INT", "int", "intelligence"],
+            "WIS": ["WIS", "wis", "wisdom"],
+            "CHA": ["CHA", "cha", "charisma"],
+        }
+
+        for k, aliases in mapping.items():
+            v = grab(k, aliases)
+            out[k] = _first_int(v, 10) if v is not None else 10
+
+        return out
+
+    def _parse_skills_to_dict(skills_val) -> dict:
+        """
+        Accepts:
+          - dict already (keep)
+          - string like "Perception +2, Stealth +4"
+        Returns dict of skill -> bonus int.
+        """
+        if isinstance(skills_val, dict):
+            cleaned = {}
+            for k, v in skills_val.items():
+                cleaned[str(k)] = _first_int(v, 0)
+            return cleaned
+
+        if not skills_val:
+            return {}
+
+        s = str(skills_val)
+        # split on commas
+        parts = [p.strip() for p in s.split(",") if p.strip()]
+        out = {}
+        for p in parts:
+            # match "Perception +2" or "Stealth +4"
+            m = re.match(r"^(.+?)\s*([+\-]\d+)\s*$", p)
+            if m:
+                out[m.group(1).strip()] = int(m.group(2))
+        return out
 
     def _parse_actions_text(actions_text: str) -> list[dict]:
         """
@@ -259,37 +317,29 @@ def load_srd_monsters():
         if not actions_text:
             return []
 
-        # strip html-ish tags and compress whitespace
         txt = re.sub(r"<[^>]+>", " ", str(actions_text))
         txt = re.sub(r"\s+", " ", txt).strip()
 
-        # Split on 'Name.' patterns (e.g., "Scimitar.")
         chunks = re.split(r"(?<=\.)\s(?=[A-Z][A-Za-z0-9'’\- ]+\.)", txt)
         parsed = []
 
         for ch in chunks:
-            # attack/action name is first sentence token before the first period
             mname = re.match(r"^([A-Z][A-Za-z0-9'’\- ]+)\.", ch)
             if not mname:
                 continue
             name = mname.group(1).strip()
 
-            # to hit: "+4 to hit"
             mto = re.search(r"([+\-]\d+)\s*to hit", ch, re.IGNORECASE)
             to_hit = int(mto.group(1)) if mto else 0
 
-            # damage dice inside parentheses after Hit:
-            # Hit: 5 (1d6 + 2) slashing damage
             mdmg = re.search(r"\((\d+d\d+\s*(?:[+\-]\s*\d+)?)\)", ch)
             dmg = mdmg.group(1).replace(" ", "") if mdmg else ""
 
-            # If no dice found, keep blank; your UI can still show the action name.
-            parsed.append({"name": name, "to_hit": to_hit, "damage": dmg})
-
+            parsed.append({"name": name, "to_hit": to_hit, "damage": dmg or "1d6"})
         return parsed
 
     def _extract_actions(mon: dict) -> list[dict]:
-        # 5e API style: list of dicts
+        # 5e API-ish: actions list of dicts
         actions = mon.get("actions")
         if isinstance(actions, list):
             out = []
@@ -297,24 +347,44 @@ def load_srd_monsters():
                 if not isinstance(a, dict):
                     continue
                 name = a.get("name", "Action")
-                to_hit = _first_int(a.get("attack_bonus"), 0)
 
-                # common 5e keys: damage_dice + optional damage_bonus
+                # to-hit
+                to_hit = a.get("to_hit")
+                if to_hit is None:
+                    to_hit = a.get("attack_bonus", a.get("bonus", 0))
+                to_hit = _first_int(to_hit, 0)
+
+                # damage
                 dd = a.get("damage_dice") or ""
                 db = a.get("damage_bonus", 0)
                 if dd:
-                    if isinstance(db, int) and db != 0:
-                        sign = "+" if db > 0 else "-"
-                        dmg = f"{dd}{sign}{abs(db)}"
+                    dbi = _first_int(db, 0)
+                    if dbi != 0:
+                        sign = "+" if dbi > 0 else "-"
+                        dmg = f"{dd}{sign}{abs(dbi)}"
                     else:
                         dmg = str(dd)
                 else:
-                    # sometimes they store a combined 'damage'
-                    dmg = str(a.get("damage", "") or "")
-                out.append({"name": name, "to_hit": int(to_hit), "damage": dmg})
+                    dmg = a.get("damage") or a.get("damage_dice") or ""
+                    if isinstance(dmg, dict):
+                        dd2 = dmg.get("damage_dice") or dmg.get("dice") or ""
+                        db2 = _first_int(dmg.get("damage_bonus") or dmg.get("bonus"), 0)
+                        if dd2:
+                            sign = "+" if db2 > 0 else "-"
+                            dmg = f"{dd2}{sign}{abs(db2)}" if db2 else dd2
+                        else:
+                            dmg = ""
+                    dmg = str(dmg) if dmg else ""
+
+                out.append({
+                    "name": name,
+                    "to_hit": int(to_hit),
+                    "damage": (dmg or "1d6"),
+                    "damage_type": a.get("damage_type") or a.get("damage_type_name") or "",
+                })
             return out
 
-        # SRD text style: "Actions" is an HTML-ish string
+        # Text-ish SRD field
         return _parse_actions_text(mon.get("Actions", ""))
 
     normalized = []
@@ -324,58 +394,44 @@ def load_srd_monsters():
 
         nm = mon.get("name") or mon.get("Name") or "Monster"
 
-        ac = _extract_ac(mon)
-        hp = _extract_hp(mon)
-        acts = _extract_actions(mon)
+        ac = int(_extract_ac(mon))
+        hp = int(_extract_hp(mon))
+        abilities = _extract_abilities(mon)
 
-        m2 = dict(mon)  # keep original fields too
-        m2["name"] = nm
-        m2["ac"] = int(ac)
-        m2["hp"] = int(hp)
-        m2["max_hp"] = int(hp)
-        m2["actions"] = acts
+        # skills & senses
+        skills_raw = mon.get("skills") or mon.get("Skills") or {}
+        skills = _parse_skills_to_dict(skills_raw)
+        senses = mon.get("senses") or mon.get("Senses") or mon.get("sense") or ""
 
-        # keep readable text fields for display
-        m2["skills_text"] = mon.get("Skills") or mon.get("skills") or ""
-        m2["senses_text"] = mon.get("Senses") or mon.get("senses") or ""
-        m2["traits_text"] = mon.get("Traits") or mon.get("special_abilities") or ""
+        actions = _extract_actions(mon)
 
-        normalized.append(m2)
+        # attacks are derived from actions (for now: anything with a to_hit or damage)
+        attacks = []
+        for a in actions:
+            if not isinstance(a, dict):
+                continue
+            if "name" not in a:
+                continue
+            attacks.append({
+                "name": a.get("name", "Attack"),
+                "to_hit": _first_int(a.get("to_hit"), _first_int(a.get("attack_bonus"), 0)),
+                "damage": a.get("damage") or a.get("damage_dice") or "1d6",
+                "damage_type": a.get("damage_type", "") or "",
+            })
 
-    st.session_state.srd_enemies = normalized
-
-    # --- NORMALIZE MONSTER ACTIONS ---
-    for m in raw:
-        # ensure lists exist
-        m.setdefault("actions", [])
-        m.setdefault("special_abilities", [])
-
-        for a in m["actions"]:
-            # attack_bonus -> to_hit
-            if "to_hit" not in a and "attack_bonus" in a:
-                try:
-                    a["to_hit"] = int(a["attack_bonus"])
-                except Exception:
-                    a["to_hit"] = 0
-
-            # normalize damage string
-            if "damage" not in a:
-                dd = a.get("damage_dice")
-                bonus = a.get("damage_bonus", 0)
-                if dd:
-                    if isinstance(bonus, int) and bonus != 0:
-                        sign = "+" if bonus > 0 else "-"
-                        a["damage"] = f"{dd}{sign}{abs(bonus)}"
-                    else:
-                        a["damage"] = dd
-            # default damage if still missing
-            if "damage" not in a:
-                a["damage"] = "1d6"
-
-            # normalize damage_type key if there’s a variant
-            if "damage_type" not in a:
-                if "damage_type_name" in a:
-                    a["damage_type"] = a["damage_type_name"]
+        normalized.append({
+            "name": nm,
+            "ac": ac,
+            "hp": hp,
+            "max_hp": hp,
+            "abilities": abilities,
+            "skills": skills,
+            "senses": str(senses) if senses is not None else "",
+            "actions": actions,
+            "attacks": attacks,
+            # keep src copy for debugging / future parsing
+            "_raw": mon,
+        })
 
     st.session_state.srd_enemies = normalized
     st.session_state.srd_enemies_path = path
@@ -391,7 +447,6 @@ def init_combat_state():
     ss.setdefault("turn_index", 0)
 
 init_combat_state()
-load_srd_monsters()
 
 def _dex_mod_from_char(c):
     abil = c.get("abilities", {})
@@ -590,6 +645,11 @@ def resolve_attack(text: str) -> str | None:
     if info["type"] != "attack":
         return None  # not an attack; caller can fall back to other logic
 
+    ensure_action_state()
+    if not st.session_state.current_actions.get("standard", True):
+        return f"{actor.get('name','The attacker')} has already used a Standard action this turn."
+    st.session_state.current_actions["standard"] = False
+
     # find target
     ti = info["target_idx"]
     if ti is None or ti < 0 or ti >= len(st.session_state.enemies):
@@ -764,6 +824,26 @@ def find_actor_from_message(msg: str):
 
     return None, None, None
 
+def resolve_move_action(text: str) -> str | None:
+    """
+    Consume Move action when the current actor declares movement in chat.
+    reminder: this is intentionally simple; actual positioning comes later.
+    """
+    kind, idx, actor = get_current_actor()
+    if not actor:
+        return None
+
+    intent, ent = detect_intent(text)
+    if intent != "move":
+        return None
+
+    ensure_action_state()
+    if not st.session_state.current_actions.get("move", True):
+        return f"{actor.get('name','The character')} has already used a Move action this turn."
+
+    st.session_state.current_actions["move"] = False
+    where = ent.get("where") or "a new position"
+    return f"{actor.get('name','The character')} uses a Move action to move to **{where}**."
 
 def resolve_skill_check(text: str) -> str | None:
     """
@@ -783,8 +863,8 @@ def resolve_skill_check(text: str) -> str | None:
     if not skill:
         return None  # not a skill check request
 
-    # 2) figure out who is acting
-    kind, idx, actor = find_actor_from_message(msg)
+    # reminder: only the active combatant can roll during combat
+    kind, idx, actor = get_current_actor()
     if not actor:
         return "No valid creature found to make that check."
 
@@ -818,28 +898,6 @@ def resolve_skill_check(text: str) -> str | None:
     actor_name = actor.get("name", "The character")
     lines = []
     lines.append(f"{actor_name} attempts a **{skill}** check (DC {dc}).")
-    lines.append(f"Roll: d20 ({d20}) + {mod} = **{total}**.")
-
-    if total >= dc:
-        lines.append("Result: **Success**.")
-    else:
-        lines.append("Result: **Failure**.")
-
-    return "\n".join(lines)
-
-    # start with 'medium' and nudge a bit randomly
-    base_dc = DC_BANDS["medium"]
-    dc_jitter = random.choice([-2, 0, 0, 2])  # mostly 15, sometimes 13 or 17
-    dc = max(5, base_dc + dc_jitter)
-
-    mod = _get_skill_mod(actor, skill)
-    d20 = roll_d20()
-    total = d20 + mod
-
-    actor_name = actor.get("name", "The character")
-
-    lines = []
-    lines.append(f"{actor_name} {short_desc} (**{skill} check**, DC {dc}).")
     lines.append(f"Roll: d20 ({d20}) + {mod} = **{total}**.")
 
     if total >= dc:
@@ -917,39 +975,13 @@ def roll_ability_scores_4d6_drop_lowest():
     return scores
 
 def compute_hp_level1(char: dict, class_blob: dict) -> int:
-    """
-    Compute level-1 HP from the class hit die and CON modifier.
-    Accepts either an int (6, 8, 10, 12) or strings like 'd6 per Bard level'.
-    """
-    raw_hd = class_blob.get("hit_die", 8)
-
-    # Try to parse various formats:
-    #   6
-    #   "8"
-    #   "d6"
-    #   "d6 per Bard level"
-    #   "Hit Die: d10"
-    hit_die = 8  # sensible default
-
-    if isinstance(raw_hd, int):
-        hit_die = raw_hd
-    elif isinstance(raw_hd, str):
-        text = raw_hd.lower()
-        # look for a pattern like "d6", "d12", etc.
-        m = re.search(r"d(\d+)", text)
-        if m:
-            hit_die = int(m.group(1))
-        else:
-            # fall back to "first number we can find"
-            m2 = re.search(r"(\d+)", text)
-            if m2:
-                hit_die = int(m2.group(1))
+    # reminder: some class JSON uses strings like "d6 per Bard level" — extract the number safely.
+    raw = class_blob.get("hit_die", 8)
+    if isinstance(raw, int):
+        hit_die = raw
     else:
-        # last fallback if some weird type sneaks in
-        try:
-            hit_die = int(raw_hd)
-        except Exception:
-            hit_die = 8
+        m = re.search(r"(\d+)", str(raw))
+        hit_die = int(m.group(1)) if m else 8  # fallback d8
 
     con_mod = _ability_mod(char.get("abilities", {}).get("CON", 10))
     return max(1, hit_die + con_mod)
@@ -1006,9 +1038,6 @@ def _choose_weapon_ability(char: dict, weapon: dict) -> str:
     if "finesse" in props or "ranged" in rng:
         return "DEX"
     return "STR"
-
-def _ability_mod(score: int) -> int:
-    return (int(score) - 10) // 2
 
 def build_attack_from_weapon(char: dict, weapon: dict) -> dict:
     """
@@ -2258,29 +2287,32 @@ if st.session_state.boot_mode == "new":
             # From SRD with quantity
             st.markdown("---")
             st.markdown("**Add From SRD**")
+
             if not st.session_state.get("srd_enemies"):
                 st.caption("SRD file not found at ../data/SRD_Monsters.json")
             else:
-                names = [m["name"] for m in st.session_state.srd_enemies]
-                srd_name = st.selectbox("SRD Creature", names, key="new_add_srd_name")
-                srd_count = st.number_input("Count", 1, 20, 1, key="new_add_srd_count")
-                if st.button("Add From SRD", key="new_add_srd_btn"):
-                    src = next((m for m in st.session_state.srd_enemies if m["name"] == srd_name), None)
-                    if src:
-                        for i in range(int(srd_count)):
-                            st.session_state.enemies.append(
-                                {
-                                    # Display name can have #1, #2, etc.
-                                    "name": f"{src['name']}" if srd_count == 1 else f"{src['name']} #{i+1}",
-                                    # Remember the original SRD name so we can look it up later
-                                    "src": src["name"],
-                                    "ac": int(src.get("ac", 10)),
-                                    "hp": int(src.get("hp", 10)),
-                                    # Use the normalized SRD actions as attacks too (for auto-rolling)
-                                    "attacks": src.get("actions", []),
-                                }
-                            )
-                        st.success(f"Added {int(srd_count)} × {srd_name}")
+                srd_names = [m.get("name", "") for m in st.session_state.srd_enemies if m.get("name")]
+                srd_name = st.selectbox("SRD Monster", srd_names, key="add_srd_name")
+                qty = st.number_input("Quantity", 1, 20, 1, key="add_srd_qty")
+
+                sb = next((m for m in st.session_state.srd_enemies if m.get("name") == srd_name), None)
+
+                if st.button("Add SRD Enemy", type="primary", key="add_srd_enemy_btn"):
+                    if sb:
+                        for _ in range(int(qty)):
+                            blob = json.loads(json.dumps(sb))  # safe deep copy
+                            blob["src"] = sb.get("name", "Enemy")
+                            blob["name"] = f"{sb.get('name','Enemy')} #{len(st.session_state.enemies)+1}"
+                            blob["hp"] = int(blob.get("hp", 10))
+                            blob["max_hp"] = int(blob.get("max_hp", blob["hp"]))
+                            blob["ac"] = int(blob.get("ac", 10))
+                            st.session_state.enemies.append(blob)
+
+                        st.toast(f"Added {qty}× {sb.get('name','Enemy')}")
+                        st.rerun()
+                    else:
+                        st.warning("No SRD monster selected.")
+                        
 
     if st.button("Begin Session", type="primary"):
         if not st.session_state.party:
@@ -2438,43 +2470,69 @@ with mid:
             with h4:
                 if st.button("Remove", key=f"e_rm_{i}"):
                     del st.session_state.enemies[i]; st.rerun()
-            with box.expander("Stat & Actions"):
+            with card.expander("Stat & Actions"):
                 name = e.get("name", "Enemy")
                 ac = e.get("ac", 10)
                 hp = e.get("hp", 10)
                 st.write(f"{name}: AC {ac}, HP {hp}")
 
                 # Look up SRD entry (by name or src)
+                base_name = str(name).split("#")[0].strip()
                 srd = next(
                     (
-                        m
-                        for m in st.session_state.get("srd_enemies", [])
-                        if m.get("name") == name or m.get("name") == e.get("src")
+                        m for m in st.session_state.get("srd_enemies", [])
+                        if m.get("name") == name
+                        or m.get("name") == e.get("src")
+                        or m.get("name") == base_name
                     ),
                     None,
                 )
 
                 if srd:
-                    actions = srd.get("actions", []) or []
+                    # Hydrate this encounter enemy from SRD so the rest of the app uses real stats/actions.
+                    keep_name = e.get("name", srd.get("name", "Enemy"))  # preserves "Goblin #1"
+                    st.session_state.enemies[i] = {
+                        **srd,
+                        "name": keep_name,
+                        "hp": int(e.get("hp", srd.get("hp", 10))),
+                        "max_hp": int(e.get("max_hp", srd.get("max_hp", srd.get("hp", 10)))),
+                        "ac": int(e.get("ac", srd.get("ac", 10))),
+                    }
+                    e = st.session_state.enemies[i]  # refresh local after overwrite
+
+                    actions = e.get("actions", []) or []
+                    attacks = e.get("attacks", []) or []
+
                     if actions:
                         st.markdown("**Actions**")
                         for a in actions:
-                            aname = a.get("name", "Action")
-                            to_hit = a.get("to_hit", a.get("attack_bonus", 0))
-                            dmg = a.get("damage", "1d6")
-                            dmg_type = a.get("damage_type", "")
-                            line = f"- **{aname}**: +{to_hit} to hit, {dmg}"
-                            if dmg_type:
-                                line += f" {dmg_type}"
+                            nm = a.get("name", "Action")
+                            desc = a.get("description", a.get("desc", ""))  # supports either key
+                            if desc:
+                                st.markdown(f"- **{nm}**: {desc}")
+                            else:
+                                st.markdown(f"- **{nm}**")
+
+                    if attacks:
+                        st.markdown("**Attacks**")
+                        for a in attacks:
+                            nm = a.get("name", "Attack")
+                            th = a.get("to_hit")
+                            dmg = a.get("damage", "—")
+                            dt = a.get("damage_type", "")
+                            line = f"- **{nm}**"
+                            if th is not None:
+                                line += f" (+{int(th)} to hit)"
+                            line += f" — {dmg}"
+                            if dt:
+                                line += f" {dt}"
                             st.markdown(line)
 
-                    specials = srd.get("special_abilities", []) or []
+                    specials = e.get("special_abilities", []) or []
                     if specials:
                         st.markdown("**Special Abilities**")
                         for sa in specials:
-                            st.markdown(
-                                f"- **{sa.get('name','')}**: {sa.get('desc','')}"
-                            )
+                            st.markdown(f"- **{sa.get('name','')}**: {sa.get('desc','')}")
                 else:
                     st.caption("No SRD data found for this monster.")
 
@@ -2519,52 +2577,43 @@ if st.session_state.initiative_order:
     st.markdown("#### Attack Roller")
 
     # Only active on an ENEMY turn
-ent = current_turn()
-if not (st.session_state.in_combat and ent and ent.get("kind") == "enemy"):
-    st.caption("Attack Roller is only available on an enemy's turn.")
-else:
-    enemy_idx = ent.get("idx")
-    if enemy_idx is None or enemy_idx >= len(st.session_state.enemies):
-        st.warning("Active enemy not found in enemies list.")
+    ent = current_turn()
+    if not (st.session_state.in_combat and ent and ent.get("kind") == "enemy"):
+        st.caption("Attack Roller is only available on an enemy's turn.")
     else:
-        att = st.session_state.enemies[enemy_idx]
-
-        # Actions from SRD if available
-        sb = next(
-            (
-                m
-                for m in st.session_state.get("srd_enemies", [])
-                if m.get("name") == att.get("name")
-                or m.get("name") == att.get("src")
-            ),
-            None,
-        )
-        actions = sb.get("actions", []) if sb else []
-        action_names = [a.get("name", "Action") for a in actions] + ["(Custom)"]
-
-        act = st.selectbox(
-            "Action",
-            action_names,
-            key=f"atk_act_sel_enemy_{enemy_idx}",
-        )
-
-        if act == "(Custom)":
-            to_hit = st.number_input(
-                "To-Hit Bonus",
-                -10,
-                20,
-                0,
-                key=f"atk_custom_to_enemy_{enemy_idx}",
-            )
-            dmg = st.text_input(
-                "Damage Dice",
-                value="1d6",
-                key=f"atk_custom_dmg_enemy_{enemy_idx}",
-            )
+        enemy_idx = ent.get("idx")
+        if enemy_idx is None or enemy_idx >= len(st.session_state.enemies):
+            st.warning("Active enemy not found in enemies list.")
         else:
-            aobj = next((a for a in actions if a.get("name") == act), None)
-            to_hit = int(aobj.get("to_hit", 0)) if aobj else 0
-            dmg = aobj.get("damage", "1d6") if aobj else "1d6"
+            att = st.session_state.enemies[enemy_idx]
+
+            # reminder: enemies added from SRD are already normalized into our schema
+            actions = att.get("attacks") or att.get("actions") or []
+            action_names = [a.get("name", "Action") for a in actions] + ["(Custom)"]
+
+            act = st.selectbox(
+                "Action",
+                action_names,
+                key=f"atk_act_sel_enemy_{enemy_idx}",
+            )
+
+            if act == "(Custom)":
+                to_hit = st.number_input(
+                    "To-Hit Bonus",
+                    -10,
+                    20,
+                    0,
+                    key=f"atk_custom_to_enemy_{enemy_idx}",
+                )
+                dmg = st.text_input(
+                    "Damage Dice",
+                    value="1d6",
+                    key=f"atk_custom_dmg_enemy_{enemy_idx}",
+                )
+            else:
+                aobj = next((a for a in actions if a.get("name") == act), None)
+                to_hit = int(aobj.get("to_hit", 0)) if aobj else 0
+                dmg = aobj.get("damage", "1d6") if aobj else "1d6"
 
         # Target AC and which PC is being attacked
         target_ac = st.number_input(
@@ -2587,9 +2636,16 @@ else:
             target_idx = None
 
         if st.button("Roll Attack", key=f"atk_roll_btn_enemy_{enemy_idx}"):
+            ensure_action_state()
+            
             d20 = random.randint(1, 20)
             total = d20 + to_hit
             hit = total >= int(target_ac)
+
+            if not st.session_state.current_actions.get("standard", True):
+                st.warning("This enemy has already used its Standard action this turn.")
+                st.stop()
+            st.session_state.current_actions["standard"] = False
 
             st.write(
                 f"To-Hit: d20({d20}) + {to_hit} = **{total}** "
@@ -2641,27 +2697,41 @@ with chat_box:
     with c2:
         send = st.button("Send")
 
-    if send and (msg := user_msg.strip()):
-        st.session_state.chat_log.append(("Player", msg))
+    # reminder: handle chat only when the user actually hits Send
+    if send:
+        msg = (user_msg or "").strip()
+        if msg:
+            st.session_state.chat_log.append(("Player", msg))
 
-        result = resolve_attack(msg)
-        if result is not None:
-            st.session_state.chat_log.append(("System", result))
-        else:
-            skill_result = resolve_skill_check(msg)
-            if skill_result is not None:
-                st.session_state.chat_log.append(("System", skill_result))
+            # 1) Move intent (consumes Move action on the active turn)
+            move_result = resolve_move_action(msg)
+            if move_result is not None:
+                st.session_state.chat_log.append(("System", move_result))
             else:
-                reply = reply_for(msg)
-                if not msg.lower().startswith("/roll") and "roll " in msg.lower():
-                    more = extract_inline_rolls(msg)
-                    if more:
-                        lines = []
-                        for d in more:
-                            t, br = roll_dice(d)
-                            lines.append(f"• {d}: {br}")
-                        reply += "\n\nInline rolls:\n" + "\n".join(lines)
-                st.session_state.chat_log.append(("DM", reply))
+                # 2) Attack intent
+                result = resolve_attack(msg)
+                if result is not None:
+                    st.session_state.chat_log.append(("System", result))
+                else:
+                    # 3) Skill check intent
+                    skill_result = resolve_skill_check(msg)
+                    if skill_result is not None:
+                        st.session_state.chat_log.append(("System", skill_result))
+                    else:
+                        # 4) Default DM reply
+                        reply = reply_for(msg)
+                        if not msg.lower().startswith("/roll") and "roll " in msg.lower():
+                            more = extract_inline_rolls(msg)
+                            if more:
+                                lines = []
+                                for d in more:
+                                    t, br = roll_dice(d)
+                                    lines.append(f"• {d}: {br}")
+                                reply += "\n\nInline rolls:\n" + "\n".join(lines)
+                        st.session_state.chat_log.append(("DM", reply))
+
+            # reminder: clear chat input so I don't have to double-tap anything
+            st.rerun()
 
     for speaker, text in st.session_state.chat_log[-60:]:
         if "\n" in text:
@@ -2711,14 +2781,12 @@ with right:
                     src = next((m for m in st.session_state.srd_enemies if m["name"] == srd_name), None)
                     if src:
                         for i in range(int(count)):
-                            st.session_state.enemies.append({
-                                "name": f"{src['name']}" if count == 1 else f"{src['name']} #{i+1}",
-                                "src": src["name"],
-                                "ac": int(src.get("ac", 10)),
-                                "hp": int(src.get("hp", 10)),
-                                "attacks": src.get("attacks", [])
-                            })
-                        st.success(f"Added {int(count)} × {srd_name}")
+                            enemy_blob = json.loads(json.dumps(src))
+                            enemy_blob["name"] = f"{src['name']}" if int(count) == 1 else f"{src['name']} #{i+1}"
+                            enemy_blob["src"] = src["name"]
+                            enemy_blob["hp"] = int(enemy_blob.get("hp", 10))
+                            enemy_blob["max_hp"] = int(enemy_blob.get("max_hp", enemy_blob["hp"]))
+                            st.session_state.enemies.append(enemy_blob)
                 # reminder: Consider adding type/CR filters once SRD grows.
 
     st.markdown("#### Bestiary")
