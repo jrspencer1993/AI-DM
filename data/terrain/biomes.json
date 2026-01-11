@@ -1,0 +1,209 @@
+{
+  "version": "1.0",
+  "biomes": [
+    {
+      "id": "arctic",
+      "name": "Arctic",
+      "description": "Frozen tundra with ice and snow. Movement is treacherous and exposure is deadly.",
+      "tile_weights": { "open": 55, "difficult": 25, "wall": 12, "water": 8 },
+      "densities": {
+        "wall": 0.10,
+        "difficult": 0.25,
+        "water": 0.06
+      },
+      "hazards": ["thin_ice", "extreme_cold", "blizzard", "ice_slick"],
+      "hazard_chance": 0.08,
+      "cluster_style": {
+        "walkers": 6,
+        "steps_per_walker": 35
+      }
+    },
+    {
+      "id": "coastal",
+      "name": "Coastal",
+      "description": "Rocky shores and sandy beaches with tide pools and crashing waves.",
+      "tile_weights": { "open": 50, "difficult": 15, "wall": 10, "water": 25 },
+      "densities": {
+        "wall": 0.08,
+        "difficult": 0.15,
+        "water": 0.25
+      },
+      "hazards": ["riptide", "slippery_rocks", "crashing_wave", "quicksand"],
+      "hazard_chance": 0.06,
+      "cluster_style": {
+        "walkers": 5,
+        "steps_per_walker": 45
+      }
+    },
+    {
+      "id": "desert",
+      "name": "Desert",
+      "description": "Arid wasteland with sand dunes, rocky outcrops, and scorching heat.",
+      "tile_weights": { "open": 70, "difficult": 18, "wall": 12, "water": 0 },
+      "densities": {
+        "wall": 0.10,
+        "difficult": 0.18,
+        "water": 0.0
+      },
+      "hazards": ["quicksand", "heat_exhaustion", "sandstorm", "sinkhole"],
+      "hazard_chance": 0.07,
+      "cluster_style": {
+        "walkers": 4,
+        "steps_per_walker": 50
+      }
+    },
+    {
+      "id": "forest",
+      "name": "Forest",
+      "description": "Dense woodland with thick undergrowth, fallen trees, and hidden dangers.",
+      "tile_weights": { "open": 45, "difficult": 32, "wall": 20, "water": 3 },
+      "densities": {
+        "wall": 0.15,
+        "difficult": 0.32,
+        "water": 0.02
+      },
+      "hazards": ["pit_trap", "snare", "poison_ivy", "falling_branch"],
+      "hazard_chance": 0.05,
+      "cluster_style": {
+        "walkers": 8,
+        "steps_per_walker": 30
+      }
+    },
+    {
+      "id": "grassland",
+      "name": "Grassland",
+      "description": "Open plains with tall grass, scattered boulders, and wide visibility.",
+      "tile_weights": { "open": 78, "difficult": 14, "wall": 6, "water": 2 },
+      "densities": {
+        "wall": 0.05,
+        "difficult": 0.12,
+        "water": 0.02
+      },
+      "hazards": ["hidden_pit", "snake_nest", "prairie_fire"],
+      "hazard_chance": 0.04,
+      "cluster_style": {
+        "walkers": 3,
+        "steps_per_walker": 25
+      }
+    },
+    {
+      "id": "hill",
+      "name": "Hill",
+      "description": "Rolling hills with rocky terrain, steep slopes, and loose stones.",
+      "tile_weights": { "open": 50, "difficult": 28, "wall": 20, "water": 2 },
+      "densities": {
+        "wall": 0.18,
+        "difficult": 0.25,
+        "water": 0.02
+      },
+      "hazards": ["rockslide", "unstable_ground", "cliff_edge"],
+      "hazard_chance": 0.06,
+      "cluster_style": {
+        "walkers": 6,
+        "steps_per_walker": 35
+      }
+    },
+    {
+      "id": "mountain",
+      "name": "Mountain",
+      "description": "Treacherous peaks with narrow ledges, chasms, and thin air.",
+      "tile_weights": { "open": 35, "difficult": 28, "wall": 35, "water": 2 },
+      "densities": {
+        "wall": 0.30,
+        "difficult": 0.25,
+        "water": 0.02
+      },
+      "hazards": ["avalanche", "falling_rocks", "crevasse", "thin_air"],
+      "hazard_chance": 0.08,
+      "cluster_style": {
+        "walkers": 7,
+        "steps_per_walker": 40
+      }
+    },
+    {
+      "id": "swamp",
+      "name": "Swamp",
+      "description": "Murky wetlands with deep mud, stagnant pools, and hidden dangers.",
+      "tile_weights": { "open": 30, "difficult": 40, "wall": 8, "water": 22 },
+      "densities": {
+        "wall": 0.06,
+        "difficult": 0.40,
+        "water": 0.22
+      },
+      "hazards": ["quicksand", "poison_gas", "disease_water", "hidden_sinkhole"],
+      "hazard_chance": 0.10,
+      "cluster_style": {
+        "walkers": 6,
+        "steps_per_walker": 50
+      }
+    },
+    {
+      "id": "underdark",
+      "name": "Underdark",
+      "description": "Subterranean caverns with stalactites, fungi, and absolute darkness.",
+      "tile_weights": { "open": 42, "difficult": 22, "wall": 32, "water": 4 },
+      "densities": {
+        "wall": 0.28,
+        "difficult": 0.20,
+        "water": 0.04
+      },
+      "hazards": ["cave_in", "poison_spores", "acid_pool", "web_trap"],
+      "hazard_chance": 0.09,
+      "cluster_style": {
+        "walkers": 8,
+        "steps_per_walker": 35
+      }
+    },
+    {
+      "id": "underwater",
+      "name": "Underwater",
+      "description": "Submerged environment with currents, coral, and pressure.",
+      "tile_weights": { "open": 60, "difficult": 22, "wall": 15, "water": 3 },
+      "densities": {
+        "wall": 0.12,
+        "difficult": 0.22,
+        "water": 0.0
+      },
+      "hazards": ["strong_current", "pressure_zone", "electric_eel", "whirlpool"],
+      "hazard_chance": 0.07,
+      "cluster_style": {
+        "walkers": 5,
+        "steps_per_walker": 40
+      }
+    },
+    {
+      "id": "urban",
+      "name": "Urban",
+      "description": "City streets with buildings, alleys, debris, and hidden dangers.",
+      "tile_weights": { "open": 48, "difficult": 18, "wall": 32, "water": 2 },
+      "densities": {
+        "wall": 0.28,
+        "difficult": 0.15,
+        "water": 0.02
+      },
+      "hazards": ["falling_debris", "fire", "trap_door", "collapsing_floor"],
+      "hazard_chance": 0.05,
+      "cluster_style": {
+        "walkers": 6,
+        "steps_per_walker": 30
+      }
+    },
+    {
+      "id": "dungeon",
+      "name": "Dungeon",
+      "description": "Ancient corridors with traps, secret passages, and lurking dangers.",
+      "tile_weights": { "open": 52, "difficult": 12, "wall": 33, "water": 3 },
+      "densities": {
+        "wall": 0.30,
+        "difficult": 0.10,
+        "water": 0.03
+      },
+      "hazards": ["pit_trap", "dart_trap", "poison_gas", "collapsing_ceiling"],
+      "hazard_chance": 0.12,
+      "cluster_style": {
+        "walkers": 7,
+        "steps_per_walker": 25
+      }
+    }
+  ]
+}

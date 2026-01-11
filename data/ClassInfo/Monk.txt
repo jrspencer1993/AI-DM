@@ -1,0 +1,185 @@
+Monk
+
+Where the body ends, the spirit begins. Where the spirit flows, the body obeys.
+Far across the seas lies Ryukaze, a land veiled in mist and myth—where dragons dream atop sacred peaks, oni test the resolve of mortals, and spirits whisper through bamboo groves. It is there that the first monks stepped beyond the mortal coil, seeking not just mastery of the blade or fist, but dominion over their very selves. The way of the monk is not born of conquest or ambition. It is a path of refinement: a sacred discipline honed through breath, focus, and the forging fire of pain. Monks believe the flesh is not a prison but a vessel—one that can be perfected until it transcends limitation. Their bodies become like iron, their strikes as fluid as water, and their minds sharper than any sword. Training in isolated mountain monasteries, ancient sky temples, or wandering the world in ascetic solitude, monks hone their ki to surpass mortal boundaries. With this inner energy, they strike faster than thought, move without sound, and even defy the pull of gravity and time. Though the ninja was born from the shadows of Ryukaze, the monk emerged from its heights—from stone sanctuaries where dragons once bowed to sages and the winds spoke secrets only silence could hear. To become a monk is to walk the narrow road between stillness and storm, mastering oneself completely—and in doing so, becoming something far more than mortal.
+
+Role: Opportunistic combatant; uses speed to enter and exit combat rather than prolonged melees.
+
+HIT POINTS
+- Hit Dice: d8 per Monk level
+- Hit Points at 1st Level: 8 + your Constitution modifier
+
+PROFICIENCIES
+- Armor: None
+- Weapons: Simple weapons, Monk weapons
+- Tools: None
+
+CORE RULES (HYBRID)
+- Base Attack Bonus Progression: FULL
+- Saving Throws: Wisdom, Dexterity
+- Skill Points per Level: 4 + Intelligence modifier
+- Class Skills: Acrobatics, Athletics, History, Insight, Perception, Religion, Stealth
+
+============================================================
+CLASS FEATURES
+============================================================
+
+LEVEL 1: Unarmored Defense (Ex), Martial Arts (Ex)
+
+FEATURE: Unarmored Defense (Ex)
+While not wearing armor or wielding a shield, you add your Wisdom modifier to your AC.
+
+FEATURE: Martial Arts (Ex)
+The practice of martial arts gives you mastery of combat styles that use unarmed strikes and monk weapons (weapons with the monk tag). You gain the following benefits while you are unarmed or wielding only Monk weapons and you aren’t wearing armor or wielding a Shield.
+- Bonus Unarmed Strike: You can make an Unarmed Strike as a Bonus Action.
+- Martial Arts Die: You can roll your Martial Arts die in place of the normal damage of your Unarmed Strike or Monk weapons. This die changes as you gain Monk levels, as shown in the Martial Arts column of the Monk Features table.
+- Dexterous Attacks: You can use your Dexterity modifier instead of your Strength modifier for the attack and damage rolls of your Unarmed Strikes and Monk weapons. In addition, when you use the Grapple or Shove option of your Unarmed Strike, you can use your Dexterity modifier instead of your Strength modifier to determine the save DC.
+
+LEVEL 2: Ki Pool (Ex), Unarmored Movement (Ex)
+
+FEATURE: Ki Pool (Ex)
+Your training allows you to harness the mystic energy of ki. Your access to this energy is represented by a number of ki points. Your monk level determines the number of points you have, as shown in the Ki Points column of the Monk table. The pool replenishes after a rest. Any feature that requires ki to use is a Ki feature in addition to those listed below.
+Ki Features:
+- Flurry of Blows (1 Ki): Make two unarmed strikes as a bonus action.
+- Step of the Wind (1 Ki): Disengage or Dash as a bonus action.
+- Patient Defense (1 Ki): Dodge as a bonus action.
+Some of your ki features require your target to make a saving throw to resist the feature’s effects. The saving throw DC is calculated as follows:
+Ki save DC = 10 + your Wisdom modifier
+
+FEATURE: Unarmored Movement (Ex)
+Your speed increases by 10 feet while you aren’t wearing armor or wielding a Shield. This bonus increases when you reach certain Monk levels, as shown on the Monk Features table.
+- At 9th level, you gain the ability to move along vertical surfaces and across liquids on your turn without falling during the move.
+- At 18th level, you can move across liquid surfaces without falling.
+
+LEVEL 3: Deflect Missiles (Ex), Open Hand Technique (Ex)
+
+FEATURE: Deflect Missiles (Ex)
+You can use your reaction to deflect or catch a missile when you are hit by a ranged weapon attack. When you do so, the damage you take from the attack is reduced by 1d10 + your Dexterity modifier + your monk level. If you reduce the damage to 0, you can catch the missile if it is small enough for you to hold in one hand and you have at least one hand free. If you catch a missile in this way, you can spend 1 ki point to make a ranged attack with the weapon or piece of ammunition you just caught, as part of the same reaction. You make this attack with proficiency, regardless of your weapon proficiencies, and the missile counts as a monk weapon for the attack, with a normal range of 20 feet and a long range of 60 feet.
+
+FEATURE: Open Hand Technique (Ex)
+Whenever you hit a creature with one of the attacks granted by your Flurry of Blows, you can impose one of the following effects on that target:
+- Addle: The target can’t make Opportunity Attacks until the start of its next turn.
+- Push: The target must succeed on a Strength saving throw or be pushed up to 15 feet away from you.
+- Topple: The target must succeed on a Dexterity saving throw or be knocked prone.
+
+LEVEL 4: Slow Fall (Ex), Ki Blast (Ex), Still Mind (Ex)
+
+FEATURE: Slow Fall (Ex)
+You can use your reaction when you fall to reduce any falling damage you take by an amount equal to five times your monk level.
+
+FEATURE: Ki Blast (Ex)
+You can project your ki as a searing ranged strike. When you make an attack, you can spend 1 ki point to unleash a Ki Blast instead, which deals damage equal to your Martial Arts Die. The Ki Blast targets a creature within 30 feet, using your Dexterity modifier for the attack roll and your Wisdom modifier for the damage roll.
+
+FEATURE: Still Mind (Ex)
+You have learned to ignore distractions, focusing your mind and strengthening against outside influences. You gain a +2 bonus on saving throws against enchantment spells and effects.
+
+LEVEL 5: Extra Attack (Ex), Evasion (Ex), Stunning Strike (Ex)
+
+FEATURE: Extra Attack (Ex)
+You can attack twice, instead of once, whenever you take the Attack action on your turn.
+
+FEATURE: Evasion (Ex)
+You can avoid certain area effects that allow you to make a Dexterity saving throw to take half damage. You instead take no damage if you succeed on the saving throw, and only half damage if you fail.
+
+FEATURE: Stunning Strike (Ex)
+When you hit another creature with a melee weapon attack, you can spend 1 ki point to attempt a stunning strike. The target must succeed on a Constitution saving throw or be stunned until the end of your next turn.
+
+LEVEL 6: Ki-Empowered Strikes (Ex), Wholeness of Body (Ex)
+
+FEATURE: Ki-Empowered Strikes (Ex)
+Your unarmed strikes count as magical for the purpose of overcoming resistance and immunity to non-magical attacks and damage.
+
+FEATURE: Wholeness of Body (Ex)
+As an action, you can regain hit points equal to three times your monk level. You must finish a rest before you can use this feature again.
+
+LEVEL 7: Stillness of Mind (Ex)
+
+FEATURE: Stillness of Mind (Ex)
+You focus your mind, drawing within your own mental fortitude. You can use your reaction to end one effect on yourself that is causing you to be charmed or frightened.
+
+LEVEL 8: Purity of Body (Ex), Inner Purity (Ex)
+
+FEATURE: Purity of Body (Ex)
+You gain immunity to all poisons and diseases, including supernatural and magical.
+
+FEATURE: Inner Purity (Ex)
+You gain a bonus equal to your Monk level on saving throws against spells or abilities that would force you to act against your nature (e.g., charm or compulsion effects).
+
+LEVEL 9: Improved Evasion (Ex)
+
+FEATURE: Improved Evasion (Ex)
+Your evasion ability improves. You still take no damage on a successful Dexterity saving throw against attacks, but you take only half damage on a failed save. A helpless monk does not gain the benefit of improved evasion.
+
+LEVEL 10: Combat Reflexes (Ex)
+
+FEATURE: Combat Reflexes (Ex)
+Your Attacks of Opportunity no longer require a reaction. However, you can only make one Attack of Opportunity at a time and can make a number of Attacks of Opportunity per round equal to your Dexterity modifier (minimum of 1).
+
+LEVEL 11: (No base class feature)
+
+LEVEL 12: (No base class feature)
+
+LEVEL 13: Deflect Energy (Ex)
+
+FEATURE: Deflect Energy (Ex)
+You can now use your Deflect Missiles feature against any ranged attacks that deal any damage type, not just bludgeoning, piercing, or slashing.
+
+LEVEL 14: (No base class feature)
+
+LEVEL 15: Timeless Body (Ex)
+
+FEATURE: Timeless Body (Ex)
+You no longer age, and you are immune to diseases and poisons. You do not require food or water, and you can go without sleep for long periods of time (though you still must meditate for at least 4 hours a day to gain the benefits of a long rest).
+
+LEVEL 16: Ki Shield (Su)
+
+FEATURE: Ki Shield (Su)
+You become wreathed in a luminous, magical aura. You shed bright light in a 30-foot radius and dim light for an additional 30 feet. You can extinguish or restore the light as a bonus action. If a creature hits you with a melee attack while this light shines, you can use your reaction to deal radiant damage to the creature. The radiant damage equals 5 + your Wisdom modifier.
+
+LEVEL 17: Quivering Palm (Ex)
+
+FEATURE: Quivering Palm (Ex)
+When you hit a creature with an Unarmed Strike, you can expend 4 Focus Points to start imperceptible vibrations, which last for a number of days equal to your Monk level. The vibrations are harmless unless you take an action to end them. Alternatively, when you take the Attack action on your turn, you can forgo one of the attacks to end the vibrations. To end them, you and the target must be on the same plane of existence. When you end them, the target must make a Constitution saving throw, taking 10d12 Force damage on a failed save or half as much damage on a successful one. You can have only one creature under the effect of this feature at a time. You can end the vibrations harmlessly (no action required).
+
+LEVEL 18: Empty Body (Ex)
+
+FEATURE: Empty Body (Ex)
+You can spend 8 ki points to cast the astral projection spell, without needing material components. When you do so, you can’t take any other creatures with you.
+
+LEVEL 19: (No base class feature)
+
+LEVEL 20: Perfect Self (Ex)
+
+FEATURE: Perfect Self (Ex)
+Your mastery of your body has transcended mortal limitations.
+- Type: Your type changes to outsider (Native).
+- Blindsight: You gain Blindsight out to 60 feet.
+- Perfected Form: Your Dexterity and Wisdom scores increase by 4.
+- Breath of Life: When you roll for initiative and have no ki points remaining, you regain 4 ki points.
+
+============================================================
+LEVEL TABLE (REFERENCE)
+============================================================
+# BAB shown is highest BAB only. Save bonus is your unified class scaling reference.
+
+LEVELS:
+1  BAB +1  SAVE_BONUS 2  MARTIAL_ARTS 1d6  KI 2   FEATURES Unarmored Defense; Martial Arts
+2  BAB +2  SAVE_BONUS 2  MARTIAL_ARTS 1d6  KI 3   FEATURES Ki Pool; Flurry of Blows; Step of the Wind; Patient Defense; Unarmored Movement
+3  BAB +3  SAVE_BONUS 2  MARTIAL_ARTS 1d6  KI 4   FEATURES Deflect Missiles; Open Hand Technique
+4  BAB +4  SAVE_BONUS 2  MARTIAL_ARTS 1d6  KI 5   FEATURES Slow Fall; Ki Blast; Still Mind
+5  BAB +5  SAVE_BONUS 3  MARTIAL_ARTS 1d8  KI 6   FEATURES Extra Attack; Evasion; Stunning Strike
+6  BAB +6  SAVE_BONUS 3  MARTIAL_ARTS 1d8  KI 7   FEATURES Ki-Empowered Strikes; Wholeness of Body
+7  BAB +7  SAVE_BONUS 3  MARTIAL_ARTS 1d8  KI 8   FEATURES Stillness of Mind
+8  BAB +8  SAVE_BONUS 3  MARTIAL_ARTS 1d10 KI 9   FEATURES Purity of Body; Inner Purity
+9  BAB +9  SAVE_BONUS 4  MARTIAL_ARTS 1d10 KI 10  FEATURES Improved Evasion
+10 BAB +10 SAVE_BONUS 4  MARTIAL_ARTS 1d10 KI 11  FEATURES Combat Reflexes
+11 BAB +11 SAVE_BONUS 4  MARTIAL_ARTS 1d10 KI 12  FEATURES —
+12 BAB +12 SAVE_BONUS 4  MARTIAL_ARTS 1d12 KI 13  FEATURES —
+13 BAB +13 SAVE_BONUS 5  MARTIAL_ARTS 1d12 KI 14  FEATURES Deflect Energy
+14 BAB +14 SAVE_BONUS 5  MARTIAL_ARTS 1d12 KI 15  FEATURES —
+15 BAB +15 SAVE_BONUS 5  MARTIAL_ARTS 1d12 KI 16  FEATURES Timeless Body
+16 BAB +16 SAVE_BONUS 5  MARTIAL_ARTS 1d12 KI 17  FEATURES Ki Shield
+17 BAB +17 SAVE_BONUS 6  MARTIAL_ARTS 1d12 KI 18  FEATURES Quivering Palm
+18 BAB +18 SAVE_BONUS 6  MARTIAL_ARTS 1d12 KI 19  FEATURES Empty Body
+19 BAB +19 SAVE_BONUS 6  MARTIAL_ARTS 1d12 KI 20  FEATURES —
+20 BAB +20 SAVE_BONUS 6  MARTIAL_ARTS 1d12 KI 20  FEATURES Perfect Self

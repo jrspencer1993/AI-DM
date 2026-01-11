@@ -1,0 +1,266 @@
+Ranger
+
+Rangers are silent wardens of the wilderness—hunters, trackers, and protectors who walk the line between civilization and the untamed wilds. They are deeply attuned to the rhythms of nature, blending martial skill with primal instinct to defend the natural world from those who would defile or exploit it. Often solitary, rangers feel most at home beneath open skies or deep within ancient forests, deserts, and mountains. They travel light, move with purpose, and survive where others would perish. Some serve as guides or scouts, leading others through treacherous terrain, while others act as lone sentinels guarding sacred sites or endangered creatures. The ranger’s path is one of balance—between man and nature, tradition and necessity. While some study ancient groves or commune with nature spirits, others channel primal magic through the land itself. Their bond with the wilderness is both physical and mystical: they read signs with uncanny precision, track prey with unmatched skill, and may call upon nature’s power to heal, summon, or strike. Though often viewed as outsiders, rangers are indispensable in times of crisis—scouting ahead, neutralizing threats, and leading others through the unknown.
+
+Role: Hunter and Tracker
+
+HIT POINTS
+- Hit Dice: d10 per Ranger level
+- Hit Points at 1st Level: 10 + your Constitution modifier
+
+PROFICIENCIES
+- Armor: Light armor, Medium armor, Shields (non-metal only)
+- Weapons: Simple weapons, Martial weapons
+- Tools: Herbalism kit, Cartographer’s tools
+
+CORE RULES (HYBRID)
+- Base Attack Bonus Progression: FULL
+- Saving Throws: Dexterity, Wisdom
+- Skill Points per Level: 6 + Intelligence modifier
+- Class Skills: Acrobatics, Animal Handling, Athletics, Insight, Nature, Perception, Stealth, Survival, Tactics
+
+============================================================
+CLASS FEATURES
+============================================================
+
+LEVEL 1: Spellcasting (Ex), Favored Enemy (Ex), Natural Explorer (Ex)
+
+FEATURE: Spellcasting (Ex)
+You have learned to channel the magical essence of nature to cast spells.
+Spell Slots. The Ranger Features table shows how many spell slots you have to cast your level 1+ spells. You regain all expended slots when you finish a Long Rest.
+Prepared Spells of Level 1+. You prepare the list of level 1+ spells available for you to cast. To start, choose two level 1 Ranger spells.
+The number of spells on your list increases as you gain Ranger levels, as shown in the Prepared Spells column of the Ranger spell table. Whenever that number increases, choose additional Ranger spells until the number matches the table. The chosen spells must be of a level for which you have spell slots.
+Changing Your Prepared Spells. Whenever you finish a Rest, you can replace one spell on your list with another Ranger spell for which you have spell slots.
+Spellcasting Ability
+Your spellcasting ability is Wisdom. You use your Wisdom modifier when setting the DC for your Ranger spells and when making an attack roll with one.
+- Spellcasting Ability: Wisdom
+- Spell Save DC = 8 + spell level + your Wisdom modifier
+- Spell Attack Modifier = base attack bonus + spell level + your Wisdom modifier
+Spellcasting Focus
+You can use a Druidic Focus as a spellcasting focus for your Ranger spells.
+
+FEATURE: Favored Enemy (Ex)
+Choose one type of enemy (such as beasts, humanoids, etc.) as your favored enemy. You gain a +2 bonus to damage rolls against them.
+At higher levels, this bonus improves or allows you to choose additional types of enemies (at GM discretion / future expansion).
+
+FEATURE: Natural Explorer (Ex)
+You are at home in a chosen terrain (such as forests, deserts, mountains, etc.). When traveling through your favored terrain, you gain the following benefits:
+- Difficult terrain doesn’t slow your group’s travel.
+- You can’t become lost except by magical means.
+- You can move stealthily at a normal pace.
+- You can add half your Ranger level (rounded down) to Wisdom (Survival) checks to navigate or find shelter in your favored terrain.
+
+LEVEL 2: Fighting Style (Ex), Wild Empathy (Ex)
+
+FEATURE: Fighting Style (Ex)
+You have honed your martial prowess and gain a Fighting Style feat of your choice.
+
+FEATURE: Wild Empathy (Ex)
+You can attempt to influence the mood and behavior of a beast or natural creature you can see within 30 feet of you. This works similarly to Animal Handling, except you do not need to share a common language to communicate basic emotions and desires.
+- Influence Mood: DC = 10 + your Wisdom modifier. You can attempt to calm an agitated beast, coax a creature to help, or direct simple tasks.
+- Wild Bond (Ex): When you successfully influence an animal, you may form a bond, allowing you to call upon it for aid once per short rest (for example, a wolf might help track enemies, or an eagle may act as a scout).
+
+LEVEL 3: Tracking Mastery (Ex), Animal Companion (Ex)
+
+FEATURE: Tracking Mastery (Ex)
+You add your Ranger class levels to checks to track creatures, and you can track creatures even in areas with no obvious signs.
+
+FEATURE: Animal Companion (Ex)
+You gain a loyal animal companion. This companion acts on your initiative count but takes its turn right after yours.
+Companion Strength (Max CR). Choose a beast with a CR equal to or less than your maximum companion CR:
+- Max Companion CR = max(1, floor(Ranger level / 3))
+Example: at Ranger level 3, your max CR is 1 (such as a Wolf or Panther). This increases as you level up.
+Companion’s Abilities. Use the creature’s stat block, with the following additions:
+- Bonus Hit Points: the companion gains bonus hit points equal to your Wisdom modifier + your Ranger level.
+- Independent Actions: the companion can take actions from its stat block (movement, attacks, special abilities), plus any bonus actions or reactions the creature already has.
+
+LEVEL 4: Trapper’s Expertise (Ex)
+
+FEATURE: Trapper’s Expertise (Ex)
+You gain proficiency with tinker’s tools. Once per long rest, you can create a simple trap using the environment or materials at hand (snare, pitfall, caltrops, etc.). The trap lasts 24 hours. The trap can deal damage (based on your level and the trap type) or impose conditions such as restrained or slowed (based on its design and GM adjudication).
+
+LEVEL 5: Extra Attack (Ex), Hunter’s Stealth (Ex)
+
+FEATURE: Extra Attack (Ex)
+You can attack twice instead of once whenever you take the Attack action on your turn.
+
+FEATURE: Hunter’s Stealth (Ex)
+While in your favored terrain, you can use your action to Hide even when you are only lightly obscured. Additionally, when you are Hidden in your favored terrain, creatures take a penalty equal to your Ranger level on Perception checks made to detect you.
+
+LEVEL 6: Fighting Style (Ex), Improved Companion (Ex)
+
+FEATURE: Fighting Style (Ex)
+You gain a second Fighting Style feat of your choice.
+
+FEATURE: Improved Companion (Ex)
+Your animal companion gains Multiattack if it did not already have it, allowing it to make two attacks on its turn. If it already has Multiattack, it gains one additional attack.
+
+LEVEL 7: Roving (Ex)
+
+FEATURE: Roving (Ex)
+Your Speed increases by 10 feet while you aren’t wearing Heavy armor. You also gain a Climb Speed and a Swim Speed equal to your Speed.
+
+LEVEL 8: (No base class feature)
+
+LEVEL 9: Advanced Bond (Ex)
+
+FEATURE: Advanced Bond (Ex)
+Your connection with your animal companion deepens.
+- Protective Sacrifice (1/day, Reaction): If your companion is within 15 feet of you when you are hit by an attack, your companion becomes the target of the attack instead. It moves to your space immediately, and you are moved 5 feet away from the attack (as positioning allows).
+- Shared Instincts: Your companion adds your Wisdom modifier to its skill checks, saving throws, and attack rolls.
+
+LEVEL 10: Nature’s Resilience (Ex)
+
+FEATURE: Nature’s Resilience (Ex)
+You gain resistance to poison damage.
+
+LEVEL 11: Master Tracker (Ex)
+
+FEATURE: Master Tracker (Ex)
+You can track creatures across difficult terrain, through magical obstacles, and in adverse weather (heavy rain, blizzards, fog, etc.). Additionally, you can track a creature for up to 24 hours without losing the trail, even if it was made hours or days earlier.
+Whenever you make a Wisdom (Survival) check related to tracking or finding creatures, you always treat your roll as if you rolled a 15.
+
+LEVEL 12: (No base class feature)
+
+LEVEL 13: (No base class feature)
+
+LEVEL 14: Swift Predator (Ex)
+
+FEATURE: Swift Predator (Ex)
+Designate a single creature you can see. You and your animal companion may each take the Dash action and move toward the same target. At the end of the movement, you each make a single attack against the target.
+- On a hit, each attack deals an additional 2d6 damage.
+- If either of you scores a critical hit, the bonus damage increases to 4d6 for that attack.
+
+LEVEL 15: Share Spells
+
+FEATURE: Share Spells
+When you cast a spell targeting yourself, you can also affect your animal companion with the spell if the companion is within 30 feet of you.
+
+LEVEL 16: (No base class feature)
+
+LEVEL 17: (No base class feature)
+
+LEVEL 18: Apex Predator (Ex)
+
+FEATURE: Apex Predator (Ex)
+You gain the following benefits:
+- Flanking Strikes: When you and your animal companion are flanking the same creature, both of you deal an additional 1d6 damage on attacks made against that creature.
+- Hunter’s Frenzy (1/encounter): When you or your animal companion reduces a creature to 0 hit points, you can immediately Dash as a free action.
+
+LEVEL 19: (No base class feature)
+
+LEVEL 20: Nature’s Fury (Ex)
+
+FEATURE: Nature’s Fury (Ex)
+You gain the following benefits:
+- Fast Movement: you and your animal companion increase your movement speed by 30 feet.
+Hunting Frenzy (1/day). As an action, you enter a Hunting Frenzy for 1 minute. During this time:
+- You and your animal companion gain the effects of the Haste spell without requiring concentration.
+- You and your animal companion add your Wisdom modifier to attack rolls, saving throws, and ability checks.
+- Your attacks deal an additional 3d6 damage.
+- Once per activation: if either of you would be reduced to 0 hit points during this Frenzy, you instead drop to 1 hit point.
+
+============================================================
+LEVEL TABLE (REFERENCE)
+============================================================
+# BAB shown is highest BAB only. Save bonus is your unified class scaling reference.
+
+LEVELS:
+1  BAB +1  SAVE_BONUS 2  FEATURES Spellcasting; Favored Enemy; Natural Explorer
+2  BAB +2  SAVE_BONUS 2  FEATURES Fighting Style; Wild Empathy
+3  BAB +3  SAVE_BONUS 2  FEATURES Tracking Mastery; Animal Companion
+4  BAB +4  SAVE_BONUS 2  FEATURES Trapper’s Expertise
+5  BAB +5  SAVE_BONUS 3  FEATURES Extra Attack; Hunter’s Stealth
+6  BAB +6  SAVE_BONUS 3  FEATURES Fighting Style (2nd); Improved Companion
+7  BAB +7  SAVE_BONUS 3  FEATURES Roving
+8  BAB +8  SAVE_BONUS 3  FEATURES —
+9  BAB +9  SAVE_BONUS 4  FEATURES Advanced Bond
+10 BAB +10 SAVE_BONUS 4  FEATURES Nature’s Resilience
+11 BAB +11 SAVE_BONUS 4  FEATURES Master Tracker
+12 BAB +12 SAVE_BONUS 4  FEATURES —
+13 BAB +13 SAVE_BONUS 5  FEATURES —
+14 BAB +14 SAVE_BONUS 5  FEATURES Swift Predator
+15 BAB +15 SAVE_BONUS 5  FEATURES Share Spells
+16 BAB +16 SAVE_BONUS 5  FEATURES —
+17 BAB +17 SAVE_BONUS 6  FEATURES —
+18 BAB +18 SAVE_BONUS 6  FEATURES Apex Predator
+19 BAB +19 SAVE_BONUS 6  FEATURES —
+20 BAB +20 SAVE_BONUS 6  FEATURES Nature’s Fury
+
+============================================================
+SPELL TABLE (REFERENCE)
+============================================================
+# Half-caster spell slots + prepared spells reference.
+
+PREPARED_SPELLS_AND_SPELL_SLOTS:
+1  PREP 2  1ST 2
+2  PREP 2  1ST 2
+3  PREP 2  1ST 3
+4  PREP 2  1ST 3
+5  PREP 3  1ST 4  2ND 2
+6  PREP 3  1ST 4  2ND 2
+7  PREP 3  1ST 4  2ND 3
+8  PREP 3  1ST 4  2ND 3
+9  PREP 4  1ST 4  2ND 3  3RD 2
+10 PREP 4  1ST 4  2ND 3  3RD 2
+11 PREP 4  1ST 4  2ND 3  3RD 3
+12 PREP 4  1ST 4  2ND 3  3RD 3
+13 PREP 5  1ST 4  2ND 3  3RD 3  4TH 1
+14 PREP 5  1ST 4  2ND 3  3RD 3  4TH 1
+15 PREP 5  1ST 4  2ND 3  3RD 3  4TH 2
+16 PREP 5  1ST 4  2ND 3  3RD 3  4TH 2
+17 PREP 6  1ST 4  2ND 3  3RD 3  4TH 3  5TH 1
+18 PREP 6  1ST 4  2ND 3  3RD 3  4TH 3  5TH 1
+19 PREP 6  1ST 4  2ND 3  3RD 3  4TH 3  5TH 2
+20 PREP 6  1ST 4  2ND 3  3RD 3  4TH 3  5TH 2
+
+============================================================
+RANGER SPELL LIST
+============================================================
+
+1st Level
+- Alarm
+- Animal Friendship
+- Cure Wounds
+- Detect Magic
+- Detect Poison and Disease
+- Fog Cloud
+- Goodberry
+- Hunter’s Mark
+- Jump
+- Longstrider
+- Ensnaring Strike
+- Speak with Animals
+
+2nd Level
+- Animal Messenger
+- Barkskin
+- Darkvision
+- Find Traps
+- Lesser Restoration
+- Locate Animals or Plants
+- Locate Object
+- Pass without Trace
+- Protection from Poison
+- Silence
+- Spike Growth
+
+3rd Level
+- Conjure Animals
+- Daylight
+- Nondetection
+- Plant Growth
+- Protection from Energy
+- Speak with Plants
+- Water Breathing
+- Water Walk
+- Wind Wall
+
+4th Level
+- Conjure Woodland Beings
+- Freedom of Movement
+- Locate Creature
+- Stoneskin
+
+5th Level
+- Commune with Nature

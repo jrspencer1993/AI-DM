@@ -1,0 +1,159 @@
+Rogue
+
+Masters of precision and misdirection, Rogues are experts at striking where it hurts most—whether with a blade in the dark, a well-timed word, or a silent hand slipping past a lock. They thrive on cleverness and cunning, outthinking their enemies rather than overpowering them. Rogues are not bound by tradition or code; they make their own path, living by their wits and surviving on their skill. A rogue might be a streetwise cutpurse, a charming swindler, a deadly assassin, or a seasoned scout—what unites them is their focus on agility, finesse, and exploiting every opportunity. Where others charge into danger, rogues move unseen, striking with surgical precision and fading away before the dust settles. Though many operate alone, there are places where rogues gather in numbers, sharing secrets and sharpening their trade. Chief among them is the Veiled Concord, a vast network of spies, thieves, and information brokers with influence in nearly every major city. From hidden doors in merchant halls to tunnels beneath royal keeps, the Concord connects rogues across borders and allegiances—offering jobs, shelter, and favors for those who earn their place. Despite their reputation, not all rogues serve selfish ends. Some act as freedom fighters, liberators, or hunters of corrupt nobles and slavers. Others serve as spies, saboteurs, or scouts for larger forces. Regardless of allegiance, every rogue understands the value of leverage—and how to take advantage of the smallest weakness in the largest opponent. In a world of bold adventurers and arcane power, rogues remain unpredictable and indispensable.
+
+Role: Master of stealth, trickery, and precise strikes.
+
+HIT POINTS
+- Hit Dice: d8 per Rogue level
+- Hit Points at 1st Level: 8 + your Constitution modifier
+
+PROFICIENCIES
+- Armor: Light armor
+- Weapons: Simple weapons, hand crossbows, longswords, rapiers, shortswords
+- Tools: Thieves’ tools
+
+CORE RULES (HYBRID)
+- Base Attack Bonus Progression: THREE-QUARTER
+- Saving Throws: Dexterity, Intelligence
+- Skill Points per Level: 6 + Intelligence modifier
+- Class Skills: Choose from Acrobatics, Athletics, Deception, Insight, Intimidation, Perception, Sleight of Hand, Stealth, Tactics, Tinker
+
+============================================================
+CLASS FEATURES
+============================================================
+
+LEVEL 1: Sneak Attack (Ex), Thieves’ Cant (Ex)
+
+FEATURE: Sneak Attack (Ex)
+If you can catch an opponent when they are unable to defend themselves effectively, you can strike a vital spot for extra damage. Once per turn, you can deal an extra 1d6 damage to one creature you hit with an attack roll if at least one of the following is true:
+- The target would be denied a Dexterity bonus to AC; or
+- You flank the target; or
+- The target is incapacitated or otherwise distracted.
+The extra damage increases as you gain Rogue levels, as shown in the Sneak Attack column of the Rogue level table.
+Ranged attacks can apply Sneak Attack only if the target is within 30 feet.
+Note: Sneak Attack doesn’t apply to creatures without discernible anatomies (such as undead, oozes, plants, and constructs).
+
+FEATURE: Thieves’ Cant (Ex)
+You pick up a secret mix of dialect, jargon, and code. You gain Thieves’ Cant as a known language.
+
+LEVEL 2: Stealthy (Ex)
+
+FEATURE: Stealthy (Ex)
+While you are Hidden, creatures attempting to detect you suffer a penalty to their Perception checks equal to your Dexterity modifier.
+
+LEVEL 3: Evasion (Ex), Catlike Climber (Ex)
+
+FEATURE: Evasion (Ex)
+When you make a successful Dexterity saving throw against an effect that would normally deal half damage on a successful save, you take no damage instead.
+
+FEATURE: Catlike Climber (Ex)
+You gain a climb speed equal to half your speed. In addition, you can use Acrobatics to jump twice as far or high as normal (as adjudicated by the GM).
+
+LEVEL 4: Agile Defense (Ex)
+
+FEATURE: Agile Defense (Ex)
+When you take the Dodge action, you gain a +1 bonus to AC until the start of your next turn. This bonus increases to +2 at level 10, +3 at level 16, and +4 at level 20. This bonus stacks with other modifiers to AC.
+
+LEVEL 5: Cunning Strike (Ex), Uncanny Dodge (Ex)
+
+FEATURE: Cunning Strike (Ex)
+When you deal Sneak Attack damage, you can add one Cunning Strike effect to the attack. Each effect has a die cost (the number of Sneak Attack dice you forgo). You remove the die (or dice) before rolling, and the effect occurs immediately after the attack’s damage is dealt.
+If a Cunning Strike effect requires a saving throw, the DC equals:
+Cunning Strike DC = 8 + your Dexterity modifier + your Rogue level
+Cunning Strike Effects:
+- Poison (Cost: 1d6): You add a toxin to your strike. You must have a poison on you to use this ability.
+- Trip (Cost: 1d6): If the target is Large or smaller, it must succeed on a Dexterity saving throw or have the Prone condition.
+- Withdraw (Cost: 1d6): Immediately after the attack, you move up to half your Speed without provoking Opportunity Attacks.
+
+FEATURE: Uncanny Dodge (Ex)
+You react to danger with impossible speed.
+- Dexterity Saves (Ex): You double your Dexterity modifier for Dexterity saving throws.
+- Evasion & Mobility (Ex): If you take no damage because of your Evasion feature, you can immediately use your reaction to move up to half your speed. This movement does not provoke Opportunity Attacks.
+
+LEVEL 6: (No base class feature)
+
+LEVEL 7: Moving Shadow (Ex)
+
+FEATURE: Moving Shadow (Ex)
+When hiding in difficult terrain or behind partial cover, you make no sound. If you are Invisible, you do not lose the Invisible condition after attacking, so long as you are under substantial cover.
+
+LEVEL 8: (No base class feature)
+
+LEVEL 9: Rogue’s Reflexes (Ex)
+
+FEATURE: Rogue’s Reflexes (Ex)
+When you take the Dodge action, any creature that attempts to hit you with a melee attack suffers a penalty to its attack roll equal to half your Rogue level (rounded down). This penalty lasts until the start of your next turn.
+
+LEVEL 10: Master of Disguise (Ex)
+
+FEATURE: Master of Disguise (Ex)
+You can change your appearance, clothing, and mannerisms to impersonate others, and you can hide in plain sight in a crowd. You can alter your voice to match someone else’s.
+Whenever you make a check related to disguise, you treat your roll as if you rolled a 15.
+
+LEVEL 11: Improved Cunning Strike (Ex)
+
+FEATURE: Improved Cunning Strike (Ex)
+When you deal Sneak Attack damage, you can apply up to two different Cunning Strike effects to the same attack, paying each effect’s die cost.
+
+LEVEL 12: Trickster’s Escape (Ex)
+
+FEATURE: Trickster’s Escape (Ex)
+When you are hit by an attack, or when you become restrained by a restraining effect (such as being grappled), you can use your reaction to automatically escape and move up to half your speed without provoking Opportunity Attacks. Once per rest.
+
+LEVEL 13: (No base class feature)
+
+LEVEL 14: Quick Fingers (Ex)
+
+FEATURE: Quick Fingers (Ex)
+You can use an item as a bonus action if it would normally require an action.
+You also gain the following Cunning Strike option:
+- Pilfer (Cost: 2d6): As part of the same attack, you can attempt a Sleight of Hand check to steal a small item (coin pouch, dagger, scroll, etc.) from the target without them noticing. The DC to steal is equal to 10 + the creature’s Wisdom modifier. (GM adjudicates what items qualify.)
+
+LEVEL 15: Hide in Plain Sight (Ex)
+
+FEATURE: Hide in Plain Sight (Ex)
+So long as you are in an area with sufficient cover or concealment (dim light, foliage, a crowded room, etc.), you can use the Hide action even when creatures are aware of your presence. You can also hide in highly visible or chaotic areas (crowded markets, storms, battlefield confusion) as though you were part of the environment. You remain hidden until you move or take an action that would give away your location.
+
+LEVEL 16: (No base class feature)
+
+LEVEL 17: Infiltrator’s Edge (Ex)
+
+FEATURE: Infiltrator’s Edge (Ex)
+When you attempt to infiltrate a secured location, you can use Tinker (or similar technical skill use) to bypass traps, locks, and magical wards with precision, leaving minimal trace. You can also attempt to bypass magical wards (Alarm, Glyph of Warding, or similar) if you are within 30 feet of the warded area. This can be used to disable or bypass protections without taking extra time or suffering penalties (subject to GM adjudication and ward complexity).
+
+LEVEL 18: (No base class feature)
+
+LEVEL 19: (No base class feature)
+
+LEVEL 20: Master Burglar (Ex)
+
+FEATURE: Master Burglar (Ex)
+You treat any Stealth, Disguise, or Tinker roll as a natural 20. Additionally, you can bypass locked doors or barriers (mundane or magical) in seconds without needing to roll (GM may still limit impossible effects in artifact-level magic). Traps you disarm or bypass are reset as though they were never triggered, even if others later enter the area.
+
+============================================================
+LEVEL TABLE (REFERENCE)
+============================================================
+# BAB shown is highest BAB only. Save bonus is your unified class scaling reference.
+
+LEVELS:
+1  BAB +1  SAVE_BONUS 2  SNEAK 1d6   FEATURES Sneak Attack; Thieves’ Cant
+2  BAB +1  SAVE_BONUS 2  SNEAK 1d6   FEATURES Stealthy
+3  BAB +2  SAVE_BONUS 2  SNEAK 2d6   FEATURES Evasion; Catlike Climber
+4  BAB +3  SAVE_BONUS 2  SNEAK 2d6   FEATURES Agile Defense (+1 while Dodging)
+5  BAB +3  SAVE_BONUS 3  SNEAK 3d6   FEATURES Cunning Strike; Uncanny Dodge
+6  BAB +4  SAVE_BONUS 3  SNEAK 3d6   FEATURES —
+7  BAB +5  SAVE_BONUS 3  SNEAK 4d6   FEATURES Moving Shadow
+8  BAB +5  SAVE_BONUS 3  SNEAK 4d6   FEATURES —
+9  BAB +6  SAVE_BONUS 4  SNEAK 5d6   FEATURES Rogue’s Reflexes
+10 BAB +7  SAVE_BONUS 4  SNEAK 5d6   FEATURES Master of Disguise; Agile Defense (+2 while Dodging)
+11 BAB +8  SAVE_BONUS 4  SNEAK 6d6   FEATURES Improved Cunning Strike
+12 BAB +8  SAVE_BONUS 4  SNEAK 6d6   FEATURES Trickster’s Escape
+13 BAB +8  SAVE_BONUS 5  SNEAK 7d6   FEATURES —
+14 BAB +9  SAVE_BONUS 5  SNEAK 7d6   FEATURES Quick Fingers; Pilfer (Cunning Strike)
+15 BAB +10 SAVE_BONUS 5  SNEAK 8d6   FEATURES Hide in Plain Sight
+16 BAB +11 SAVE_BONUS 5  SNEAK 8d6   FEATURES Agile Defense (+3 while Dodging)
+17 BAB +12 SAVE_BONUS 6  SNEAK 9d6   FEATURES Infiltrator’s Edge
+18 BAB +13 SAVE_BONUS 6  SNEAK 9d6   FEATURES —
+19 BAB +14 SAVE_BONUS 6  SNEAK 10d6  FEATURES —
+20 BAB +15 SAVE_BONUS 6  SNEAK 10d6  FEATURES Master Burglar; Agile Defense (+4 while Dodging)

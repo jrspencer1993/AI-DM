@@ -1,0 +1,391 @@
+Druid
+
+“We do not rule nature. We remember how to listen to it.”
+Druids are stewards of the wild and the memory of the world’s oldest pacts. Their power comes from the living essence of nature—roots, wind, stone, and predator. They move between beast and mortal form to preserve balance, whether as serene wardens or punishing storms.
+
+Place of Importance: The Grove of Thalrien
+Hidden within the Verdaneth Wilds lies the Grove of Thalrien, a living nexus where the Weave of life knots tightly. Protected by primal spirits and the Druids of the Circle Prime, the grove is a pilgrimage site of initiation and remembrance.
+
+Role: Support, Healer, Controller, Damage Dealer
+
+HIT POINTS
+- Hit Dice: d8 per Druid level
+- Hit Points at 1st Level: 8 + your Constitution modifier
+
+PROFICIENCIES
+- Armor: Light armor, Shields
+- Weapons: Simple weapons
+- Tools: Herbalism kit
+
+CORE RULES (HYBRID)
+- Base Attack Bonus Progression: HALF
+- Primary Stats: Wisdom
+- Skill Points per Level: 4 + Intelligence modifier
+- Class Skills: Animal Handling, Arcana, Insight, Medicine, Nature, Perception, Religion, Survival
+
+============================================================
+CLASS FEATURES
+============================================================
+
+LEVEL 1: Druidic (Ex), Spellcasting, Wild Shape (Su)
+
+FEATURE: Druidic (Ex)
+You know Druidic, the secret language of druids. You can use it to leave hidden messages. Others can detect such messages with a DC 15 Perception check but cannot decipher them without magic.
+
+FEATURE: Spellcasting
+Drawing on the divine essence of nature itself, you can cast spells to shape that essence to your will.
+
+Cantrips Known: See Druid Spellcasting Table.
+- When you gain a Druid level, you can replace one known cantrip with another from the Druid spell list.
+
+Spell Slots: See Druid Spellcasting Table.
+- You regain all expended spell slots when you finish a Long Rest.
+
+Prepared Spells of Level 1+
+You prepare spells from the Druid spell list. The number of prepared spells equals:
+- Prepared Spells = Wisdom modifier + Druid level (minimum 1)
+The spells must be of a level for which you have spell slots.
+- When you finish a Long Rest, you can change your prepared spells.
+- Preparing requires meditation: at least 1 minute per spell level for each spell on your list.
+
+Spellcasting Ability: Wisdom
+- Spell Save DC = 8 + spell level + your Wisdom modifier
+- Spell Attack Modifier = base attack bonus + spell level + your Wisdom modifier
+
+Ritual Casting
+You can cast a Druid spell as a ritual if that spell has the ritual tag and you have the spell prepared.
+
+Spellcasting Focus
+You can use a druidic focus as a spellcasting focus for your druid spells.
+
+FEATURE: Wild Shape (Su)
+As an action, you can transform into a beast you have seen.
+- Uses per day: 2/day (recharges at dawn)
+- At 5th level: 3/day
+- At 17th level: 4/day
+- At 20th level: unlimited uses
+
+Beast Form Limitations
+Your Druid level determines the maximum CR of beast you may become:
+- Level 1: CR 1/4, no fly or swim speed
+- Level 3: CR 1, no fly speed
+- Level 8+: CR = level ÷ 3, fly/swim allowed
+
+Duration
+You remain in beast shape for up to 1 hour per Druid level (minimum 1 hour). You revert if:
+- You use a bonus action to revert,
+- You fall unconscious, drop to 0 HP, or die.
+
+While Transformed
+- You adopt the beast’s Strength, Dexterity, Constitution.
+- You keep your Intelligence, Wisdom, Charisma.
+- You retain your saves and skills unless the beast has better.
+- You assume the beast’s HP.
+- You keep class features usable in your new form (GM discretion).
+- You cannot cast spells unless otherwise noted. You can maintain concentration on existing ones.
+- Equipment: falls, merges, or is worn—your choice.
+- Natural attacks remain nonmagical until Primal Strike at level 6.
+
+LEVEL 2: (No base class feature)
+
+LEVEL 3: Wild Shape Improvement (CR 1, no fly)
+At 3rd level, your Wild Shape maximum beast CR becomes 1. You still cannot assume a form with a fly speed.
+
+LEVEL 4: Wild Empathy (Ex)
+
+FEATURE: Wild Empathy (Ex)
+You can influence natural creatures (beasts; fey and plants at GM discretion) using Persuasion (Wisdom). This functions like Diplomacy for influencing humanoids.
+- You also gain a +2 bonus on Animal Handling checks.
+
+LEVEL 5: Wild Shape Improvement (3/day)
+Your Wild Shape uses increase to 3/day.
+
+LEVEL 6: Primal Strike (Su)
+
+FEATURE: Primal Strike (Su)
+While in Wild Shape, your natural attacks count as magical for the purpose of overcoming resistances and immunities.
+
+LEVEL 7: Poison Immunity (Ex)
+
+FEATURE: Poison Immunity (Ex)
+You gain immunity to poison due to exposure to natural toxins.
+
+LEVEL 8: Elemental Wild Shape (Su), Wild Shape Improvement (CR = level ÷ 3)
+At 8th level and higher, your Wild Shape max CR becomes: level ÷ 3 (fly/swim allowed).
+
+FEATURE: Elemental Wild Shape (Su)
+You can expend two uses of Wild Shape to transform into an elemental (CR limit still applies).
+
+LEVEL 9: Nature’s Ward (Ex)
+
+FEATURE: Nature’s Ward (Ex)
+You become immune to disease.
+
+LEVEL 10: Call the Storm (Su)
+
+FEATURE: Call the Storm (Su)
+Once per day, as an action, summon a storm aura for 1 minute (no concentration).
+- Difficult Terrain of your choice surrounds you in a 20-foot radius.
+- Bonus Action each round: choose one:
+  - Lightning Bolt: One creature within 60 feet takes 4d10 lightning damage (Dexterity save for half; DC = your Spell Save DC).
+  - Thunderclap: All creatures within 10 feet take 2d8 thunder damage and must succeed on a Strength save or be pushed 10 feet and knocked prone.
+Recharges at dawn.
+
+LEVEL 11: Verdant Step (Su)
+
+FEATURE: Verdant Step (Su)
+You are always under the effects of freedom of movement and ignore non-magical difficult terrain.
+
+LEVEL 12: Dryadic Blessing (Su)
+
+FEATURE: Dryadic Blessing (Su)
+You may now use Wild Shape to become plant creatures that match your size and CR restrictions.
+
+LEVEL 13: Voice of the Wild (Su)
+
+FEATURE: Voice of the Wild (Su)
+You can always communicate with beasts and plants as though under speak with animals and speak with plants.
+- Use Wisdom instead of Charisma for Persuasion checks with these creatures.
+
+LEVEL 14: Nature’s Resilience (Su)
+
+FEATURE: Nature’s Resilience (Su)
+While in Wild Shape:
+- Gain resistance to bludgeoning, piercing, and slashing from nonmagical weapons.
+- If your form already has resistance, gain temporary hit points equal to your Wisdom modifier at the start of each turn.
+
+LEVEL 15: Primordial Tongue (Ex)
+
+FEATURE: Primordial Tongue (Ex)
+You can speak, read, and write Primordial. You can also communicate telepathically within 30 feet with beasts, elementals, and plant creatures.
+
+LEVEL 16: Feystride (Su)
+
+FEATURE: Feystride (Su)
+When you are targeted by an attack or harmful effect, you can use your reaction to teleport up to 30 feet to a space you can see.
+- This occurs before the effect resolves.
+- Uses per day: Wisdom modifier times per day (minimum 1).
+Recharges at dawn.
+
+LEVEL 17: Wild Soul (Su), Wild Shape Improvement (4/day)
+
+FEATURE: Wild Soul (Su)
+While you are in Wild Shape:
+- You use your Wisdom modifier in place of the beast’s Constitution modifier when making concentration checks to maintain spells.
+- You gain a +2 bonus on all saving throws against spells and magical effects.
+
+Wild Shape Improvement
+At 17th level, your Wild Shape uses increase to 4/day.
+
+LEVEL 18: Primal Spells (Su)
+
+FEATURE: Primal Spells (Su)
+You may now cast any Druid spell with a casting time of 1 action or bonus action while in Wild Shape.
+- You can perform somatic and verbal components in beast shape, but you can’t provide material components.
+
+LEVEL 19: Elder Wildsoul (Su)
+
+FEATURE: Elder Wildsoul (Su)
+While using Wild Shape, you regain hit points equal to your Wisdom modifier at the start of each of your turns.
+- You do not regain hit points this way if you are at 0 hit points.
+
+LEVEL 20: Archdruid (Su)
+
+FEATURE: Archdruid (Su)
+The veil between you and the wilds has grown thin—you are a creature of two worlds, both mortal and primal.
+- Fey Nature: You count as a Fey creature in addition to your original creature type.
+- Resilient Spirit: You cannot be magically charmed.
+- Unbounded Wild Shape: You may use Wild Shape any number of times per day.
+- Timeless Body: For every 10 years that pass, you age only one year.
+- Piercing Gaze: You gain Truesight out to 60 feet.
+
+============================================================
+LEVEL TABLE (REFERENCE)
+============================================================
+# BAB shown is highest BAB only. Save bonus is your unified class scaling reference.
+# Wild Shape column is uses/day.
+
+LEVELS:
+1  BAB +1  SAVE_BONUS 2  WILD_SHAPE 2        FEATURES Druidic; Spellcasting; Wild Shape (CR 1/4, no fly/swim)
+2  BAB +1  SAVE_BONUS 2  WILD_SHAPE 2        FEATURES —
+3  BAB +2  SAVE_BONUS 2  WILD_SHAPE 2        FEATURES Wild Shape (CR 1, no fly)
+4  BAB +2  SAVE_BONUS 2  WILD_SHAPE 2        FEATURES Wild Empathy
+5  BAB +3  SAVE_BONUS 3  WILD_SHAPE 3        FEATURES Wild Shape (3/day)
+6  BAB +3  SAVE_BONUS 3  WILD_SHAPE 3        FEATURES Primal Strike
+7  BAB +4  SAVE_BONUS 3  WILD_SHAPE 3        FEATURES Poison Immunity
+8  BAB +4  SAVE_BONUS 3  WILD_SHAPE 3        FEATURES Wild Shape (CR = level ÷ 3); Elemental Wild Shape
+9  BAB +5  SAVE_BONUS 4  WILD_SHAPE 3        FEATURES Nature’s Ward
+10 BAB +5  SAVE_BONUS 4  WILD_SHAPE 3        FEATURES Call the Storm
+11 BAB +6  SAVE_BONUS 4  WILD_SHAPE 3        FEATURES Verdant Step
+12 BAB +6  SAVE_BONUS 4  WILD_SHAPE 3        FEATURES Dryadic Blessing
+13 BAB +7  SAVE_BONUS 5  WILD_SHAPE 3        FEATURES Voice of the Wild
+14 BAB +7  SAVE_BONUS 5  WILD_SHAPE 3        FEATURES Nature’s Resilience
+15 BAB +8  SAVE_BONUS 5  WILD_SHAPE 3        FEATURES Primordial Tongue
+16 BAB +8  SAVE_BONUS 5  WILD_SHAPE 3        FEATURES Feystride
+17 BAB +9  SAVE_BONUS 6  WILD_SHAPE 4        FEATURES Wild Soul
+18 BAB +9  SAVE_BONUS 6  WILD_SHAPE 4        FEATURES Primal Spells
+19 BAB +10 SAVE_BONUS 6  WILD_SHAPE 4        FEATURES Elder Wildsoul
+20 BAB +10 SAVE_BONUS 6  WILD_SHAPE UNLIMITED FEATURES Archdruid
+
+============================================================
+SPELLCASTING TABLE (CANTRIPS, SPELLS KNOWN, SLOTS)
+============================================================
+# NOTE: Druids in your write-up prepare spells (Wis mod + level). The "Spells Known" column is retained as a reference
+# column from your table for compatibility; use Prepared Spells rule text as canonical for behavior.
+
+# Columns:
+# Level, CantripsKnown, SpellsKnown, Slots1, Slots2, Slots3, Slots4, Slots5, Slots6, Slots7, Slots8, Slots9
+
+1,  2,  4, 2,0,0,0,0,0,0,0,0
+2,  2,  5, 2,0,0,0,0,0,0,0,0
+3,  2,  6, 3,2,0,0,0,0,0,0,0
+4,  3,  7, 3,2,0,0,0,0,0,0,0
+5,  3,  8, 4,3,1,0,0,0,0,0,0
+6,  3,  9, 4,3,1,0,0,0,0,0,0
+7,  3, 10, 4,3,2,1,0,0,0,0,0
+8,  3, 11, 4,3,2,1,0,0,0,0,0
+9,  3, 12, 4,3,3,2,1,0,0,0,0
+10, 3, 13, 4,3,3,2,1,0,0,0,0
+11, 3, 14, 4,3,3,3,2,1,0,0,0
+12, 3, 15, 4,3,3,3,2,1,0,0,0
+13, 3, 16, 4,3,3,3,3,2,1,0,0
+14, 3, 17, 4,3,3,3,3,2,1,0,0
+15, 3, 17, 4,3,3,3,3,3,1,1,0
+16, 3, 18, 4,3,3,3,3,3,1,1,0
+17, 4, 18, 4,3,3,3,3,3,1,1,1
+18, 4, 19, 4,3,3,3,3,3,1,1,1
+19, 4, 19, 4,3,3,3,3,3,2,1,1
+20, 4, 20, 4,3,3,3,3,3,2,1,1
+
+============================================================
+DRUID SPELL LIST (REFERENCE)
+============================================================
+
+CANTRIPS:
+- Druidcraft
+- Elementalism
+- Guidance
+- Mending
+- Poison Spray
+- Produce Flame
+- Resistance
+- Shillelagh
+- Starry Wisp
+
+LEVEL 1:
+- Animal Friendship
+- Charm Person
+- Create or Destroy Water
+- Cure Wounds
+- Detect Magic
+- Detect Poison and Disease
+- Entangle
+- Faerie Fire
+- Fog Cloud
+- Goodberry
+- Healing Word
+- Ice Knife
+- Jump
+- Longstrider
+- Purify Food and Drink
+- Speak with Animals
+- Thunderwave
+
+LEVEL 2:
+- Animal Messenger
+- Barkskin
+- Darkvision
+- Enhance Ability
+- Find Traps
+- Flame Blade
+- Flaming Sphere
+- Gust of Wind
+- Heat Metal
+- Hold Person
+- Lesser Restoration
+- Locate Animals or Plants
+- Locate Object
+- Moonbeam
+- Pass without Trace
+- Protection from Poison
+- Spike Growth
+
+LEVEL 3:
+- Call Lightning
+- Conjure Animals
+- Daylight
+- Dispel Magic
+- Meld into Stone
+- Plant Growth
+- Protection from Energy
+- Sleet Storm
+- Speak with Plants
+- Water Breathing
+- Water Walk
+- Wind Wall
+
+LEVEL 4:
+- Blight
+- Charm Monster
+- Confusion
+- Conjure Minor Elementals
+- Conjure Woodland Beings
+- Control Water
+- Dominate Beast
+- Freedom of Movement
+- Giant Insect
+- Hallucinatory Terrain
+- Ice Storm
+- Locate Creature
+- Polymorph
+- Stone Shape
+- Stoneskin
+- Wall of Fire
+
+LEVEL 5:
+- Antilife Shell
+- Awaken
+- Commune with Nature
+- Conjure Elemental
+- Contagion
+- Geas
+- Greater Restoration
+- Insect Plague
+- Mass Cure Wounds
+- Planar Binding
+- Reincarnate
+- Scrying
+- Tree Stride
+- Wall of Stone
+
+LEVEL 6:
+- Conjure Fey
+- Find the Path
+- Heal
+- Heroes’ Feast
+- Move Earth
+- Sunbeam
+- Transport via Plants
+- Wall of Thorns
+- Wind Walk
+
+LEVEL 7:
+- Fire Storm
+- Mirage Arcane
+- Plane Shift
+- Regenerate
+- Reverse Gravity
+
+LEVEL 8:
+- Animal Shapes
+- Antipathy/Sympathy
+- Control Weather
+- Earthquake
+- Feeblemind
+- Sunburst
+- Tsunami
+
+LEVEL 9:
+- Foresight
+- Shapechange
+- Storm of Vengeance

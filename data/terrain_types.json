@@ -1,0 +1,122 @@
+{
+  "Arctic": {
+    "name": "Arctic",
+    "description": "Frozen wastes, treacherous ice, and biting winds.",
+    "tile_weights": {"open": 0.6, "difficult": 0.3, "wall": 0.1},
+    "wall_density": 0.05,
+    "difficult_density": 0.3,
+    "water_density": 0.0,
+    "hazard_chance": 0.15,
+    "hazards": ["Crevasse", "Thin Ice", "Blizzard"]
+  },
+  "Coastal": {
+    "name": "Coastal",
+    "description": "Sandy beaches, rocky shores, and shallow waters.",
+    "tile_weights": {"open": 0.5, "difficult": 0.2, "water": 0.2, "wall": 0.1},
+    "wall_density": 0.08,
+    "difficult_density": 0.15,
+    "water_density": 0.2,
+    "hazard_chance": 0.1,
+    "hazards": ["Rip Current", "Sharp Rocks", "High Tide"]
+  },
+  "Desert": {
+    "name": "Desert",
+    "description": "Vast stretches of sand, rocky outcrops, and extreme heat.",
+    "tile_weights": {"open": 0.7, "difficult": 0.2, "wall": 0.1},
+    "wall_density": 0.07,
+    "difficult_density": 0.25,
+    "water_density": 0.0,
+    "hazard_chance": 0.12,
+    "hazards": ["Quicksand", "Heat Haze", "Sandstorm"]
+  },
+  "Forest": {
+    "name": "Forest",
+    "description": "Dense trees, thick undergrowth, and hidden paths.",
+    "tile_weights": {"open": 0.5, "difficult": 0.4, "wall": 0.1},
+    "wall_density": 0.1,
+    "difficult_density": 0.3,
+    "water_density": 0.05,
+    "hazard_chance": 0.15,
+    "hazards": ["Thorns", "Dense Fog", "Hidden Pit"]
+  },
+  "Grassland": {
+    "name": "Grassland",
+    "description": "Rolling hills, tall grasses, and open skies.",
+    "tile_weights": {"open": 0.8, "difficult": 0.15, "wall": 0.05},
+    "wall_density": 0.03,
+    "difficult_density": 0.1,
+    "water_density": 0.02,
+    "hazard_chance": 0.08,
+    "hazards": ["Tall Grass (obscuring)", "Sinkhole"]
+  },
+  "Hill": {
+    "name": "Hill",
+    "description": "Rocky terrain, steep inclines, and scattered trees.",
+    "tile_weights": {"open": 0.6, "difficult": 0.3, "wall": 0.1},
+    "wall_density": 0.12,
+    "difficult_density": 0.25,
+    "water_density": 0.0,
+    "hazard_chance": 0.1,
+    "hazards": ["Loose Scree", "Steep Drop"]
+  },
+  "Mountain": {
+    "name": "Mountain",
+    "description": "Jagged peaks, narrow passes, and sheer cliffs.",
+    "tile_weights": {"open": 0.4, "difficult": 0.4, "wall": 0.2},
+    "wall_density": 0.2,
+    "difficult_density": 0.3,
+    "water_density": 0.0,
+    "hazard_chance": 0.2,
+    "hazards": ["Rockslide", "Cliff Edge", "Thin Air"]
+  },
+  "Swamp": {
+    "name": "Swamp",
+    "description": "Murky waters, dense vegetation, and noxious fumes.",
+    "tile_weights": {"open": 0.3, "difficult": 0.4, "water": 0.2, "wall": 0.1},
+    "wall_density": 0.08,
+    "difficult_density": 0.35,
+    "water_density": 0.25,
+    "hazard_chance": 0.2,
+    "hazards": ["Quagmire", "Poisonous Gas", "Hidden Snare"]
+  },
+  "Underdark": {
+    "name": "Underdark",
+    "description": "Subterranean caverns, fungal forests, and dark tunnels.",
+    "tile_weights": {"open": 0.4, "difficult": 0.3, "wall": 0.3},
+    "wall_density": 0.3,
+    "difficult_density": 0.2,
+    "water_density": 0.05,
+    "hazard_chance": 0.25,
+    "hazards": ["Chasm", "Fungal Spores", "Cave-in"]
+  },
+  "Underwater": {
+    "name": "Underwater",
+    "description": "Deep ocean trenches, coral reefs, and strong currents.",
+    "tile_weights": {"open": 0.5, "difficult": 0.3, "wall": 0.2},
+    "wall_density": 0.1,
+    "difficult_density": 0.2,
+    "water_density": 0.7,
+    "hazard_chance": 0.18,
+    "hazards": ["Strong Current", "Deep Trench", "Coral Reef (difficult)"]
+  },
+  "Urban": {
+    "name": "Urban",
+    "description": "City streets, crowded markets, and tall buildings.",
+    "tile_weights": {"open": 0.7, "difficult": 0.1, "wall": 0.2},
+    "wall_density": 0.15,
+    "difficult_density": 0.05,
+    "water_density": 0.0,
+    "hazard_chance": 0.05,
+    "hazards": ["Crowd (difficult)", "Barricade", "Open Sewer"]
+  },
+  "Dungeon": {
+    "name": "Dungeon",
+    "description": "Stone corridors, hidden rooms, and ancient traps.",
+    "tile_weights": {"open": 0.5, "difficult": 0.2, "wall": 0.3},
+    "wall_density": 0.25,
+    "difficult_density": 0.15,
+    "water_density": 0.0,
+    "hazard_chance": 0.2,
+    "hazards": ["Spike Trap", "Pressure Plate", "Collapsing Ceiling"]
+  }
+}

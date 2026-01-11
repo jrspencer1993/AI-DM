@@ -1,0 +1,33 @@
+{
+  "prone": {
+    "name": "Prone",
+    "description": "A prone creature has disadvantage on attack rolls. An attack roll against the creature has advantage if the attacker is within 5 feet.",
+    "effects": {
+      "attack_modifier": -2,
+      "ac_modifier": -2,
+      "movement": "half"
+    },
+    "ends": ["stand_up"]
+  },
+
+  "stunned": {
+    "name": "Stunned",
+    "description": "A stunned creature is incapacitated and cannot move.",
+    "effects": {
+      "can_act": false,
+      "movement": "none",
+      "auto_fail_saves": ["STR", "DEX"]
+    },
+    "ends": ["end_of_turn"]
+  },
+
+  "poisoned": {
+    "name": "Poisoned",
+    "description": "A poisoned creature has disadvantage on attack rolls and ability checks.",
+    "effects": {
+      "attack_modifier": -2,
+      "skill_modifier": -2
+    },
+    "ends": ["save:CON"]
+  }
+}

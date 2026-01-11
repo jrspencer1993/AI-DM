@@ -1,0 +1,120 @@
+Class: Wizard
+Role: Master of arcane magic and knowledge
+
+Hit Dice: d4
+Hit Points at Level 1: 4 + Constitution modifier
+
+Proficiencies:
+Armor: None
+Weapons: Daggers, darts, slings, quarterstaffs, light crossbows
+Tools: None
+Saving Throws: Intelligence, Wisdom
+Base Attack Bonus: 1/2 BAB
+Skill Points per Level: 4 + Intelligence modifier
+Skills: Arcana, History, Insight, Medicine, Religion
+
+========================================
+Class Features
+========================================
+
+Level 1:
+Spellcasting (Sp)
+- Spellcasting Ability: Intelligence
+- Spell Save DC = 8 + spell level + Intelligence modifier
+- Spell Attack Modifier = Base Attack Bonus + spell level + Intelligence modifier
+- Cantrips Known: 3
+- Spellbook: 6 first-level wizard spells
+- Prepared Spells: Intelligence modifier + Wizard level (minimum 1)
+- Ritual Casting: May cast ritual spells from spellbook without preparing
+- Spellcasting Focus: Arcane focus
+
+Familiar (Sp)
+- Gain a familiar via 24-hour ritual (100 gp)
+- Familiar HP = Wizard level + Intelligence modifier
+- Familiar Intelligence = Intelligence modifier (minimum 6)
+- Telepathic communication within 100 feet
+- Familiar can deliver touch spells at level 6
+
+Ritual Adept (Sp)
+- May cast any ritual spell from spellbook without preparing it
+
+Level 3:
+Magic School Specialization (Sp)
+Choose one:
+- General: Learn one extra spell per spell level (1st–5th)
+- Abjuration: Increase AC bonus from abjuration spells by +1
+- Conjuration: Reaction teleport 15 ft (Int mod uses/day)
+- Divination: Reaction d4 fate twist (Int mod uses/day)
+- Enchantment: Reaction daze attacker (Int mod uses/day)
+- Evocation: Reaction ranged force attack (scales by level)
+- Illusion: Cast an illusion cantrip when casting illusion spells
+- Necromancy: Familiar becomes undead
+- Transmutation: Gain temporary HP equal to Int mod
+
+Level 6:
+School Mastery (Sp)
+- General: Gain another spell of each level
+- Abjuration: Arcane Ward (2 × Wizard level + Int mod HP)
+- Conjuration: Minor Conjuration (nonmagical object)
+- Divination: Third Eye (Truesight 60 ft)
+- Enchantment: Split Enchantment
+- Evocation: Add Int mod to damage
+- Illusion: Alter long-duration illusions
+- Necromancy: Necrotic resistance, HP max can’t be reduced
+- Transmutation: Permanent object transmutation
+
+Level 18:
+Spell Mastery (Sp)
+- Choose one 1st-level and one 2nd-level spell
+- Cast them at will at lowest level
+
+Level 20:
+Arcane Mastery (Sp)
+- Choose a school of magic
+- Spells of that school are cast as if one slot level higher
+- May concentrate on two spells of different schools
+
+========================================
+Level Progression
+========================================
+
+Level 1: BAB +1, Save Bonus +2, Spellcasting, Familiar, Ritual Adept
+Level 2: BAB +1, Save Bonus +2
+Level 3: BAB +2, Save Bonus +2, Magic School Specialization
+Level 4: BAB +2, Save Bonus +2
+Level 5: BAB +3, Save Bonus +3
+Level 6: BAB +3, Save Bonus +3, School Mastery
+Level 7: BAB +4, Save Bonus +3
+Level 8: BAB +4, Save Bonus +3
+Level 9: BAB +5, Save Bonus +4
+Level 10: BAB +5, Save Bonus +4, School Feature
+Level 11: BAB +6, Save Bonus +4
+Level 12: BAB +6, Save Bonus +4
+Level 13: BAB +7, Save Bonus +5
+Level 14: BAB +7, Save Bonus +5, School Feature
+Level 15: BAB +8, Save Bonus +5
+Level 16: BAB +8, Save Bonus +5
+Level 17: BAB +9, Save Bonus +6, Spell Mastery
+Level 18: BAB +9, Save Bonus +6
+Level 19: BAB +10, Save Bonus +6
+Level 20: BAB +10, Save Bonus +6, Arcane Mastery
+
+========================================
+Spell List
+========================================
+
+Cantrips:
+Acid Splash, Chill Touch, Dancing Lights, Elementalism, Fire Bolt,
+Light, Mage Hand, Mending, Message, Minor Illusion,
+Poison Spray, Prestidigitation, Ray of Frost, Shocking Grasp, True Strike
+
+1st Level:
+Alarm, Burning Hands, Charm Person, Chromatic Orb, Color Spray,
+Comprehend Languages, Detect Magic, Disguise Self, Expeditious Retreat,
+False Life, Feather Fall, Find Familiar, Floating Disk, Fog Cloud,
+Grease, Hideous Laughter, Ice Knife, Identify, Illusory Script, Jump,
+Longstrider, Mage Armor, Magic Missile, Protection from Evil and Good,
+Ray of Sickness, Shield, Silent Image, Sleep, Thunderwave, Unseen Servant
+
+2nd–9th Level:
+(Use Wizard spell list as defined in core rules and expansions)

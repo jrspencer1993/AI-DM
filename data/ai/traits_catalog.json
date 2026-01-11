@@ -1,0 +1,112 @@
+{
+  "brute": {
+    "name": "Brute",
+    "description": "Deals extra damage with melee weapons",
+    "modifiers": {
+      "prefer_melee": true,
+      "prefer_damage": true
+    }
+  },
+  "skirmisher": {
+    "name": "Skirmisher",
+    "description": "Prefers hit-and-run tactics, moving after attacking",
+    "modifiers": {
+      "hit_and_run": true
+    }
+  },
+  "nimble_escape": {
+    "name": "Nimble Escape",
+    "description": "Can disengage or hide as bonus action",
+    "modifiers": {
+      "hit_and_run": true
+    }
+  },
+  "pack_tactics": {
+    "name": "Pack Tactics",
+    "description": "Benefits from allies near target (expressed as flat bonus, NOT advantage)",
+    "modifiers": {
+      "ally_near_bonus": 2
+    }
+  },
+  "aggressive": {
+    "name": "Aggressive",
+    "description": "Can move toward enemy as bonus action",
+    "modifiers": {
+      "prefer_melee": true,
+      "bonus_move_toward": true
+    }
+  },
+  "reckless": {
+    "name": "Reckless",
+    "description": "Can attack recklessly for increased damage potential",
+    "modifiers": {
+      "prefer_damage": true,
+      "reckless_attack": true
+    }
+  },
+  "spellcasting": {
+    "name": "Spellcasting",
+    "description": "Has access to spells",
+    "modifiers": {
+      "prefer_spells": true
+    }
+  },
+  "innate_spellcasting": {
+    "name": "Innate Spellcasting",
+    "description": "Has innate magical abilities",
+    "modifiers": {
+      "prefer_spells": true
+    }
+  },
+  "multiattack": {
+    "name": "Multiattack",
+    "description": "Can make multiple attacks per action",
+    "modifiers": {
+      "multiattack": true
+    }
+  },
+  "reach": {
+    "name": "Reach",
+    "description": "Has extended melee reach",
+    "modifiers": {
+      "reach_bonus": 1
+    }
+  },
+  "cunning_action": {
+    "name": "Cunning Action",
+    "description": "Can dash, disengage, or hide as bonus action",
+    "modifiers": {
+      "hit_and_run": true,
+      "bonus_dash": true
+    }
+  },
+  "flyby": {
+    "name": "Flyby",
+    "description": "Doesn't provoke opportunity attacks when flying",
+    "modifiers": {
+      "hit_and_run": true,
+      "no_opportunity_attacks": true
+    }
+  },
+  "ambusher": {
+    "name": "Ambusher",
+    "description": "Gains benefits on surprise attacks",
+    "modifiers": {
+      "prefer_stealth": true
+    }
+  },
+  "magic_resistance": {
+    "name": "Magic Resistance",
+    "description": "Has resistance to spell effects",
+    "modifiers": {
+      "defensive": true
+    }
+  },
+  "regeneration": {
+    "name": "Regeneration",
+    "description": "Regains HP at start of turn",
+    "modifiers": {
+      "aggressive_playstyle": true
+    }
+  }
+}

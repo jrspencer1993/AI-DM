@@ -1,0 +1,506 @@
+{
+  "version": "1.0",
+  "hazards": [
+    {
+      "id": "thin_ice",
+      "name": "Thin Ice",
+      "description": "A fragile ice sheet that may crack under weight.",
+      "trigger": "enter_square",
+      "mechanics": {
+        "type": "save",
+        "save": "DEX",
+        "dc": 13,
+        "on_fail": "fall_prone"
+      }
+    },
+    {
+      "id": "extreme_cold",
+      "name": "Extreme Cold",
+      "description": "Sustained exposure can weaken creatures without proper protection.",
+      "trigger": "end_of_round",
+      "mechanics": {
+        "type": "save",
+        "save": "CON",
+        "dc": 12,
+        "on_fail": "fatigue_1"
+      }
+    },
+    {
+      "id": "blizzard",
+      "name": "Blizzard",
+      "description": "Driving snow and wind obscures vision and chills to the bone.",
+      "trigger": "start_of_turn",
+      "mechanics": {
+        "type": "save",
+        "save": "CON",
+        "dc": 10,
+        "on_fail": "cold_damage_1d4"
+      }
+    },
+    {
+      "id": "ice_slick",
+      "name": "Ice Slick",
+      "description": "A patch of slippery ice that can cause falls.",
+      "trigger": "enter_square",
+      "mechanics": {
+        "type": "save",
+        "save": "DEX",
+        "dc": 12,
+        "on_fail": "fall_prone"
+      }
+    },
+    {
+      "id": "quicksand",
+      "name": "Quicksand",
+      "description": "Treacherous ground that pulls creatures down.",
+      "trigger": "enter_square",
+      "mechanics": {
+        "type": "save",
+        "save": "STR",
+        "dc": 12,
+        "on_fail": "restrained"
+      }
+    },
+    {
+      "id": "riptide",
+      "name": "Riptide",
+      "description": "A strong underwater current that pulls creatures away.",
+      "trigger": "end_of_turn",
+      "mechanics": {
+        "type": "save",
+        "save": "STR",
+        "dc": 14,
+        "on_fail": "move_1d4_squares"
+      }
+    },
+    {
+      "id": "slippery_rocks",
+      "name": "Slippery Rocks",
+      "description": "Wet, algae-covered rocks that are treacherous to cross.",
+      "trigger": "enter_square",
+      "mechanics": {
+        "type": "save",
+        "save": "DEX",
+        "dc": 11,
+        "on_fail": "fall_prone"
+      }
+    },
+    {
+      "id": "crashing_wave",
+      "name": "Crashing Wave",
+      "description": "Periodic waves that can knock creatures off their feet.",
+      "trigger": "start_of_round",
+      "mechanics": {
+        "type": "save",
+        "save": "STR",
+        "dc": 13,
+        "on_fail": "fall_prone"
+      }
+    },
+    {
+      "id": "heat_exhaustion",
+      "name": "Heat Exhaustion",
+      "description": "Extreme heat that saps strength and endurance.",
+      "trigger": "end_of_round",
+      "mechanics": {
+        "type": "save",
+        "save": "CON",
+        "dc": 12,
+        "on_fail": "fatigue_1"
+      }
+    },
+    {
+      "id": "sandstorm",
+      "name": "Sandstorm",
+      "description": "Blinding sand that obscures vision and stings exposed skin.",
+      "trigger": "start_of_turn",
+      "mechanics": {
+        "type": "save",
+        "save": "CON",
+        "dc": 11,
+        "on_fail": "blinded_1_round"
+      }
+    },
+    {
+      "id": "sinkhole",
+      "name": "Sinkhole",
+      "description": "Unstable ground that may collapse.",
+      "trigger": "enter_square",
+      "mechanics": {
+        "type": "save",
+        "save": "DEX",
+        "dc": 14,
+        "on_fail": "fall_damage_1d6"
+      }
+    },
+    {
+      "id": "pit_trap",
+      "name": "Pit Trap",
+      "description": "A concealed pit with sharpened stakes.",
+      "trigger": "enter_square",
+      "mechanics": {
+        "type": "save",
+        "save": "DEX",
+        "dc": 13,
+        "on_fail": "fall_damage_2d6"
+      }
+    },
+    {
+      "id": "snare",
+      "name": "Snare",
+      "description": "A hidden rope trap that entangles creatures.",
+      "trigger": "enter_square",
+      "mechanics": {
+        "type": "save",
+        "save": "DEX",
+        "dc": 12,
+        "on_fail": "restrained"
+      }
+    },
+    {
+      "id": "poison_ivy",
+      "name": "Poison Ivy",
+      "description": "Irritating plants that cause rashes and discomfort.",
+      "trigger": "enter_square",
+      "mechanics": {
+        "type": "save",
+        "save": "CON",
+        "dc": 10,
+        "on_fail": "poisoned_1_hour"
+      }
+    },
+    {
+      "id": "falling_branch",
+      "name": "Falling Branch",
+      "description": "Dead branches that may fall on passersby.",
+      "trigger": "enter_square",
+      "mechanics": {
+        "type": "save",
+        "save": "DEX",
+        "dc": 11,
+        "on_fail": "bludgeoning_1d6"
+      }
+    },
+    {
+      "id": "hidden_pit",
+      "name": "Hidden Pit",
+      "description": "A concealed hole in the ground.",
+      "trigger": "enter_square",
+      "mechanics": {
+        "type": "save",
+        "save": "DEX",
+        "dc": 12,
+        "on_fail": "fall_damage_1d6"
+      }
+    },
+    {
+      "id": "snake_nest",
+      "name": "Snake Nest",
+      "description": "A nest of venomous snakes.",
+      "trigger": "enter_square",
+      "mechanics": {
+        "type": "save",
+        "save": "DEX",
+        "dc": 12,
+        "on_fail": "poison_damage_1d4"
+      }
+    },
+    {
+      "id": "prairie_fire",
+      "name": "Prairie Fire",
+      "description": "Spreading flames through dry grass.",
+      "trigger": "start_of_turn",
+      "mechanics": {
+        "type": "damage",
+        "damage": "1d6",
+        "damage_type": "fire"
+      }
+    },
+    {
+      "id": "rockslide",
+      "name": "Rockslide",
+      "description": "Loose rocks that tumble down slopes.",
+      "trigger": "enter_square",
+      "mechanics": {
+        "type": "save",
+        "save": "DEX",
+        "dc": 13,
+        "on_fail": "bludgeoning_2d6"
+      }
+    },
+    {
+      "id": "unstable_ground",
+      "name": "Unstable Ground",
+      "description": "Loose earth that shifts underfoot.",
+      "trigger": "enter_square",
+      "mechanics": {
+        "type": "save",
+        "save": "DEX",
+        "dc": 11,
+        "on_fail": "fall_prone"
+      }
+    },
+    {
+      "id": "cliff_edge",
+      "name": "Cliff Edge",
+      "description": "A dangerous precipice.",
+      "trigger": "enter_square",
+      "mechanics": {
+        "type": "save",
+        "save": "DEX",
+        "dc": 12,
+        "on_fail": "fall_damage_3d6"
+      }
+    },
+    {
+      "id": "avalanche",
+      "name": "Avalanche",
+      "description": "A wall of snow and ice rushing down the mountain.",
+      "trigger": "start_of_round",
+      "mechanics": {
+        "type": "save",
+        "save": "DEX",
+        "dc": 15,
+        "on_fail": "buried"
+      }
+    },
+    {
+      "id": "falling_rocks",
+      "name": "Falling Rocks",
+      "description": "Loose stones that tumble from above.",
+      "trigger": "enter_square",
+      "mechanics": {
+        "type": "save",
+        "save": "DEX",
+        "dc": 12,
+        "on_fail": "bludgeoning_1d8"
+      }
+    },
+    {
+      "id": "crevasse",
+      "name": "Crevasse",
+      "description": "A deep crack in ice or rock.",
+      "trigger": "enter_square",
+      "mechanics": {
+        "type": "save",
+        "save": "DEX",
+        "dc": 14,
+        "on_fail": "fall_damage_4d6"
+      }
+    },
+    {
+      "id": "thin_air",
+      "name": "Thin Air",
+      "description": "High altitude with reduced oxygen.",
+      "trigger": "end_of_round",
+      "mechanics": {
+        "type": "save",
+        "save": "CON",
+        "dc": 10,
+        "on_fail": "fatigue_1"
+      }
+    },
+    {
+      "id": "poison_gas",
+      "name": "Poison Gas",
+      "description": "Noxious fumes that fill the area.",
+      "trigger": "start_of_turn",
+      "mechanics": {
+        "type": "save",
+        "save": "CON",
+        "dc": 13,
+        "on_fail": "poison_damage_1d6"
+      }
+    },
+    {
+      "id": "disease_water",
+      "name": "Diseased Water",
+      "description": "Stagnant water filled with pathogens.",
+      "trigger": "enter_square",
+      "mechanics": {
+        "type": "save",
+        "save": "CON",
+        "dc": 12,
+        "on_fail": "disease"
+      }
+    },
+    {
+      "id": "hidden_sinkhole",
+      "name": "Hidden Sinkhole",
+      "description": "Ground that suddenly gives way.",
+      "trigger": "enter_square",
+      "mechanics": {
+        "type": "save",
+        "save": "DEX",
+        "dc": 14,
+        "on_fail": "fall_damage_2d6"
+      }
+    },
+    {
+      "id": "cave_in",
+      "name": "Cave-In",
+      "description": "Collapsing ceiling in an unstable cavern.",
+      "trigger": "start_of_round",
+      "mechanics": {
+        "type": "save",
+        "save": "DEX",
+        "dc": 14,
+        "on_fail": "bludgeoning_3d6"
+      }
+    },
+    {
+      "id": "poison_spores",
+      "name": "Poison Spores",
+      "description": "Toxic fungal spores that fill the air.",
+      "trigger": "start_of_turn",
+      "mechanics": {
+        "type": "save",
+        "save": "CON",
+        "dc": 12,
+        "on_fail": "poison_damage_1d4"
+      }
+    },
+    {
+      "id": "acid_pool",
+      "name": "Acid Pool",
+      "description": "A pool of corrosive liquid.",
+      "trigger": "enter_square",
+      "mechanics": {
+        "type": "damage",
+        "damage": "2d6",
+        "damage_type": "acid"
+      }
+    },
+    {
+      "id": "web_trap",
+      "name": "Web Trap",
+      "description": "Sticky spider webs that entangle creatures.",
+      "trigger": "enter_square",
+      "mechanics": {
+        "type": "save",
+        "save": "STR",
+        "dc": 12,
+        "on_fail": "restrained"
+      }
+    },
+    {
+      "id": "strong_current",
+      "name": "Strong Current",
+      "description": "A powerful underwater current.",
+      "trigger": "end_of_turn",
+      "mechanics": {
+        "type": "save",
+        "save": "STR",
+        "dc": 13,
+        "on_fail": "move_2_squares"
+      }
+    },
+    {
+      "id": "pressure_zone",
+      "name": "Pressure Zone",
+      "description": "Extreme water pressure at depth.",
+      "trigger": "end_of_round",
+      "mechanics": {
+        "type": "save",
+        "save": "CON",
+        "dc": 12,
+        "on_fail": "bludgeoning_1d6"
+      }
+    },
+    {
+      "id": "electric_eel",
+      "name": "Electric Eel",
+      "description": "An electric eel lurking in the water.",
+      "trigger": "enter_square",
+      "mechanics": {
+        "type": "save",
+        "save": "CON",
+        "dc": 12,
+        "on_fail": "lightning_damage_1d8"
+      }
+    },
+    {
+      "id": "whirlpool",
+      "name": "Whirlpool",
+      "description": "A swirling vortex that pulls creatures under.",
+      "trigger": "start_of_turn",
+      "mechanics": {
+        "type": "save",
+        "save": "STR",
+        "dc": 14,
+        "on_fail": "pulled_under"
+      }
+    },
+    {
+      "id": "falling_debris",
+      "name": "Falling Debris",
+      "description": "Rubble falling from damaged structures.",
+      "trigger": "enter_square",
+      "mechanics": {
+        "type": "save",
+        "save": "DEX",
+        "dc": 12,
+        "on_fail": "bludgeoning_1d6"
+      }
+    },
+    {
+      "id": "fire",
+      "name": "Fire",
+      "description": "Flames spreading through the area.",
+      "trigger": "start_of_turn",
+      "mechanics": {
+        "type": "damage",
+        "damage": "1d6",
+        "damage_type": "fire"
+      }
+    },
+    {
+      "id": "trap_door",
+      "name": "Trap Door",
+      "description": "A concealed door that drops creatures below.",
+      "trigger": "enter_square",
+      "mechanics": {
+        "type": "save",
+        "save": "DEX",
+        "dc": 13,
+        "on_fail": "fall_damage_1d6"
+      }
+    },
+    {
+      "id": "collapsing_floor",
+      "name": "Collapsing Floor",
+      "description": "Weakened flooring that may give way.",
+      "trigger": "enter_square",
+      "mechanics": {
+        "type": "save",
+        "save": "DEX",
+        "dc": 14,
+        "on_fail": "fall_damage_2d6"
+      }
+    },
+    {
+      "id": "dart_trap",
+      "name": "Dart Trap",
+      "description": "Pressure plates that trigger poisoned darts.",
+      "trigger": "enter_square",
+      "mechanics": {
+        "type": "save",
+        "save": "DEX",
+        "dc": 13,
+        "on_fail": "piercing_1d4_poison"
+      }
+    },
+    {
+      "id": "collapsing_ceiling",
+      "name": "Collapsing Ceiling",
+      "description": "An unstable ceiling that may fall.",
+      "trigger": "enter_square",
+      "mechanics": {
+        "type": "save",
+        "save": "DEX",
+        "dc": 14,
+        "on_fail": "bludgeoning_2d6"
+      }
+    }
+  ]
+}

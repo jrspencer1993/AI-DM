@@ -1,0 +1,90 @@
+{
+  "breath_weapon": {
+    "name": "Breath Weapon",
+    "description": "Area damage ability, usually with recharge",
+    "type": "save",
+    "area": true,
+    "recharge": "5-6",
+    "priority": "high_when_available"
+  },
+  "frightful_presence": {
+    "name": "Frightful Presence",
+    "description": "Fear effect on nearby enemies",
+    "type": "save",
+    "condition": "frightened",
+    "priority": "opening_move"
+  },
+  "web": {
+    "name": "Web",
+    "description": "Restrains targets in area",
+    "type": "save",
+    "condition": "restrained",
+    "recharge": "5-6",
+    "priority": "control"
+  },
+  "grapple": {
+    "name": "Grapple",
+    "description": "Restrains single target",
+    "type": "contested",
+    "condition": "grappled",
+    "priority": "melee_control"
+  },
+  "swallow": {
+    "name": "Swallow",
+    "description": "Engulfs and damages target over time",
+    "type": "attack",
+    "requires": "grappled",
+    "priority": "finisher"
+  },
+  "poison_spray": {
+    "name": "Poison Spray",
+    "description": "Close range poison damage",
+    "type": "save",
+    "damage_type": "poison",
+    "priority": "melee_alternative"
+  },
+  "charm": {
+    "name": "Charm",
+    "description": "Charms target",
+    "type": "save",
+    "condition": "charmed",
+    "priority": "control"
+  },
+  "teleport": {
+    "name": "Teleport",
+    "description": "Instant movement",
+    "type": "utility",
+    "priority": "positioning"
+  },
+  "invisibility": {
+    "name": "Invisibility",
+    "description": "Becomes invisible",
+    "type": "utility",
+    "condition": "invisible",
+    "priority": "escape_or_setup"
+  },
+  "healing": {
+    "name": "Healing",
+    "description": "Restores HP to self or ally",
+    "type": "utility",
+    "priority": "low_hp"
+  },
+  "summon": {
+    "name": "Summon",
+    "description": "Summons additional creatures",
+    "type": "utility",
+    "priority": "opening_move"
+  },
+  "legendary_action": {
+    "name": "Legendary Action",
+    "description": "Can take actions outside of turn",
+    "type": "special",
+    "priority": "always_consider"
+  },
+  "lair_action": {
+    "name": "Lair Action",
+    "description": "Environmental effect in lair",
+    "type": "special",
+    "priority": "round_start"
+  }
+}

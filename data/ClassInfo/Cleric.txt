@@ -1,0 +1,312 @@
+Cleric
+
+“Faith is not weakness. It is the will to command miracles.”
+Clerics are chosen vessels of the divine, bridging mortals and gods. Their prayers are power given form—healing, warding death, and smiting foes with divine fury. Not all clerics serve peaceful gods; some embody war, judgment, death, or prophecy.
+
+Role: Divine Caster, Support, Healer, Protector
+
+HIT POINTS
+- Hit Dice: d8 per Cleric level
+- Hit Points at 1st Level: 8 + your Constitution modifier
+
+PROFICIENCIES
+- Armor: Light armor
+- Weapons: Simple weapons
+- Tools: None
+
+CORE RULES (HYBRID)
+- Base Attack Bonus Progression: HALF
+- Primary Stats: Wisdom, Charisma
+- Skill Points per Level: 4 + Intelligence modifier
+- Class Skills: Arcana, History, Insight, Medicine, Religion, Perception
+
+============================================================
+CLASS FEATURES
+============================================================
+
+LEVEL 1: Spellcasting, Divine Domain
+
+FEATURE: Spellcasting
+As a Cleric, you have access to divine magic. Your spells come from your connection to your deity and are granted through prayer and meditation. You prepare spells from the Cleric spell list. The number of spells you can prepare is based on your Cleric level as shown in the Cleric Spellcasting Table.
+
+Cantrips Known: See Cleric Spellcasting Table.
+- When you gain a Cleric level, you can replace one known cantrip with another from the Cleric spell list.
+
+Spell Slots: See Cleric Spellcasting Table.
+- You regain all expended spell slots when you finish a Rest.
+
+Prepared Spells of Level 1+: See Cleric Spellcasting Table.
+- At 1st level, you begin with 4 prepared Cleric spells of 1st level.
+- When you gain Cleric levels, your prepared spells maximum increases as shown on the table.
+- Whenever you finish a Rest, you can change your list of prepared spells (must be spells you have slots for).
+
+Spellcasting Ability: Wisdom
+- Spell Save DC = 8 + spell level + your Wisdom modifier
+- Spell Attack Modifier = base attack bonus + spell level + your Wisdom modifier
+
+Spellcasting Focus
+- You can use a holy symbol as a spellcasting focus for your Cleric spells.
+
+FEATURE: Divine Domain
+At 1st level, choose a Divine Domain that represents your god’s influence and grants you specific abilities.
+- Domain Spells are always prepared and don’t count against your prepared spells maximum.
+- Each domain grants Domain Spells and a Domain Feature at 1st level.
+- Additional domain features are gained at 3rd, 6th, and 9th levels.
+
+LEVEL 2: Channel Divinity
+
+FEATURE: Channel Divinity
+You can call upon your god to invoke a Channel Divinity. This power can be used to turn undead or to fuel a specific domain feature.
+
+Turn Undead
+As an action, present your holy symbol. All undead creatures within 30 feet must make a Wisdom saving throw. On a failed save, the undead are turned for 1 minute or until they take damage. Turned creatures must spend their turns moving away from you by the safest route.
+
+Domain-Specific Channel Divinity
+At 2nd level, depending on your domain, you gain a unique Channel Divinity option.
+
+LEVEL 3: Divine Domain Feature
+You gain an additional feature granted by your chosen Divine Domain.
+
+LEVEL 4: (No base class feature)
+
+LEVEL 5: Sacred Writ
+
+FEATURE: Sacred Writ
+Your understanding of holy scripture allows you to draw on divine truths in critical moments.
+- As a reaction, when you or a creature within 30 feet makes a saving throw against a spell or magical effect, you can speak a verse of your faith’s scripture to grant divine clarity.
+  The target may reroll the saving throw and must use the new result.
+- Uses per day: Wisdom modifier times per day (minimum once).
+- You regain all uses after a Rest.
+
+LEVEL 6: Divine Domain Feature
+You gain an additional feature granted by your chosen Divine Domain.
+
+LEVEL 7: Sanctified Blows
+
+FEATURE: Sanctified Blows
+Divine power infuses you in battle. Choose one option:
+- Divine Strike: Once on each of your turns when you hit a creature with a weapon attack roll, the target takes +1d8 Necrotic or Radiant damage (your choice).
+- Potent Spellcasting: Add your Wisdom modifier to the damage you deal with any Cleric cantrip.
+If you would gain either option from an older Cleric subclass, use only the option you choose for this feature.
+
+LEVEL 8: (No base class feature)
+
+LEVEL 9: Divine Domain Feature
+You gain an additional feature granted by your chosen Divine Domain.
+
+LEVEL 10: Divine Intervention
+
+FEATURE: Divine Intervention
+As a Magic action, choose any Cleric spell of level 5 or lower that doesn’t require a Reaction to cast. As part of the same action, you cast that spell without expending a spell slot or needing Material components.
+- Once per Long Rest.
+
+LEVEL 11: (No base class feature)
+LEVEL 12: (No base class feature)
+LEVEL 13: (No base class feature)
+
+LEVEL 14: Improved Sanctified Blows
+
+FEATURE: Improved Sanctified Blows
+The option you chose for Sanctified Blows grows more powerful.
+- Divine Strike: extra damage increases to 2d8.
+
+LEVEL 15: Living Conduit
+
+FEATURE: Living Conduit
+Once per day when you are reduced to 0 HP, your divine patron may intervene—delaying death for 1 round.
+- You remain conscious and may act as normal.
+- You fall unconscious at the end of your next turn if not healed.
+
+LEVEL 16: (No base class feature)
+LEVEL 17: (No base class feature)
+LEVEL 18: (No base class feature)
+LEVEL 19: (No base class feature)
+
+LEVEL 20: Greater Divine Intervention
+
+FEATURE: Greater Divine Intervention
+When you use your Divine Intervention feature, you can choose Wish when you select a spell. If you do so, you can’t use Divine Intervention again until you finish 2d4 Long Rests.
+
+============================================================
+LEVEL TABLE (REFERENCE)
+============================================================
+# Note: BAB shown is highest BAB only. Save bonus shown here is your unified class save scaling reference.
+
+LEVELS:
+1  BAB +1  SAVE_BONUS 2  FEATURES Spellcasting; Divine Domain
+2  BAB +1  SAVE_BONUS 2  FEATURES Channel Divinity
+3  BAB +2  SAVE_BONUS 2  FEATURES Divine Domain Feature
+4  BAB +2  SAVE_BONUS 2  FEATURES —
+5  BAB +3  SAVE_BONUS 3  FEATURES Sacred Writ
+6  BAB +3  SAVE_BONUS 3  FEATURES Divine Domain Feature
+7  BAB +4  SAVE_BONUS 3  FEATURES Sanctified Blows
+8  BAB +4  SAVE_BONUS 3  FEATURES —
+9  BAB +5  SAVE_BONUS 4  FEATURES Divine Domain Feature
+10 BAB +5  SAVE_BONUS 4  FEATURES Divine Intervention
+11 BAB +6  SAVE_BONUS 4  FEATURES —
+12 BAB +6  SAVE_BONUS 4  FEATURES —
+13 BAB +7  SAVE_BONUS 5  FEATURES —
+14 BAB +7  SAVE_BONUS 5  FEATURES Improved Sanctified Blows
+15 BAB +8  SAVE_BONUS 5  FEATURES Living Conduit
+16 BAB +8  SAVE_BONUS 5  FEATURES —
+17 BAB +9  SAVE_BONUS 6  FEATURES —
+18 BAB +9  SAVE_BONUS 6  FEATURES —
+19 BAB +10 SAVE_BONUS 6  FEATURES —
+20 BAB +10 SAVE_BONUS 6  FEATURES Greater Divine Intervention
+
+============================================================
+SPELLCASTING TABLE (CANTRIPS, PREPARED, SLOTS)
+============================================================
+# Columns:
+# Level, CantripsKnown, PreparedSpells, Slots1, Slots2, Slots3, Slots4, Slots5, Slots6, Slots7, Slots8, Slots9
+
+1,  2,  4, 2,0,0,0,0,0,0,0,0
+2,  2,  5, 2,0,0,0,0,0,0,0,0
+3,  2,  6, 3,2,0,0,0,0,0,0,0
+4,  3,  7, 3,2,0,0,0,0,0,0,0
+5,  3,  8, 4,3,1,0,0,0,0,0,0
+6,  3,  9, 4,3,1,0,0,0,0,0,0
+7,  3, 10, 4,3,2,1,0,0,0,0,0
+8,  3, 11, 4,3,2,1,0,0,0,0,0
+9,  3, 12, 4,3,3,2,1,0,0,0,0
+10, 3, 13, 4,3,3,2,1,0,0,0,0
+11, 3, 14, 4,3,3,3,2,1,0,0,0
+12, 3, 15, 4,3,3,3,2,1,0,0,0
+13, 3, 16, 4,3,3,3,3,2,1,0,0
+14, 3, 17, 4,3,3,3,3,2,1,0,0
+15, 3, 18, 4,3,3,3,3,3,1,1,0
+16, 3, 19, 4,3,3,3,3,3,1,1,0
+17, 4, 20, 4,3,3,3,3,3,1,1,1
+18, 4, 21, 4,3,3,3,3,3,1,1,1
+19, 4, 22, 4,3,3,3,3,3,2,1,1
+20, 4, 24, 4,3,3,3,3,3,2,1,1
+
+============================================================
+CLERIC SPELL LIST (REFERENCE)
+============================================================
+
+CANTRIPS:
+- Guidance
+- Light
+- Mending
+- Resistance
+- Sacred Flame
+- Spare the Dying
+- Thaumaturgy
+
+LEVEL 1:
+- Bane
+- Bless
+- Command
+- Create or Destroy Water
+- Cure Wounds
+- Detect Evil and Good
+- Detect Magic
+- Detect Poison and Disease
+- Guiding Bolt
+- Healing Word
+- Inflict Wounds
+- Protection from Evil and Good
+- Purify Food and Drink
+- Sanctuary
+- Shield of Faith
+
+LEVEL 2:
+- Aid
+- Augury
+- Blindness/Deafness
+- Calm Emotions
+- Continual Flame
+- Enhance Ability
+- Find Traps
+- Gentle Repose
+- Hold Person
+- Lesser Restoration
+- Locate Object
+- Prayer of Healing
+- Protection from Poison
+- Silence
+- Spiritual Weapon
+- Warding Bond
+- Zone of Truth
+
+LEVEL 3:
+- Animate Dead
+- Beacon of Hope
+- Bestow Curse
+- Clairvoyance
+- Create Food and Water
+- Daylight
+- Dispel Magic
+- Glyph of Warding
+- Magic Circle
+- Mass Healing Word
+- Meld into Stone
+- Protection from Energy
+- Remove Curse
+- Revivify
+- Sending
+- Speak with Dead
+- Spirit Guardians
+- Tongues
+- Water Walk
+
+LEVEL 4:
+- Banishment
+- Control Water
+- Death Ward
+- Divination
+- Freedom of Movement
+- Guardian of Faith
+- Locate Creature
+- Stone Shape
+
+LEVEL 5:
+- Commune
+- Contagion
+- Dispel Evil and Good
+- Flame Strike
+- Geas
+- Greater Restoration
+- Hallow
+- Insect Plague
+- Legend Lore
+- Mass Cure Wounds
+- Planar Binding
+- Raise Dead
+- Scrying
+
+LEVEL 6:
+- Blade Barrier
+- Create Undead
+- Find the Path
+- Forbiddance
+- Harm
+- Heal
+- Heroes' Feast
+- Planar Ally
+- True Seeing
+- Word of Recall
+
+LEVEL 7:
+- Conjure Celestial
+- Divine Word
+- Etherealness
+- Fire Storm
+- Plane Shift
+- Regenerate
+- Resurrection
+- Symbol
+
+LEVEL 8:
+- Antimagic Field
+- Control Weather
+- Earthquake
+- Holy Aura
+
+LEVEL 9:
+- Astral Projection
+- Gate
+- Mass Heal
+- Power Word Heal
+- True Resurrection

@@ -1,0 +1,395 @@
+Sorcerer
+
+Innate magic pulses through the blood of the Sorcerer, an untamed and raw force that bends reality itself. Unlike scholars who learn the art of magic through years of study, the Sorcerer is born with a deep connection to the arcane. This connection may come from mysterious ancestors, a hidden power awakened within them, or the very essence of the world itself. Whatever the source, a Sorcerer's magic flows naturally and without restraint, erupting in powerful bursts that seem to draw from the very fabric of existence. They are the embodiment of unrefined, instinctual magic, wielding it not through careful control, but through will and emotion. Most Sorcerers are often found in places where magic runs wild or where there are no restrictions on magical exploration. Remote corners of the world, far from the bureaucratic gaze of academies and temples, are often where they first tap into their powers. In these outlying areas, where magic is often seen as a force to be harnessed without the oversight of tradition, a Sorcerer's abilities may emerge unexpectedly and uncontrollably. This can lead to a sense of isolation, as they are viewed with both fear and awe by those who do not understand them. Despite the challenges, Sorcerers are driven by an unyielding desire to master their innate abilities; their magic is spontaneous and sometimes erratic, but no less potent than any other spellcaster’s. The wild magic within them can change the course of history, for good or ill, and their path is filled with both exhilaration and danger—because for a Sorcerer, power is never truly contained.
+
+Role: Arcane blaster; magical might.
+
+HIT POINTS
+- Hit Dice: d6 per Sorcerer level
+- Hit Points at 1st Level: 6 + your Constitution modifier
+
+PROFICIENCIES
+- Armor: None
+- Weapons: Daggers, slings, light crossbows, quarterstaffs
+- Tools: None
+
+CORE RULES (HYBRID)
+- Base Attack Bonus Progression: ONE-FOURTH
+- Saving Throws: Charisma, Dexterity
+- Skill Points per Level: 4 + Intelligence modifier
+- Class Skills: Arcana, Deception, Insight, Intimidation, Nature, Persuasion, Religion
+
+============================================================
+CLASS FEATURES
+============================================================
+
+LEVEL 1: Spellcasting (Ex), Sorcerous Bloodline (Ex), Bloodline Spell List (Ex), Minor Bloodline (Su)
+
+FEATURE: Spellcasting (Ex)
+Drawing from your innate magic, you can cast spells.
+Cantrips: You know four Sorcerer cantrips of your choice. Whenever you gain a Sorcerer level, you can replace one of your cantrips from this feature with another Sorcerer cantrip of your choice. When you reach Sorcerer levels 4 and 10, you learn one additional Sorcerer cantrip (see table).
+Spell Slots: The Sorcerer table shows how many spell slots you have to cast your level 1+ spells. You regain all expended slots when you finish a Rest.
+Prepared Spells of Level 1+: You prepare the list of level 1+ Sorcerer spells available to you. To start, choose two level 1 Sorcerer spells. The number of spells on your list increases as you gain Sorcerer levels, as shown in the Prepared Spells column of the Sorcerer table. Whenever that number increases, choose additional Sorcerer spells until your list matches the table. The chosen spells must be of a level for which you have spell slots.
+Changing Your Prepared Spells: Whenever you gain a Sorcerer level, you can replace one spell on your list with another Sorcerer spell for which you have spell slots.
+Spellcasting Ability: Charisma
+- Spell Save DC = 8 + spell level + your Charisma modifier
+- Spell Attack Modifier = base attack bonus + spell level + your Charisma modifier
+Spellcasting Focus: You can use an Arcane Focus as a Spellcasting Focus for your Sorcerer spells.
+
+FEATURE: Sorcerous Bloodline (Ex)
+A Sorcerer gains a Bloodline, which shapes their magical abilities and grants them access to a broader range of spells. The bloodline is tied to a supernatural force, granting unique spellcasting abilities and access to spells outside the usual Sorcerer list.
+Choose one of the following bloodlines:
+- Dragon Bloodline: Choose a dragon type (Red, Blue, Black, Green, White, Silver, Gold, Brass, Bronze, Copper), or another dragon type with GM permission.
+- Fey Bloodline
+- Fiendish Bloodline: Choose a fiend type (Demon, Devil, Yugoloth)
+
+FEATURE: Bloodline Spell List (Ex)
+Each bloodline expands your Sorcerer spell list with additional spells that fit the bloodline’s theme. These bloodline spells are always available to you, regardless of your normal Sorcerer spell list.
+
+FEATURE: Minor Bloodline (Su)
+Your bloodline has started manifesting. You gain the feature listed below for your chosen bloodline. This increases to immunity at 14th level.
+Dragon Bloodline:
+- Dragon’s Resilience (Ex): You gain resistance to the damage type of your chosen dragon’s breath attack.
+Fey Bloodline:
+- Fey Resilience (Ex): You gain a +2 bonus on saving throws against being Charmed or Frightened. At 14th level, you become immune to these conditions.
+Fiendish Bloodline:
+- Infernal Resistance (Ex): You gain resistance to fire damage. At 14th level, you become immune to fire damage.
+
+LEVEL 2: Eschew Materials (Ex), Font of Arcane Power (Ex)
+
+FEATURE: Eschew Materials (Ex)
+You can cast spells without using material components, as long as the spell does not have a costly or specific material component.
+
+FEATURE: Font of Arcane Power (Ex)
+You can tap into the wellspring of magic within yourself. This wellspring is represented by Sorcery Points, which fuel effects such as Metamagic.
+- You have 2 Sorcery Points, and you gain more as you reach higher levels (see table).
+- You can’t have more Sorcery Points than the number shown in the table for your level.
+- You regain all expended Sorcery Points when you finish a Long Rest.
+Converting Spell Slots to Sorcery Points: You can expend a spell slot to gain a number of Sorcery Points equal to the slot’s level (no action required).
+Creating Spell Slots: As a Bonus Action, you can transform unexpended Sorcery Points into one spell slot. You can create a spell slot no higher than level 5. Any spell slot you create vanishes when you finish a Rest.
+Creating Spell Slots (reference):
+- Slot 1st: Cost 2 SP (Min level 2)
+- Slot 2nd: Cost 3 SP (Min level 3)
+- Slot 3rd: Cost 5 SP (Min level 5)
+- Slot 4th: Cost 6 SP (Min level 7)
+- Slot 5th: Cost 7 SP (Min level 9)
+
+LEVEL 3: Metamagic (Ex)
+
+FEATURE: Metamagic (Ex)
+You learn to manipulate spells in subtle ways.
+- You choose and gain one Metamagic feat with a CL adjustment of 1 or less.
+- You apply it to spells you cast by adjusting the spell level accordingly.
+You gain an additional Metamagic feat at 9th level and 15th level.
+
+LEVEL 4: (No base class feature)
+
+LEVEL 5: (No base class feature)
+
+LEVEL 6: Bloodline Manifestation (Su)
+
+FEATURE: Bloodline Manifestation (Su)
+Your bloodline continues to manifest, granting you an ability inspired by a creature of your bloodline type.
+
+Dragon Bloodline:
+- Dragon’s Breath (Su): As an action, you exhale a 15-foot cone or line (matching your dragon bloodline) that deals damage of your dragon bloodline’s type. Creatures in the area must make a Dexterity saving throw (DC = 8 + your Charisma modifier + your Sorcerer level), taking 4d6 damage on a failed save, or half as much on a success. You can use this ability once per day. You may spend 1 Sorcery Point to use the ability even if already used.
+
+Fey Bloodline:
+- Fey Step & Briars (Su): As a Bonus Action, you can cast Misty Step. As part of the same Bonus Action, you may also cast Entangle without expending a spell slot, centered either on the space you left or the one you appear in. You can use this ability once per day. You may spend 1 Sorcery Point to use the ability even if already used.
+
+Fiendish Bloodline:
+- Hellfire Empowerment (Su): As a Bonus Action, you empower your next spell attack. If it hits, the spell deals an additional 2d6 fire damage. You can use this ability once per day. You may spend 1 Sorcery Point to use the ability even if already used.
+
+LEVEL 7: (No base class feature)
+
+LEVEL 8: (No base class feature)
+
+LEVEL 9: Metamagic (Ex) (additional)
+
+FEATURE: Metamagic (Ex) (additional)
+You gain one additional Metamagic feat (see Metamagic).
+
+LEVEL 10: Greater Bloodline Manifestation (Su)
+
+FEATURE: Greater Bloodline Manifestation (Su)
+Your supernatural lineage deepens, awakening new aspects of your bloodline’s legacy.
+
+Dragon Bloodline:
+- Draconic Presence (Ex): You can spend 2 Sorcery Points and, as an action, unleash a draconic presence in a 10-foot radius for 1 minute. Creatures of your choice that start their turn in the aura or enter it for the first time on a turn must succeed on a Charisma saving throw (DC = 8 + your Charisma modifier + your Sorcerer level) or become Frightened until the end of their next turn. A creature that succeeds is immune to your aura for 24 hours.
+
+Fey Bloodline:
+- Tongue Twister (Su): You can spend 2 Sorcery Points to cast Counterspell as a reaction without expending a spell slot. If the target fails its saving throw, it is cursed until the end of its next turn. Until the curse ends, the target can’t cast spells with a Verbal component, and when it speaks, it says the opposite of what it means.
+- Witch Strike (Su): Spend 1 Sorcery Point to cast Witch Bolt without expending a spell slot on each creature within 60 feet of you that is cursed by you.
+
+Fiendish Bloodline:
+- Infernal Saturation (Su): Whenever you cast a spell that deals fire or necrotic damage, add your Charisma modifier (minimum +1) to one damage roll of the spell.
+- Hell-Tainted Spell (Su): You can spend 1 Sorcery Point when casting a spell to change its damage type to fire or necrotic damage.
+
+LEVEL 11: (No base class feature)
+
+LEVEL 12: Empowered Sorcery (Ex)
+
+FEATURE: Empowered Sorcery (Ex)
+Your connection to magic deepens. When you cast a spell, you can choose to add your Charisma modifier to one damage roll of that spell.
+
+LEVEL 13: (No base class feature)
+
+LEVEL 14: Bloodline Form (Su), Minor Bloodline upgrade
+
+FEATURE: Bloodline Form (Su)
+You can assume a powerful form tied to your bloodline, manifesting the true might of your heritage.
+- Type Restriction: You can only take the form of a creature tied to your bloodline.
+  - Dragon: Only the dragon matching your bloodline.
+  - Fiend: Only a fiend matching your bloodline type (Devil, Demon, or Yugoloth).
+  - Fey: Only humanoid fey.
+- CR Limit: The form’s CR is limited to 1/2 your Sorcerer level (rounded down), maximum CR 7 at level 14.
+- Stat Block: Use the creature’s stat block, but substitute your Charisma, Intelligence, and Wisdom for the creature’s Charisma, Intelligence, and Wisdom.
+- Spells: You may still cast spells in the new form. Your spellcasting ability remains Charisma. You can cast spells that don’t require material components or somatic gestures (and metamagic that modifies components still applies).
+- Physical Features: You gain the creature’s natural armor and natural weapons, as well as any special abilities granted by the form.
+- Duration: 1 minute per Sorcerer level. You may revert early at any time.
+
+FEATURE: Minor Bloodline (Su) upgrade
+Your Minor Bloodline feature improves at this level, granting immunity where listed (see Minor Bloodline).
+
+LEVEL 15: Metamagic (Ex) (additional)
+
+FEATURE: Metamagic (Ex) (additional)
+You gain one additional Metamagic feat (see Metamagic).
+
+LEVEL 16: (No base class feature)
+
+LEVEL 17: (No base class feature)
+
+LEVEL 18: Pureblood Awakening (Su)
+
+FEATURE: Pureblood Awakening (Su)
+Your bloodline has grown to its fullest.
+
+Dragon Bloodline:
+- Scales (Ex): You gain scales granting you a +2 Natural Armor bonus to AC.
+- Piercing Element (Su): When you cast a spell that deals your draconic energy type, it ignores resistance and treats immunity as resistance.
+
+Fey Bloodline:
+- Fey Nature (Su): You gain immunity to the Charmed condition, and you no longer age or require food or water.
+- Beguiling Gaze (Su): When you cast an enchantment or illusion spell, you may make it subtle—it requires no verbal or somatic components; instead, the target must be able to see you. You can do this a number of times per day equal to your Charisma modifier (minimum 1).
+
+Fiendish Bloodline:
+- Infernal Legacy (Su): You gain resistance to fire and necrotic damage, and your spells count as magical and silvered for bypassing resistances.
+- Consume Essence (Su): When you reduce a creature to 0 hit points with a spell, you regain 1 Sorcery Point (limit once per turn).
+- Aura of Evil (Su): You constantly emit an aura of evil out to 30 feet. Abilities that detect alignment or detect evil detect you regardless of your true alignment.
+
+LEVEL 19: (No base class feature)
+
+LEVEL 20: Apotheosis (Ex)
+
+FEATURE: Apotheosis (Ex)
+Your bloodline manifests fully, granting you the entity of the potential within it. Once per day, you may enter your Bloodline Form for 1 minute, increasing the CR limit during this time to your Sorcerer level + your Charisma modifier.
+
+============================================================
+LEVEL TABLE (REFERENCE)
+============================================================
+# BAB shown is highest BAB only. Save bonus is your unified class scaling reference.
+
+LEVELS:
+1  BAB +1  SAVE_BONUS 2  SORCERY_POINTS —   FEATURES Spellcasting; Sorcerous Bloodline; Minor Bloodline
+2  BAB +1  SAVE_BONUS 2  SORCERY_POINTS 2   FEATURES Eschew Materials; Font of Arcane Power
+3  BAB +2  SAVE_BONUS 2  SORCERY_POINTS 3   FEATURES Metamagic
+4  BAB +2  SAVE_BONUS 2  SORCERY_POINTS 4   FEATURES —
+5  BAB +3  SAVE_BONUS 3  SORCERY_POINTS 5   FEATURES —
+6  BAB +3  SAVE_BONUS 3  SORCERY_POINTS 6   FEATURES Bloodline Manifestation
+7  BAB +4  SAVE_BONUS 3  SORCERY_POINTS 7   FEATURES —
+8  BAB +4  SAVE_BONUS 3  SORCERY_POINTS 8   FEATURES —
+9  BAB +5  SAVE_BONUS 4  SORCERY_POINTS 9   FEATURES Metamagic (additional)
+10 BAB +5  SAVE_BONUS 4  SORCERY_POINTS 10  FEATURES Greater Bloodline Manifestation
+11 BAB +6  SAVE_BONUS 4  SORCERY_POINTS 11  FEATURES —
+12 BAB +6  SAVE_BONUS 4  SORCERY_POINTS 12  FEATURES Empowered Sorcery
+13 BAB +7  SAVE_BONUS 5  SORCERY_POINTS 13  FEATURES —
+14 BAB +7  SAVE_BONUS 5  SORCERY_POINTS 14  FEATURES Bloodline Form; Minor Bloodline upgrade
+15 BAB +8  SAVE_BONUS 5  SORCERY_POINTS 15  FEATURES Metamagic (additional)
+16 BAB +8  SAVE_BONUS 5  SORCERY_POINTS 16  FEATURES —
+17 BAB +9  SAVE_BONUS 6  SORCERY_POINTS 17  FEATURES —
+18 BAB +9  SAVE_BONUS 6  SORCERY_POINTS 18  FEATURES Pureblood Awakening
+19 BAB +10 SAVE_BONUS 6  SORCERY_POINTS 19  FEATURES —
+20 BAB +10 SAVE_BONUS 6  SORCERY_POINTS 20  FEATURES Apotheosis
+
+============================================================
+SPELL TABLE (REFERENCE)
+============================================================
+# Uses your provided table values exactly.
+
+CASTING BY LEVEL:
+1  CANTRIPS 2  PREPARED 4   1st 2
+2  CANTRIPS 2  PREPARED 5   1st 2
+3  CANTRIPS 2  PREPARED 6   1st 3  2nd 2
+4  CANTRIPS 3  PREPARED 7   1st 3  2nd 2
+5  CANTRIPS 3  PREPARED 8   1st 4  2nd 3  3rd 1
+6  CANTRIPS 3  PREPARED 9   1st 4  2nd 3  3rd 1
+7  CANTRIPS 3  PREPARED 10  1st 4  2nd 3  3rd 2  4th 1
+8  CANTRIPS 3  PREPARED 11  1st 4  2nd 3  3rd 2  4th 1
+9  CANTRIPS 3  PREPARED 12  1st 4  2nd 3  3rd 3  4th 2  5th 1
+10 CANTRIPS 3  PREPARED 13  1st 4  2nd 3  3rd 3  4th 2  5th 1
+11 CANTRIPS 3  PREPARED 14  1st 4  2nd 3  3rd 3  4th 3  5th 2  6th 1
+12 CANTRIPS 3  PREPARED 15  1st 4  2nd 3  3rd 3  4th 3  5th 2  6th 1
+13 CANTRIPS 3  PREPARED 16  1st 4  2nd 3  3rd 3  4th 3  5th 3  6th 2  7th 1
+14 CANTRIPS 3  PREPARED 17  1st 4  2nd 3  3rd 3  4th 3  5th 3  6th 2  7th 1
+15 CANTRIPS 3  PREPARED 18  1st 4  2nd 3  3rd 3  4th 3  5th 3  6th 3  7th 1  8th 1
+16 CANTRIPS 3  PREPARED 19  1st 4  2nd 3  3rd 3  4th 3  5th 3  6th 3  7th 1  8th 1
+17 CANTRIPS 4  PREPARED 20  1st 4  2nd 3  3rd 3  4th 3  5th 3  6th 3  7th 1  8th 1  9th 1
+18 CANTRIPS 4  PREPARED 21  1st 4  2nd 3  3rd 3  4th 3  5th 3  6th 3  7th 1  8th 1  9th 1
+19 CANTRIPS 4  PREPARED 22  1st 4  2nd 3  3rd 3  4th 3  5th 3  6th 3  7th 2  8th 1  9th 1
+20 CANTRIPS 4  PREPARED 24  1st 4  2nd 3  3rd 3  4th 3  5th 3  6th 3  7th 2  8th 1  9th 1
+
+============================================================
+SORCERER SPELL LIST (REFERENCE)
+============================================================
+
+CANTRIPS (0 LEVEL)
+- Acid Splash
+- Chill Touch
+- Dancing Lights
+- Elementalism
+- Fire Bolt
+- Light
+- Mage Hand
+- Mending
+- Message
+- Minor Illusion
+- Poison Spray
+- Prestidigitation
+- Ray of Frost
+- Shocking Grasp
+- Sorcerous Burst
+- True Strike
+
+1ST-LEVEL SPELLS
+- Burning Hands
+- Charm Person
+- Chromatic Orb
+- Color Spray
+- Comprehend Languages
+- Detect Magic
+- Disguise Self
+- Expeditious Retreat
+- False Life
+- Feather Fall
+- Fog Cloud
+- Ice Knife
+- Jump
+- Mage Armor
+- Magic Missile
+- Shield
+- Silent Image
+- Sleep
+- Thunderwave
+
+2ND-LEVEL SPELLS
+- Alter Self
+- Blindness/Deafness
+- Blur
+- Darkness
+- Darkvision
+- Detect Thoughts
+- Dragon’s Breath
+- Enhance Ability
+- Enlarge/Reduce
+- Gust of Wind
+- Hold Person
+- Invisibility
+- Knock
+- Levitate
+- Mind Spike
+- Mirror Image
+- Misty Step
+- Phantasmal Force
+- Ray of Sickness
+- Scorching Ray
+- See Invisibility
+- Shatter
+- Spider Climb
+- Suggestion
+- Web
+
+3RD-LEVEL SPELLS
+- Blink
+- Clairvoyance
+- Counterspell
+- Daylight
+- Dispel Magic
+- Fear
+- Fireball
+- Fly
+- Gaseous Form
+- Haste
+- Hypnotic Pattern
+- Lightning Bolt
+- Major Image
+- Protection from Energy
+- Sleet Storm
+- Slow
+- Stinking Cloud
+- Tongues
+- Water Breathing
+- Water Walk
+
+4TH-LEVEL SPELLS
+- Banishment
+- Blight
+- Charm Monster
+- Confusion
+- Dimension Door
+- Dominate Beast
+- Greater Invisibility
+- Ice Storm
+- Polymorph
+- Stoneskin
+- Vitriolic Sphere
+- Wall of Fire
+
+5TH-LEVEL SPELLS
+- Animate Objects
+- Cloudkill
+- Cone of Cold
+- Creation
+- Dominate Person
+- Hold Monster
+- Insect Plague
+- Seeming
+- Summon Dragon
+- Telekinesis
+- Teleportation Circle
+- Wall of Stone
+
+6TH-LEVEL SPELLS
+- Chain Lightning
+- Circle of Death
+- Disintegrate
+- Eyebite
+- Globe of Invulnerability
+- Mass Suggestion
+- Move Earth
+- Sunbeam
+- True Seeing
+
+7TH-LEVEL SPELLS
+- Delayed Blast Fireball
+- Etherealness
+- Finger of Death
+- Fire Storm
+- Plane Shift
+- Prismatic Spray
+- Reverse Gravity
+- Teleport
+
+8TH-LEVEL SPELLS
+- Dominate Monster
+- Earthquake
+- Incendiary Cloud
+- Power Word Stun
+- Sunburst
+
+9TH-LEVEL SPELLS
+- Gate
+- Meteor Swarm
+- Power Word Kill
+- Time Stop
+- Wish

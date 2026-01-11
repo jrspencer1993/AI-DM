@@ -1,0 +1,274 @@
+Spellblade
+
+Spellblades are rare warrior-mages whose origins trace back to the ancient Elven kingdoms, where martial discipline and arcane mastery were forged into a single, seamless art. Born from the elves' desire to unify swordplay and spellcraft, Spellblades became the epitome of elegance and lethality in battle—an elite caste of spell-wielding swordsmen known for their fluid blend of combat precision and magical might. Among their people, they were called the “Swords of the Sunset,” embodying the balance between light and dark, power and restraint. With spells woven into their every movement, they struck with unmatched speed and versatility, channeling raw arcane force through their weapons in perfect harmony. As the Elven kingdoms waned and fell to ruin, so too did the prominence of the Spellblades; the fall of those ancient realms scattered their knowledge to the wind, reducing a once-legendary order to little more than myth. Today, only fragments remain—kept alive by wanderers, recluses, and secretive martial orders who still walk the path of balance between sword and spell. In Valerune, the Spellblade tradition has not only survived but flourished: Valerune maintains a formal order of Spellblades who serve as guardians and champions of the realm—though their proud heritage is now often twisted to enforce the will of Valerune’s power-hungry warlords. Their art has evolved, but its core remains the same: the perfect union of magic and steel, shaped by discipline, guided by balance, and forged in twilight.
+
+Role: Arcane warrior; melee caster.
+
+HIT POINTS
+- Hit Dice: d8 per Spellblade level
+- Hit Points at 1st Level: 8 + your Constitution modifier
+
+PROFICIENCIES
+- Armor: Light armor, shields
+- Weapons: Simple weapons, martial melee weapons
+- Tools: None
+
+CORE RULES (HYBRID)
+- Base Attack Bonus Progression: FULL
+- Saving Throws: Intelligence, Dexterity
+- Skill Points per Level: 4 + Intelligence modifier
+- Class Skills: Acrobatics, Arcana, Athletics, Insight, Perception, Tactics, Stealth
+
+============================================================
+CLASS FEATURES
+============================================================
+
+LEVEL 1: Weapon Bond (Su), Spellcasting (Ex), Arcane Channeling (Su)
+
+FEATURE: Weapon Bond (Su)
+You forge a magical bond with your weapon, allowing it to act as a conduit for your arcane power.
+- You can summon your bonded weapon to your hand as a Bonus Action.
+- Your bonded weapon can’t be disarmed unless you choose to release it.
+- You can perform spellcasting gestures with your weapon and use it as a focus for spells that require material components.
+
+FEATURE: Spellcasting (Ex)
+You have learned to channel arcane energy through martial focus, allowing you to cast spells that blend intellect and steel.
+Spell Slots: The Spellblade level table shows how many spell slots you have to cast your level 1+ spells. You regain all expended spell slots when you finish a Rest.
+Prepared Spells of Level 1+: You prepare a list of level 1+ spells available for you to cast. To start, choose two level 1 Spellblade spells. The number of spells you can have prepared increases as you gain Spellblade levels, as shown in the Prepared Spells column of the Spellblade table. Whenever that number increases, choose additional Spellblade spells until you reach the table’s number. The chosen spells must be of a level for which you have spell slots.
+Changing Your Prepared Spells: Whenever you finish a Rest, you can replace one spell on your prepared list with another Spellblade spell for which you have spell slots.
+Spellcasting Ability: Intelligence
+- Spell Save DC = 8 + spell level + your Intelligence modifier
+- Spell Attack Modifier = base attack bonus + spell level + your Intelligence modifier
+Spellcasting Focus: You can use an Arcane Focus as a Spellcasting Focus for your Spellblade spells.
+
+FEATURE: Arcane Channeling (Su)
+As part of an attack, you can cast any touch spell you know and deliver it through your weapon with a melee attack. The spell must have a casting time of 1 action or less. If the melee attack hits, you deal weapon damage as normal and the spell’s effect is resolved immediately after the attack.
+
+LEVEL 2: (No base class feature)
+
+LEVEL 3: Arcane Surge (Su)
+
+FEATURE: Arcane Surge (Su)
+Once per day, as a Bonus Action, you empower yourself with an arcane surge for 1 minute.
+- Increased Weapon Damage: Your weapon attacks deal an additional 1d4 force damage.
+- Enhanced Channeling: When you cast a touch spell through your weapon using Arcane Channeling, the spell deals an additional 1d6 force damage on a successful hit.
+
+LEVEL 4: Arcane Deflection (Sp)
+
+FEATURE: Arcane Deflection (Sp)
+When you are the target of a spell attack, you add your Intelligence modifier to your AC against that spell attack.
+
+LEVEL 5: Armored Arcana (Ex), Blade of Power (Su)
+
+FEATURE: Armored Arcana (Ex)
+You gain proficiency with medium armor. This allows you to wear medium armor without hindering your ability to cast spells.
+
+FEATURE: Blade of Power (Su)
+Your bonded weapon is infused with arcane power, granting a +1 bonus to attack and damage rolls with that weapon. This bonus increases at higher levels (see below).
+- At level 10, the bonus increases by +1.
+- At level 15, the bonus increases by +2.
+
+LEVEL 6: Enhanced Channeling (Su), Extra Attack (Ex)
+
+FEATURE: Enhanced Channeling (Su)
+When using Arcane Channeling, you can expend one additional spell slot (of the spell’s level or higher) to empower the spell. Doing so increases the spell’s damage by 1d6 per level of the spell slot expended.
+
+FEATURE: Extra Attack (Ex)
+You can attack twice whenever you take the Attack action on your turn. You can cast one of your cantrips in place of one of those attacks.
+
+LEVEL 7: (No base class feature)
+
+LEVEL 8: Arcane Absorption (Su)
+
+FEATURE: Arcane Absorption (Su)
+Whenever your Arcane Deflection causes a spell attack to miss you, you can use your reaction to absorb the spell and regain hit points equal to the spell’s level.
+
+LEVEL 9: Touch of Destruction (Su)
+
+FEATURE: Touch of Destruction (Su)
+When you hit a creature with your weapon and deliver a touch spell, the target takes additional force damage equal to your Intelligence modifier.
+
+LEVEL 10: Arcane Reflection (Su), Blade of Power upgrade
+
+FEATURE: Arcane Reflection (Su)
+When you are targeted by a spell that requires a saving throw, you can use your reaction to redirect the spell at another creature within the spell’s range. Use your own Spell Save DC. If the new target fails its saving throw, it is affected by the spell.
+
+FEATURE: Blade of Power (Su) upgrade
+The bonus from Blade of Power increases (see Blade of Power).
+
+LEVEL 11: (No base class feature)
+
+LEVEL 12: Ravaging Blade (Su)
+
+FEATURE: Ravaging Blade (Su)
+Once per turn, when you hit with your weapon, you can choose to negate the effect of one magical shield effect on the target (such as Shield or Mage Armor) for 1 turn.
+
+LEVEL 13: Improved Arcane Channeling (Su)
+
+FEATURE: Improved Arcane Channeling (Su)
+You can cast any touch spell you know as part of your Attack action. Each successful melee attack you make that round delivers the spell. If the spell has a duration longer than 1 round, the spell discharges at the end of the round.
+
+LEVEL 14: (No base class feature)
+
+LEVEL 15: Spellstrike Mastery (Su), Blade of Power upgrade
+
+FEATURE: Spellstrike Mastery (Su)
+When you hit with a melee attack, you can choose to expend a spell slot to deal additional force damage equal to the spell’s level.
+
+FEATURE: Blade of Power (Su) upgrade
+The bonus from Blade of Power increases (see Blade of Power).
+
+LEVEL 16: Arcane Sight (Su)
+
+FEATURE: Arcane Sight (Su)
+You gain Truesight within 30 feet.
+
+LEVEL 17: Arcane Barrier (Su)
+
+FEATURE: Arcane Barrier (Su)
+When you successfully dispel a magical effect using Ravaging Blade, or when you counter a spell, you surround yourself with an arcane barrier for 1 minute.
+While the barrier is active:
+- You gain a bonus on saving throws against spells equal to the level of the spell you dispelled or countered.
+- You gain damage reduction equal to that spell level, but only against magical damage.
+As a reaction when you are hit by a melee attack, you can shatter the barrier prematurely. If you do, the barrier ends immediately and the attacker takes force damage equal to 1d4 per point of damage reduction the barrier was granting.
+
+LEVEL 18: Arcane Mastery (Su)
+
+FEATURE: Arcane Mastery (Su)
+As a Bonus Action, you can expend a spell slot of 5th level or higher to channel its power into your weapon for 1 minute.
+- Your weapon deals an additional 2d6 damage of the type matching the expended spell.
+- Your weapon can strike at a range of 30 feet.
+- Any enemy you hit during this time must succeed on a Constitution saving throw or be knocked back 10 feet and Stunned until the end of your next turn.
+You cannot combine this ability with Arcane Channeling.
+
+LEVEL 19: (No base class feature)
+
+LEVEL 20: Blade of the Arcane Master (Su)
+
+FEATURE: Blade of the Arcane Master (Su)
+As an action, you can spend 1 minute focusing on your weapon, imbuing it with all your arcane power. For 1 hour:
+- Your weapon becomes a +3 magical weapon.
+- It deals an additional 2d6 force damage on a hit.
+- Once per round, when you make a melee attack, you can expend a spell slot of 3rd level or higher to deal additional force damage equal to (spell slot level × 2).
+
+============================================================
+LEVEL TABLE (REFERENCE)
+============================================================
+# BAB shown is highest BAB only. Save bonus is your unified class scaling reference.
+
+LEVELS:
+1  BAB +1  SAVE_BONUS 2  FEATURES Weapon Bond; Spellcasting; Arcane Channeling
+2  BAB +2  SAVE_BONUS 2  FEATURES —
+3  BAB +3  SAVE_BONUS 2  FEATURES Arcane Surge (1/day)
+4  BAB +4  SAVE_BONUS 2  FEATURES Arcane Deflection
+5  BAB +5  SAVE_BONUS 3  FEATURES Armored Arcana; Blade of Power (+1)
+6  BAB +6  SAVE_BONUS 3  FEATURES Enhanced Channeling; Extra Attack (cantrip replaces 1 attack)
+7  BAB +7  SAVE_BONUS 3  FEATURES —
+8  BAB +8  SAVE_BONUS 3  FEATURES Arcane Absorption
+9  BAB +9  SAVE_BONUS 4  FEATURES Touch of Destruction
+10 BAB +10 SAVE_BONUS 4  FEATURES Arcane Reflection; Blade of Power upgrade
+11 BAB +11 SAVE_BONUS 4  FEATURES —
+12 BAB +12 SAVE_BONUS 4  FEATURES Ravaging Blade
+13 BAB +13 SAVE_BONUS 5  FEATURES Improved Arcane Channeling
+14 BAB +14 SAVE_BONUS 5  FEATURES —
+15 BAB +15 SAVE_BONUS 5  FEATURES Spellstrike Mastery; Blade of Power upgrade
+16 BAB +16 SAVE_BONUS 5  FEATURES Arcane Sight (Truesight 30 ft)
+17 BAB +17 SAVE_BONUS 6  FEATURES Arcane Barrier
+18 BAB +18 SAVE_BONUS 6  FEATURES Arcane Mastery
+19 BAB +19 SAVE_BONUS 6  FEATURES —
+20 BAB +20 SAVE_BONUS 6  FEATURES Blade of the Arcane Master
+
+============================================================
+SPELL TABLE (REFERENCE)
+============================================================
+# Prepared Spells were not provided in your original Spellblade table. Slot progression below matches your provided slots.
+
+SPELL SLOTS BY LEVEL:
+1  1st 2
+2  1st 2
+3  1st 3
+4  1st 3
+5  1st 4  2nd 2
+6  1st 4  2nd 2
+7  1st 4  2nd 3
+8  1st 4  2nd 3
+9  1st 4  2nd 3  3rd 2
+10 1st 4  2nd 3  3rd 2
+11 1st 4  2nd 3  3rd 3
+12 1st 4  2nd 3  3rd 3
+13 1st 4  2nd 3  3rd 3  4th 1
+14 1st 4  2nd 3  3rd 3  4th 1
+15 1st 4  2nd 3  3rd 3  4th 2
+16 1st 4  2nd 3  3rd 3  4th 2
+17 1st 4  2nd 3  3rd 3  4th 3  5th 1
+18 1st 4  2nd 3  3rd 3  4th 3  5th 1
+19 1st 4  2nd 3  3rd 3  4th 3  5th 2
+20 1st 4  2nd 3  3rd 3  4th 3  5th 2
+
+============================================================
+SPELLBLADE SPELL LIST (REFERENCE)
+============================================================
+
+CANTRIPS
+- Blade Ward
+- Booming Blade
+- Dancing Lights
+- Light
+- Mage Hand
+- Minor Illusion
+- Prestidigitation
+- Shocking Grasp
+- True Strike
+
+1ST-LEVEL SPELLS
+- Absorb Elements
+- Feather Fall
+- Jump
+- Longstrider
+- Mage Armor
+- Magic Missile
+- Shield
+- Thunderwave
+- Detect Magic
+- Disguise Self
+- Expeditious Retreat
+
+2ND-LEVEL SPELLS
+- Blur
+- Invisibility
+- Mirror Image
+- Misty Step
+- Magic Weapon
+- See Invisibility
+- Shatter
+- Spider Climb
+- Hold Person
+- Knock
+
+3RD-LEVEL SPELLS
+- Counterspell
+- Dispel Magic
+- Haste
+- Fly
+- Lightning Bolt
+- Protection from Energy
+- Thunder Step
+- Blink
+
+4TH-LEVEL SPELLS
+- Dimension Door
+- Greater Invisibility
+- Fire Shield
+- Stoneskin
+- Phantasmal Killer
+- Wall of Fire
+- Freedom of Movement
+
+5TH-LEVEL SPELLS
+- Wall of Force
+- Hold Monster
+- Steel Wind Strike
+- Telekinesis
+- Cone of Cold
+- Destructive Wave
+- Dominate Person

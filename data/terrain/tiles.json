@@ -1,0 +1,78 @@
+{
+  "version": "1.0",
+  "square_size_ft_default": 5,
+  "tiles": [
+    {
+      "id": "open",
+      "name": "Open Ground",
+      "blocked": false,
+      "move_cost": 1,
+      "blocks_los": false,
+      "color": "#e8e8e8",
+      "label": ""
+    },
+    {
+      "id": "wall",
+      "name": "Wall",
+      "blocked": true,
+      "move_cost": 999,
+      "blocks_los": true,
+      "color": "#3a3a3a",
+      "label": "█"
+    },
+    {
+      "id": "difficult",
+      "name": "Difficult Terrain",
+      "blocked": false,
+      "move_cost": 2,
+      "blocks_los": false,
+      "color": "#a0a060",
+      "label": "~"
+    },
+    {
+      "id": "water",
+      "name": "Deep Water",
+      "blocked": true,
+      "move_cost": 999,
+      "blocks_los": false,
+      "color": "#4080c0",
+      "label": "≈"
+    },
+    {
+      "id": "shallow_water",
+      "name": "Shallow Water",
+      "blocked": false,
+      "move_cost": 2,
+      "blocks_los": false,
+      "color": "#80b0d0",
+      "label": "~"
+    },
+    {
+      "id": "pit",
+      "name": "Pit",
+      "blocked": true,
+      "move_cost": 999,
+      "blocks_los": false,
+      "color": "#1a1a1a",
+      "label": "○"
+    },
+    {
+      "id": "rubble",
+      "name": "Rubble",
+      "blocked": false,
+      "move_cost": 2,
+      "blocks_los": false,
+      "color": "#8a7a6a",
+      "label": "▪"
+    },
+    {
+      "id": "ice",
+      "name": "Ice",
+      "blocked": false,
+      "move_cost": 1,
+      "blocks_los": false,
+      "color": "#d0e8f0",
+      "label": "◊"
+    }
+  ]
+}

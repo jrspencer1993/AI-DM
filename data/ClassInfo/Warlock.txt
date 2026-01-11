@@ -1,0 +1,488 @@
+Warlock
+
+There are those who study the arcane, those born to it, and those who steal it. Warlocks are none of these. Their magic is bargained—whispered into their minds in moments of desperation, channeled through pacts sealed in shadow, blood, or dream. A warlock’s power is not their own. It is granted, leased, or perhaps loaned… and always with a price.
+
+VALERUNE AND THE PACTBORN
+Nowhere are warlocks more common than in the Land of Valerune, a cragged and mist-wrapped kingdom resting on the edge of the Great Chasm—a seemingly bottomless rift that splits the continent like an ancient wound. Legends claim the Chasm is a tear between worlds, a place where the veil between realities is thin and fraying. At night, strange lights flicker deep in its depths. Some say they are stars swallowed long ago. Others whisper of watching eyes.
+
+The warlocks of Valerune are known as the Pactborn, and they are both feared and revered. Some commune with enigmatic fey voices that drift up from the Chasm’s deepest roots. Others strike deals with old gods cast down into shadow, aberrant minds that dwell beyond the stars, or even ghosts of forgotten titans entombed in the stone. In Valerune, it is said that the Chasm speaks—and those who listen too long never speak with their own voices again.
+
+Most warlocks are marked in some way by their patron—a glimmer of gold beneath the skin, shadows that move when they stand still, or dreams they cannot forget. In court, they serve as spies and sorcerers. In the wilds, they are seekers, mad prophets, and cursed wanderers. The church names them heretics. The crown names them assets. But all agree: they are dangerous. Whether they walk freely or in secrecy, warlocks remain wild cards in the game of power. They serve no college, no god, and no master—at least, not any that most would dare name aloud.
+
+Role: Spellcaster; pact-bound adaptability.
+
+HIT POINTS
+- Hit Dice: d6 per Warlock level
+- Hit Points at 1st Level: 6 + your Constitution modifier
+
+PROFICIENCIES
+- Armor: Light armor
+- Weapons: Simple weapons
+- Tools: None
+
+CORE RULES (HYBRID)
+- Base Attack Bonus Progression: HALF
+- Saving Throws: Charisma, Constitution
+- Skill Points per Level: 4 + Intelligence modifier
+- Class Skills: Arcana, Deception, History, Insight, Intimidation, Medicine, Nature, Persuasion, Religion, Sleight of Hand
+
+============================================================
+CLASS FEATURES
+============================================================
+
+LEVEL 1: Pact Magic (Ex), Eldritch Pact (Ex)
+
+FEATURE: Pact Magic (Ex)
+Your arcane research and the magic bestowed on you by your patron have given you facility with spells. See Spells Rules for the general rules of spellcasting and the Spells Listing for the warlock spell list.
+
+Cantrips.
+You know two cantrips of your choice from the warlock spell list. You learn additional warlock cantrips of your choice at higher levels, as shown in the Cantrips Known column of the Warlock table.
+
+Spell Slots.
+The Warlock table shows how many spell slots you have to cast your warlock spells of 1st through 5th level. The table also shows what the level of those slots is; all of your Pact Magic slots are the same level. To cast one of your warlock spells of 1st level or higher, you must expend a spell slot. You regain all expended Pact Magic spell slots when you finish a short or long rest.
+
+Spells Known of 1st Level and Higher.
+At 1st level, you know two 1st-level spells of your choice from the warlock spell list. The Spells Known column shows when you learn more warlock spells of your choice of 1st level and higher. A spell you choose must be of a level no higher than what’s shown in the table’s Slot Level column for your level. Additionally, when you gain a level in this class, you can choose one warlock spell you know and replace it with another warlock spell from the warlock spell list, which must be of a level for which you have spell slots.
+
+Spellcasting Ability.
+Charisma is your spellcasting ability for your warlock spells.
+- Spellcasting Ability: Charisma
+- Spell Save DC = 8 + spell level + your Charisma modifier
+- Spell Attack Modifier = base attack bonus + spell level + your Charisma modifier
+
+Spellcasting Focus.
+You can use an arcane focus as a spellcasting focus for your warlock spells.
+
+FEATURE: Eldritch Pact (Ex)
+You choose a patron, a powerful entity that shapes your abilities and grants Patron Features. These features evolve as your bond deepens.
+Patron Feature Milestones:
+- 2nd Level: Pact’s Touch
+- 6th Level: Pact’s Gift
+- 10th Level: Pact’s Favor
+- 14th Level: Pact’s Might
+- 20th Level: Pact’s Ascendance
+
+Example Patrons:
+- Fiend (Devils, Demons, etc.)
+- Great Old One (Eldritch horrors)
+- Archfey
+- Celestial
+- Shadow (Death, shadows)
+- Primordial (Elementals, nature spirits)
+- Draconic (Elder dragons)
+
+------------------------------------------------------------
+
+LEVEL 2: Pact’s Touch (Su), Eldritch Invocations (Ex), Magical Cunning (Ex)
+
+FEATURE: Pact’s Touch (Su)
+You receive your first true boon from your patron, shaping your gifts and revealing the pact’s theme.
+
+Fiend — Infernal Resilience (Su)
+- You gain resistance to fire damage.
+- Additionally, when you deal fire damage, you add your Charisma modifier to one damage roll of that effect.
+
+Great Old One — Mindwarp (Su)
+- You gain telepathy out to 30 feet. You can communicate mentally with any creature you can see within this range, provided it understands a language.
+
+Archfey — Fey Step (Su)
+- A number of times per day equal to your Charisma modifier (minimum 1), you can use a bonus action to cast Misty Step as a spell-like ability.
+
+Celestial — Healing Light (Su)
+- As a bonus action, you heal a creature within 30 feet for 1d6 + your Charisma modifier.
+- You can use this feature once per Long Rest.
+
+Shadow — Death’s Whispers (Su)
+- You can understand and speak with the dead. You can cast Speak with Dead as a spell-like ability at will.
+- You can only speak with a creature that has died within the last hour.
+
+Primordial — Elemental Affinity (Su)
+- Choose acid, cold, fire, lightning, or thunder. You gain resistance to that damage type.
+
+Draconic — Breath Weapon Invocation (Su)
+- You gain a unique invocation: Breath Weapon. Choose cone (15 feet) or line (30 feet) each time you use it; damage type matches your patron’s dragon type.
+- Creatures in the area make a Dexterity saving throw (DC = 8 + your Charisma modifier + your Warlock level), taking full damage on a failed save or half on a success.
+- Damage scales: level 1: 1d6; level 6: 2d6; level 11: 3d6; level 16: 4d6; level 20: 5d6.
+
+FEATURE: Eldritch Invocations (Ex)
+You gain two eldritch invocations of your choice. You gain additional invocations as shown in the Warlock table. When you gain a level in this class, you can replace one invocation you know with another invocation you could learn at that level. If an invocation has prerequisites, you must meet them.
+
+FEATURE: Magical Cunning (Ex)
+You can perform an esoteric rite for 1 minute. At the end of it, you regain expended Pact Magic spell slots, up to a number equal to half your maximum (rounded up). Once you use this feature, you can’t do so again until you finish a Long Rest.
+
+------------------------------------------------------------
+
+LEVEL 3: Pact Boon (Su)
+
+FEATURE: Pact Boon (Su)
+Your patron grants you a tangible boon. Choose one:
+
+Pact of the Blade.
+You can use your action to create a pact weapon in your empty hand. You choose the weapon’s form each time you create it. The weapon counts as magical for overcoming resistance and immunity to nonmagical attacks and damage. It disappears if it is more than 5 feet away from you for 1 minute or more, if you dismiss it (no action), if you use this feature again, or if you die. You can bind a magic weapon as your pact weapon by performing a 1-hour ritual during a rest; you can’t affect an artifact or sentient weapon.
+
+Pact of the Chain.
+You learn Find Familiar and can cast it as a ritual. It doesn’t count against your spells known. When you cast it, you can choose a normal familiar or one of these special forms: imp, pseudodragon, quasit, or sprite. Your familiar uses your initiative in the turn order.
+
+Pact of the Tome.
+Your patron gives you a Book of Shadows. Choose three cantrips from any class’s spell list. While the book is on your person, you can cast those cantrips at will. They don’t count against your cantrips known. If they aren’t on the warlock list, they are still warlock spells for you. If you lose the book, you can perform a 1-hour ceremony to receive a replacement during a rest; the old book is destroyed.
+
+Pact of the Talisman.
+Your patron gives you an amulet. When the wearer fails an ability check, they can add 1d4 to the roll, potentially turning failure into success. This can be used a number of times equal to your Charisma modifier (minimum 1), and all uses are restored when you finish a Rest. If you lose it, you can perform a 1-hour ceremony during a rest to receive a replacement; the old talisman is destroyed.
+
+------------------------------------------------------------
+
+LEVEL 4: (No base class feature)
+
+LEVEL 5: (No base class feature)
+
+------------------------------------------------------------
+
+LEVEL 6: Pact’s Gift (Su)
+
+FEATURE: Pact’s Gift (Su)
+Your bond deepens, granting a stronger boon.
+
+Fiend — Infernal Resistances (Su)
+- You gain resistance to fire damage.
+- At 10th level, you also gain resistance to poison damage.
+
+Great Old One — Distorted Mind (Su)
+- You gain resistance to psychic damage.
+- At 10th level, you gain immunity to the Charmed condition.
+
+Archfey — Veilwalker (Su)
+- You can attempt to hide even if you are lightly obscured.
+- At 10th level, you move without leaving a trace, as if permanently under Pass Without Trace.
+
+Celestial — Sanctified Endurance (Su)
+- You gain resistance to radiant damage.
+- At 10th level, when you cast a spell with the Light or Healing descriptor, you gain temporary hit points equal to your Warlock level + your Charisma modifier.
+
+Shadow — Gravebound (Su)
+- You gain resistance to necrotic damage.
+- At 10th level, you gain resistance to bludgeoning, piercing, and slashing damage from nonmagical sources.
+
+Primordial — Elemental Fortitude (Su)
+- You gain resistance to the damage type you chose with Pact’s Touch (fire, cold, acid, or lightning).
+- At 10th level, you gain immunity to that chosen damage type.
+
+Draconic — Draconic Durability (Su)
+- Scales (Ex): You grow scales and gain a +2 natural armor bonus to AC.
+- At 10th level, you gain claws that deal 1d6 slashing or piercing damage (as a melee weapon attack).
+
+------------------------------------------------------------
+
+LEVEL 9: Contact Patron (Sp)
+
+FEATURE: Contact Patron (Sp)
+You always have Contact Other Plane prepared. You can cast it without expending a spell slot to contact your patron, and you automatically succeed on the spell’s saving throw. You can use this feature once per day.
+
+------------------------------------------------------------
+
+LEVEL 10: Pact’s Favor (Su)
+
+FEATURE: Pact’s Favor (Su)
+Your pact becomes a defining power in your identity.
+
+Fiend — Hellish Wrath (Su)
+- As a reaction when you are hit by an attack, you deal 2d6 fire damage to the attacker (save for half; DC = 10 + your Charisma modifier + your Warlock level).
+
+Great Old One — Mental Manipulation (Su)
+- As an action, one creature within 30 feet makes a Wisdom saving throw (DC = 10 + your Charisma modifier + your Warlock level) or becomes Charmed or Frightened (your choice) for 1 minute.
+
+Archfey — Misty Escape (Su)
+- As a reaction, you cast Misty Step to avoid a ranged attack. Declare use before the attack roll. The attack is redirected to another creature of your choosing within 5 feet of you.
+
+Celestial — Divine Ward (Su)
+- As a reaction, you gain temporary hit points equal to your Charisma modifier + your Warlock level for 1 hour. While you have these temporary hit points, any creature that hits you takes radiant damage equal to half the temporary hit points you gained.
+
+Shadow — Soul Siphon (Su)
+- When a creature within 30 feet drops to 0 hit points, you can use your reaction to regain hit points equal to your Charisma modifier + half your Warlock level. Once per short rest.
+
+Primordial — Elemental Shield (Su)
+- As a reaction when you are hit, you release elemental energy. Creatures within 10 feet make a Dexterity saving throw or take 2d6 damage of your chosen elemental type.
+
+Draconic — Dragonkin (Ex)
+- Add your Warlock level to Charisma checks made to interact with dragons or dragon-blooded creatures.
+- Dragons are less likely to react with immediate hostility.
+- You gain proficiency in Intimidation.
+
+------------------------------------------------------------
+
+LEVEL 11: Mystic Arcanum (Ex)
+
+FEATURE: Mystic Arcanum (Ex)
+Your patron grants you a magical secret called an arcanum.
+- Choose one 6th-level Warlock spell as your arcanum.
+- You can cast it once without expending a spell slot, and you regain that use when you finish a Long Rest.
+You gain additional arcanum spells at:
+- Warlock 13: one 7th-level spell
+- Warlock 15: one 8th-level spell
+- Warlock 17: one 9th-level spell
+Whenever you gain a Warlock level, you can replace one arcanum spell with another warlock spell of the same level.
+
+------------------------------------------------------------
+
+LEVEL 14: Pact’s Might (Su)
+
+FEATURE: Pact’s Might (Su)
+You gain an extraordinary power that showcases the pact at its peak.
+
+Fiend — Infernal Resurgence (Su)
+- When you are at half hit points or lower, you can use your reaction to regain hit points equal to your Warlock level (maximum healing = your Warlock level + your Charisma modifier).
+- Additionally, you can cast Fireball as a 5th-level spell once per Long Rest without expending a spell slot.
+
+Great Old One — Cosmic Dominion (Su)
+- As an action, you create an aura of madness in a 30-foot radius. Enemies in the area make a Wisdom saving throw (DC = 10 + your Charisma modifier + your Warlock level) or take psychic damage equal to your Warlock level and become Frightened for 1 minute. Once per Long Rest.
+
+Archfey — Fey Enchantment (Su)
+- As a bonus action, you charm a creature within 30 feet that has fewer than 100 hit points for 1 hour; it regards you as a friendly ally. Once per Long Rest.
+
+Celestial — Divine Intervention (Su)
+- As an action, you heal creatures of your choice in a 20-foot radius for 3d10 + your Warlock level hit points. Once per Long Rest.
+
+Shadow — Shadow Mastery (Su)
+- When a creature within 30 feet dies, you can raise it as a Shadow or Wraith under your control for 1 hour. Once per Long Rest.
+
+Primordial — Elemental Manipulation (Su)
+As an action, choose one effect (save DC = 8 + your Charisma modifier + your Warlock level):
+- Fire: Explosion in a 20-foot radius (within 60 feet). Dex save or 6d10 fire (half on success).
+- Cold: Freezing burst. Con save or become Slowed for 1 minute: -2 to attack rolls and saving throws; speed halved (save ends at end of each turn).
+- Acid: Corrosive sphere (20-foot radius). Dex save or 4d10 acid (half on success); area is hazardous terrain for 1 minute.
+- Lightning: Lightning burst. Dex save or 6d10 lightning (half on success); then arcs to another creature within 30 feet, forcing the same save.
+
+Draconic — Empowered Breath Weapon (Su)
+- Cone breath becomes 30 feet; line breath becomes 60 feet.
+- Additionally, when you use your breath weapon, you can deal maximum damage instead of rolling. You can do this a number of times per Long Rest equal to your Charisma modifier (minimum 1).
+
+------------------------------------------------------------
+
+LEVEL 20: Pact’s Ascendance (Su)
+
+FEATURE: Pact’s Ascendance (Su)
+You become a near-mythical figure, embodying the full power of your patron.
+
+Fiend
+- Your type becomes Fiend.
+- You become immune to fire and poison damage.
+- You grow demonic wings (fly 60 feet).
+- Infernal Presence (Su): As an action, creatures of your choice within 30 feet make a Wisdom saving throw (DC = 8 + your Charisma modifier + your Warlock level) or become Frightened for 1 minute (save ends at end of turn). Once per short or long rest.
+- Fiendish Resilience (Su): As a bonus action, you gain fast healing equal to your Charisma modifier for 1 hour. Once per short rest.
+
+Great Old One
+- Your type becomes Aberration.
+- You gain immunity to Charmed and Frightened.
+- No creature can read your thoughts without your consent, as if under Mind Blank.
+- Warp Reality (Su): As an action, terrain in a 30-foot radius twists; creatures in the area take a –2 penalty to attack rolls for 1 minute. Once per Long Rest.
+- Telepathic Mastery (Su): You may target creatures you can mentally contact with spells/abilities that require sight (as long as they are valid targets and within normal range).
+
+Archfey
+- Your type becomes Fey.
+- You gain resistance to poison damage and immunity to Charmed.
+- You can see through mist and fog (natural or magical).
+- Fey Sight (Su): You passively recognize illusions whose DC is lower than your passive Perception.
+- Fey Step (Su): When you use your Misty Step class feature, you leave behind fey mist; treat both your departure space and arrival space as if Obscuring Mist is centered there.
+
+Celestial
+- Your type becomes Celestial.
+- You gain resistance to radiant damage and immunity to necrotic damage.
+- Divine Radiance (Su): You shed bright light 30 feet and dim light 30 more. As an action, creatures within your bright light make a Constitution saving throw (DC = your Charisma modifier + your Warlock level). On a failed save, they are Blinded for 1 minute and take 1d6 radiant damage per Warlock level. Once per Long Rest.
+- Healing Touch (Su): As an action, you touch a creature to heal it for 5 × your Warlock level. Once per Long Rest.
+
+Shadow
+- Your type becomes Undead.
+- You gain resistance to necrotic damage and immunity to poison and disease.
+- Shadowform (Su): As a bonus action, you become incorporeal for up to 1 minute. While incorporeal, you have resistance to all damage except radiant and force, and you can pass through solid objects. Once per Rest.
+- Master of Death (Su): When a creature within 30 feet dies, you can use your reaction to gain temporary hit points equal to your Warlock level. Additionally, you can raise that creature as a shadowy version of itself for 1 hour; it has 1 hit point.
+
+Primordial
+- Your type becomes Elemental (subtype matching your chosen element).
+- You gain resistance to your chosen element’s damage type.
+- Elemental Fury (Su): As an action, creatures in a 20-foot radius make a Dexterity saving throw or take 6d10 damage of your chosen elemental type (half on success). Once per Long Rest.
+- Primal Elemental Form (Su): As a bonus action, for 1 minute, you gain additional resistances, abilities, and movement types themed after an elder elemental of your chosen type. Once per Long Rest.
+
+Draconic
+- Your type becomes Dragon.
+- You gain immunity to the damage type of your breath weapon.
+- You grow draconic wings (fly 60 feet).
+- Frightful Presence (Su): As an action, each creature of your choice within 120 feet and aware of you makes a Charisma saving throw (DC = 8 + your Warlock level + your Charisma modifier) or becomes Frightened for 1 minute (save ends at end of each turn). If a creature succeeds or the effect ends for it, it is immune to your Frightful Presence for 24 hours.
+- Blindsight 60 feet.
+
+============================================================
+WARLOCK TABLE (REFERENCE)
+============================================================
+# BAB shown is highest BAB only. Save bonus is your unified class scaling reference.
+
+LEVEL  BAB  SAVE_BONUS  INVOCATIONS  MYSTIC_ARCANUM  FEATURES
+1      +1   2          —            —              Pact Magic; Eldritch Pact; Eldritch Invocations
+2      +1   2          2            —              Pact’s Touch; Magical Cunning
+3      +2   2          2            —              Pact Boon
+4      +2   2          2            —              —
+5      +3   3          3            —              —
+6      +3   3          3            —              Pact’s Gift
+7      +4   3          4            —              —
+8      +4   3          4            —              —
+9      +5   4          5            —              Contact Patron
+10     +5   4          5            —              Pact’s Favor
+11     +6   4          5            6th            Mystic Arcanum (6th)
+12     +6   4          6            6th            —
+13     +7   5          6            7th            Mystic Arcanum (7th)
+14     +7   5          6            7th            Pact’s Might
+15     +8   5          7            8th            Mystic Arcanum (8th)
+16     +8   5          7            8th            —
+17     +9   6          7            9th            Mystic Arcanum (9th)
+18     +9   6          8            9th            —
+19     +10  6          8            9th            —
+20     +10  6          8            9th            Pact’s Ascendance
+
+============================================================
+PACT MAGIC TABLE (REFERENCE)
+============================================================
+LEVEL  CANTRIPS_KNOWN  SLOT_LEVEL  SPELLS_KNOWN  SLOTS_PER_REST
+1      2              1st         2            1
+2      2              1st         3            2
+3      2              2nd         4            2
+4      3              2nd         5            2
+5      3              3rd         6            2
+6      3              3rd         7            2
+7      3              4th         8            2
+8      3              4th         9            2
+9      3              5th         10           2
+10     4              5th         11           2
+11     4              5th         12           3
+12     4              5th         13           3
+13     4              5th         14           3
+14     4              5th         15           3
+15     4              5th         16           3
+16     4              5th         17           3
+17     4              5th         18           4
+18     4              6th         19           4
+19     4              6th         20           4
+20     4              6th         22           4
+
+============================================================
+ELDRITCH INVOCATIONS (REFERENCE)
+============================================================
+- Agonizing Blast (Prereq: Eldritch Blast): Add your Charisma modifier to Eldritch Blast damage on a hit.
+- Armor of Shadows: Cast Mage Armor on yourself at will without a slot or materials.
+- Ascendant Step (Prereq: 9th): Cast Levitate on yourself at will without a slot or materials.
+- Beast Speech: Cast Speak with Animals at will.
+- Beguiling Influence: Gain proficiency in Deception and Persuasion.
+- Bewitching Whispers (Prereq: 7th): Cast Compulsion once using a warlock spell slot; regain after Long Rest.
+- Book of Ancient Secrets (Prereq: Pact of the Tome): Add two 1st-level ritual spells to your Book; cast them as rituals; you can add more ritual spells you find (level ≤ half your warlock level, rounded up) with time/cost to transcribe.
+- Chains of Carceri (Prereq: 15th, Pact of the Chain): Cast Hold Monster at will targeting a celestial, fiend, or elemental; must Long Rest before using on the same creature again.
+- Devil’s Sight: See normally in darkness (magical/nonmagical) to 120 feet.
+- Dreadful Word (Prereq: 7th): Cast Confusion once using a warlock spell slot; regain after Long Rest.
+- Eldritch Sight: Cast Detect Magic at will.
+- Eldritch Spear (Prereq: Eldritch Blast): Eldritch Blast range becomes 300 feet.
+- Eyes of the Rune Keeper: Read all writing.
+- Fiendish Vigor: Cast False Life on yourself at will as a 1st-level spell.
+- Gaze of Two Minds: Touch a willing humanoid and perceive through its senses until end of your next turn; maintain with actions while on same plane; you are blinded/deafened to your own senses while linked.
+- Lifedrinker (Prereq: 12th, Pact of the Blade): Pact weapon hits deal extra necrotic damage equal to your Charisma modifier (min 1).
+- Mask of Many Faces: Cast Disguise Self at will.
+- Master of Myriad Forms (Prereq: 15th): Cast Alter Self at will.
+- Minions of Chaos (Prereq: 9th): Cast Conjure Elemental once using a warlock spell slot; regain after Long Rest.
+- Mire the Mind (Prereq: 5th): Cast Slow once using a warlock spell slot; regain after Long Rest.
+- Misty Visions: Cast Silent Image at will.
+- One with Shadows (Prereq: 5th): In dim light or darkness, use action to become invisible until you move or take an action/reaction.
+- Otherworldly Leap (Prereq: 9th): Cast Jump on yourself at will.
+- Repelling Blast (Prereq: Eldritch Blast): Eldritch Blast hits can push 10 feet.
+- Sculptor of Flesh (Prereq: 7th): Cast Polymorph once using a warlock spell slot; regain after Long Rest.
+- Sign of Ill Omen (Prereq: 5th): Cast Bestow Curse once using a warlock spell slot; regain after Long Rest.
+- Thief of Five Fates: Cast Bane once using a warlock spell slot; regain after Long Rest.
+- Thirsting Blade (Prereq: 5th, Pact of the Blade): Attack twice with pact weapon when you take the Attack action.
+- Visions of Distant Realms (Prereq: 15th): Cast Arcane Eye at will.
+- Voice of the Chain Master (Prereq: Pact of the Chain): Telepathically communicate with familiar and perceive through its senses while on same plane; you can speak through the familiar in your voice.
+- Whispers of the Grave (Prereq: 9th): Cast Speak with Dead at will.
+- Witch Sight (Prereq: 15th): See true form of shapechangers and creatures concealed by illusions/transmutation within 30 feet.
+
+============================================================
+WARLOCK SPELL LIST (REFERENCE)
+============================================================
+
+CANTRIPS (0 LEVEL)
+- Eldritch Blast
+- Chill Touch
+- Mage Hand
+- Minor Illusion
+- Poison Spray
+- Prestidigitation
+- True Strike
+
+1ST-LEVEL
+- Charm Person
+- Comprehend Languages
+- Expeditious Retreat
+- Hellish Rebuke
+- Hex
+- Illusory Script
+- Protection from Evil and Good
+- Unseen Servant
+
+2ND-LEVEL
+- Darkness
+- Enthrall
+- Hold Person
+- Invisibility
+- Mind Spike
+- Mirror Image
+- Misty Step
+- Ray of Enfeeblement
+- Shatter
+- Spider Climb
+- Suggestion
+
+3RD-LEVEL
+- Counterspell
+- Dispel Magic
+- Fear
+- Fly
+- Gaseous Form
+- Hypnotic Pattern
+- Magic Circle
+- Major Image
+- Remove Curse
+- Tongues
+- Vampiric Touch
+
+4TH-LEVEL
+- Banishment
+- Blight
+- Charm Monster
+- Dimension Door
+- Hallucinatory Terrain
+
+5TH-LEVEL
+- Contact Other Plane
+- Dream
+- Hold Monster
+- Scrying
+
+6TH-LEVEL
+- Circle of Death
+- Conjure Fey
+- Create Undead
+- Eyebite
+- Flesh to Stone
+- Mass Suggestion
+- True Seeing
+
+7TH-LEVEL
+- Etherealness
+- Finger of Death
+- Forcecage
+- Plane Shift
+
+8TH-LEVEL
+- Demiplane
+- Dominate Monster
+- Feeblemind
+- Glibness
+- Power Word Stun
+
+9TH-LEVEL
+- Astral Projection
+- Foresight
+- Imprisonment
+- Power Word Kill
+- True Polymorph

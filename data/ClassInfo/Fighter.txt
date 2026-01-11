@@ -1,0 +1,199 @@
+Fighter
+
+Master of combat in all its forms, the Fighter is the iron backbone of any battlefield. Where others rely on magic or divine favor, the Fighter trusts in skill, steel, and sheer determination. Fighters adapt to any style of warfare through relentless practice, tactical mastery, and decisive action—dependable, deadly, and unshakable.
+
+Role: Frontline Combatant, Martial Expert
+
+HIT POINTS
+- Hit Dice: d10 per Fighter level
+- Hit Points at 1st Level: 10 + your Constitution modifier
+
+PROFICIENCIES
+- Armor: Light armor, medium armor, heavy armor, shields
+- Weapons: Simple weapons, martial weapons
+- Tools: None
+
+CORE RULES (HYBRID)
+- Base Attack Bonus Progression: FULL
+- Primary Stats: Strength or Dexterity (build-dependent)
+- Skill Points per Level: 2 + Intelligence modifier
+- Class Skills: Acrobatics, Animal Handling, Athletics, History, Insight, Intimidation, Perception, Survival
+
+============================================================
+CLASS FEATURES
+============================================================
+
+LEVEL 1: Fighting Style (Ex), Combat Maneuvers (Ex)
+
+FEATURE: Fighting Style (Ex)
+You have honed your martial prowess and gain a Fighting Style feat of your choice.
+- Whenever you gain a Fighter level, you can replace the feat you chose with a different Fighting Style feat.
+
+FEATURE: Combat Maneuvers (Ex)
+You gain a pool of martial dice representing combat precision and battlefield expertise. These dice fuel your maneuvers—special techniques you can apply in the heat of battle.
+
+Martial Dice
+- Starting dice: 4d6
+- Recovery: You regain all expended martial dice after a Short or Long Rest.
+- Scaling: Your martial die becomes a d8 at level 7, a d10 at level 11, and a d12 at level 15.
+- Additional dice: +1 die at level 7 (5 total), +1 die at level 15 (6 total)
+
+Maneuvers Known
+- Start with 3 maneuvers
+- Learn +2 maneuvers at levels 3, 7, and 15 (maximum 9)
+
+Using Maneuvers
+- When a maneuver calls for a saving throw, the DC is:
+  DC = 8 + your Strength or Dexterity modifier (your choice) + your Base Attack Bonus
+
+Example Maneuvers (reference list)
+- Focused Strike: Add a martial die to an attack roll.
+- Ambusher’s Edge: Add a martial die to a Stealth or Initiative check.
+- Guarded Step: Switch places with a willing ally within 5 feet. One of you gains AC equal to the martial die roll until the start of your next turn.
+- Brace for Impact: When a creature moves into reach, expend a die to make a weapon attack and add the die to damage if it hits.
+- Tactical Command: Bonus Action; direct an ally who can see/hear you to make a weapon attack using their reaction; add the die to damage.
+- Forceful Disarm: Add the die to damage and force the target to drop a held item on a failed Strength save.
+- Trip Technique: Add the die to damage and knock a Large or smaller creature prone on a failed Strength save.
+- Distracting Blow: Add the die to damage; next attacker gains +2 bonus against the target.
+- Sweeping Motion: On a hit, deal your martial die damage to another creature within 5 feet if your original roll would hit them.
+- Lunging Attack: Extend reach by 5 feet for one attack and add the martial die to damage.
+- Parry Response: Reaction; when hit by a melee attack, reduce damage by the die roll + your Dexterity modifier.
+- Riposte Counter: Reaction; when a creature misses you with a melee attack, make a melee weapon attack and add the die to damage.
+- Commanding Presence: Add a martial die to a Charisma check (Intimidation, Persuasion, or Performance).
+- Rallying Shout: Give temporary hit points to an ally equal to the die + your Charisma modifier.
+- Tactical Insight: Add a martial die to an Intelligence (History or Investigation) or Wisdom (Insight) check.
+- Grappling Strike: After hitting with a melee attack, add the die to a Strength (Athletics) check to grapple the target.
+
+LEVEL 2: Action Surge (Ex)
+
+FEATURE: Action Surge (Ex)
+On your turn, you can take one additional action.
+- You must finish a Rest before you can use this feature again.
+
+LEVEL 3: Maneuver Progression
+You learn +2 additional maneuvers (see Combat Maneuvers).
+
+LEVEL 4: (No base class feature)
+
+LEVEL 5: Extra Attack (Ex)
+
+FEATURE: Extra Attack (Ex)
+You can attack twice whenever you take the Attack action on your turn.
+
+LEVEL 6: Weapon Expertise (Ex)
+
+FEATURE: Weapon Expertise (Ex)
+Choose one weapon with which you are proficient. You gain the Weapon Expertise feat for that weapon.
+
+LEVEL 7: Tactical Movement (Ex), Maneuver Progression, Martial Dice Increase, Martial Die Upgrade (d8)
+
+FEATURE: Tactical Movement (Ex)
+- When you Dash, you can move through hostile creatures without being hindered.
+- As a reaction, you can impose a –2 penalty on an attack roll made against an ally within 10 feet of you.
+
+Maneuver Progression
+- You learn +2 additional maneuvers (see Combat Maneuvers).
+
+Martial Dice Increase
+- You gain +1 martial die (total 5).
+
+Martial Die Upgrade
+- Your martial die becomes a d8.
+
+LEVEL 8: (No base class feature)
+
+LEVEL 9: Master Combatant (Ex)
+
+FEATURE: Master Combatant (Ex)
+- Gain two additional martial dice.
+- When you use a maneuver, you regain one expended martial die on a roll of 5 or higher.
+
+LEVEL 10: Improved Combat Superiority (Ex)
+Your martial dice become d10s. At level 18, they become d12s.
+
+LEVEL 11: Improved Extra Attack (Ex), Martial Die Upgrade (d10)
+
+FEATURE: Improved Extra Attack (Ex)
+You can attack three times when you take the Attack action.
+
+Martial Die Upgrade
+- Your martial die becomes a d10.
+
+LEVEL 12: Indomitable (Ex)
+
+FEATURE: Indomitable (Ex)
+Once per day, you can reroll a failed saving throw. You must use the new roll.
+
+LEVEL 13: Master of Weaponry (Ex)
+
+FEATURE: Master of Weaponry (Ex)
+When using the weapon chosen for your Weapon Expertise feat:
+- You deal +2 damage.
+- On a critical hit, deal an additional 1d6 damage.
+
+LEVEL 14: (No base class feature)
+
+LEVEL 15: Indomitable Will (Ex), Maneuver Progression, Martial Dice Increase, Martial Die Upgrade (d12)
+
+FEATURE: Indomitable Will (Ex)
+You can reroll failed Wisdom and Charisma saving throws once per attempt.
+
+Maneuver Progression
+- You learn +2 additional maneuvers (see Combat Maneuvers).
+
+Martial Dice Increase
+- You gain +1 martial die (total 6).
+
+Martial Die Upgrade
+- Your martial die becomes a d12.
+
+LEVEL 16: Relentless (Ex)
+
+FEATURE: Relentless (Ex)
+When you roll initiative and have no martial dice remaining, you regain one martial die.
+
+LEVEL 17: Improved Action Surge (Ex)
+
+FEATURE: Improved Action Surge (Ex)
+You can now use Action Surge twice between Rests.
+
+LEVEL 18: Avatar of War (Ex)
+
+FEATURE: Avatar of War (Ex)
+When you drop to 0 HP, you can instead drop to 1 HP and gain a +2 bonus on all attack rolls until the end of your next turn.
+
+LEVEL 19: (No base class feature)
+
+LEVEL 20: Unmatched Combatant (Ex)
+
+FEATURE: Unmatched Combatant (Ex)
+- You can make four attacks when you take the Attack action.
+- Once per day, you can use your martial dice to reroll any attack rolls, saving throws, or damage rolls.
+
+============================================================
+LEVEL TABLE (REFERENCE)
+============================================================
+# BAB shown is highest BAB only. Save bonus is your unified class scaling reference.
+# Martial Die and Maneuvers Known follow your provided table.
+
+LEVELS:
+1  BAB +1  SAVE_BONUS 2  MARTIAL_DIE d6  MANEUVERS 3  FEATURES Fighting Style; Combat Maneuvers
+2  BAB +2  SAVE_BONUS 2  MARTIAL_DIE d6  MANEUVERS 3  FEATURES Action Surge
+3  BAB +3  SAVE_BONUS 2  MARTIAL_DIE d6  MANEUVERS 5  FEATURES Maneuver Progression
+4  BAB +4  SAVE_BONUS 2  MARTIAL_DIE d6  MANEUVERS 5  FEATURES —
+5  BAB +5  SAVE_BONUS 3  MARTIAL_DIE d6  MANEUVERS 5  FEATURES Extra Attack
+6  BAB +6  SAVE_BONUS 3  MARTIAL_DIE d6  MANEUVERS 5  FEATURES Weapon Expertise
+7  BAB +7  SAVE_BONUS 3  MARTIAL_DIE d8  MANEUVERS 7  FEATURES Tactical Movement; Maneuver Progression; +1 Martial Die
+8  BAB +8  SAVE_BONUS 3  MARTIAL_DIE d8  MANEUVERS 7  FEATURES —
+9  BAB +9  SAVE_BONUS 4  MARTIAL_DIE d8  MANEUVERS 7  FEATURES Master Combatant
+10 BAB +10 SAVE_BONUS 4  MARTIAL_DIE d8  MANEUVERS 7  FEATURES —
+11 BAB +11 SAVE_BONUS 4  MARTIAL_DIE d10 MANEUVERS 7  FEATURES Improved Extra Attack; Martial Dice Upgrade (d10)
+12 BAB +12 SAVE_BONUS 4  MARTIAL_DIE d10 MANEUVERS 7  FEATURES Indomitable
+13 BAB +13 SAVE_BONUS 5  MARTIAL_DIE d10 MANEUVERS 7  FEATURES Master of Weaponry
+14 BAB +14 SAVE_BONUS 5  MARTIAL_DIE d10 MANEUVERS 7  FEATURES —
+15 BAB +15 SAVE_BONUS 5  MARTIAL_DIE d12 MANEUVERS 9  FEATURES Indomitable Will; Maneuver Progression; +1 Martial Die; Martial Dice Upgrade (d12)
+16 BAB +16 SAVE_BONUS 5  MARTIAL_DIE d12 MANEUVERS 9  FEATURES Relentless
+17 BAB +17 SAVE_BONUS 6  MARTIAL_DIE d12 MANEUVERS 9  FEATURES Improved Action Surge
+18 BAB +18 SAVE_BONUS 6  MARTIAL_DIE d12 MANEUVERS 9  FEATURES Avatar of War
+19 BAB +19 SAVE_BONUS 6  MARTIAL_DIE d12 MANEUVERS 9  FEATURES —
+20 BAB +20 SAVE_BONUS 6  MARTIAL_DIE d12 MANEUVERS 9  FEATURES Unmatched Combatant

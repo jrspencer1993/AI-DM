@@ -1,0 +1,284 @@
+Paladin
+
+Paladins are not born—they are forged. Their oath is not a formality; it is a flame, burning ever within their soul. Whether called by radiant visions, ancient codes, or whispered truths in the dark, a paladin swears an oath that binds them beyond death, doubt, and despair. They do not serve gods as much as ideals, and sometimes those ideals demand more than any mortal should bear. In gleaming armor or bloodstained plate, they march forward—not to inspire, but to endure. A paladin’s power does not come gently. It is a crucible. Every spell a promise, every strike a judgment. They can lay hands upon the wounded and draw breath back into broken lungs—then, in the next heartbeat, smite a creature into ash. Their presence can calm a crowd or silence a battlefield, a beacon of absolute certainty in a world that begs for compromise. Yet all paladins are bound by the same truth: when the dead rise, when the innocent cry out, when the abyss stares back—you will call them, and they will not turn away.
+
+Role: Frontline Fighter, Support, Healer, Defender
+
+HIT POINTS
+- Hit Dice: d10 per Paladin level
+- Hit Points at 1st Level: 10 + your Constitution modifier
+
+PROFICIENCIES
+- Armor: Light armor, Medium armor, Heavy armor, Shields
+- Weapons: Simple weapons, Martial weapons
+- Tools: None
+
+CORE RULES (HYBRID)
+- Base Attack Bonus Progression: FULL
+- Saving Throws: Constitution, Charisma
+- Skill Points per Level: 2 + Intelligence modifier
+- Class Skills: Athletics, Insight, Medicine, Persuasion, Religion, Honor
+
+============================================================
+CLASS FEATURES
+============================================================
+
+LEVEL 1: Spellcasting (Sp), Aura of Good (Su), Lay on Hands
+
+FEATURE: Spellcasting (Sp)
+You have learned to cast spells through prayer and meditation.
+Spell Slots. The Paladin Features table shows how many spell slots you have to cast your level 1+ spells. You regain all expended slots when you finish a Long Rest.
+Prepared Spells of Level 1+. You prepare the list of level 1+ spells you can cast with this feature. To start, choose two level 1 Paladin spells.
+The number of spells on your list increases as you gain Paladin levels, as shown in the Prepared Spells column of the Paladin Features table. Whenever that number increases, choose additional Paladin spells until the number of spells on your list matches the number in the table. The chosen spells must be of a level for which you have spell slots.
+Changing Your Prepared Spells. Whenever you finish a Long Rest, you can replace one spell on your list with another Paladin spell for which you have spell slots.
+Spellcasting Ability
+Your spellcasting ability is Charisma. You use your Charisma modifier when setting the DC for your Paladin spells and when making an attack roll with one.
+- Spellcasting Ability: Charisma
+- Spell Save DC = 8 + spell level + your Charisma modifier
+- Spell Attack Modifier = base attack bonus + spell level + your Charisma modifier
+Spellcasting Focus
+You can use a Holy Symbol as a Spellcasting Focus for your Paladin spells.
+
+FEATURE: Aura of Good (Su)
+As a holy instrument of the gods above, you constantly emit an aura of good out to 10 feet.
+
+FEATURE: Lay on Hands
+You can channel divine energy into healing wounds. As an action, you can touch a creature and restore a number of hit points from your healing pool. Your healing pool equals 5 × your Paladin level. You regain spent hit points from your healing pool after a Rest.
+
+LEVEL 2: Divine Smite (Su), Fighting Style (Ex)
+
+FEATURE: Divine Smite (Su)
+When you hit a creature with a melee weapon attack, you can expend one spell slot to deal radiant damage in addition to the weapon’s damage. The extra damage is 2d8 for a 1st-level spell slot, and it increases by 1d8 for each higher spell slot used (up to 5d8). You may use this feature once per turn. This applies to every attack made on the turn it is used. This bonus damage only affects fiends, undead, and evil creatures.
+
+FEATURE: Fighting Style (Ex)
+You gain a Fighting Style feat of your choice.
+
+LEVEL 3: Divine Health (Ex), Divine Vow
+
+FEATURE: Divine Health (Ex)
+Your devotion has granted you a supernatural resistance to the natural plagues of the world. You are immune to disease.
+
+FEATURE: Divine Vow
+A Paladin makes a solemn vow reflecting their divine commitment and guiding their actions throughout their life. The vow grants special powers and abilities.
+Choose one vow:
+
+- Vow of Conservation: You have sworn an oath to the natural world and preserving it, upholding the natural order of life.
+  - You can use Lay on Hands to heal plants and fey (GM may expand to other nature-aligned creatures).
+  - You can speak with animals at will, as if under the effects of the Speak with Animals spell.
+  - Your Divine Smite now works on aberrations.
+
+- Vow of Protection: You have sworn to safeguard others, especially the weak and vulnerable.
+  - As a reaction, you may reduce the damage dealt to any ally within 30 feet by an amount equal to your Charisma modifier + your Paladin level. This expends a use of your Divine Smite.
+  - You gain +1 bonus to AC.
+  - Your Divine Smite now works on any creature that has harmed any ally in the last minute.
+
+- Vow of Devotion: You have sworn yourself to purity, justice, and protection of the innocent.
+  - You gain a bonus to saving throws vs. Illusion and Enchantment abilities.
+  - You gain resistance to necrotic damage.
+  - Your Divine Smite now works on chaotic creatures as well.
+
+- Vow of Vengeance: You have sworn an oath of retribution and to bring swift justice to those who have done great wrongs.
+  - You gain a bonus to attack rolls equal to your Charisma modifier against evil creatures.
+  - When you kill an evil creature, you can regain hit points equal to your Charisma modifier.
+  - Your Divine Smite now works on any creature that harms you.
+
+LEVEL 4: Mounted Companion (Ex)
+
+FEATURE: Mounted Companion (Ex)
+You gain a special mount to aid you in combat. This mount is a loyal steed, typically a horse, trained to fight alongside you. The mount can perform the Dodge or Attack actions as a free action on your turn. The mount shares your initiative and acts on your turn, following your general instructions.
+Use the stat block for a War Horse.
+- At level 10, your mount gains a bonus to all saving throws, attack rolls, damage rolls, and AC equal to your Charisma modifier.
+- At level 12, when your War Horse attacks, you may treat its attack as your own for the purpose of using Divine Smite.
+
+LEVEL 5: Extra Attack (Ex)
+
+FEATURE: Extra Attack (Ex)
+You can attack twice, instead of once, whenever you take the Attack action on your turn.
+
+LEVEL 6: Aura of Protection (Su)
+
+FEATURE: Aura of Protection (Su)
+Your aura now protects those within it. You and friendly creatures within gain a bonus to all saving throws equal to your Charisma modifier.
+
+LEVEL 7: (No base class feature)
+
+LEVEL 8: Restoring Touch (Su)
+
+FEATURE: Restoring Touch (Su)
+When you use Lay on Hands on a creature, you can also remove one or more of the following conditions from the creature: Blinded, Charmed, Deafened, Frightened, Paralyzed, or Stunned. You must expend 5 Hit Points from your Lay on Hands pool for each condition you remove; those points don’t also restore Hit Points to the creature.
+
+LEVEL 9: Abjure Foes (Sp)
+
+FEATURE: Abjure Foes (Sp)
+As an action, you can expend one use of this class’s Channel Divinity to overwhelm foes with awe. As you present your Holy Symbol or weapon, you can target a number of creatures equal to your Charisma modifier (minimum of one creature) that you can see within 60 feet of yourself. Each target must succeed on a Wisdom saving throw or have the Frightened condition for 1 minute or until it takes any damage. While Frightened in this way, a target can do only one of the following on its turns: move, take an action, or take a Bonus Action.
+
+LEVEL 10: Aura of Courage (Su)
+
+FEATURE: Aura of Courage (Su)
+You and friendly creatures within your aura cannot be frightened while you are conscious.
+
+LEVEL 11: Radiant Strikes (Su), Improved Divine Smite (Ex)
+
+FEATURE: Radiant Strikes (Su)
+Your strikes now carry supernatural power. When you hit a target with an attack roll using a melee weapon or an Unarmed Strike, the target takes an extra 1d8 radiant damage. On a Divine Smite, add this bonus damage to the damage dealt by the smite.
+
+FEATURE: Improved Divine Smite (Ex)
+Your Divine Smite feature now deals an additional 1d8 radiant damage whenever you use it.
+
+LEVEL 12: Nimbus of Good (Su)
+
+FEATURE: Nimbus of Good (Su)
+Your dedication to your cause has elevated you, increasing your Aura of Good range to 30 feet.
+
+LEVEL 13: Divine Ward (Su)
+
+FEATURE: Divine Ward (Su)
+You learn to imbue your Divine Smite with a protective power. You may use a Divine Smite, but instead of dealing damage, you grant you and all allies within range of your aura temporary hit points equal to the radiant damage the smite would have dealt.
+
+LEVEL 14: Cleansing Touch (Su)
+
+FEATURE: Cleansing Touch (Su)
+As an action, you can touch a creature to end one spell on it. You can use this feature a number of times equal to your Charisma modifier (minimum of 1) per long rest.
+
+LEVEL 15: Renewing Your Vow (Su)
+
+FEATURE: Renewing Your Vow (Su)
+Your commitment to your vow strengthens. The benefits of your Divine Vow increase, and you gain an additional feature related to your chosen path:
+
+- Vow of Devotion:
+  - You gain immunity to fear and poison.
+  - Allies within your aura heal hit points each turn equal to your Charisma modifier.
+
+- Vow of Protection:
+  - Your aura grants allies within it a sacred bonus to AC equal to your Charisma modifier.
+
+- Vow of Vengeance:
+  - You can use Vow of Wrath once per long rest, allowing you to deal triple radiant damage on a single strike to a creature that has injured you or an ally in the last minute.
+
+- Vow of the Ancients:
+  - You can summon a protective barrier around yourself, treating the area as if under the effect of a Spike Growth spell.
+  - The spell ignores you and allies moving within it.
+  - The damage dealt by the spell deals additional radiant damage equal to your Charisma modifier.
+
+LEVEL 16: (No base class feature)
+
+LEVEL 17: (No base class feature)
+
+LEVEL 18: Aura of Safety (Su)
+
+FEATURE: Aura of Safety (Su)
+Allies within your aura cannot fail death saving throws, or be reduced below 1 hit point.
+Additionally, while you have not attacked in combat, the area of your aura is treated as if under the effect of the Sanctuary spell.
+
+LEVEL 19: (No base class feature)
+
+LEVEL 20: Divine Ascension (Su)
+
+FEATURE: Divine Ascension (Su)
+You gain the ability to use Divine Smite once per turn without expending a spell slot. When you do, it is treated as if using a spell slot of the highest level you are capable of casting.
+In addition, your divine presence suffuses the battlefield. Your aura is always considered to be under the effects of the Hallow spell, centered on you and moving with you.
+As a bonus action, you can enter a state of divine radiance for a number of rounds equal to your Charisma modifier (minimum 1). While in this state:
+- You gain resistance to all damage.
+- Your weapon attacks deal radiant damage instead of their normal type.
+- Your Divine Smite deals maximum damage instead of rolling dice.
+You may use this transformation once per day.
+
+============================================================
+LEVEL TABLE (REFERENCE)
+============================================================
+# BAB shown is highest BAB only. Save bonus is your unified class scaling reference.
+
+LEVELS:
+1  BAB +1  SAVE_BONUS 2  LAY_ON_HANDS 5    FEATURES Spellcasting; Aura of Good; Lay on Hands
+2  BAB +2  SAVE_BONUS 2  LAY_ON_HANDS 10   FEATURES Divine Smite; Fighting Style
+3  BAB +3  SAVE_BONUS 2  LAY_ON_HANDS 15   FEATURES Divine Health; Divine Vow
+4  BAB +4  SAVE_BONUS 2  LAY_ON_HANDS 20   FEATURES Mounted Companion
+5  BAB +5  SAVE_BONUS 3  LAY_ON_HANDS 25   FEATURES Extra Attack
+6  BAB +6  SAVE_BONUS 3  LAY_ON_HANDS 30   FEATURES Aura of Protection
+7  BAB +7  SAVE_BONUS 3  LAY_ON_HANDS 35   FEATURES —
+8  BAB +8  SAVE_BONUS 3  LAY_ON_HANDS 40   FEATURES Restoring Touch
+9  BAB +9  SAVE_BONUS 4  LAY_ON_HANDS 45   FEATURES Abjure Foes
+10 BAB +10 SAVE_BONUS 4  LAY_ON_HANDS 50   FEATURES Aura of Courage; Improved Mount
+11 BAB +11 SAVE_BONUS 4  LAY_ON_HANDS 55   FEATURES Radiant Strikes; Improved Divine Smite
+12 BAB +12 SAVE_BONUS 4  LAY_ON_HANDS 60   FEATURES Nimbus of Good
+13 BAB +13 SAVE_BONUS 5  LAY_ON_HANDS 65   FEATURES Divine Ward
+14 BAB +14 SAVE_BONUS 5  LAY_ON_HANDS 70   FEATURES Cleansing Touch
+15 BAB +15 SAVE_BONUS 5  LAY_ON_HANDS 75   FEATURES Renewing Your Vow
+16 BAB +16 SAVE_BONUS 5  LAY_ON_HANDS 80   FEATURES —
+17 BAB +17 SAVE_BONUS 6  LAY_ON_HANDS 85   FEATURES —
+18 BAB +18 SAVE_BONUS 6  LAY_ON_HANDS 90   FEATURES Aura of Safety
+19 BAB +19 SAVE_BONUS 6  LAY_ON_HANDS 95   FEATURES —
+20 BAB +20 SAVE_BONUS 6  LAY_ON_HANDS 100  FEATURES Divine Ascension
+
+============================================================
+SPELL TABLE (REFERENCE)
+============================================================
+# Half-caster spell slots.
+
+SPELL_SLOTS:
+1  1ST 2
+2  1ST 2
+3  1ST 3
+4  1ST 3
+5  1ST 4  2ND 2
+6  1ST 4  2ND 2
+7  1ST 4  2ND 3
+8  1ST 4  2ND 3
+9  1ST 4  2ND 3  3RD 2
+10 1ST 4  2ND 3  3RD 2
+11 1ST 4  2ND 3  3RD 3
+12 1ST 4  2ND 3  3RD 3
+13 1ST 4  2ND 3  3RD 3  4TH 1
+14 1ST 4  2ND 3  3RD 3  4TH 1
+15 1ST 4  2ND 3  3RD 3  4TH 2
+16 1ST 4  2ND 3  3RD 3  4TH 2
+17 1ST 4  2ND 3  3RD 3  4TH 3  5TH 1
+18 1ST 4  2ND 3  3RD 3  4TH 3  5TH 1
+19 1ST 4  2ND 3  3RD 3  4TH 3  5TH 2
+20 1ST 4  2ND 3  3RD 3  4TH 3  5TH 2
+
+============================================================
+PALADIN SPELL LIST
+============================================================
+
+1st Level
+- Bless
+- Command
+- Cure Wounds
+- Detect Evil and Good
+- Detect Magic
+- Detect Poison and Disease
+- Divine Favor
+- Heroism
+- Protection from Evil and Good
+- Purify Food and Drink
+- Searing Smite
+- Shield of Faith
+
+2nd Level
+- Aid
+- Branding Smite
+- Find Steed
+- Lesser Restoration
+- Locate Object
+- Magic Weapon
+- Protection from Poison
+- Zone of Truth
+
+3rd Level
+- Create Food and Water
+- Daylight
+- Dispel Magic
+- Magic Circle
+- Remove Curse
+- Revivify
+
+4th Level
+- Banishment
+- Death Ward
+- Locate Creature
+
+5th Level
+- Dispel Evil and Good
+- Geas
+- Raise Dead

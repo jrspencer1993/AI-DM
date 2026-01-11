@@ -1,0 +1,189 @@
+Marshal
+
+“A single soldier can win a battle. A true leader wins wars.”
+Where others charge ahead with steel and fury, the Marshal commands with presence, precision, and purpose. Marshals are battlefield tacticians, war leaders, and masters of morale—those rare few who can turn a scattered band of fighters into a coordinated force capable of breaking legions. A Marshal doesn’t lead from behind; they stand in the fray, reading the tide of battle and adjusting formations with a practiced eye. Their power lies not in brute strength or magical firepower, but in empowering others—directing, supporting, and unifying. They refuse chaos and impose order, winning not by overwhelming strength but by never giving the enemy a fair fight.
+
+Role: Leader and Tactician, Inspiring Allies
+
+HIT POINTS
+- Hit Dice: d8 per Marshal level
+- Hit Points at 1st Level: 8 + your Constitution modifier
+
+PROFICIENCIES
+- Armor: Light armor, Medium armor, Heavy armor, Shields
+- Weapons: Simple weapons, Marshal weapons
+- Tools: Calligrapher’s Supplies
+
+CORE RULES (HYBRID)
+- Base Attack Bonus Progression: FULL
+- Saving Throws: Charisma, Constitution
+- Skill Points per Level: 4 + Intelligence modifier
+- Class Skills: Acrobatics, Athletics, Animal Handling, Deception, History, Intimidation, Insight, Perception, Performance, Persuasion, Survival, Tactics
+
+============================================================
+CLASS FEATURES
+============================================================
+
+LEVEL 1: Martial Die (Ex), Maneuvers Known, Fighting Style (Ex), Minor Auras (Ex)
+
+FEATURE: Martial Die (Ex)
+You gain a Martial Die that represents your physical precision and heroic edge in battle.
+- Die starts as d6.
+- Die increases at levels 6, 11, and 16 (to d8, d10, and d12 respectively).
+- You can expend your Martial Die to:
+  - Add to an attack roll, damage roll, ability check, or saving throw.
+  - Fuel special Marshal maneuvers.
+  - Add to a Combat Maneuver contest (such as Grapple, Trip, Disarm).
+- Recovery: You regain all expended Martial Dice after a Long Rest.
+
+FEATURE: Maneuvers Known
+You learn two Marshal maneuvers.
+- Restriction: You cannot select single-target buff maneuvers like Surging Strike or Heroic Second Wind. Your maneuvers must benefit allies or manipulate the battlefield.
+- You learn additional maneuvers as shown on the class table.
+- When you gain a level in this class, you may swap one maneuver you know for another from the Marshal list.
+
+Marshal Maneuver Examples (reference list)
+- Covering Advance: Expend 1 Martial Die. Allies within your aura may immediately move up to 10 feet. This movement does not provoke Attacks of Opportunity and ignores difficult terrain for that movement.
+- Strike in Formation: When you hit a creature with a weapon attack, choose an ally within your aura who can see or hear you. That ally may immediately make a melee weapon attack against the same target as a reaction. If they hit, add the Martial Die roll to the damage.
+- Banner of Defiance: Allies in your aura gain temporary hit points equal to your Charisma modifier + Martial Die roll.
+- Shield the Line: When a creature targets an ally within your aura with an attack, you may spend 1 Martial Die to impose a penalty on the attack roll equal to your Charisma modifier (minimum –1). This can be used after the roll but before the result is revealed.
+- Break the Line: Expend 1 Martial Die. Choose a number of allies up to your Martial Die roll within your aura. Each may immediately move up to their speed in a straight line. If they end adjacent to an enemy, that enemy must succeed on a Strength saving throw (DC = 8 + your Charisma modifier + 1/2 your level) or be knocked prone.
+- Phalanx Reposition: When an enemy moves within 5 feet of an ally in your aura, you may expend 1 Martial Die to shift that ally 5 feet to a square adjacent to you or another ally within 5 feet. This movement does not provoke Attacks of Opportunity.
+- Covering Advance (Reaction Variant): When an ally within your aura moves, you can expend 1 Martial Die as a reaction. The ally gains bonus AC equal to the die result until the start of their next turn or until they stop moving.
+- Suppressive Volley: You issue suppressive orders that force the target to make a Wisdom saving throw (DC = 8 + your Charisma modifier + your Martial Die) or be unable to take Reactions until the start of your next turn.
+
+FEATURE: Fighting Style (Ex)
+You have honed your martial prowess and gain a Fighting Style feat of your choice.
+
+FEATURE: Minor Auras (Ex)
+At 1st level, you learn to project a Minor Aura that provides a bonus to allies within 30 feet.
+- You may have one Minor Aura active at a time.
+- You can switch your active Minor Aura as a Bonus Action.
+- Minor Auras typically grant your Charisma bonus (if positive) to certain rolls.
+- You gain additional Minor Auras at levels 3, 7, and 15.
+
+Example Minor Auras (reference list)
+- Art of War: +Charisma to disarm, trip, bull rush, sunder.
+- Watchful Eyes: +Charisma to Dexterity saves.
+- Inspiring Presence: +Charisma to Charisma saves and skill checks.
+- Master of Tactics: +Charisma to damage rolls when flanking.
+
+LEVEL 2: Major Aura (Ex)
+
+FEATURE: Major Aura (Ex)
+You gain a Major Aura which grants a flat bonus (starting at +1, scaling to +5 at level 18) to allies within 30 feet.
+- You may project both one Minor and one Major aura at a time.
+
+Example Major Auras (reference list)
+- Motivate Attack: +X to attack rolls.
+- Motivate Defense: +X to AC.
+- Hardy Soldiers: Grants Damage Reduction X/–.
+- Motivate Resistance: +X to one chosen saving throw.
+
+LEVEL 3: Aura of Courage (Su), Tactical Auras (Ex), Minor Aura Increase
+
+FEATURE: Aura of Courage (Su)
+You and allies in your aura are immune to the frightened condition.
+
+FEATURE: Tactical Auras (Ex)
+All of your martial maneuvers now target or affect only creatures within one of your currently active auras.
+- You can never use maneuvers on yourself specifically.
+- You may still benefit if the maneuver affects all creatures in your aura.
+
+Minor Aura Increase
+- You gain an additional Minor Aura known.
+
+LEVEL 4: (No base class feature)
+
+LEVEL 5: Extra Attack (Ex)
+
+FEATURE: Extra Attack (Ex)
+You can attack twice, instead of once, whenever you take the Attack action on your turn.
+
+LEVEL 6: (No base class feature)
+
+LEVEL 7: Field Master (Ex), Minor Aura Increase
+
+FEATURE: Field Master (Ex)
+You learn to better direct and empower those you lead:
+- You can maintain two Minor Auras and one Major Aura at once.
+- Your aura range increases to 60 feet.
+
+Minor Aura Increase
+- You gain an additional Minor Aura known.
+
+LEVEL 8: (No base class feature)
+
+LEVEL 9: Tactical Mastery (Ex)
+
+FEATURE: Tactical Mastery (Ex)
+At levels 9, 11, 13, 15, and 17, you gain a Tactical Mastery—a powerful upgrade that alters how your maneuvers or auras work.
+
+Example Tactical Masteries (reference list)
+- Coordinated Assault: When you hit a creature with a melee weapon attack, the next time an ally within your aura hits that creature before the start of your next turn, they deal extra damage equal to your Charisma modifier.
+- Lead by Example: When you hit with a melee weapon attack, one ally within your aura may add +2 to their next attack roll or ability check made before the start of your next turn.
+- Drill Sergeant: Once per turn, when an ally within your aura fails an attack roll or saving throw, they may reroll it and take the new result. This ability can be used once per Short Rest per ally.
+- Hold the Line: When an ally within your aura would be forced to move against their will, you can use your reaction to allow them to make a Strength saving throw (DC equal to the original effect's DC, or 10 + enemy Strength modifier if none). On a success, they are not moved and are braced until the start of their next turn; while braced, they cannot be knocked prone.
+- Opportune Orders: When initiative is rolled, choose up to three allies within your aura. Each gains +1 initiative, and may choose to delay to act immediately after you (once per combat). If they do, their first attack that round deals +1d4 extra damage, scaling to +1d6 at level 11 and +1d8 at level 17.
+
+LEVEL 10: Major Aura Scaling (+2)
+
+LEVEL 11: Tactical Mastery (Ex)
+
+LEVEL 12: (No base class feature)
+
+LEVEL 13: Tactical Mastery (Ex)
+
+LEVEL 14: Major Aura Scaling (+3)
+
+LEVEL 15: Minor Aura Increase, Tactical Mastery (Ex)
+
+LEVEL 16: (No base class feature)
+
+LEVEL 17: Tactical Mastery (Ex)
+
+LEVEL 18: Aura of the Battlelord
+
+FEATURE: Aura of the Battlelord
+You have become the epitome of a leader, able to manifest auras simultaneously to a new level:
+- Project two Minor Auras and two Major Auras simultaneously.
+- Your aura radius increases to 90 feet.
+- Commanding Presence can now be used at will.
+
+LEVEL 19: (No base class feature)
+
+LEVEL 20: Legendary Field Master
+
+FEATURE: Legendary Field Master
+You are a legend on the battlefield, your very presence turning the tides and defying all odds at victory:
+- Project three Minor Auras and two Major Auras.
+- Aura range becomes 120 feet.
+- Once per turn, as a Bonus Action, grant an ally one of your feats (other than origin feats) until the end of their next turn.
+
+============================================================
+LEVEL TABLE (REFERENCE)
+============================================================
+# BAB shown is highest BAB only. Save bonus is your unified class scaling reference.
+# Martial Die and Maneuvers Known follow your provided table.
+
+LEVELS:
+1  BAB +1  SAVE_BONUS 2  MARTIAL_DIE d6  MANEUVERS 3  FEATURES Martial Die; Tactical Maneuvers; Fighting Style; Minor Aura (1)
+2  BAB +2  SAVE_BONUS 2  MARTIAL_DIE d6  MANEUVERS 3  FEATURES Major Aura (+1)
+3  BAB +3  SAVE_BONUS 2  MARTIAL_DIE d6  MANEUVERS 5  FEATURES Aura of Courage; Tactical Auras; Minor Aura (2)
+4  BAB +4  SAVE_BONUS 2  MARTIAL_DIE d6  MANEUVERS 5  FEATURES —
+5  BAB +5  SAVE_BONUS 3  MARTIAL_DIE d6  MANEUVERS 5  FEATURES Extra Attack
+6  BAB +6  SAVE_BONUS 3  MARTIAL_DIE d6  MANEUVERS 5  FEATURES —
+7  BAB +7  SAVE_BONUS 3  MARTIAL_DIE d8  MANEUVERS 7  FEATURES Field Master; Aura Range 60 ft; Minor Aura (3)
+8  BAB +8  SAVE_BONUS 3  MARTIAL_DIE d8  MANEUVERS 7  FEATURES —
+9  BAB +9  SAVE_BONUS 4  MARTIAL_DIE d8  MANEUVERS 7  FEATURES Tactical Mastery (1)
+10 BAB +10 SAVE_BONUS 4  MARTIAL_DIE d8  MANEUVERS 7  FEATURES Major Aura (+2)
+11 BAB +11 SAVE_BONUS 4  MARTIAL_DIE d10 MANEUVERS 7  FEATURES Tactical Mastery (2)
+12 BAB +12 SAVE_BONUS 4  MARTIAL_DIE d10 MANEUVERS 7  FEATURES —
+13 BAB +13 SAVE_BONUS 5  MARTIAL_DIE d10 MANEUVERS 7  FEATURES Tactical Mastery (3)
+14 BAB +14 SAVE_BONUS 5  MARTIAL_DIE d10 MANEUVERS 7  FEATURES Major Aura (+3)
+15 BAB +15 SAVE_BONUS 5  MARTIAL_DIE d12 MANEUVERS 9  FEATURES Minor Aura (4)
+16 BAB +16 SAVE_BONUS 5  MARTIAL_DIE d12 MANEUVERS 9  FEATURES —
+17 BAB +17 SAVE_BONUS 6  MARTIAL_DIE d12 MANEUVERS 9  FEATURES Tactical Mastery (5)
+18 BAB +18 SAVE_BONUS 6  MARTIAL_DIE d12 MANEUVERS 9  FEATURES Aura of the Battlelord; Aura Range 90 ft
+19 BAB +19 SAVE_BONUS 6  MARTIAL_DIE d12 MANEUVERS 9  FEATURES —
+20 BAB +20 SAVE_BONUS 6  MARTIAL_DIE d12 MANEUVERS 9  FEATURES Legendary Field Master; Aura Range 120 ft
