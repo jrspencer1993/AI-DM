@@ -1,0 +1,119 @@
+{
+  "description": "Multiclassing rules defining how each class contributes to spell slots and caster level",
+  "max_total_level": 20,
+  "allow_multiclass": true,
+  
+  "caster_contributions": {
+    "full": {
+      "description": "Full casters contribute their full class level to caster level",
+      "caster_level_multiplier": 1.0,
+      "classes": ["wizard", "sorcerer", "cleric", "druid", "bard"]
+    },
+    "half": {
+      "description": "Half casters contribute half their class level (rounded down) to caster level",
+      "caster_level_multiplier": 0.5,
+      "classes": ["paladin", "ranger", "spellblade", "artificer"]
+    },
+    "third": {
+      "description": "Third casters contribute one-third their class level (rounded down) to caster level",
+      "caster_level_multiplier": 0.333,
+      "classes": []
+    },
+    "pact": {
+      "description": "Pact magic users have separate slot progression that does not combine with normal slots",
+      "separate_slots": true,
+      "classes": ["warlock"]
+    },
+    "none": {
+      "description": "Non-casters do not contribute to caster level",
+      "caster_level_multiplier": 0,
+      "classes": ["fighter", "barbarian", "rogue", "monk", "marshal"]
+    }
+  },
+  
+  "multiclass_spell_slots": {
+    "description": "Spell slots by combined caster level (for non-pact casters)",
+    "1":  {"1": 2},
+    "2":  {"1": 3},
+    "3":  {"1": 4, "2": 2},
+    "4":  {"1": 4, "2": 3},
+    "5":  {"1": 4, "2": 3, "3": 2},
+    "6":  {"1": 4, "2": 3, "3": 3},
+    "7":  {"1": 4, "2": 3, "3": 3, "4": 1},
+    "8":  {"1": 4, "2": 3, "3": 3, "4": 2},
+    "9":  {"1": 4, "2": 3, "3": 3, "4": 3, "5": 1},
+    "10": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 2},
+    "11": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 2, "6": 1},
+    "12": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 2, "6": 1},
+    "13": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 2, "6": 1, "7": 1},
+    "14": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 2, "6": 1, "7": 1},
+    "15": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 2, "6": 1, "7": 1, "8": 1},
+    "16": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 2, "6": 1, "7": 1, "8": 1},
+    "17": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 2, "6": 1, "7": 1, "8": 1, "9": 1},
+    "18": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 3, "6": 1, "7": 1, "8": 1, "9": 1},
+    "19": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 3, "6": 2, "7": 1, "8": 1, "9": 1},
+    "20": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 3, "6": 2, "7": 2, "8": 1, "9": 1}
+  },
+  
+  "warlock_pact_slots": {
+    "description": "Warlock pact magic slots by warlock level (separate from normal slots)",
+    "1":  {"slots": 1, "slot_level": 1},
+    "2":  {"slots": 2, "slot_level": 1},
+    "3":  {"slots": 2, "slot_level": 2},
+    "4":  {"slots": 2, "slot_level": 2},
+    "5":  {"slots": 2, "slot_level": 3},
+    "6":  {"slots": 2, "slot_level": 3},
+    "7":  {"slots": 2, "slot_level": 4},
+    "8":  {"slots": 2, "slot_level": 4},
+    "9":  {"slots": 2, "slot_level": 5},
+    "10": {"slots": 2, "slot_level": 5},
+    "11": {"slots": 3, "slot_level": 5},
+    "12": {"slots": 3, "slot_level": 5},
+    "13": {"slots": 3, "slot_level": 5},
+    "14": {"slots": 3, "slot_level": 5},
+    "15": {"slots": 3, "slot_level": 5},
+    "16": {"slots": 3, "slot_level": 5},
+    "17": {"slots": 4, "slot_level": 5},
+    "18": {"slots": 4, "slot_level": 5},
+    "19": {"slots": 4, "slot_level": 5},
+    "20": {"slots": 4, "slot_level": 5}
+  },
+  
+  "multiclass_prerequisites": {
+    "description": "Ability score requirements to multiclass into a class",
+    "barbarian": {"STR": 13},
+    "bard": {"CHA": 13},
+    "cleric": {"WIS": 13},
+    "druid": {"WIS": 13},
+    "fighter": {"STR": 13, "or": "DEX"},
+    "monk": {"DEX": 13, "WIS": 13},
+    "paladin": {"STR": 13, "CHA": 13},
+    "ranger": {"DEX": 13, "WIS": 13},
+    "rogue": {"DEX": 13},
+    "sorcerer": {"CHA": 13},
+    "warlock": {"CHA": 13},
+    "wizard": {"INT": 13},
+    "artificer": {"INT": 13},
+    "marshal": {"CHA": 13},
+    "spellblade": {"INT": 13, "or": "STR"}
+  },
+  
+  "multiclass_proficiencies": {
+    "description": "Proficiencies gained when multiclassing INTO a class (not starting class)",
+    "barbarian": {"armor": ["shields"], "weapons": ["simple", "martial"]},
+    "bard": {"armor": ["light"], "weapons": [], "skills": 1},
+    "cleric": {"armor": ["light", "medium", "shields"], "weapons": []},
+    "druid": {"armor": ["light", "medium", "shields"], "weapons": []},
+    "fighter": {"armor": ["light", "medium", "shields"], "weapons": ["simple", "martial"]},
+    "monk": {"armor": [], "weapons": ["simple", "shortswords"]},
+    "paladin": {"armor": ["light", "medium", "shields"], "weapons": ["simple", "martial"]},
+    "ranger": {"armor": ["light", "medium", "shields"], "weapons": ["simple", "martial"], "skills": 1},
+    "rogue": {"armor": ["light"], "weapons": ["hand crossbows", "longswords", "rapiers", "shortswords"], "skills": 1},
+    "sorcerer": {"armor": [], "weapons": []},
+    "warlock": {"armor": ["light"], "weapons": ["simple"]},
+    "wizard": {"armor": [], "weapons": []},
+    "artificer": {"armor": ["light"], "weapons": ["simple"]},
+    "marshal": {"armor": ["light", "medium"], "weapons": ["simple", "martial"]},
+    "spellblade": {"armor": ["light"], "weapons": ["simple", "martial"]}
+  }
+}

@@ -1,0 +1,27 @@
+Dragonborn
+
+Speed: 30
+Size: Medium
+
+Ability Bonuses:
+* STR +2
+* CHA +1
+
+Traits:
+* Draconic Ancestry: You have draconic ancestry. Choose one type of dragon from the table. Your breath weapon and damage resistance are determined by the dragon type.
+* Breath Weapon: You can use your action to exhale destructive energy. Your draconic ancestry determines the size, shape, and damage type of the exhalation. Each creature in the area must make a saving throw (DC = 8 + CON mod + proficiency). A creature takes 2d6 damage on a failed save, and half as much on a successful one. The damage increases to 3d6 at 6th level, 4d6 at 11th level, and 5d6 at 16th level. You can use this once per short or long rest.
+* Damage Resistance: You have resistance to the damage type associated with your draconic ancestry.
+
+Languages: Common, Draconic
+
+Subraces:
+* Black Dragon: Acid, 5x30 ft line (DEX save)
+* Blue Dragon: Lightning, 5x30 ft line (DEX save)
+* Brass Dragon: Fire, 5x30 ft line (DEX save)
+* Bronze Dragon: Lightning, 5x30 ft line (DEX save)
+* Copper Dragon: Acid, 5x30 ft line (DEX save)
+* Gold Dragon: Fire, 15 ft cone (DEX save)
+* Green Dragon: Poison, 15 ft cone (CON save)
+* Red Dragon: Fire, 15 ft cone (DEX save)
+* Silver Dragon: Cold, 15 ft cone (CON save)
+* White Dragon: Cold, 15 ft cone (CON save)

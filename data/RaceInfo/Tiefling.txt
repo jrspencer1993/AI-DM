@@ -1,0 +1,19 @@
+Tiefling
+
+Speed: 30
+Size: Medium
+Darkvision: 60
+
+Ability Bonuses:
+* INT +1
+* CHA +2
+
+Resistances:
+* Fire damage
+
+Traits:
+* Darkvision: You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light.
+* Hellish Resistance: You have resistance to fire damage.
+* Infernal Legacy: You know the Thaumaturgy cantrip. At 3rd level, you can cast Hellish Rebuke as a 2nd-level spell once per long rest. At 5th level, you can cast Darkness once per long rest. Charisma is your spellcasting ability for these spells.
+
+Languages: Common, Infernal

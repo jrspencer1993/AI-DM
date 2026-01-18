@@ -1,338 +1,222 @@
 [
   {
-    "index": "acolyte",
     "name": "Acolyte",
-    "starting_proficiencies": [
-      {
-        "index": "skill-insight",
-        "name": "Skill: Insight",
-        "url": "/api/2014/proficiencies/skill-insight"
-      },
-      {
-        "index": "skill-religion",
-        "name": "Skill: Religion",
-        "url": "/api/2014/proficiencies/skill-religion"
-      }
-    ],
-    "language_options": {
-      "choose": 2,
-      "type": "languages",
-      "from": {
-        "option_set_type": "resource_list",
-        "resource_list_url": "/api/2014/languages"
-      }
-    },
-    "starting_equipment": [
-      {
-        "equipment": {
-          "index": "clothes-common",
-          "name": "Clothes, common",
-          "url": "/api/2014/equipment/clothes-common"
-        },
-        "quantity": 1
-      },
-      {
-        "equipment": {
-          "index": "pouch",
-          "name": "Pouch",
-          "url": "/api/2014/equipment/pouch"
-        },
-        "quantity": 1
-      }
-    ],
-    "starting_equipment_options": [
-      {
-        "choose": 1,
-        "type": "equipment",
-        "from": {
-          "option_set_type": "equipment_category",
-          "equipment_category": {
-            "index": "holy-symbols",
-            "name": "Holy Symbols",
-            "url": "/api/2014/equipment-categories/holy-symbols"
-          }
-        }
-      }
-    ],
+    "description": "You have spent your life in service to a temple or sacred order, dedicating yourself to rites, rituals, and acts of faith. Your days were filled with prayer, ceremony, and sacred tradition—whether before a grand altar, among remote ruins, or in a humble shrine tucked away from society. Not all acolytes are priests. You may have served as a temple attendant, ceremonial assistant, scholar of the divine, or even a high-ranking hierophant before a calling led you down a different path.",
+    "ability_bonuses": [{"name": "WIS", "bonus": 1}],
+    "skills": ["Insight", "Religion"],
+    "languages": 2,
+    "tool_proficiencies": [],
+    "origin_feat": "Faithful Disciple",
+    "equipment": ["Holy symbol (gifted)", "Prayer book or wheel", "5 sticks of incense", "Vestments", "Common clothes", "Pouch with 15 gp"],
     "feature": {
       "name": "Shelter of the Faithful",
-      "desc": [
-        "As an acolyte, you command the respect of those who share your faith, and you can perform the religious ceremonies of your deity. You and your adventuring companions can expect to receive free healing and care at a temple, shrine, or other established presence of your faith, though you must provide any material components needed for spells. Those who share your religion will support you (but only you) at a modest lifestyle.",
-        "You might also have ties to a specific temple dedicated to your chosen deity or pantheon, and you have a residence there. This could be the temple where you used to serve, if you remain on good terms with it, or a temple where you have found a new home. While near your temple, you can call upon the priests for assistance, provided the assistance you ask for is not hazardous and you remain in good standing with your temple."
-      ]
-    },
-    "personality_traits": {
-      "choose": 2,
-      "type": "personality_traits",
-      "from": {
-        "option_set_type": "options_array",
-        "options": [
-          {
-            "option_type": "string",
-            "string": "I idolize a particular hero of my faith, and constantly refer to that person's deeds and example."
-          },
-          {
-            "option_type": "string",
-            "string": "I can find common ground between the fiercest enemies, empathizing with them and always working toward peace."
-          },
-          {
-            "option_type": "string",
-            "string": "I see omens in every event and action. The gods try to speak to us, we just need to listen."
-          },
-          {
-            "option_type": "string",
-            "string": "Nothing can shake my optimistic attitude."
-          },
-          {
-            "option_type": "string",
-            "string": "I quote (or misquote) sacred texts and proverbs in almost every situation."
-          },
-          {
-            "option_type": "string",
-            "string": "I am tolerant (or intolerant) of other faiths and respect (or condemn) the worship of other gods."
-          },
-          {
-            "option_type": "string",
-            "string": "I've enjoyed fine food, drink, and high society among my temple's elite. Rough living grates on me."
-          },
-          {
-            "option_type": "string",
-            "string": "I've spent so long in the temple that I have little practical experience dealing with people in the outside world."
-          }
-        ]
-      }
-    },
-    "ideals": {
+      "description": "You can perform religious ceremonies of your deity and receive free healing and care at temples or shrines of your faith (material components not included). You have a place to stay at a temple associated with your god, and can request modest non-hazardous aid from clergy."
+    }
+  },
+  {
+    "name": "Arcane Student",
+    "description": "You spent your formative years under the tutelage of mages or magical researchers. Whether or not you completed your training, you were exposed to the secrets and disciplines of arcane study. You may not be a full-fledged wizard, but you know the jargon, respect the craft, and have likely seen magic change lives—for better or worse.",
+    "ability_bonuses": [{"name": "INT", "bonus": 1}],
+    "skills": ["Arcana", "History"],
+    "languages": 1,
+    "tool_proficiencies": [],
+    "origin_feat": "Initiate of the Arcane",
+    "equipment": ["Notebook of spells/theories", "Ink and quill", "Common robes", "Satchel", "10 gp"],
+    "feature": {
+      "name": "Arcane Correspondent",
+      "description": "You are part of a network of magical scholars, allowing you to send and receive messages, scrolls, and minor favors through arcane contacts at colleges, towers, or guilds in most large cities."
+    }
+  },
+  {
+    "name": "Criminal",
+    "description": "You lived your life in the shadows—lifting coin purses, casing mansions, or moving contraband across borders. Maybe you were part of a thieves' guild or simply acted alone with a sharp mind and quicker fingers. Some criminals fight injustice through illegal means; others care only for profit or survival. Whether you broke locks or broke bones, the underworld taught you lessons the law never could.",
+    "ability_bonuses": [{"name": "DEX", "bonus": 1}],
+    "skills": ["Sleight of Hand", "Stealth"],
+    "languages": 0,
+    "tool_proficiencies": ["Thieves' tools"],
+    "origin_feat": "Alert",
+    "equipment": ["Thieves' tools", "Crowbar", "Dark common clothes with hood", "Belt pouch with 15 gp"],
+    "feature": {
+      "name": "Underworld Awareness",
+      "description": "You're familiar with the signs, safehouses, and slang of the criminal world. In any settlement, you can locate hidden entrances, avoid watch patrols, and identify the safest alley or escape route. You also recognize criminal markings (such as chalk glyphs or tattoos) and can interpret their meaning or affiliation."
+    }
+  },
+  {
+    "name": "Disgraced Noble",
+    "description": "You were born into privilege, but titles crumble and wealth fades. Betrayal, scandal, or ambition brought your downfall—and now you walk among those who once served you, chasing a different kind of legacy.",
+    "ability_bonus_options": {
       "choose": 1,
-      "type": "ideals",
-      "from": {
-        "option_set_type": "options_array",
-        "options": [
-          {
-            "option_type": "ideal",
-            "desc": "Tradition. The ancient traditions of worship and sacrifice must be preserved and upheld.",
-            "alignments": [
-              {
-                "index": "lawful-good",
-                "name": "Lawful Good",
-                "url": "/api/2014/alignments/lawful-good"
-              },
-              {
-                "index": "lawful-neutral",
-                "name": "Lawful Neutral",
-                "url": "/api/2014/alignments/lawful-neutral"
-              },
-              {
-                "index": "lawful-evil",
-                "name": "Lawful Evil",
-                "url": "/api/2014/alignments/lawful-evil"
-              }
-            ]
-          },
-          {
-            "option_type": "ideal",
-            "desc": "Charity. I always try to help those in need, no matter what the personal cost.",
-            "alignments": [
-              {
-                "index": "lawful-good",
-                "name": "Lawful Good",
-                "url": "/api/2014/alignments/lawful-good"
-              },
-              {
-                "index": "neutral-good",
-                "name": "Neutral Good",
-                "url": "/api/2014/alignments/neutral-good"
-              },
-              {
-                "index": "chaotic-good",
-                "name": "Chaotic Good",
-                "url": "/api/2014/alignments/chaotic-good"
-              }
-            ]
-          },
-          {
-            "option_type": "ideal",
-            "desc": "Change. We must help bring about the changes the gods are constantly working in the world.",
-            "alignments": [
-              {
-                "index": "chaotic-good",
-                "name": "Chaotic Good",
-                "url": "/api/2014/alignments/chaotic-good"
-              },
-              {
-                "index": "chaotic-neutral",
-                "name": "Chaotic Neutral",
-                "url": "/api/2014/alignments/chaotic-neutral"
-              },
-              {
-                "index": "chaotic-evil",
-                "name": "Chaotic Evil",
-                "url": "/api/2014/alignments/chaotic-evil"
-              }
-            ]
-          },
-          {
-            "option_type": "ideal",
-            "desc": "Power. I hope to one day rise to the top of my faith's religious hierarchy.",
-            "alignments": [
-              {
-                "index": "lawful-good",
-                "name": "Lawful Good",
-                "url": "/api/2014/alignments/lawful-good"
-              },
-              {
-                "index": "lawful-neutral",
-                "name": "Lawful Neutral",
-                "url": "/api/2014/alignments/lawful-neutral"
-              },
-              {
-                "index": "lawful-evil",
-                "name": "Lawful Evil",
-                "url": "/api/2014/alignments/lawful-evil"
-              }
-            ]
-          },
-          {
-            "option_type": "ideal",
-            "desc": "Faith. I trust that my deity will guide my actions. I have faith that if I work hard, things will go well.",
-            "alignments": [
-              {
-                "index": "lawful-good",
-                "name": "Lawful Good",
-                "url": "/api/2014/alignments/lawful-good"
-              },
-              {
-                "index": "lawful-neutral",
-                "name": "Lawful Neutral",
-                "url": "/api/2014/alignments/lawful-neutral"
-              },
-              {
-                "index": "lawful-evil",
-                "name": "Lawful Evil",
-                "url": "/api/2014/alignments/lawful-evil"
-              }
-            ]
-          },
-          {
-            "option_type": "ideal",
-            "desc": "Aspiration. I seek to prove myself worthy of my god's favor by matching my actions against his or her teachings.",
-            "alignments": [
-              {
-                "index": "lawful-good",
-                "name": "Lawful Good",
-                "url": "/api/2014/alignments/lawful-good"
-              },
-              {
-                "index": "neutral-good",
-                "name": "Neutral Good",
-                "url": "/api/2014/alignments/neutral-good"
-              },
-              {
-                "index": "chaotic-good",
-                "name": "Chaotic Good",
-                "url": "/api/2014/alignments/chaotic-good"
-              },
-              {
-                "index": "lawful-neutral",
-                "name": "Lawful Neutral",
-                "url": "/api/2014/alignments/lawful-neutral"
-              },
-              {
-                "index": "neutral",
-                "name": "Neutral",
-                "url": "/api/2014/alignments/neutral"
-              },
-              {
-                "index": "chaotic-neutral",
-                "name": "Chaotic Neutral",
-                "url": "/api/2014/alignments/chaotic-neutral"
-              },
-              {
-                "index": "lawful-evil",
-                "name": "Lawful Evil",
-                "url": "/api/2014/alignments/lawful-evil"
-              },
-              {
-                "index": "neutral-evil",
-                "name": "Neutral Evil",
-                "url": "/api/2014/alignments/neutral-evil"
-              },
-              {
-                "index": "chaotic-evil",
-                "name": "Chaotic Evil",
-                "url": "/api/2014/alignments/chaotic-evil"
-              }
-            ]
-          }
-        ]
-      }
+      "from": [{"name": "CHA", "bonus": 1}, {"name": "INT", "bonus": 1}]
     },
-    "bonds": {
+    "skills": ["History", "Persuasion"],
+    "languages": 1,
+    "tool_proficiencies": [],
+    "origin_feat": "Fallen Grace",
+    "equipment": ["Signet ring (scratched or broken)", "Fine clothes (worn)", "Sealed letter from your family", "25 gp"],
+    "feature": {
+      "name": "Fallen Name",
+      "description": "Your name still carries weight, though it opens as many doors as it closes. In places where your house was once respected, you may call upon favors, hospitality, or access to noble circles—though suspicion or gossip often follows."
+    }
+  },
+  {
+    "name": "Fence",
+    "description": "You specialized in making hot items disappear and questionable wares reappear. You may have worked for a thieves' guild, a corrupt noble, or yourself—but either way, you know the value of silence.",
+    "ability_bonus_options": {
       "choose": 1,
-      "type": "bonds",
-      "from": {
-        "option_set_type": "options_array",
-        "options": [
-          {
-            "option_type": "string",
-            "string": "I would die to recover an ancient relic of my faith that was lost long ago."
-          },
-          {
-            "option_type": "string",
-            "string": "I will someday get revenge on the corrupt temple hierarchy who branded me a heretic."
-          },
-          {
-            "option_type": "string",
-            "string": "I owe my life to the priest who took me in when my parents died."
-          },
-          {
-            "option_type": "string",
-            "string": "Everything I do is for the common people."
-          },
-          {
-            "option_type": "string",
-            "string": "I will do anything to protect the temple where I served."
-          },
-          {
-            "option_type": "string",
-            "string": "I seek to preserve a sacred text that my enemies consider heretical and seek to destroy."
-          }
-        ]
-      }
+      "from": [{"name": "CHA", "bonus": 1}, {"name": "DEX", "bonus": 1}]
     },
-    "flaws": {
+    "skills": ["Persuasion", "Sleight of Hand"],
+    "languages": 0,
+    "tool_proficiencies": ["Thieves' tools"],
+    "origin_feat": "Underworld Networker",
+    "equipment": ["Thieves' tools", "Dark clothes with hidden pockets", "List of contacts", "8 gp"],
+    "feature": {
+      "name": "Underworld Connections",
+      "description": "You know how to quietly move stolen or illicit goods. In any sizable settlement, you can usually find a buyer (or a broker) for unusual items—though the price may include secrets or favors."
+    }
+  },
+  {
+    "name": "Guild Scribe",
+    "description": "You worked behind the scenes for a trade guild, noble house, or mercantile company. You processed contracts, tallied ledgers, and perhaps buried a few inconvenient documents. You know how power moves in ink, not steel.",
+    "ability_bonuses": [{"name": "INT", "bonus": 1}],
+    "skills": ["Persuasion", "Tactics"],
+    "languages": 0,
+    "tool_proficiencies": ["Calligrapher's supplies"],
+    "origin_feat": "Ink-stained Savant",
+    "equipment": ["Calligrapher's kit", "Ledger book", "Guild pin", "Sealing wax", "10 gp"],
+    "feature": {
+      "name": "Bureaucratic Acumen",
+      "description": "You know how to navigate official systems. You can acquire mundane permits, gain access to archives, or decipher bureaucratic codes and records. Clerks and scribes recognize your training and often underestimate your ambitions."
+    }
+  },
+  {
+    "name": "Miner",
+    "description": "You labored in the dark beneath the earth, swinging picks and breaking stone. Whether you dug for iron, gems, or something stranger, the deep places taught you patience, fear, and the feel of danger in the stone.",
+    "ability_bonuses": [{"name": "CON", "bonus": 1}],
+    "skills": ["Survival", "Tinker"],
+    "languages": 0,
+    "tool_proficiencies": ["Miner's tools"],
+    "origin_feat": "Deep Delver",
+    "equipment": ["Miner's tools", "Hooded lantern", "Flask of oil", "Rope (50 ft.)", "10 gp"],
+    "feature": {
+      "name": "Deep Instincts",
+      "description": "You have an intuitive sense for underground spaces. You can always tell if you're underground, the depth below surface, and the direction to the nearest slope or shaft. You can also identify dangerous rock formations or signs of instability."
+    }
+  },
+  {
+    "name": "Runesmith's Apprentice",
+    "description": "You worked at the forge—or at the bench—carving symbols of power into metal and stone. You saw firsthand the blend of craft and sorcery, and your fingers remember the weight of enchanted steel.",
+    "ability_bonus_options": {
       "choose": 1,
-      "type": "flaws",
-      "from": {
-        "option_set_type": "options_array",
-        "options": [
-          {
-            "option_type": "string",
-            "string": "I judge others harshly, and myself even more severely."
-          },
-          {
-            "option_type": "string",
-            "string": "I put too much trust in those who wield power within my temple's hierarchy."
-          },
-          {
-            "option_type": "string",
-            "string": "My piety sometimes leads me to blindly trust those that profess faith in my god."
-          },
-          {
-            "option_type": "string",
-            "string": "I am inflexible in my thinking."
-          },
-          {
-            "option_type": "string",
-            "string": "I am suspicious of strangers and expect the worst of them."
-          },
-          {
-            "option_type": "string",
-            "string": "Once I pick a goal, I become obsessed with it to the detriment of everything else in my life."
-          }
-        ]
-      }
+      "from": [{"name": "INT", "bonus": 1}, {"name": "WIS", "bonus": 1}]
     },
-    "url": "/api/2014/backgrounds/acolyte"
+    "skills": ["Arcana", "Tinker"],
+    "languages": 0,
+    "tool_proficiencies": ["Smith's tools", "Rune carving kit"],
+    "origin_feat": "Glyph-Touched",
+    "equipment": ["Rune chisel or smith's tools", "Fire-hardened gloves", "Fragment of a broken rune stone", "10 gp"],
+    "feature": {
+      "name": "Sigil Sense",
+      "description": "You can identify active magical runes and wards on sight. With a few minutes of study, you can discern the purpose of magical inscriptions or detect the presence of dormant glyphs (at GM's discretion)."
+    }
+  },
+  {
+    "name": "Sage",
+    "description": "You spent your life in dusty halls, cluttered libraries, or wandering ruins in search of forgotten truths. Whether as a university scholar, royal scribe, or solitary academic, your mind was your sharpest weapon, and knowledge your most faithful companion. Sages often walk the line between obsession and genius. You may have uncovered secrets no one was meant to know—or challenged truths long considered absolute.",
+    "ability_bonus_options": {
+      "choose": 1,
+      "from": [{"name": "INT", "bonus": 1}, {"name": "WIS", "bonus": 1}]
+    },
+    "skills": ["Arcana", "History"],
+    "languages": 0,
+    "tool_proficiencies": ["Calligrapher's supplies"],
+    "origin_feat": "Learned Mind",
+    "equipment": ["Quarterstaff", "Calligrapher's supplies", "Book of lore", "8 sheets of parchment", "Common clothes", "Pouch with 15 gp"],
+    "feature": {
+      "name": "Researcher's Recall",
+      "description": "If you spend 10 minutes consulting written knowledge, you can recall or discover a useful fact related to your query. When you fail an Arcana, History, or Religion check, the GM may grant a clue or summary based on prior research or study."
+    }
+  },
+  {
+    "name": "Soldier",
+    "description": "You lived by orders, discipline, and steel—on blood-soaked fields, in city garrisons, or aboard the decks of warships. Whether you served in a noble army, rebel force, or mercenary company, the chain of command shaped you. Some soldiers left honor behind for gold. Others still serve a cause or commander, even as they seek new battles.",
+    "ability_bonus_options": {
+      "choose": 1,
+      "from": [{"name": "STR", "bonus": 1}, {"name": "DEX", "bonus": 1}, {"name": "CON", "bonus": 1}]
+    },
+    "skills": ["Athletics", "Intimidation"],
+    "languages": 0,
+    "tool_proficiencies": ["Gaming set (one of your choice)"],
+    "origin_feat": "Savage Attacker",
+    "equipment": ["Spear", "Gaming set of your choice", "Healer's kit", "Quiver with 20 arrows", "Shortbow", "Common clothes", "Pouch with 15 gp"],
+    "feature": {
+      "name": "Military Bearing",
+      "description": "You recognize and recall military ranks, banners, tactics, and formations. When dealing with soldiers, mercenaries, or veterans of any nation, you can secure minor assistance, such as maps, rations, camp shelter, or tactical advice."
+    }
+  },
+  {
+    "name": "Street Performer",
+    "description": "You sang for your supper, danced in the square, or juggled knives to make passersby gasp. You lived on charm, timing, and guts—often only one step ahead of the guard or your own hunger.",
+    "ability_bonuses": [{"name": "CHA", "bonus": 1}],
+    "skills": ["Performance", "Acrobatics"],
+    "languages": 0,
+    "tool_proficiencies": ["Musical instrument (one of your choice)", "Disguise kit"],
+    "origin_feat": "Spotlight Survivor",
+    "equipment": ["Instrument or disguise kit", "Colorful costume", "Collection hat", "7 gp"],
+    "feature": {
+      "name": "Crowd Reader",
+      "description": "You can quickly gauge the mood of a crowd and know how to win them over—or disappear into them. You can earn a few coins with a short performance or use the crowd to cover an escape or a sleight of hand attempt."
+    }
+  },
+  {
+    "name": "Temple Orphan",
+    "description": "You were raised by monks, nuns, or ascetics after being abandoned, orphaned, or left at a temple's doorstep. Your early life was steeped in ritual, tradition, and contemplation. Whether you embraced or rejected that upbringing, it shaped your view of the world.",
+    "ability_bonus_options": {
+      "choose": 1,
+      "from": [{"name": "WIS", "bonus": 1}, {"name": "CON", "bonus": 1}]
+    },
+    "skills": ["Religion", "Insight"],
+    "languages": 1,
+    "tool_proficiencies": [],
+    "origin_feat": "Child of Sanctuary",
+    "equipment": ["Holy symbol (given to you)", "Simple robes", "5 candles", "Small book of parables", "5 gp"],
+    "feature": {
+      "name": "Sanctuary",
+      "description": "Once per long rest, you may seek brief shelter or assistance at a temple, shrine, or monastery aligned with your former faith. This may include a place to rest, medical attention, or temporary protection from enemies."
+    }
+  },
+  {
+    "name": "Town Guard",
+    "description": "You kept the peace—whether patrolling the streets, enforcing curfews, or breaking up bar brawls. Though you've left your post behind, you still carry the discipline, instincts, and scars of service. Maybe you're seeking justice... or escaping it.",
+    "ability_bonus_options": {
+      "choose": 1,
+      "from": [{"name": "CON", "bonus": 1}, {"name": "WIS", "bonus": 1}]
+    },
+    "skills": ["Athletics", "Insight"],
+    "languages": 0,
+    "tool_proficiencies": ["Gaming set (one of your choice)", "Martial weapon (one of your choice)"],
+    "origin_feat": "Watchman's Resolve",
+    "equipment": ["Guard's badge", "Uniform tabard", "Manacles", "Signal whistle", "5 gp"],
+    "feature": {
+      "name": "Lawman's Authority",
+      "description": "You can identify yourself as a former officer of the law. In settlements where your reputation holds sway, civilians are more inclined to cooperate, and local guards may offer basic assistance or grant access to secure areas (at the GM's discretion)."
+    }
+  },
+  {
+    "name": "Wanderer",
+    "description": "You've walked countless roads—through forest, mountain, desert, and ruin. Home is wherever you stop for the night, and every new horizon calls you onward. You've heard stories in ten dialects and seen the stars from every angle.",
+    "ability_bonus_options": {
+      "choose": 1,
+      "from": [{"name": "WIS", "bonus": 1}, {"name": "CON", "bonus": 1}]
+    },
+    "skills": ["Survival", "Perception"],
+    "languages": 1,
+    "tool_proficiencies": ["Musical instrument (one of your choice)"],
+    "origin_feat": "Pathwalker",
+    "equipment": ["Bedroll", "Traveler's cloak", "Walking stick", "Belt pouch with strange trinkets", "5 gp"],
+    "feature": {
+      "name": "Wayfarer's Memory",
+      "description": "You can always recall the layout of terrain, the location of natural features, and safe paths you've traveled before. You can also find fresh water, edible plants, and temporary shelter with minimal effort in the wild."
+    }
   }
 ]

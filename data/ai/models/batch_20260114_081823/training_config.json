@@ -1,0 +1,18 @@
+{
+  "algorithm": "DQN",
+  "total_timesteps": 100000,
+  "n_envs": 4,
+  "seed": 42,
+  "party_level_range": [
+    1,
+    3
+  ],
+  "difficulties": [
+    "easy",
+    "medium",
+    "hard"
+  ],
+  "training_time_seconds": 272.70922327041626,
+  "timestamp": "20260114_081823",
+  "resumed_from": "C:\\Users\\Broke\\OneDrive\\Desktop\\AIDM\\AI-DM\\data\\ai\\models\\batch_20260114_080921\\best\\best_model.zip"
+}

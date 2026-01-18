@@ -1,0 +1,22 @@
+Gnome
+
+Speed: 25
+Size: Small
+Darkvision: 60
+
+Ability Bonuses:
+* INT +2
+
+Resistances:
+* Magic (Intelligence, Wisdom, Charisma saves)
+
+Traits:
+* Darkvision: You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light.
+* Gnome Cunning: You have a bonus on all Intelligence, Wisdom, and Charisma saving throws against magic.
+
+Languages: Common, Gnomish
+
+Subraces:
+* Rock Gnome: CON +1, Artificer's Lore, Tinker
+* Forest Gnome: DEX +1, Natural Illusionist, Speak with Small Beasts
+* Deep Gnome: DEX +1, Superior Darkvision (120 ft), Stone Camouflage

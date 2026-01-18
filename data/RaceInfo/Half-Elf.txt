@@ -1,0 +1,26 @@
+Half-Elf
+
+Speed: 30
+Size: Medium
+Darkvision: 60
+
+Ability Bonuses:
+* CHA +2
+
+Ability Choice: 2 from STR, DEX, CON, INT, WIS
+
+Language Choice: 1 from Dwarvish, Giant, Gnomish, Goblin, Halfling, Orc, Abyssal, Celestial, Draconic, Deep Speech, Infernal, Primordial, Sylvan, Undercommon
+
+Proficiencies:
+* Two skills of your choice (skill)
+
+Resistances:
+* Charm effects
+* Magical sleep
+
+Traits:
+* Darkvision: You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light.
+* Fey Ancestry: You have resistance to being charmed, and magic can't put you to sleep.
+* Skill Versatility: You gain proficiency in two skills of your choice.
+
+Languages: Common, Elvish

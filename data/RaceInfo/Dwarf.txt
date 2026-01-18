@@ -1,0 +1,28 @@
+Dwarf
+
+Speed: 25
+Size: Medium
+Darkvision: 60
+
+Ability Bonuses:
+* CON +2
+
+Proficiencies:
+* Battleaxe, Handaxe, Light Hammer, Warhammer (weapons)
+* Smith's Tools or Brewer's Supplies or Mason's Tools (tool)
+
+Resistances:
+* Poison damage
+* Poisoned condition
+
+Traits:
+* Darkvision: You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light.
+* Dwarven Resilience: You have resistance to poison damage and saving throws against poison.
+* Stonecunning: Whenever you make an Intelligence (History) check related to the origin of stonework, you are considered proficient and add double your proficiency bonus.
+* Dwarven Combat Training: You have proficiency with the battleaxe, handaxe, light hammer, and warhammer.
+
+Languages: Common, Dwarvish
+
+Subraces:
+* Hill Dwarf: WIS +1, Dwarven Toughness (+1 HP per level)
+* Mountain Dwarf: STR +2, Light and Medium armor proficiency

@@ -1,0 +1,18 @@
+Halfling
+
+Speed: 25
+Size: Small
+
+Ability Bonuses:
+* DEX +2
+
+Traits:
+* Lucky: When you roll a 1 on an attack roll, ability check, or saving throw, you can reroll the die and must use the new roll.
+* Brave: You have a bonus on saving throws against being frightened.
+* Halfling Nimbleness: You can move through the space of any creature that is of a size larger than yours.
+
+Languages: Common, Halfling
+
+Subraces:
+* Lightfoot: CHA +1, Naturally Stealthy (hide behind larger creatures)
+* Stout: CON +1, Stout Resilience (resistance to poison)

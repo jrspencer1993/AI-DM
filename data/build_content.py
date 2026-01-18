@@ -209,16 +209,16 @@ def parse_class_file(path: str) -> dict:
             else:
                 class_data["hit_die"] = val
         
-        # Armor proficiencies
-        elif ln_lower.startswith("- armor:") or ln_lower.startswith("* armor:") or ln_lower.startswith("armor:"):
+        # Armor proficiencies (only take first occurrence)
+        elif (ln_lower.startswith("- armor:") or ln_lower.startswith("* armor:") or ln_lower.startswith("armor:")) and not class_data["armor_proficiencies"]:
             class_data["armor_proficiencies"] = [clean_item(x) for x in split_list_field(ln.split(":", 1)[1])]
         
-        # Weapon proficiencies
-        elif ln_lower.startswith("- weapons:") or ln_lower.startswith("* weapons:") or ln_lower.startswith("weapons:"):
+        # Weapon proficiencies (only take first occurrence)
+        elif (ln_lower.startswith("- weapons:") or ln_lower.startswith("* weapons:") or ln_lower.startswith("weapons:")) and not class_data["weapon_proficiencies"]:
             class_data["weapon_proficiencies"] = [clean_item(x) for x in split_list_field(ln.split(":", 1)[1])]
         
-        # Tool proficiencies
-        elif ln_lower.startswith("- tools:") or ln_lower.startswith("* tools:") or ln_lower.startswith("tools:"):
+        # Tool proficiencies (only take first occurrence)
+        elif (ln_lower.startswith("- tools:") or ln_lower.startswith("* tools:") or ln_lower.startswith("tools:")) and not class_data["tool_proficiencies"]:
             class_data["tool_proficiencies"] = [clean_item(x) for x in split_list_field(ln.split(":", 1)[1])]
         
         # Skills
@@ -266,14 +266,14 @@ def parse_class_file(path: str) -> dict:
             # Check for clues about caster type
             if "wizard" in name.lower() or "sorcerer" in name.lower() or "cleric" in name.lower() or "druid" in name.lower() or "bard" in name.lower():
                 class_data["caster_type"] = "full"
-            elif "paladin" in name.lower() or "ranger" in name.lower():
+            elif "paladin" in name.lower() or "ranger" in name.lower() or "spellblade" in name.lower():
                 class_data["caster_type"] = "half"
             elif "warlock" in name.lower():
                 class_data["caster_type"] = "pact"  # Special pact magic
     
     # Detect spellcasting ability if not set
     if not class_data["spellcasting_ability"] and class_data["caster_type"]:
-        if "intelligence" in raw_lower and ("wizard" in name.lower() or "artificer" in name.lower()):
+        if "intelligence" in raw_lower and ("wizard" in name.lower() or "artificer" in name.lower() or "spellblade" in name.lower()):
             class_data["spellcasting_ability"] = "Intelligence"
         elif "charisma" in raw_lower and ("sorcerer" in name.lower() or "bard" in name.lower() or "paladin" in name.lower() or "warlock" in name.lower()):
             class_data["spellcasting_ability"] = "Charisma"
@@ -326,13 +326,22 @@ def parse_race_file(path: str) -> dict:
     
     Speed: 30
     Size: Medium
+    Darkvision: 60
     
     Ability Bonuses:
     * DEX +2
     
+    Proficiencies:
+    * Perception (skill)
+    * Longsword, Shortsword, Shortbow, Longbow (weapons)
+    
+    Resistances:
+    * Charm effects
+    * Sleep magic
+    
     Traits:
     * Darkvision: You can see in dim light within 60 feet.
-    * Fey Ancestry: You have advantage on saving throws against being charmed.
+    * Fey Ancestry: You have resistance to being charmed, and magic can't put you to sleep.
     
     Languages: Common, Elvish
     
@@ -350,9 +359,16 @@ def parse_race_file(path: str) -> dict:
         "name": name,
         "speed": 30,
         "size": "Medium",
+        "darkvision": 0,
         "ability_bonuses": [],
+        "ability_bonus_options": {},
         "traits": [],
         "languages": [],
+        "language_options": {},
+        "starting_proficiencies": [],
+        "starting_proficiency_options": {},
+        "damage_resistances": [],
+        "condition_resistances": [],
         "subraces": []
     }
     
@@ -372,44 +388,185 @@ def parse_race_file(path: str) -> dict:
                 pass
         elif ln_stripped.startswith("Size:"):
             race_data["size"] = ln_stripped.split(":", 1)[1].strip()
+        elif ln_stripped.startswith("Darkvision:"):
+            try:
+                race_data["darkvision"] = int(re.search(r"(\d+)", ln_stripped).group(1))
+            except:
+                race_data["darkvision"] = 60
         elif ln_stripped.startswith("Ability Bonuses:"):
             current_section = "abilities"
+        elif ln_stripped.startswith("Ability Choice:"):
+            # Format: "Ability Choice: 2 from STR, DEX, CON, INT, WIS"
+            choice_part = ln_stripped.split(":", 1)[1].strip()
+            match = re.match(r"(\d+)\s+from\s+(.+)", choice_part, re.IGNORECASE)
+            if match:
+                count = int(match.group(1))
+                options = [o.strip().upper() for o in match.group(2).split(",")]
+                race_data["ability_bonus_options"] = {
+                    "choose": count,
+                    "from": [{"name": o, "bonus": 1} for o in options if o in ["STR", "DEX", "CON", "INT", "WIS", "CHA"]]
+                }
+        elif ln_stripped.startswith("Proficiencies:"):
+            current_section = "proficiencies"
+        elif ln_stripped.startswith("Resistances:"):
+            current_section = "resistances"
         elif ln_stripped.startswith("Traits:"):
             current_section = "traits"
         elif ln_stripped.startswith("Languages:"):
             race_data["languages"] = split_list_field(ln_stripped.split(":", 1)[1])
             current_section = None
+        elif ln_stripped.startswith("Language Choice:"):
+            # Format: "Language Choice: 1 from Dwarvish, Elvish, Giant"
+            choice_part = ln_stripped.split(":", 1)[1].strip()
+            match = re.match(r"(\d+)\s+from\s+(.+)", choice_part, re.IGNORECASE)
+            if match:
+                count = int(match.group(1))
+                options = [o.strip() for o in match.group(2).split(",")]
+                race_data["language_options"] = {
+                    "choose": count,
+                    "from": [{"name": o} for o in options]
+                }
         elif ln_stripped.startswith("Subraces:"):
             current_section = "subraces"
-        elif ln_stripped.startswith("* "):
+        elif ln_stripped.startswith("* ") or ln_stripped.startswith("- "):
             item = ln_stripped[2:]
             
             if current_section == "abilities":
-                # Parse "DEX +2" format
-                match = re.match(r"(\w+)\s*([+-]?\d+)", item)
-                if match:
-                    race_data["ability_bonuses"].append({
-                        "name": match.group(1).upper(),
-                        "bonus": int(match.group(2))
+                # Check for choice format first: "+1 to STR or DEX" or "STR or DEX +1"
+                choice_match = re.match(r"\+?(\d+)\s+to\s+(\w+)\s+or\s+(\w+)", item, re.IGNORECASE)
+                if not choice_match:
+                    choice_match = re.match(r"(\w+)\s+or\s+(\w+)\s*\+(\d+)", item, re.IGNORECASE)
+                    if choice_match:
+                        # Reorder groups: bonus is last
+                        ab1, ab2, bonus = choice_match.groups()
+                        choice_match = type('obj', (object,), {'groups': lambda: (bonus, ab1, ab2)})()
+                
+                if choice_match:
+                    bonus, ab1, ab2 = choice_match.groups()
+                    bonus = int(bonus)
+                    ab1 = ab1.upper()
+                    ab2 = ab2.upper()
+                    # Add to ability_bonus_options
+                    if not race_data["ability_bonus_options"]:
+                        race_data["ability_bonus_options"] = {"choose": 1, "from": []}
+                    else:
+                        race_data["ability_bonus_options"]["choose"] = race_data["ability_bonus_options"].get("choose", 0) + 1
+                    race_data["ability_bonus_options"]["from"].extend([
+                        {"name": ab1, "bonus": bonus},
+                        {"name": ab2, "bonus": bonus}
+                    ])
+                else:
+                    # Parse "DEX +2" format
+                    match = re.match(r"(\w+)\s*([+-]?\d+)", item)
+                    if match:
+                        race_data["ability_bonuses"].append({
+                            "name": match.group(1).upper(),
+                            "bonus": int(match.group(2))
+                        })
+            elif current_section == "proficiencies":
+                # Parse proficiencies - can be skills, weapons, armor, or tools
+                item_lower = item.lower()
+                if "(skill)" in item_lower or "skill:" in item_lower:
+                    # Skill proficiency
+                    skill_name = re.sub(r"\s*\(skill\)", "", item, flags=re.IGNORECASE).strip()
+                    skill_name = re.sub(r"^skill:\s*", "", skill_name, flags=re.IGNORECASE).strip()
+                    race_data["starting_proficiencies"].append({
+                        "name": skill_name,
+                        "type": "skill"
                     })
+                elif "(weapon" in item_lower or "weapons:" in item_lower:
+                    # Weapon proficiencies - can be comma-separated
+                    weapons_str = re.sub(r"\s*\(weapons?\)", "", item, flags=re.IGNORECASE).strip()
+                    weapons_str = re.sub(r"^weapons?:\s*", "", weapons_str, flags=re.IGNORECASE).strip()
+                    for w in weapons_str.split(","):
+                        w = w.strip()
+                        if w:
+                            race_data["starting_proficiencies"].append({
+                                "name": w,
+                                "type": "weapon"
+                            })
+                elif "(armor)" in item_lower or "armor:" in item_lower:
+                    # Armor proficiency
+                    armor_str = re.sub(r"\s*\(armor\)", "", item, flags=re.IGNORECASE).strip()
+                    armor_str = re.sub(r"^armor:\s*", "", armor_str, flags=re.IGNORECASE).strip()
+                    for a in armor_str.split(","):
+                        a = a.strip()
+                        if a:
+                            race_data["starting_proficiencies"].append({
+                                "name": a,
+                                "type": "armor"
+                            })
+                elif "(tool)" in item_lower or "tools:" in item_lower:
+                    # Tool proficiency
+                    tool_str = re.sub(r"\s*\(tools?\)", "", item, flags=re.IGNORECASE).strip()
+                    tool_str = re.sub(r"^tools?:\s*", "", tool_str, flags=re.IGNORECASE).strip()
+                    for t in tool_str.split(","):
+                        t = t.strip()
+                        if t:
+                            race_data["starting_proficiencies"].append({
+                                "name": t,
+                                "type": "tool"
+                            })
+                else:
+                    # Default to weapon if not specified
+                    for w in item.split(","):
+                        w = w.strip()
+                        if w:
+                            race_data["starting_proficiencies"].append({
+                                "name": w,
+                                "type": "weapon"
+                            })
+            elif current_section == "resistances":
+                # Parse resistances - damage types or conditions
+                item_lower = item.lower()
+                damage_types = ["fire", "cold", "lightning", "thunder", "acid", "poison", 
+                               "necrotic", "radiant", "psychic", "force", "bludgeoning", 
+                               "piercing", "slashing"]
+                is_damage = any(dt in item_lower for dt in damage_types)
+                if is_damage:
+                    race_data["damage_resistances"].append(item)
+                else:
+                    race_data["condition_resistances"].append(item)
             elif current_section == "traits":
                 # Parse "Darkvision: Description" format
                 if ":" in item:
                     trait_name, trait_desc = item.split(":", 1)
-                    race_data["traits"].append({
+                    trait_data = {
                         "name": trait_name.strip(),
                         "description": trait_desc.strip()
-                    })
+                    }
+                    # Check for special trait effects
+                    trait_lower = trait_name.lower()
+                    if "darkvision" in trait_lower:
+                        # Extract range if in description
+                        range_match = re.search(r"(\d+)\s*(?:feet|ft)", trait_desc)
+                        if range_match:
+                            trait_data["darkvision_range"] = int(range_match.group(1))
+                    race_data["traits"].append(trait_data)
                 else:
                     race_data["traits"].append({"name": item, "description": ""})
             elif current_section == "subraces":
                 # Parse "High Elf: INT +1, Cantrip" format
                 if ":" in item:
                     subrace_name, subrace_features = item.split(":", 1)
-                    race_data["subraces"].append({
+                    subrace_data = {
                         "name": subrace_name.strip(),
-                        "features": subrace_features.strip()
-                    })
+                        "features": subrace_features.strip(),
+                        "ability_bonuses": [],
+                        "traits": []
+                    }
+                    # Parse ability bonuses from features
+                    for feature in subrace_features.split(","):
+                        feature = feature.strip()
+                        ab_match = re.match(r"(\w+)\s*([+-]?\d+)", feature)
+                        if ab_match and ab_match.group(1).upper() in ["STR", "DEX", "CON", "INT", "WIS", "CHA"]:
+                            subrace_data["ability_bonuses"].append({
+                                "name": ab_match.group(1).upper(),
+                                "bonus": int(ab_match.group(2))
+                            })
+                        else:
+                            subrace_data["traits"].append(feature)
+                    race_data["subraces"].append(subrace_data)
     
     return race_data
 

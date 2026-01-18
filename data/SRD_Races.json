@@ -1,724 +1,1721 @@
 [
-	{
-		"index": 1,
-		"name": "Dwarf",
-		"speed": 30,
-		"ability_bonuses": [
-			{
-				"name": "CON",
-				"url": "http://www.dnd5eapi.co/api/ability-scores/3",
-				"bonus": 2
-			}
-		],
-		"ability_bonus_options": {},
-		"alignment": "Most dwarves are lawful, believing firmly in the benefits of a well-ordered society. They tend toward good as well, with a strong sense of fair play and a belief that everyone deserves to share in the benefits of a just order.",
-		"age": "Dwarves mature at the same rate as humans, but they're considered young until they reach the age of 50. On average, they live about 350 years.",
-		"size": "Medium",
-		"size_description": "Dwarves stand between 4 and 5 feet tall and average about 150 pounds. Your size is Medium.",
-		"starting_proficiencies": [
-			{
-				"url": "http://www.dnd5eapi.co/api/proficiencies/20",
-				"name": "Battleaxes"
-			},
-			{
-				"url": "http://www.dnd5eapi.co/api/proficiencies/24",
-				"name": "Handaxes"
-			},
-			{
-				"url": "http://www.dnd5eapi.co/api/proficiencies/26",
-				"name": "Light hammers"
-			},
-			{
-				"url": "http://www.dnd5eapi.co/api/proficiencies/51",
-				"name": "Warhammers"
-			}
-		],
-		"starting_proficiency_options": {
-			"choose": 1,
-			"type": "proficiencies",
-			"from": [
-				{
-					"url": "http://www.dnd5eapi.co/api/proficiencies/71",
-					"name": "Smith's tools"
-				},
-				{
-					"url": "http://www.dnd5eapi.co/api/proficiencies/59",
-					"name": "Brewer's supplies"
-				},
-				{
-					"url": "http://www.dnd5eapi.co/api/proficiencies/68",
-					"name": "Mason's tools"
-				}
-			]
-		},
-		"languages": [
-			{
-				"url": "http://www.dnd5eapi.co/api/languages/1",
-				"name": "Common"
-			},
-			{
-				"url": "http://www.dnd5eapi.co/api/languages/2",
-				"name": "Dwarvish"
-			}
-		],
-		"language_options": {
-
-		},
-		"language_desc": "You can speak, read, and write Common and Dwarvish. Dwarvish is full of hard consonants and guttural sounds, and those characteristics spill over into whatever other language a dwarf might speak.",
-		"traits": [
-			{
-				"name": "Darkvision",
-				"url": "http://www.dnd5eapi.co/api/traits/1"
-			},
-			{
-				"name": "Dwarven Resilience",
-				"url": "http://www.dnd5eapi.co/api/traits/2"
-			},
-			{
-				"name": "Stonecunning",
-				"url": "http://www.dnd5eapi.co/api/traits/3"
-			}
-		],
-		"subraces": [
-			{
-				"url": "http://www.dnd5eapi.co/api/subraces/1",
-				"name": "Hill Dwarf"
-			}
-		],
-		"url": "http://www.dnd5eapi.co/api/races/1"
-	},
-	{
-		"index": 2,
-		"name": "Elf",
-		"speed": 30,
-		"ability_bonuses": [
-			{
-				"name": "DEX",
-				"url": "http://www.dnd5eapi.co/api/ability-scores/2",
-				"bonus": 2
-			}
-		],
-		"ability_bonus_options": {},
-		"age": "Although elves reach physical maturity at about the same age as humans, the elven understanding of adulthood goes beyond physical growth to encompass worldly experience. An elf typically claims adulthood and an adult name around the age of 100 and can live to be 750 years old.",
-		"alignment": "Elves love freedom, variety, and self-expression, so they lean strongly toward the gentler aspects of chaos. They value and protect others' freedom as well as their own, and they are more often good than not. The drow are an exception; their exile has made them vicious and dangerous. Drow are more often evil than not.",
-		"size": "Medium",
-		"size_description": "Elves range from under 5 to over 6 feet tall and have slender builds. Your size is Medium.",
-		"starting_proficiencies": [
-			{
-				"url": "http://www.dnd5eapi.co/api/proficiencies/116",
-				"name": "Skill: Perception"
-			}
-		],
-		"starting_proficiency_options": {},
-		"languages": [
-			{
-				"url": "http://www.dnd5eapi.co/api/languages/1",
-				"name": "Common"
-			},
-			{
-				"url": "http://www.dnd5eapi.co/api/languages/3",
-				"name": "Elvish"
-			}
-		],
-		"language_options": {
-
-		},
-		"language_desc": "You can speak, read, and write Common and Elvish. Elvish is fluid, with subtle intonations and intricate grammar. Elven literature is rich and varied, and their songs and poems are famous among other races. Many bards learn their language so they can add Elvish ballads to their repertoires.",
-		"traits": [
-			{
-				"name": "Darkvision",
-				"url": "http://www.dnd5eapi.co/api/traits/1"
-			},
-			{
-				"name": "Fey Ancestry",
-				"url": "http://www.dnd5eapi.co/api/traits/7"
-			},
-			{
-				"name": "Trance",
-				"url": "http://www.dnd5eapi.co/api/traits/8"
-			}
-		],
-		"subraces": [
-			{
-				"url": "http://www.dnd5eapi.co/api/subraces/2",
-				"name": "High Elf"
-			}
-		],
-		"url": "http://www.dnd5eapi.co/api/races/2"
-	},
-	{
-		"index": 3,
-		"name": "Halfling",
-		"speed": 25,
-		"ability_bonuses": [
-			{
-				"name": "DEX",
-				"url": "http://www.dnd5eapi.co/api/ability-scores/2",
-				"bonus": 2
-			}
-		],
-		"ability_bonus_options": {},
-		"age": "A halfling reaches adulthood at the age of 20 and generally lives into the middle of his or her second century.",
-		"alignment": "Most halflings are lawful good. As a rule, they are good-hearted and kind, hate to see others in pain, and have no tolerance for oppression. They are also very orderly and traditional, leaning heavily on the support of their community and the comfort of their old ways.",
-		"size": "Small",
-		"size_description": "Halflings average about 3 feet tall and weigh about 40 pounds. Your size is Small.",
-		"starting_proficiencies": [],
-		"starting_proficiency_options": {},
-		"languages": [
-			{
-				"url": "http://www.dnd5eapi.co/api/languages/1",
-				"name": "Common"
-			},
-			{
-				"url": "http://www.dnd5eapi.co/api/languages/7",
-				"name": "Halfling"
-			}
-		],
-		"language_options": {},
-		"language_desc": "You can speak, read, and write Common and Halfling. The Halfling language isn't secret, but halflings are loath to share it with others. They write very little, so they don't have a rich body of literature. Their oral tradition, however, is very strong. Almost all halflings speak Common to converse with the people in whose lands they dwell or through which they are traveling.",
-		"traits": [
-			{
-				"name": "Brave",
-				"url": "http://www.dnd5eapi.co/api/traits/13"
-			},
-			{
-				"name": "Halfling Nimbleness",
-				"url": "http://www.dnd5eapi.co/api/traits/14"
-			},
-			{
-				"name": "Lucky",
-				"url": "http://www.dnd5eapi.co/api/traits/12"
-			}
-		],
-		"subraces": [
-			{
-				"url": "http://www.dnd5eapi.co/api/subraces/3",
-				"name": "Lightfoot Halfling"
-			}
-		],
-		"url": "http://www.dnd5eapi.co/api/races/3"
-	},
-	{
-		"index": 4,
-		"name": "Human",
-		"speed": 30,
-		"ability_bonuses": [
-			{
-				"name": "STR",
-				"url": "http://www.dnd5eapi.co/api/ability-scores/1",
-				"bonus": 1
-			},
-			{
-				"name": "DEX",
-				"url": "http://www.dnd5eapi.co/api/ability-scores/2",
-				"bonus": 1
-			},
-			{
-				"name": "CON",
-				"url": "http://www.dnd5eapi.co/api/ability-scores/3",
-				"bonus": 1
-			},
-			{
-				"name": "INT",
-				"url": "http://www.dnd5eapi.co/api/ability-scores/4",
-				"bonus": 1
-			},
-			{
-				"name": "WIS",
-				"url": "http://www.dnd5eapi.co/api/ability-scores/5",
-				"bonus": 1
-			},
-			{
-				"name": "CHA",
-				"url": "http://www.dnd5eapi.co/api/ability-scores/6",
-				"bonus": 1
-			}
-		],
-		"ability_bonus_options": {},
-		"age": "Humans reach adulthood in their late teens and live less than a century.",
-		"alignment": "Humans tend toward no particular alignment. The best and the worst are found among them.",
-		"size": "Medium",
-		"size_description": "Humans vary widely in height and build, from barely 5 feet to well over 6 feet tall. Regardless of your position in that range, your size is Medium.",
-		"starting_proficiencies": [],
-		"starting_proficiency_options": {},
-		"languages": [
-			{
-				"url": "http://www.dnd5eapi.co/api/languages/1",
-				"name": "Common"
-			}
-		],
-		"language_options": {
-			"choose": 1,
-			"type": "languages",
-			"from": [
-				{
-					"url": "http://www.dnd5eapi.co/api/languages/2",
-					"name": "Dwarvish"
-				},
-				{
-					"url": "http://www.dnd5eapi.co/api/languages/3",
-					"name": "Elvish"
-				},
-				{
-					"url": "http://www.dnd5eapi.co/api/languages/4",
-					"name": "Giant"
-				},
-				{
-					"url": "http://www.dnd5eapi.co/api/languages/5",
-					"name": "Gnomish"
-				},
-				{
-					"url": "http://www.dnd5eapi.co/api/languages/6",
-					"name": "Goblin"
-				},
-				{
-					"url": "http://www.dnd5eapi.co/api/languages/7",
-					"name": "Halfling"
-				},
-				{
-					"url": "http://www.dnd5eapi.co/api/languages/8",
-					"name": "Orc"
-				},
-				{
-					"url": "http://www.dnd5eapi.co/api/languages/9",
-					"name": "Abyssal"
-				},
-				{
-					"url": "http://www.dnd5eapi.co/api/languages/10",
-					"name": "Celestial"
-				},
-				{
-					"url": "http://www.dnd5eapi.co/api/languages/11",
-					"name": "Draconic"
-				},
-				{
-					"url": "http://www.dnd5eapi.co/api/languages/12",
-					"name": "Deep Speech"
-				},
-				{
-					"url": "http://www.dnd5eapi.co/api/languages/13",
-					"name": "Infernal"
-				},
-				{
-					"url": "http://www.dnd5eapi.co/api/languages/14",
-					"name": "Primordial"
-				},
-				{
-					"url": "http://www.dnd5eapi.co/api/languages/15",
-					"name": "Sylvan"
-				},
-				{
-					"url": "http://www.dnd5eapi.co/api/languages/16",
-					"name": "Undercommon"
-				}
-			]
-		},
-		"language_desc": "You can speak, read, and write Common and one extra language of your choice. Humans typically learn the languages of other peoples they deal with, including obscure dialects. They are fond of sprinkling their speech with words borrowed from other tongues: Orc curses, Elvish musical expressions, Dwarvish military phrases, and so on.",
-		"traits": [],
-		"subraces": [],
-		"url": "http://www.dnd5eapi.co/api/races/4"
-	},
-	{
-		"index": 5,
-		"name": "Dragonborn",
-		"speed": 30,
-		"ability_bonuses": [
-			{
-				"name": "STR",
-				"url": "http://www.dnd5eapi.co/api/ability-scores/1",
-				"bonus": 2
-			},
-			{
-				"name": "CHA",
-				"url": "http://www.dnd5eapi.co/api/ability-scores/6",
-				"bonus": 1
-			}
-		],
-		"ability_bonus_options": {},
-		"alignment": " Dragonborn tend to extremes, making a conscious choice for one side or the other in the cosmic war between good and evil. Most dragonborn are good, but those who side with evil can be terrible villains.",
-		"age": "Young dragonborn grow quickly. They walk hours after hatching, attain the size and development of a 10-year-old human child by the age of 3, and reach adulthood by 15. They live to be around 80.",
-		"size": "Medium",
-		"size_description": "Dragonborn are taller and heavier than humans, standing well over 6 feet tall and averaging almost 250 pounds. Your size is Medium.",
-		"starting_proficiencies": [],
-		"starting_proficiency_options": {},
-		"languages": [
-			{
-				"url": "http://www.dnd5eapi.co/api/languages/1",
-				"name": "Common"
-			},
-			{
-				"url": "http://www.dnd5eapi.co/api/languages/11",
-				"name": "Draconic"
-			}
-		],
-		"language_options": {
-
-		},
-		"language_desc": "You can speak, read, and write Common and Draconic. Draconic is thought to be one of the oldest languages and is often used in the study of magic. The language sounds harsh to most other creatures and includes numerous hard consonants and sibilants.",
-		"traits": [
-			{
-				"name": "Draconic Ancestry",
-				"url": "http://www.dnd5eapi.co/api/traits/16"
-			},
-			{
-				"name": "Breath Weapon",
-				"url": "http://www.dnd5eapi.co/api/traits/17"
-			},
-			{
-				"name": "Damage Resistance",
-				"url": "http://www.dnd5eapi.co/api/traits/18"
-			}
-
-		],
-		"trait_options":
-			{
-				"choose": 1,
-				"from": [
-					{
-						"name": "Breath Weapon (Black)",
-						"url": "http://www.dnd5eapi.co/api/traits/17"
-					},
-					{
-						"name": "Breath Weapon (Blue)",
-						"url": "http://www.dnd5eapi.co/api/traits/17"
-					},
-					{
-						"name": "Breath Weapon (Brass)",
-						"url": "http://www.dnd5eapi.co/api/traits/17"
-					},
-					{
-						"name": "Breath Weapon (Bronze)",
-						"url": "http://www.dnd5eapi.co/api/traits/17"
-					},
-					{
-						"name": "Breath Weapon (Copper)",
-						"url": "http://www.dnd5eapi.co/api/traits/17"
-					},
-					{
-						"name": "Breath Weapon (Gold)",
-						"url": "http://www.dnd5eapi.co/api/traits/17"
-					},
-					{
-						"name": "Breath Weapon (Green)",
-						"url": "http://www.dnd5eapi.co/api/traits/17"
-					},
-					{
-						"name": "Breath Weapon (Red)",
-						"url": "http://www.dnd5eapi.co/api/traits/17"
-					},
-					{
-						"name": "Breath Weapon (Silver)",
-						"url": "http://www.dnd5eapi.co/api/traits/17"
-					},
-					{
-						"name": "Breath Weapon (White)",
-						"url": "http://www.dnd5eapi.co/api/traits/17"
-					}
-				],
-				"type": "trait"
-			},
-		"subraces": [],
-		"url": "http://www.dnd5eapi.co/api/races/5"
-	},
-	{
-		"index": 6,
-		"name": "Gnome",
-		"speed": 25,
-		"ability_bonuses": [
-			{
-				"name": "INT",
-				"url": "http://www.dnd5eapi.co/api/ability-scores/4",
-				"bonus": 2
-			}
-		],
-		"ability_bonus_options": {},
-		"alignment": "Gnomes are most often good. Those who tend toward law are sages, engineers, researchers, scholars, investigators, or inventors. Those who tend toward chaos are minstrels, tricksters, wanderers, or fanciful jewelers. Gnomes are good-hearted, and even the tricksters among them are more playful than vicious.",
-		"age": " Gnomes mature at the same rate humans do, and most are expected to settle down into an adult life by around age 40. They can live 350 to almost 500 years.",
-		"size": "Small",
-		"size_description": "Gnomes are between 3 and 4 feet tall and average about 40 pounds. Your size is Small.",
-		"starting_proficiencies": [],
-		"starting_proficiency_options": {},
-		"languages": [
-			{
-				"url": "http://www.dnd5eapi.co/api/languages/1",
-				"name": "Common"
-			},
-			{
-				"url": "http://www.dnd5eapi.co/api/languages/5",
-				"name": "Gnomish"
-			}
-		],
-		"language_options": {},
-		"language_desc": "You can speak, read, and write Common and Gnomish. The Gnomish language, which uses the Dwarvish script, is renowned for its technical treatises and its catalogs of knowledge about the natural world.",
-		"traits": [
-			{
-				"name": "Darkvision",
-				"url": "http://www.dnd5eapi.co/api/traits/1"
-			},
-			{
-				"name": "Gnome Cunning",
-				"url": "http://www.dnd5eapi.co/api/traits/19"
-			}
-		],
-		"trait_options": {},
-		"subraces": [
-			{
-				"url": "http://www.dnd5eapi.co/api/subraces/4",
-				"name": "Rock Gnome"
-			}
-		],
-		"url": "http://www.dnd5eapi.co/api/races/6"
-	},
-	{
-		"index": 7,
-		"name": "Half-Elf",
-		"speed": 30,
-		"ability_bonuses": [
-			{
-				"name": "CHA",
-				"url": "http://www.dnd5eapi.co/api/ability-scores/6",
-				"bonus": 2
-			}
-		],
-		"ability_bonus_options": {
-			"choose": 2,
-			"type": "ability_bonuses",
-			"from": [
-				{
-					"name": "STR",
-					"url": "http://www.dnd5eapi.co/api/ability-scores/1",
-					"bonus": 1
-				},
-				{
-					"name": "DEX",
-					"url": "http://www.dnd5eapi.co/api/ability-scores/2",
-					"bonus": 1
-				},
-				{
-					"name": "CON",
-					"url": "http://www.dnd5eapi.co/api/ability-scores/3",
-					"bonus": 1
-				},
-				{
-					"name": "INT",
-					"url": "http://www.dnd5eapi.co/api/ability-scores/4",
-					"bonus": 1
-				},
-				{
-					"name": "WIS",
-					"url": "http://www.dnd5eapi.co/api/ability-scores/5",
-					"bonus": 1
-				}
-			]
-		},
-		"alignment": "Half-elves share the chaotic bent of their elven heritage. They value both personal freedom and creative expression, demonstrating neither love of leaders nor desire for followers. They chafe at rules, resent others' demands, and sometimes prove unreliable, or at least unpredictable.",
-		"age": "Half-elves mature at the same rate humans do and reach adulthood around the age of 20. They live much longer than humans, however, often exceeding 180 years.",
-		"size": "Medium",
-		"size_description": "Half-elves are about the same size as humans, ranging from 5 to 6 feet tall. Your size is Medium.",
-		"starting_proficiencies": [],
-		"starting_proficiency_options": {},
-		"languages": [
-			{
-				"name": "Common",
-				"url": "http://www.dnd5eapi.co/api/languages/1"
-			},
-			{
-				"name": "Elvish",
-				"url": "http://www.dnd5eapi.co/api/languages/3"
-			}
-		],
-		"language_options": {
-			"choose": 1,
-			"type": "languages",
-			"from": [
-				{
-					"name":"Dwarvish",
-					"url":"http://www.dnd5eapi.co/api/languages/2"
-				},
-				{
-					"name":"Giant",
-					"url":"http://www.dnd5eapi.co/api/languages/4"
-				},
-				{
-					"name":"Gnomish",
-					"url":"http://www.dnd5eapi.co/api/languages/5"
-				},
-				{
-					"name":"Goblin",
-					"url":"http://www.dnd5eapi.co/api/languages/6"
-				},
-				{
-					"name":"Halfling",
-					"url":"http://www.dnd5eapi.co/api/languages/7"
-				},
-				{
-					"name":"Orc",
-					"url":"http://www.dnd5eapi.co/api/languages/8"
-				},
-				{
-					"name":"Abyssal",
-					"url":"http://www.dnd5eapi.co/api/languages/9"
-				},
-				{
-					"name":"Celestial",
-					"url":"http://www.dnd5eapi.co/api/languages/10"
-				},
-				{
-					"name":"Draconic",
-					"url":"http://www.dnd5eapi.co/api/languages/11"
-				},
-				{
-					"name":"Deep Speech",
-					"url":"http://www.dnd5eapi.co/api/languages/12"
-				},
-				{
-					"name":"Infernal",
-					"url":"http://www.dnd5eapi.co/api/languages/13"
-				},
-				{
-					"name":"Primordial",
-					"url":"http://www.dnd5eapi.co/api/languages/14"
-				},
-				{
-					"name":"Sylvan",
-					"url":"http://www.dnd5eapi.co/api/languages/15"
-				},
-				{
-					"name":"Undercommon",
-					"url":"http://www.dnd5eapi.co/api/languages/16"
-				}
-			]
-		},
-		"language_desc": "You can speak, read, and write Common, Elvish, and one extra language of your choice.",
-		"traits": [
-			{
-				"name": "Darkvision",
-				"url": "http://www.dnd5eapi.co/api/traits/1"
-			},
-			{
-				"name": "Fey Ancestry",
-				"url": "http://www.dnd5eapi.co/api/traits/7"
-			},
-			{
-				"name": "Skill Versatility",
-				"url": "http://www.dnd5eapi.co/api/traits/22"
-			}
-
-		],
-		"trait_options": {},
-		"subraces": [],
-		"url": "http://www.dnd5eapi.co/api/races/7"
-	},
-	{
-		"index": 8,
-		"name": "Half-Orc",
-		"speed": 30,
-		"ability_bonuses": [
-			{
-				"name": "STR",
-				"url": "http://www.dnd5eapi.co/api/ability-scores/1",
-				"bonus": 2
-			},
-			{
-				"name": "CON",
-				"url": "http://www.dnd5eapi.co/api/ability-scores/3",
-				"bonus": 1
-			}
-		],
-		"ability_bonus_options": {},
-		"alignment": " Half-orcs inherit a tendency toward chaos from their orc parents and are not strongly inclined toward good. Half-orcs raised among orcs and willing to live out their lives among them are usually evil.",
-		"age": "Half-orcs mature a little faster than humans, reaching adulthood around age 14. They age noticeably faster and rarely live longer than 75 years.",
-		"size": "Medium",
-		"size_description": "Half-orcs are somewhat larger and bulkier than humans, and they range from 5 to well over 6 feet tall. Your size is Medium.",
-		"starting_proficiencies": [
-			{
-				"name": "Skill: Intimidation",
-				"url": "http://www.dnd5eapi.co/api/proficiencies/112"
-			}
-		],
-		"starting_proficiency_options": {},
-		"languages": [
-			{
-				"url": "http://www.dnd5eapi.co/api/languages/1",
-				"name": "Common"
-			},
-			{
-				"url": "http://www.dnd5eapi.co/api/languages/8",
-				"name": "Orcish"
-			}
-		],
-		"language_options": {},
-		"language_desc": "You can speak, read, and write Common and Orc. Orc is a harsh, grating language with hard consonants. It has no script of its own but is written in the Dwarvish script.",
-		"traits": [
-			{
-				"name": "Darkvision",
-				"url": "http://www.dnd5eapi.co/api/traits/1"
-			},
-			{
-				"name": "Savage Attacks",
-				"url": "http://www.dnd5eapi.co/api/traits/25"
-			},
-			{
-				"name": "Restless Endurance",
-				"url": "http://www.dnd5eapi.co/api/traits/24"
-			}
-
-		],
-		"trait_options": {},
-		"subraces": [],
-		"url": "http://www.dnd5eapi.co/api/races/8"
-	},
-	{
-		"index": 9,
-		"name": "Tiefling",
-		"speed": 30,
-		"ability_bonuses": [
-			{
-				"name": "INT",
-				"url": "http://www.dnd5eapi.co/api/ability-scores/4",
-				"bonus": 1
-			},
-			{
-				"name": "CHA",
-				"url": "http://www.dnd5eapi.co/api/ability-scores/6",
-				"bonus": 2
-			}
-		],
-		"ability_bonus_options": {},
-		"alignment": "Tieflings might not have an innate tendency toward evil, but many of them end up there. Evil or not, an independent nature inclines many tieflings toward a chaotic alignment.",
-		"age": "Tieflings mature at the same rate as humans but live a few years longer.",
-		"size": "Medium",
-		"size_description": "Tieflings are about the same size and build as humans. Your size is Medium.",
-		"starting_proficiencies": [],
-		"starting_proficiency_options": {},
-		"languages": [
-			{
-				"url": "http://www.dnd5eapi.co/api/languages/1",
-				"name": "Common"
-			},
-			{
-				"url": "http://www.dnd5eapi.co/api/languages/9",
-				"name": "Infernal"
-			}
-		],
-		"language_options": {},
-		"language_desc": "You can speak, read, and write Common and Infernal.",
-		"traits": [
-			{
-				"name": "Darkvision",
-				"url": "http://www.dnd5eapi.co/api/traits/1"
-			},
-			{
-				"name": "Hellish Resistance",
-				"url": "http://www.dnd5eapi.co/api/traits/26"
-			},
-			{
-				"name": "Infernal Legacy",
-				"url": "http://www.dnd5eapi.co/api/traits/27"
-			}
-		],
-		"trait_options": {},
-		"subraces": [],
-		"url": "http://www.dnd5eapi.co/api/races/9"
-	}
+  {
+    "index": "chichipi",
+    "name": "Chichipi",
+    "url": "/api/races/chichipi",
+    "speed": 35,
+    "ability_bonuses": [
+      {
+        "ability_score": {
+          "index": "dex",
+          "name": "DEX",
+          "url": "/api/ability-scores/dex"
+        },
+        "bonus": 2
+      }
+    ],
+    "ability_bonus_options": {
+      "choose": 1,
+      "from": [
+        {"name": "WIS", "bonus": 1},
+        {"name": "CHA", "bonus": 1}
+      ]
+    },
+    "ability_score_increase": "Your Dexterity score increases by 2. Choose either Wisdom or Charisma to increase by 1.",
+    "alignment": "Chichipi are a bit of an enigma. Many tend toward Chaotic alignments, valuing personal freedom, trickery, and joy, while an equal amount lean towards Lawful alignments, valuing mastery of their bodies, and strict martial training.",
+    "age": "Chichipi mature quickly, reaching adulthood at 10 and living up to 80 years.",
+    "size": "CHICHIPI",
+    "size_description": "Chichipi are slightly shorter than humans, ranging from 4 to 5 feet tall. Your size is Medium.",
+    "language_desc": "You can speak, read, and write Common and Chichipi",
+    "languages": [
+      {
+        "name": "read"
+      },
+      {
+        "name": "write Common"
+      },
+      {
+        "name": "Chichipi"
+      }
+    ],
+    "traits": [
+      {
+        "name": "Prehensile Tail"
+      },
+      {
+        "name": "Miststep Agility"
+      }
+    ],
+    "race_traits": [
+      {
+        "name": "Prehensile Tail",
+        "desc": "You can use your tail to interact with objects. You can retrieve or stow an item, draw or sheathe a weapon, or open an unlocked container as part of another action. In addition, when making a Dexterity (Acrobatics) check to balance or climb, you gain a +2 bonus if you have at least one hand free."
+      },
+      {
+        "name": "Miststep Agility",
+        "desc": "You can take the Dash action as a bonus action. You can use this ability once per day, and regain its use after a rest.\nVanuoro’s Legacy. You gain proficiency in your choice of Acrobatics, Performance, or Deception. When you succeed on a Dexterity ability check by 5 or more, you may move an additional 5 feet as part of that action.\nDragonborn\nIn the forgotten age of the Aeries — when great dragons ruled the high crags and ancient skies — the dragonborn first emerged. Whether born of pact, purpose, or prophecy, they carry within them the legacy of those mighty wyrms. Their scaled forms, elemental breath, and fierce hearts speak to a bloodline steeped in power.\nMost dragonborn believe they are the natural children of dragons, shaped by ancient magic and chosen to walk a path of strength and honor. Their cultures are steeped in reverence for ancestry, and the names of old dragonkin are kept like relics, whispered in prayer or roared in battle. Though each clan has its own customs, nearly all share a devotion to personal excellence — whether in arms, artistry, or arcane might.\nAmong the dragonborn, there are those who seek more than pride in blood. These devoted few take on a path of Draconic Awakening, a spiritual journey to unlock the fullest potential of their ancestry. Some believe they can ascend to a higher form — becoming half-dragon, or even dragon, in soul if not in flesh. These aspirants often live in reclusion, meditating in high places or guarding ancient shrines where draconic essence still lingers. Their philosophies are diverse: some emulate metallic dragons as paragons of justice and wisdom, while others embrace the ruthless ambition of chromatics.\nYet scattered rumors persist — whispered in old tomes and half-forgotten songs — that dragonborn were once created as servitors to dragon lords, guardians of their hoards and custodians of their will. Most dragonborn dismiss such stories as slander or myth. Whether or not they were forged or born, the dragonborn have long since claimed their destiny as their own."
+      }
+    ],
+    "source": "Atherius"
+  },
+  {
+    "index": "dragonborn",
+    "name": "Dragonborn",
+    "url": "/api/races/dragonborn",
+    "speed": 30,
+    "ability_bonuses": [
+      {
+        "ability_score": {
+          "index": "str",
+          "name": "STR",
+          "url": "/api/ability-scores/str"
+        },
+        "bonus": 1
+      },
+      {
+        "ability_score": {
+          "index": "cha",
+          "name": "CHA",
+          "url": "/api/ability-scores/cha"
+        },
+        "bonus": 2
+      }
+    ],
+    "ability_score_increase": "Your Strength score increases by 1, and your Charisma score increases by 2.",
+    "alignment": "Dragonborn tend toward extremes. Many are good, following honorable paths; others turn to tyranny or ambition and become dangerous villains.",
+    "age": "Young dragonborn grow quickly. They walk hours after hatching, reach the size of a 10-year-old human by age 3, and adulthood by 15. They typically live around 80 years.",
+    "size": "DRAGONBORN",
+    "size_description": "Dragonborn are taller and heavier than humans, standing well over 6 feet tall and averaging nearly 250 pounds. Your size is Medium.",
+    "language_desc": "You can speak, read, and write Common and Draconic. Draconic is one of the oldest mortal tongues and remains a core language in arcane studies and draconic rites.",
+    "languages": [
+      {
+        "name": "read"
+      },
+      {
+        "name": "write Common"
+      },
+      {
+        "name": "Draconic. Draconic is one of the oldest mortal tongues"
+      },
+      {
+        "name": "remains a core language in arcane studies"
+      },
+      {
+        "name": "draconic rites"
+      }
+    ],
+    "traits": [
+      {
+        "name": "Your dragonborn character has a number of traits in common with all dragonborn"
+      },
+      {
+        "name": "Draconic Ancestry"
+      },
+      {
+        "name": "Damage Resistance"
+      },
+      {
+        "name": "Almost as noteworthy as their craftsmanship and stubbornness is their slowness to trust"
+      }
+    ],
+    "race_traits": [
+      {
+        "name": "Your dragonborn character has a number of traits in common with all dragonborn",
+        "desc": ""
+      },
+      {
+        "name": "Draconic Ancestry",
+        "desc": "Your lineage stems from a dragon progenitor. Choose the kind of dragon from the Draconic Ancestors table. Your choice affects your Breath Weapon and Damage Resistance traits as well as your appearance.\nBreath Weapon. You can use your actions to exhale destructive energy, either as a 30-foot line that is 5 feet wide, or a 15-foot cone. Each creature in the area must make a saving throw (DC = 8 + your Constitution modifier + ½ your character level). A creature takes 2d6 damage on a failed save, or half as much on a successful one. \nThe damage increases at certain levels:\n2d10 at 5th level\n3d10 at 11th level\n4d10 at 17th level\nYou can use your breath weapon a number of times per day equal to your Constitution modifier (minimum of 1). After using it the maximum number of times, you must wait until the next day to use it again."
+      },
+      {
+        "name": "Damage Resistance",
+        "desc": "You have resistance to the damage type associated with your draconic ancestry.\nDraconic Synergy\nDragonborn Sorcerer (Draconic Bloodline):\nIf you choose to take the Sorcerer class with the Draconic Bloodline origin, your inherent draconic power harmonizes with your Dragonborn heritage. When you use your Breath Weapon, the damage increases by an additional 1d6 of the same damage type as your ancestry. Additionally, your Draconic Resilience (the Sorcerer's feature) applies to your Dragonborn's damage resistance, granting you resistance to both your breath weapon's damage type and the damage type of the chosen dragon ancestry.\nDragonborn Warlock (Dragon Patron):\nIf you are a Warlock who chooses the Dragon Patron, your connection to your patron enhances your natural draconic powers. Your Breath Weapon damage increases by 1d6 of the same damage type as your patron's dragon lineage. You also gain a limited version of the Warlock’s Draconic Ancestry feature, allowing you to use your breath weapon once per short rest (instead of its usual long rest requirement), but your breath weapon still only recovers based on your Constitution modifier per day.\nDwarf\nBold, gruff, short, and stout. These words best sum up a dwarf, as they would happily tell you along with a glass of ale. They are skilled warriors, miners, craftsmen of weapons and jewelry alike, working stone and metal with a skill almost unmatched amongst the other races. Second to none in their devotion to art, dwarves reveal with as much intensity as they craft or go to war.\nShort and Stout\nThough they stand under five feet as a rule, their stout forms commonly weigh over two hundred pounds. They are not obese however, but instead their bones are thicker than normal, and their forms are designed for the squat tunnels and caves in which they build their kingdoms.\nDwarves’ skin can range from a deep brown to a pale tan, the colors of earth and stone, however a few dwarves have pale albino-like skin, these being from the depths beneath the world and not commonly found within adventuring parties.\nDwarven Gurdges\nLiving past 400 years of age, dwarves hold grudges until repaid, and it is not uncommon for a clan of dwarves to take up the grudge of a prominent member of their own. To insult one dwarf is to insult the hill, or so the proverb goes. It is because of this that they resent goblins, for it was the Hobgoblin Emporium that had destroyed their nations of hold, a fact made all the worse by the continued existence of the emporium itself.\nAs dwarves thought of their clans as a single family, they did the same for other races and would hold grudges against an entire race simply because of an offense one of their kind had done to them. However, they never bordered on xenophobia, except for goblins, which is a long mutual generation war between the two species.\nClans and Holds\nVirtually beneath any mountain chain on Atherius there exist a Hold, or a kingdom of Dwarves hidden from those they do not wish to be found by. These Holds are not unfriendly, and commonly trade with other nations near them, however they are heavily defended and trapped, invading a Hold is like besieging a mountain where every stone is a trap.\nThese Holds are collectively known as the Seven Holds, although only four existed within the Reaches, the mountain chain around the Scarred Lands east of Solmaria. Amongst dwarves the Holds were a matter of respect, for only one had fallen in all the recorded ages, although there was a rumored eighth hold, but this was heresy to say and would result in one being exiled or jailed for such a claim. Each Hold is led by a king, while smaller clans outside of holds answer to their chiefs only. A king sees a chief as an equal if from outside a Hold, with each making boast of their accomplishments while comparing the best crafts they possess.\nDwarves are bit greedy by nature, but not to the point of killing another for a possession. If one is caught having done so, their punishment is the severing of their hands, to forever keep them from possessing another item as well as taking away their ability to craft items, the skill of the utmost pride amongst Dwarves. Ownership was a strong law amongst the people, and not one any would break, or think of doing, or else losing their title as a dwarf amongst their own folk."
+      },
+      {
+        "name": "Almost as noteworthy as their craftsmanship and stubbornness is their slowness to trust",
+        "desc": "Dwarves do not openly allow outsiders into their homes or cities, reserving this right for only the closest of nondwarven friends. However, if a dwarf truly calls another nondwarf a friend, it is a compliment of the highest degree, a fact that draws respect from even other dwarves.\nThe names of the dwarves Holds, and thus the sub race, does not describe their skins outside of Bronze Dwarves which is a happenstance. Instead, it refers to the metal they are most known for trading in, and which brought their empire great riches. Likewise, they preferred to name their settlements, and even the items they crafted, after features of the earth or metal itself, and in this way they paid respect to their deities as wells the primordial elementals known to aid them."
+      }
+    ],
+    "source": "Atherius"
+  },
+  {
+    "index": "dwarf",
+    "name": "Dwarf",
+    "url": "/api/races/dwarf",
+    "speed": 25,
+    "ability_bonuses": [
+      {
+        "ability_score": {
+          "index": "con",
+          "name": "CON",
+          "url": "/api/ability-scores/con"
+        },
+        "bonus": 2
+      }
+    ],
+    "ability_score_increase": "Your Constitution score increases by 2.",
+    "alignment": "Most dwarves lean toward lawful and good alignments, valuing order, tradition, and a sense of fairness.",
+    "age": "Dwarves mature at the same rate as humans, but they’re considered young until they reach the age of 50. On average, they live to be around 350 years old.",
+    "size": "DWARVES",
+    "size_description": "Dwarves stand between 4 and 5 feet tall and typically weigh around 150 pounds. Your size is Medium.",
+    "language_desc": "You can speak, read, and write Common and Dwarvish.",
+    "languages": [
+      {
+        "name": "read"
+      },
+      {
+        "name": "write Common"
+      },
+      {
+        "name": "Dwarvish"
+      }
+    ],
+    "traits": [
+      {
+        "name": "They prided themselves on their craftsmanship and would seek out new means of improving the skill without an almost zealous desire"
+      }
+    ],
+    "race_traits": [
+      {
+        "name": "They prided themselves on their craftsmanship and would seek out new means of improving the skill without an almost zealous desire",
+        "desc": "Their warriors often times dressed in the heaviest of mail, their thick stout bodies bearing the weight easier than other races and wielded two handed weapons or a waraxe and a shield. Although not distrustful of magic, they preferred spells not related to warfare, instead relying on their own ingenuity and prowess in battle. Strangely, it was not uncommon for Iron Dwarf clans to ride large boar into battle around the lower Barrows, while those in the deeper tunnels beneath used large rhino like creatures as their mounts.\nIt should be said, although empire less, they refused to make a new one solely because the leaders of most Iron Dwarf clans remembered the tales of their fathers, great stories of their own holds and kingdoms that had fallen or been lost. They sought these out regularly, sending large expeditions to search and excavate lands where rumors of such things arose.\nThey followed their gods devoutly, drinking heavily in their name, although they were not drunkards, not for a lack of trying however, their stout constitution simply made getting intoxicated hard for the race. Referring to something as “as difficult as drinking under a dwarf” was a statement about the stupidity of attempting a task.\nTheir skin was fair or lightly tanned, while their eyes were of blue, green or yellow. Iron Dwarves normally had grayish black hair, although some had fiery red, the cause of which was unknown. All grew beards, which they braided and set with small beds of metal."
+      }
+    ],
+    "subraces": [
+      {"name": "Hill Dwarf", "url": "/api/races/hill-dwarf"},
+      {"name": "Gold Dwarf", "url": "/api/races/gold-dwarf"},
+      {"name": "Bronze Dwarf", "url": "/api/races/bronze-dwarf"},
+      {"name": "Adamantine Dwarf", "url": "/api/races/adamantine-dwarf"}
+    ],
+    "source": "Atherius"
+  },
+  {
+    "index": "hill-dwarf",
+    "name": "Hill Dwarf",
+    "url": "/api/races/hill-dwarf",
+    "speed": 30,
+    "ability_bonuses": [
+      {
+        "ability_score": {
+          "index": "wis",
+          "name": "WIS",
+          "url": "/api/ability-scores/wis"
+        },
+        "bonus": 1
+      }
+    ],
+    "ability_score_increase": "Your Wisdom score increases by 1, reflecting your keen senses and deep intuition.",
+    "languages": [],
+    "traits": [
+      {
+        "name": "Dwarven Toughness"
+      },
+      {
+        "name": "Stubborn as Stone"
+      },
+      {
+        "name": "Hearty Constitution"
+      }
+    ],
+    "race_traits": [
+      {
+        "name": "Dwarven Toughness",
+        "desc": "Your hit point maximum increases by 1 for each level you gain, representing your extraordinary resilience."
+      },
+      {
+        "name": "Stubborn as Stone",
+        "desc": "You gain a +2 bonus on saving throws against being charmed, frightened, or put to sleep. Additionally, you gain a +2 racial bonus on Constitution saving throws made to resist fatigue or forced marches."
+      },
+      {
+        "name": "Hearty Constitution",
+        "desc": "You gain a +2 racial bonus on Medicine checks and saving throws against disease.\nGold Dwarf\nGold Dwarves were the last standing empire of the race, living beneath the Jagged Fangs. Unlike their more adventurous cousins, the Iron Dwarves, Gold Dwarves devoted themselves to bettering their Hold. Many believe, and likely rightfully, that the Gold Hold is the oldest of the Holds. This is supported by the fact the Hold shows clear signs of damage from the fall of Almaruil and the raising of the mountains in which it is found.\nThey lived in a strict society of laws, with the Dwarven King ruling, although each clan within the kingdom was allowed to send a single advisor during monthly meetings. This way their own interest could be expressed, and possibly bring attention to the needs of different parts of the Hold. All the while leaving their sovereign as the true power to the realm.\nEach clan fit into one of three castes: the merchant caste, military caste, or working caste. Although known as a caste, none truly had a higher social standing than the other, and in truth each was part of a well-oiled machine that brought the society to greatness.\nThe kingdom itself was split into smaller “cities”, although these were in truth more like districts which ran themselves unless dictated otherwise by the king. The Outer City was a ring of working caste and military caste that all travelers came to, the bulk of the rest of their civilization hidden within the heart of the mountains behind trapped walls and doors. To most, this was Golden Hold as it was known, for dwarves kept the division of their city secret.\nThe Inner City was the religious and aristocratic center of the complex, and the smallest by far. The dwarves did not see much means in having a large area dedicated to the least productive members of society, and thus they purposely kept this City to a smaller size.\nThe Under City was beneath the others, and controlled by the military caste, as well as the most heavily fortitude part of the kingdom. Day and night dwarves patrolled this city, for thousands of tunnels led into Agatha, or the Hollow Lands in the common tongue. Agatha was the immense tunnels, caves and chambers that spread beneath the ground, full of strange aberrations and vile creatures they kept at bay.\nA gold dwarf was as gruff as normal, but a bit more friendly towards outsiders than others of their race, for travelers and merchants were common in the outer city. They had no distaste for elves, but preferred the company of gnomes most, and it was said the smaller folk helped reinforce the city in numerous places. However, the most astounding trait of a Gold Dwarf, was their pride, a fact that some misinterpreted as the meaning of their name, not for the fact they ran the wealthiest gold trade center of the world.\nTheir skin was light brown to golden brown, with hazel or brown eyes. Their hair ranged as much as a human’s however, and their beards were allowed to grow long but normally kept well-groomed and tied back around their heads or around their waste like a belt."
+      }
+    ],
+    "source": "Atherius"
+  },
+  {
+    "index": "gold-dwarf",
+    "name": "Gold Dwarf",
+    "url": "/api/races/gold-dwarf",
+    "speed": 30,
+    "ability_bonuses": [
+      {
+        "ability_score": {
+          "index": "str",
+          "name": "STR",
+          "url": "/api/ability-scores/str"
+        },
+        "bonus": 1
+      }
+    ],
+    "ability_score_increase": "Your Strength score increases by 1.",
+    "languages": [],
+    "traits": [
+      {
+        "name": "Dwarven Armor Training"
+      },
+      {
+        "name": "Unyielding"
+      },
+      {
+        "name": "Born of Iron"
+      },
+      {
+        "name": "Cultural Dignity"
+      },
+      {
+        "name": "Bronze dwarves were the rarest of the three upper holds and lived in a kingdom built around the volcano of Ulgu"
+      }
+    ],
+    "race_traits": [
+      {
+        "name": "Dwarven Armor Training",
+        "desc": "You gain proficiency with heavy armor."
+      },
+      {
+        "name": "Unyielding",
+        "desc": "When you are subjected to an effect that would move you against your will or knock you prone, you can use your Reaction to brace yourself. If you do, make a Strength saving throw (DC 10 + half the creature’s level or CR). On a success, you are not moved and not knocked prone."
+      },
+      {
+        "name": "Born of Iron",
+        "desc": "You ignore Strength requirements when wearing heavy armor. In addition, you suffer no movement penalties from nonmagical heavy armor."
+      },
+      {
+        "name": "Cultural Dignity",
+        "desc": "You gain a +2 racial bonus on Persuasion and Intimidation checks when dealing with nobility, dwarves, or individuals who respect martial prowess (such as knights, warriors, or military leaders).\nBronze Dwarf"
+      },
+      {
+        "name": "Bronze dwarves were the rarest of the three upper holds and lived in a kingdom built around the volcano of Ulgu",
+        "desc": "They had a natural disposition towards fire, and spent a great majority of their time, even for dwarves, crafting weapons and armor. It is said, mostly by Bronze Dwarves, that their god of smithing imparted a piece of the Primordial Flame into them at creation, explaining their strange connection to fire. However, it is equally possible they share some connection to the Elemental Plane of Fire as well, for their volcano had a permanent portal to the city of the Azer in the Plane of Fire at its heart.\nTheir civilization was communal, with each individual working to better the state over themselves. They were a wealthy race, although not as much as Gold Dwarves, for they supplied most of the arms and armor in their sector of the world. For this they have commonly been hired by others as black smiths, and a stereotype for this line of work has become ingrained in the common folk.\nBronze Dwarves loved drinking, even for a dwarf, and loved to startle outsiders by letting the liquid burst into flame upon touching their lips. They drink liquors of higher proof than mead, carrying not for the waterier drinks over their distilled whiskeys and bourbons.\nThey were the most jovial dwarf, loving to joke or play pranks on their kin, but were careful to never do so to an outsider. They were the most driven by their emotions as well, as unruly as a flickering flame. When angered one might blaze like a wildfire, only to sudden smolder out, the wrong forgotten.\nTheir bodies were the hue of bronze, their hair literal tendrils of flame, although semi solid in nature. This is the last remnants of their planar nature, and a fact of pride amongst the Bronze Dwarves themselves. As a rule, they looked much like a dwarf sculpted of the metal they drew their name from, although they were very much flesh and bone."
+      }
+    ],
+    "source": "Atherius"
+  },
+  {
+    "index": "bronze-dwarf",
+    "name": "Bronze Dwarf",
+    "url": "/api/races/bronze-dwarf",
+    "speed": 30,
+    "ability_bonuses": [
+      {
+        "ability_score": {
+          "index": "cha",
+          "name": "CHA",
+          "url": "/api/ability-scores/cha"
+        },
+        "bonus": 1
+      }
+    ],
+    "ability_score_increase": "Your Charisma score increases by 1.",
+    "languages": [],
+    "traits": [
+      {
+        "name": "Heated Body"
+      },
+      {
+        "name": "Cold Weakness"
+      }
+    ],
+    "race_traits": [
+      {
+        "name": "Heated Body",
+        "desc": "Your body radiates elemental heat. Your unarmed strikes deal an additional 1d4 fire damage. You also have resistance to fire damage.\nAs a bonus action, you can cause small dancing flames to flicker along your shoulders, arms, beard, or hair. While active, these flames shed bright light in a 10-foot radius, and dim light for an additional 10 feet. You can dismiss the flames as a bonus action. These flames are harmless and do not burn objects unless you wish them to."
+      },
+      {
+        "name": "Cold Weakness",
+        "desc": "You have vulnerability to cold damage. Effects that deal cold damage ignore any resistance or damage reduction you possess.\nAdamantine Dwarf\nStrange dwarves of a forgotten Hold, the Adamantine Dwarves hail from the sunless city of Alduin, a realm carved into the bones of the world. They are one of the lost Holds and are known sometimes called the Deep or Stone dwarves. In times long lost, they were the master crafters of the grey metal, and of stone constructs alike, as both offer resistance to the psionic terrors the of the depths.\nHardened by generations of isolation, aetheric storms, and psychic monstrosities, these dwarves have changed—body, mind, and soul. Though their customs are colder, and their emotions tightly sealed in stone, their enduring nature is unmatched. They do not speak of the betrayal that sealed their Hold, but should the truth ever be confirmed, their vengeance would be the stuff of legends.\nTheir home city is protected by a magical crystal known as the Heart Stone, of which they believe all their ancestors spirits reside. Each Adamantine dwarf is gifted a small piece of this stone at birth, and when they die it is said their soul returns to the stone, filling in the gap they once took."
+      }
+    ],
+    "source": "Atherius"
+  },
+  {
+    "index": "adamantine-dwarf",
+    "name": "Adamantine Dwarf",
+    "url": "/api/races/adamantine-dwarf",
+    "speed": 30,
+    "ability_bonuses": [
+      {
+        "ability_score": {
+          "index": "wis",
+          "name": "WIS",
+          "url": "/api/ability-scores/wis"
+        },
+        "bonus": 1
+      }
+    ],
+    "ability_score_increase": "Your Wisdom score increases by 1.",
+    "languages": [],
+    "traits": [
+      {
+        "name": "Stone Body"
+      },
+      {
+        "name": "Dazed by Light"
+      },
+      {
+        "name": "Deep Darkvision"
+      },
+      {
+        "name": "Deep Resilience"
+      },
+      {
+        "name": "Stonecraft Instincts"
+      }
+    ],
+    "race_traits": [
+      {
+        "name": "Stone Body",
+        "desc": "Your skin is as hard as bedrock. You gain a +1 natural armor bonus to AC. This stacks with worn armor but not with other natural armor bonuses. Additionally, your unarmed strikes deal 1d4 bludgeoning damage."
+      },
+      {
+        "name": "Dazed by Light",
+        "desc": "Whenever light conditions around you change by more than one step (e.g., bright light to darkness), you become dazed for 1 round. You also take a –2 penalty on saving throws against effects that would blind you using light."
+      },
+      {
+        "name": "Deep Darkvision",
+        "desc": "Your Darkvision range increases to 90 feet."
+      },
+      {
+        "name": "Deep Resilience",
+        "desc": "You have resistance to psychic damage and gain a +2 bonus on saving throws against charm or fear effects caused by aberrations or outsiders."
+      },
+      {
+        "name": "Stonecraft Instincts",
+        "desc": "You gain a +2 racial bonus on Tinker checks and Knowledge (Dungeoneering) checks related to traps, stonework, or underground construction.\nElf\nElves are an ancient race of tragedy, descending from the fair folk of the realm of Faerie, they harbor a grace and magical prowess few match. They shaped the world, and it shaped them, the original elves quickly adapting into several subspecies of their king that formed the first elven nations.\nThe nations were united by the Elven Court, a city of stone and trees at the heart of an ancient forest, each elven species had a presence, a say in the matters of their race. A seat on the court was called a Crown and having a crown as a symbol of being a recognized elven species. In this way the elves wished to avoid the turmoil of the Seelie and Unseelie courts. As the elves spread across the world and adapted, the Court would decide if they constituted a new Crown or not based on their populace and uniqueness. Laws passed by this Court were one of the last works of High Magic and thus must be followed by all members of the Court.\nFey Embodiments\nElves can range greatly dependent on the sub race, some are tall while others are shorter than the common man, however all are lithe, possessing sight and hearing far superior to our own, and possessing an air of elegance that makes them almost alien to behold, a trait most fey possess. Humans and other intelligent races call them fey-folk, or faerie folk, at times, although this is misleading and considered inappropriate by scholars, for they are not true fey.\nElves live in the world of Atherius, but are not truly part of it, and each feels the pull of Faerie throughout their lives. Most retreat to a portal back to their ancestral homes near the end of their lives, their forms simply giving out and releasing the energy within to return to it if they do not. Therefore, elves shun undead as a most disgraceful form, for with it they cannot return to their ancestral lands and are forever barred from passing into the light of Aelfheim.\nAlthough age varies depending on the sub race, all elves can live past 500 years, however, unlike the fey from which they descend, elves can die of wounds, poison, disease and in a way, old age. More accurately an elf will reach an age where the weight of their lives is too much for them to wish to continue, passing into the light normally before their thousandth year. The oldest elves, great mages of unparalleled power, may live on forever if they do not lose the will to do so.\nElves do not sleep like most races, their minds not touching the Demiplane of Dreams, instead they enter a trance, where they experience their own memories in clarity. This is one reason elves make good mages, for even in their time of rest, they can study and learn at a rate few could match.\nMuch of this came crashing down during the Age of Wyrmfire, then the ensuing Kin Wars were brother turned on brother.\nAncient Bloodline Feud\nDuring the ages past, their civilization was destroyed time and time again by a series of Kin Wars, racial wars between the different Crowns. Most lost their empires, much of their cultures and magical ways, now living in small villages hidden away from others. A few kingdoms stand once more, with the Greywood being one such place in the Northern Reaches. Umbar’Serin is another, and the last true kingdom of the High Elves, erected before the Kin Wars tore the elves apart. These wars are not well documented, and even amongst the elven races there is much debated about their true origins, motives, and events, however it is known several elven races ceased to exists after these wars, while others were forever changed by magics now barred by the Courts.\nReligion\nElves followed no gods, however they venerated Archfey, powerful fey from Faerie whose powers easily matched a deity while within their home plane. Each sub race of elf also has a pantheon, although these are not true gods, but those of their race that have been accepted into the Courts, become one of the Archfey themselves."
+      }
+    ],
+    "source": "Atherius"
+  },
+  {
+    "index": "elf",
+    "name": "Elf",
+    "url": "/api/races/elf",
+    "speed": 30,
+    "ability_bonuses": [
+      {
+        "ability_score": {
+          "index": "dex",
+          "name": "DEX",
+          "url": "/api/ability-scores/dex"
+        },
+        "bonus": 2
+      }
+    ],
+    "ability_score_increase": "Your Dexterity score increases by 2.",
+    "size": "ELVES",
+    "size_description": "Elves range from under 5 feet to over 6 feet tall, with slender builds. Your size is Medium.",
+    "language_desc": "You can speak, read, and write Common and Elvish. Elvish is fluid, with subtle intonations and intricate grammar. Elven literature is rich and varied, and their songs and poems are famous among other races. Many bards learn the language to add Elvish ballads to their repertoires.",
+    "languages": [
+      {
+        "name": "read"
+      },
+      {
+        "name": "write Common"
+      },
+      {
+        "name": "Elvish. Elvish is fluid"
+      },
+      {
+        "name": "with subtle intonations"
+      },
+      {
+        "name": "intricate grammar. Elven literature is rich"
+      },
+      {
+        "name": "varied"
+      },
+      {
+        "name": "their songs"
+      },
+      {
+        "name": "poems are famous among other races. Many bards learn the language to add Elvish ballads to their repertoires"
+      }
+    ],
+    "traits": [
+      {
+        "name": "Elf Weapon Training"
+      },
+      {
+        "name": "Low-Light Vision"
+      },
+      {
+        "name": "Keen Senses"
+      },
+      {
+        "name": "Fey Ancestry"
+      },
+      {
+        "name": "Trance"
+      }
+    ],
+    "race_traits": [
+      {
+        "name": "Elf Weapon Training",
+        "desc": "You have proficiency with the longsword, shortsword, shortbow, and longbow."
+      },
+      {
+        "name": "Low-Light Vision",
+        "desc": "You can see twice as far as normal in areas of dim light. This vision does not function in complete darkness—you still require at least a minimal light source to see. Colors and details are preserved in low-light vision."
+      },
+      {
+        "name": "Keen Senses",
+        "desc": "You gain proficiency in the Perception skill."
+      },
+      {
+        "name": "Fey Ancestry",
+        "desc": "You have a +2 racial bonus to saving throws against being charmed, and magic can’t put you to sleep."
+      },
+      {
+        "name": "Trance",
+        "desc": "Elves don't need to sleep. Instead, they meditate deeply, remaining semiconscious for 4 hours a day. While meditating, you experience reflexive mental exercises akin to dreams. After resting in this way, you gain the same benefit that a human does from 8 hours of sleep.\nSubspecies\nElves come in several subspecies, having developed differently depending on their environment or plane where they exist.\nHigh Elf (Light Elf)\nDescendants of the Summer Court of Seelie, and the first elves who came to Faerie. They are known as the Elir'Elvar, or People of the Light. They are also known as High Elves, for they were the first to travel to the material world and build a prospering kingdom upon it.\nAlthough closer to nature than man, the High Elves are not as intone with nature as their Wood Elven cousins and instead are far more closely intoned with magic itself. Living in great cities of metal and stone, each of which commonly houses a single Elf Stone, highly dweomered artifact which projected a magical veil across the city.\nHigh Elves obsess over the lore and magic of their people, and to a slightly less degree, other elves. They will collect scrolls, tomes, and all magical items in the past ages related to their kin for study and safe keeping, and their military is almost always planning some sort of crusade or reclamation of ancient cities of their fallen kingdoms.\nTheir skin tends to be a darker tan, almost coppery, with hairlike strands of sun. Meanwhile their eyes are green or hazel, seldom are they any other color, and having eyes not of these colors is seen as a sign that a House's blood had become muddled by another race. They are not xenophobic by nature, although dangerously close to the ideology for mistakes amongst the common folk are frequent.\nProud of their heritage, High Elves never name their cities out of the Elven Tongue, and each bears an importance to the purpose of the city itself. Umbar'Serin, or Our Fate, is the Elven Court first founded on Nibiru. Their attire is normally sleek golden armor accented with green fabrics, fashioned in thin plates that almost resemble leaves or ferns, while blades are their preferred weapons. Within their cities it is common to find crypts, great cities for fallen heroes whose bodies are laid to rest.\nThey still retain a bit of the light of Aelfheim, a demiplane of Faerie ruled by their Eladrin ancestors, or grace as it is also known, shinning from within them as a sort of aura. Normally just barely visible, those of advanced age or power displayed it more clearly."
+      }
+    ],
+    "subraces": [
+      {"name": "High Elf", "url": "/api/races/high-elf"},
+      {"name": "Drow", "url": "/api/races/drow"},
+      {"name": "Dark Elf", "url": "/api/races/dark-elf"},
+      {"name": "Shadow Elf", "url": "/api/races/shadow-elf"},
+      {"name": "Ghost Elf", "url": "/api/races/ghost-elf"}
+    ],
+    "source": "Atherius"
+  },
+  {
+    "index": "high-elf",
+    "name": "High Elf",
+    "url": "/api/races/high-elf",
+    "speed": 30,
+    "ability_bonuses": [
+      {
+        "ability_score": {
+          "index": "int",
+          "name": "INT",
+          "url": "/api/ability-scores/int"
+        },
+        "bonus": 1
+      }
+    ],
+    "ability_score_increase": "Your Intelligence score increases by 1.",
+    "languages": [],
+    "traits": [
+      {
+        "name": "Elven Magecraft"
+      },
+      {
+        "name": "Keen Mind"
+      },
+      {
+        "name": "Meanwhile the women are the family leaders as well as the religious leaders of their society"
+      },
+      {
+        "name": "They do not hate the surface but find it undesirable as the light brings their sensitive eyes pain and their deities avoid it"
+      }
+    ],
+    "race_traits": [
+      {
+        "name": "Elven Magecraft",
+        "desc": "You know one cantrip of your choice from the wizard spell list. Intelligence is your spellcasting ability for this cantrip."
+      },
+      {
+        "name": "Keen Mind",
+        "desc": "You gain a +2 racial bonus on Arcana checks and saving throws against illusion spells or effects. You also add one additional language of your choice (you must have heard it spoken before).\nDrow (Dark Elf)\nThe Drow, known in ancient Elven as the Ulir’Elvar, or People of the Depths, are descendants of the Wild Courts of Faerie who turned their backs on the light of Aelfheim. Banished or exiled by ancient decrees or led by prophetic visions into the bowels of the world, they carved their homes in the deep, black stone of Agartha—a subterranean realm of chasms, rivers of molten silver, and predator-filled jungles of luminous fungus.\nIn this vast underworld, the Drow embraced a new pantheon—gods of venom and cunning, most notably spider and scorpion deities that whisper through toxin and trance. Their society is tribal, matriarchal, and steeped in rites of blood, poison, and silence. What some call cruelty, they call survival. What others call savagery, they consider faith.\nIn their subterranean cities one will find scorpions and spiders alongside elves, as well as races like their revered pets. They showcase their devotion in their magic as well, utilizing venomous spells above other elemental options. However, men and women are treated as different caste in the cities, both important.\nMale drow are seen as the children of Zherak, the Poisoned. He is the consort of Velratha, being a unique type of drider but with the lower body of a scorpion with two massive claws. Males pray to him as they are trained in combat in the pits, whispering his name into the sand before every fight. His favor is won through discipline, deception, and precision—not brute force. It is their reverence of Zherak that has caused Drow males to favor the scorpion tail whip as an off hand weapon."
+      },
+      {
+        "name": "Meanwhile the women are the family leaders as well as the religious leaders of their society",
+        "desc": "They follow the tenets of Velratha, the Black Loom also known as The Weaver Mother. They speak of her in hushed tones, seeing her web divine script that guides them forward, but the gaps in the web as traps that many can fall into if not being diligent enough. Her temples are spun with silk and shadow, her rites often involving blood and silk woven into sigils. Those of high rank in their faith can receive the Matron’s Bite, a rite that transforms them into a Drider, an elevated form of Drown that has the lower body of a spider.\nDrow families form small clans, with the main branch being blood relatives and the lesser branch being conscripted soldiers, and non-blood allies that have sworn fealty to the family. A single city can have dozens of large families, and multitudes of minor ones not yet risen to prominence. Trickery and deceit are seen as tools of advancement in the Drow society, with family wars not being uncommon, the defeated house being absorbed entirely by the winner, and lost to the city.\nDrow have striking features: onyx, violet, or deep blue skin, with silver, white, or pale lavender hair. Their eyes glow faintly in dim light, reflecting the hues of the underworld—red, gold, or amber. Unlike their surface cousins, Drow rarely wear armor of metal, preferring silk-woven leather, alchemical chitin, or living fungus armor, all laced with toxins or glyphs of their deities. They are master smiths, utilizing mithril above all other metals, especially in their weapons."
+      },
+      {
+        "name": "They do not hate the surface but find it undesirable as the light brings their sensitive eyes pain and their deities avoid it",
+        "desc": "However, they hate the High Elves greatly for destroying their ancient cities in the Kin Wars. Much of their history was lost in this time, leaving their societies fragmented and each believing in their own version of history.\nAll of their cities are interwoven with webs, acting as both traps and security alarms for intruders. Although not overly hostile to any other race outside their own kin, they trade openly with the stone dwarves when possible."
+      }
+    ],
+    "source": "Atherius"
+  },
+  {
+    "index": "drow",
+    "name": "Drow",
+    "url": "/api/races/drow",
+    "speed": 30,
+    "ability_bonuses": [
+      {
+        "ability_score": {
+          "index": "cha",
+          "name": "CHA",
+          "url": "/api/ability-scores/cha"
+        },
+        "bonus": 1
+      }
+    ],
+    "ability_score_increase": "Your Charisma score increases by 1.",
+    "languages": [],
+    "traits": [
+      {
+        "name": "Dark Elf Magic"
+      },
+      {
+        "name": "Superior Darkvision"
+      },
+      {
+        "name": "Underworld Lore"
+      },
+      {
+        "name": "Poison Affinity"
+      }
+    ],
+    "race_traits": [
+      {
+        "name": "Dark Elf Magic",
+        "desc": "You know the Dancing Lights cantrip. When you reach 3rd level, you can cast Faerie Fire once per day. When you reach 5th level, you can cast Darkness once per day. Charisma is your spellcasting ability for these spells."
+      },
+      {
+        "name": "Superior Darkvision",
+        "desc": "Instead of low-light vision, you have darkvision out to 120 feet."
+      },
+      {
+        "name": "Underworld Lore",
+        "desc": "You gain a +2 racial bonus on Tactics checks made underground and on Nature checks related to subterranean flora or fauna. You also learn the Undercommon language."
+      },
+      {
+        "name": "Poison Affinity",
+        "desc": "You gain a +2 bonus on checks made to identify, harvest, or apply poison using Tinker or Nature, as appropriate. In addition you gain a +2 bonus on saving throws against the Poison condition, or poison-based effects.\nWood Elf (Green Elf)\nKnown as Tethy’Elvar in their own tongue. People of the Forest, the Wood Elves are reclusive folk who live in the vast forest of the Northern Reaches as well most major forest across the plane. Although preferring to keep to themselves, in each of their major cities one may find Elf Gates, a pavilion of magical gates leading to various other elven cities.\nAbove all else they revere nature, and live in harmony with it, being descendants of the Spring Court of Seelie. They use magic related to nature to literally sing their cities from the trees, normally high off the ground to keep out of the eyes of invaders. Within their forest one must tread lightly, for it is said for each twig broken, a bone will break in kind.\nNot overly hostile, their kind prefers to divert invaders away from their forest, unless it is orcs, whom they have not forgiven for the burning of Duskwood, nor the massacre at the Grove of Elindel during the Age of Fire. Within their forest one will find a sacred grove where each family of Wood Elf has a tree, under the roots of which their dead are lain, to return to nature, nourishing the tree itself which houses a Dryad bound to the family, who also takes on the memories of those that nourish its tree. Treants are common defenders of these groves, making it most unwise to trespass in one. Unlike most elves, they do not seek to return to Aelfheim, and instead on death, their Grace infuses the forest itself.\nWood Elves revere several holy days, with each new moon and full moon being marked by a forest wide dance beneath the stars. The spring solstice is their holiest day however and is celebrated by each member of a forest going out and using all that they can to foster the growth and strengthening of their forest kingdoms.\nTheir skin is like that of bark, dark brown but with a tinge of green, while their hair is black or auburn with eyes of green or hazel. Their clothes are green and brown, fashioned to blind in with the forest, with arrows being their primary means of defending themselves."
+      }
+    ],
+    "source": "Atherius"
+  },
+  {
+    "index": "high-elf",
+    "name": "High Elf",
+    "url": "/api/races/high-elf",
+    "speed": 30,
+    "ability_bonuses": [
+      {
+        "ability_score": {
+          "index": "int",
+          "name": "INT",
+          "url": "/api/ability-scores/int"
+        },
+        "bonus": 1
+      }
+    ],
+    "ability_score_increase": "Your Intelligence score increases by 1.",
+    "languages": [],
+    "traits": [
+      {
+        "name": "Elven Magecraft"
+      },
+      {
+        "name": "Keen Mind"
+      },
+      {
+        "name": "Dark Elves tend to prefer the roles of sorcerers that specialize in ice"
+      }
+    ],
+    "race_traits": [
+      {
+        "name": "Elven Magecraft",
+        "desc": "You know one cantrip of your choice from the wizard spell list. Intelligence is your spellcasting ability for this cantrip."
+      },
+      {
+        "name": "Keen Mind",
+        "desc": "You gain a +2 racial bonus on Arcana checks and saving throws against illusion spells or effects. You also add one additional language of your choice (you must have heard it spoken before).\nSnow Elf (Ice Elf)\nA mischievous, nimble elven folk who are descended from elves whom came from the Winter Court of Unseelie, fey directly tied to darkness and winter. This grants them a natural affinity for spells of illusion and darkness, mainly innately having the power to call upon certain abilities related to them. Although some label them evil, Dark Elves vary in alignment like all other elves, for the Fey Courts are not divided along such lines, and even the Winter Court knows good and just members. Their elven name is the Dolvo’Elvar, or People of the Gloom.\nAlthough a member of the Court, it was a random attack on them by the High Elves that caused the first Kin War. This attack was fueled by a lie form an interloper god from beyond the world. This betrayal has created a deep divide amongst the two races, one that is not easily overcome even to this day.\nThey reside mainly in the Frozen Waste to the north as it reminds them of their ancestral homes in the realm of Faerie, and although few truly remember it, it's feeling still resides in them all. This connection makes them inclined to live in frost filled caves or ruins now covered in snow, for they do not make their own grand cities.\nLiving in the savage tundras of the world, these elves are bleaker in outlook, and less attuned to the living nature of the world. They like to play pranks on other races by causing small snowstorms or throwing random snowballs from out of site, however as they mainly come out at night, the havoc is kept to a minimum. In some respects, they are more fey like then others of their ilk.\nThe different groups of dark elves mainly live in isolation, only coming together during the Winter Solstice each year, to discuss matters of their people and those of their fey lords in Faerie. Woman mostly rule these enclaves, although men do a few as well, for gender plays little in determining such a thing."
+      },
+      {
+        "name": "Dark Elves tend to prefer the roles of sorcerers that specialize in ice",
+        "desc": "They are known to have developed their own magic spells, similar to the more common ones, but taking the forms of ice or frost. Using this magic they have built a single great citadel of ice and snow somewhere within the frozen waste, although none have seen it.\nThese elves are of dark grey, or shades deep blue. Their hair is always as dark as a starless night and smooth like silk, seemingly free of tangles. Their eyes are red, violet or amber. They wear furs from the native fauna that help hide their forms in the shirting snows"
+      }
+    ],
+    "source": "Atherius"
+  },
+  {
+    "index": "dark-elf",
+    "name": "Dark Elf",
+    "url": "/api/races/dark-elf",
+    "speed": 30,
+    "ability_bonuses": [
+      {
+        "ability_score": {
+          "index": "cha",
+          "name": "CHA",
+          "url": "/api/ability-scores/cha"
+        },
+        "bonus": 1
+      }
+    ],
+    "ability_score_increase": "Your Charisma score increases by 1.",
+    "languages": [],
+    "traits": [
+      {
+        "name": "Winter Court Magic"
+      },
+      {
+        "name": "Cold Resistance"
+      },
+      {
+        "name": "Snowborn Grace"
+      }
+    ],
+    "race_traits": [
+      {
+        "name": "Winter Court Magic",
+        "desc": "You know the frigid touch cantrip (functions as chill touch but deals cold damage instead of necrotic). Charisma is your spellcasting ability for this spell."
+      },
+      {
+        "name": "Cold Resistance",
+        "desc": "You have resistance to cold damage."
+      },
+      {
+        "name": "Snowborn Grace",
+        "desc": "You ignore movement penalties caused by snow or ice. Additionally, you gain a +2 racial bonus on Dexterity (Stealth) checks made in snowy or icy terrain.\nShadow Elf (Grey Elf)\nA rather rare breed of elf, and of the more distrusted Crowns. They have strange pale skin, mirthless black eyes and silver moonlight hair, their bodies lither than others, almost emaciated. They are known as Dae’Elvar in the elven tongue, People of the Shadows.\nResiding with the Plane of Shadows, they follow a Fey Lord who is of the Gloaming Court. They serve without question, their actions strange, merciless and without obvious intent to any beyond their queen. Shadow Elves have no religion, worshipping the Shadow Queen as the true god and ruler of the Gloaming Court, one of the smaller courts within the Unseelie. The true nature of their deity is shrouded in mystery, with conflicts rumors of their origins pointing to the abyss, the hells, or even the Shadow Plane.\nThey are not vile or inherently evil, although they can easily be viewed this way. The plane on which they live has stripped them of their more redeeming qualities, and they have no humor, outside of that which we would call dark, to speak of. Nor do they express emotions normally, this part of their soul growing weaker each generation on the Shadow Plane, a strange detachment that even other Fey find to be alien and unnerving to behold.\nWithin their society the only thing that matters is one’s devotion to their Queen and ways to increase their own power. Each city of Shadow Elves follows a single Shadowlord, a being whose connection to the shadows is strongest amongst them, the cities themselves functioning like a single large House of other elves. The Queen allows them their free will to further their dedication to her, allows searching for new ways to strengthen their body to the darkness of their realm.\nShadow elves dedicate their lives to mastering their own bodies, seeing little use in art of any type or leisurely activities. Legions of their warriors train endlessly within the plane, as their wizards and clerics seek ways to expand their respective cities influence in to please the Queen. A spiked chain is a common weapon of the people, as are polearms and nets. All Shadow Elves are taught to use their racial abilities to their advantage and will not hesitate to “cheat” a foe in a fight.\nAmongst the Elvar they dislike High Elves the most, for their obvious connection to the Light of Aelfheim, the ancient city from which elves are said to originate, while Dark Elves they view as distant cousins although lesser than themselves. Forest elves are seen as lower class and ignorant. However, the only Elvar they truly hate and see as mortal enemies is one of their own Court, the Ghost Elves. The two races have warred since the second Kin War, each blaming the other for their banishments.\nAdventuring Shadow Elves may be searching for items related to darkness or shadows, relics of the Plane of Shadows or even creatures of it that they wish to study. Some search for new ways to bind themselves to powers related to such matters, with several demon lords eyeing the race with interest and fear as their own domains revolve around such matters; and the Shadow Queen is a sly one indeed."
+      }
+    ],
+    "source": "Atherius"
+  },
+  {
+    "index": "shadow-elf",
+    "name": "Shadow Elf",
+    "url": "/api/races/shadow-elf",
+    "speed": 30,
+    "ability_bonuses": [
+      {
+        "ability_score": {
+          "index": "wis",
+          "name": "WIS",
+          "url": "/api/ability-scores/wis"
+        },
+        "bonus": 1
+      }
+    ],
+    "ability_score_increase": "Your Wisdom score increases by 1.",
+    "languages": [],
+    "traits": [
+      {
+        "name": "Necrotic Resistance"
+      },
+      {
+        "name": "Shadow Elf Training"
+      },
+      {
+        "name": "Darkvision"
+      },
+      {
+        "name": "Umbral Awareness"
+      },
+      {
+        "name": "An extremely rare subrace of elves that live within the primordial forest of the Ethereal Plane"
+      },
+      {
+        "name": "They are not often travelers but share the same thrill of adventure as most of their kin"
+      }
+    ],
+    "race_traits": [
+      {
+        "name": "Necrotic Resistance",
+        "desc": "You have resistance to necrotic damage."
+      },
+      {
+        "name": "Shadow Elf Training",
+        "desc": "You are proficient with the spiked chain. If your campaign treats the spiked chain as an exotic weapon, you count as trained in it regardless of class."
+      },
+      {
+        "name": "Darkvision",
+        "desc": "Accustomed to twilight and the black of cavern and night, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can’t discern color in darkness—only shades of gray."
+      },
+      {
+        "name": "Umbral Awareness",
+        "desc": "You gain a +2 racial bonus on Perception checks made in dim light or darkness.\nGhost Elf (Pale Elf)"
+      },
+      {
+        "name": "An extremely rare subrace of elves that live within the primordial forest of the Ethereal Plane",
+        "desc": "They were once like the Light Elves, or possible the same race, but were cast out of the material plane during the first Kin War. The reason for this banishment varies depending on who you ask, the Light Elves or the Ghost Elves.\nThey have no real religion, worshipping the Pale Lady as their own god, a similarity shared with the Shadow Elves whom they see as mortal enemies. Whom or what the Pale Lady really is, no one knows, but she appears as a pale elven matriarch clad in multiple layers of shifting white veils that obscuring her form. Some speculate she may be the being that originally pulled the elves into the Ethereal Plane, but those that openly speak of such things vanish overnight.\nTheir civilization lives within a single city, for the ethereal plane had no real material to it, and they simply reshaped the forest or mist to expand the city when needed. They are militaristic, their army constantly searching for new denizens to subjugate and cities to claim and incorporate into their own. Within the shifting haze of the Ethereal Plane, their city seems to vanish and reappear at their Queen’s whims. It is common to find Ghost Elf warriors riding atop Phase Spiders, the two creatures working harmoniously in their hunts.\nThey wear thin veils that lightly obscure their bodies, taking great pride in physical beauty, while those clad for ware don mithril or similar mail, never donning heavy armor. However, in the material world they are known to wear thick layers of veils or scarves, to hide their natural aura.\nThey have little interest in the material world; besides the magical items and secrets it may hold. As a race they have no desire to resettle in their old kingdoms and truly do not consider themselves the same race as that they had once been. However, it is known they do envy birds and other musical creatures of the material world, as their own bleak realm lacks such things, and are known to buy or trade zealously for them.\nTheir forms are smaller than most elves with seemingly thin limbs, skin as white as the moon, hair of fog and eyes devoid of all colors. A strange soft glow always emitted from their bodies, a trait they could not control. They were beautiful nonetheless; a trait they knew they could use to their advantage."
+      },
+      {
+        "name": "They are not often travelers but share the same thrill of adventure as most of their kin",
+        "desc": "Unlike the Dark or Shadow Elves, they still retain much of their joy in the arts, mostly music, and are fascinated by magical items related to such, their queen hoarding them. Thus, Bards are the most common class of Ghost Elf, although they are not the charming bard one would meet in a tavern, but the visceral fighter who shreds a foes mind with words as their blade does likewise to their bodies."
+      }
+    ],
+    "source": "Atherius"
+  },
+  {
+    "index": "ghost-elf",
+    "name": "Ghost Elf",
+    "url": "/api/races/ghost-elf",
+    "speed": 30,
+    "ability_bonuses": [
+      {
+        "ability_score": {
+          "index": "cha",
+          "name": "CHA",
+          "url": "/api/ability-scores/cha"
+        },
+        "bonus": 1
+      }
+    ],
+    "ability_score_increase": "Your Charisma score increases by 1.",
+    "languages": [],
+    "traits": [
+      {
+        "name": "Ghost Light"
+      },
+      {
+        "name": "Community is everything to them"
+      }
+    ],
+    "race_traits": [
+      {
+        "name": "Ghost Light",
+        "desc": "You emit a faint, supernatural glow in a 5-foot radius, equivalent to candlelight. You cannot suppress this glow, though it may be concealed by heavy garments or magical effects.\nGhost Touch. Your connection to the Ethereal Plane allows you to perceive and interact with it at all times.\n• You can see into the Ethereal Plane out to 60 feet, as if it were part of the Material Plane.\n• You can target, touch, and affect ethereal creatures and objects as though they were on the Material Plane.\n• You ignore the effects of invisibility, etherealness, and similar magic that relies on shifting between planes or hiding from normal perception.\n• Spells or abilities that rely on being ethereal or invisible to avoid detection or harm do not function against you.\nHalfling\nTucked away in the rolling fields and green hills just south of the Barrowlands, the Emerald Plains are home to a quiet, unassuming folk known as Halflings. Known for their small stature, big hearts, and well-stocked pantries, Halflings rarely make a stir in the world at large—though most of them would be just fine keeping it that way.\nThough technically part of the Reaches, Halflings in the south maintain a loose affiliation with its politics and wars. Their villages are tight-knit and stubbornly independent, ruled more by respected elders and seasonal festivals than any noble decree. The Reaches may rise and fall, but the spring planting always comes.\nField Folk and Hearthwise\nHalflings are primarily farmers, brewers, and herders, having lived off the land for countless generations. Their terraced farms and orchard-lined roads are a patchwork of beauty against the southern horizon. Despite their simplicity, their agriculture is second to none—many human markets depend on Halfling grains, fruits, and smoked meats to get through the winter."
+      },
+      {
+        "name": "Community is everything to them",
+        "desc": "A halfling without kin is like a house without a hearth—something to be pitied, and soon fixed. Villages revolve around seasonal festivals, shared meals, and long evenings filled with stories, song, and more than a few mugs of something homemade.\nTrouble Has Long Legs\nHalflings may be peaceful, but they are not naive. Living so near to the Barrowlands, they’ve learned to keep a wary eye on the north, where fell things sometimes stir in the ruins and moors. Old tales speak of dark winters where the fields turned quiet and the lanterns burned low. These days, most towns maintain hidden cellars, signal stones, and watchfolk just in case something wanders too far south.\nSome Halflings are rumored to be touched by old spirits of the land itself—hearth ghosts and field wights that guard the hills in unseen ways. Whether this is superstition or something stranger is left unsaid... but when a child speaks of lights in the corn or a stranger disappearing into the mist, the elders simply nod, and the village doors are bolted tighter.\nWanderers and Wild Seeds\nWhile most Halflings are content to stay near their gardens and granaries, some few are born with the “wild seed”—a restless heart that yearns to see the world. These are the rare Halflings who become adventurers, scouts, or emissaries to the larger cities. While few in number, they carry the resilience of deep roots and the cunning of quiet folk, often mistaken for being far less dangerous than they are.\nWhen one of these folk returns home—if they return at all—they are greeted with a feast, a dozen questions, and a quiet understanding that they are a little changed... and perhaps a little haunted."
+      }
+    ],
+    "source": "Atherius"
+  },
+  {
+    "index": "halfling",
+    "name": "Halfling",
+    "url": "/api/races/halfling",
+    "speed": 25,
+    "ability_bonuses": [
+      {
+        "ability_score": {
+          "index": "dex",
+          "name": "DEX",
+          "url": "/api/ability-scores/dex"
+        },
+        "bonus": 2
+      }
+    ],
+    "ability_score_increase": "Your Dexterity score increases by 2.",
+    "size": "HALFLINGS",
+    "size_description": "Halflings average about 3 feet tall and weigh about 40 pounds. Your size is Small.",
+    "language_desc": "You can speak, read, and write Common and Halfling. The Halfling language is rarely written, passed down mostly through spoken word, stories, and song.",
+    "languages": [
+      {
+        "name": "read"
+      },
+      {
+        "name": "write Common"
+      },
+      {
+        "name": "Halfling. The Halfling language is rarely written"
+      },
+      {
+        "name": "passed down mostly through spoken word"
+      },
+      {
+        "name": "stories"
+      },
+      {
+        "name": "song"
+      }
+    ],
+    "traits": [
+      {
+        "name": "Lucky"
+      },
+      {
+        "name": "Brave"
+      },
+      {
+        "name": "Halfling Nimbleness"
+      },
+      {
+        "name": "Agrarian Insight"
+      },
+      {
+        "name": "Halflings come in several subspecies"
+      },
+      {
+        "name": "Lightfoot halflings are the most common subrace found wandering the Emerald Plains and even among other peoples"
+      },
+      {
+        "name": "Naturally Stealthy"
+      },
+      {
+        "name": "Barrow Sense"
+      },
+      {
+        "name": "Silent Step"
+      },
+      {
+        "name": "Low-Light Vision"
+      }
+    ],
+    "race_traits": [
+      {
+        "name": "Lucky",
+        "desc": "When you roll a natural 1 on an attack roll, ability check, or saving throw, you can reroll the die. You must use the new result. Additionally, if you pick a class with a Luck Pool, you gain a +1 racial bonus to the maximum size of that pool."
+      },
+      {
+        "name": "Brave",
+        "desc": "You gain a +2 bonus on saving throws against fear effects."
+      },
+      {
+        "name": "Halfling Nimbleness",
+        "desc": "You can move through the space of any creature that is larger than you without expending extra movement."
+      },
+      {
+        "name": "Agrarian Insight",
+        "desc": "You gain a +2 racial bonus on Survival and Animal Handling checks related to farming, food gathering, or rural hazards.\nSubspecies: Choose a halfling subspecies.\nSubspecies"
+      },
+      {
+        "name": "Halflings come in several subspecies",
+        "desc": "Lightfoot Halfling"
+      },
+      {
+        "name": "Lightfoot halflings are the most common subrace found wandering the Emerald Plains and even among other peoples",
+        "desc": "They are sociable, charming, and skilled at slipping by unnoticed when needed.\nLightfoot Halfling Traits\nAs a Lightfoot halfling, you gain the following subrace traits in addition to the base Halfling traits:"
+      },
+      {
+        "name": "Naturally Stealthy",
+        "desc": "You can attempt to hide even when you are obscured only by a creature that is at least one size larger than you.\nStout Halfling\nStout halflings are heartier and hardier than their kin, with a strong resistance to toxins. They are usually farmers, brewers, or shepherds, and have a quiet strength in times of trouble.\nStout Halfling Traits\nAs a Lightfoot halfling, you gain the following subrace traits in addition to the base Halfling traits:\nStout Resilience: You gain a +2 racial bonus on saving throws against poison.\nRural Traditions: You gain one bonus skill point in Survival or Animal Handling (your choice) at 1st level.\nBarrow Halfling\nThese reclusive halflings live near the haunted lands north of the Emerald Plains, often building homes into the sides of hills or hidden in groves. They are quiet, wary, and attuned to the boundary between life and death. They are naturally pale of skin with stringy black hair, almost oily and unkempt looking.\nBarrowhalfling Traits\nAs a Barrowhalfling, you gain the following subrace traits in addition to the base Halfling traits:"
+      },
+      {
+        "name": "Barrow Sense",
+        "desc": "You can detect the presence of undead within 30 feet of you, as if by the detect undead spell. This does not reveal location or identity."
+      },
+      {
+        "name": "Silent Step",
+        "desc": "You gain a +2 racial bonus on Stealth checks made in natural terrain or dim light."
+      },
+      {
+        "name": "Low-Light Vision",
+        "desc": "You can see twice as far as normal in areas of dim light. This vision does not function in complete darkness—you still require at least a minimal light source to see. Colors and details are preserved in low-light vision."
+      }
+    ],
+    "subraces": [
+      {"name": "Lightfoot Halfling", "url": "/api/races/lightfoot-halfling"},
+      {"name": "Stout Halfling", "url": "/api/races/stout-halfling"},
+      {"name": "Barrow Halfling", "url": "/api/races/barrow-halfling"}
+    ],
+    "source": "Atherius"
+  },
+  {
+    "index": "lightfoot-halfling",
+    "name": "Lightfoot Halfling",
+    "url": "/api/races/lightfoot-halfling",
+    "speed": 25,
+    "ability_bonuses": [
+      {
+        "ability_score": {
+          "index": "cha",
+          "name": "CHA",
+          "url": "/api/ability-scores/cha"
+        },
+        "bonus": 1
+      }
+    ],
+    "ability_score_increase": "Your Charisma score increases by 1.",
+    "traits": [
+      {"name": "Naturally Stealthy"}
+    ],
+    "race_traits": [
+      {
+        "name": "Naturally Stealthy",
+        "desc": "You can attempt to hide even when you are obscured only by a creature that is at least one size larger than you."
+      }
+    ],
+    "source": "Atherius"
+  },
+  {
+    "index": "stout-halfling",
+    "name": "Stout Halfling",
+    "url": "/api/races/stout-halfling",
+    "speed": 25,
+    "ability_bonuses": [
+      {
+        "ability_score": {
+          "index": "cha",
+          "name": "CHA",
+          "url": "/api/ability-scores/cha"
+        },
+        "bonus": 1
+      }
+    ],
+    "ability_score_increase": "Your Charisma score increases by 1.",
+    "traits": [
+      {"name": "Stout Resilience"},
+      {"name": "Rural Traditions"}
+    ],
+    "race_traits": [
+      {
+        "name": "Stout Resilience",
+        "desc": "You gain a +2 racial bonus on saving throws against poison."
+      },
+      {
+        "name": "Rural Traditions",
+        "desc": "You gain one bonus skill point in Survival or Animal Handling (your choice) at 1st level."
+      }
+    ],
+    "source": "Atherius"
+  },
+  {
+    "index": "barrow-halfling",
+    "name": "Barrow Halfling",
+    "url": "/api/races/barrow-halfling",
+    "speed": 25,
+    "ability_bonuses": [
+      {
+        "ability_score": {
+          "index": "int",
+          "name": "INT",
+          "url": "/api/ability-scores/int"
+        },
+        "bonus": 1
+      }
+    ],
+    "ability_score_increase": "Your Intelligence score increases by 1.",
+    "traits": [
+      {"name": "Barrow Sense"},
+      {"name": "Silent Step"},
+      {"name": "Low-Light Vision"}
+    ],
+    "race_traits": [
+      {
+        "name": "Barrow Sense",
+        "desc": "You can detect the presence of undead within 30 feet of you, as if by the detect undead spell. This does not reveal location or identity."
+      },
+      {
+        "name": "Silent Step",
+        "desc": "You gain a +2 racial bonus on Stealth checks made in natural terrain or dim light."
+      },
+      {
+        "name": "Low-Light Vision",
+        "desc": "You can see twice as far as normal in areas of dim light. This vision does not function in complete darkness—you still require at least a minimal light source to see. Colors and details are preserved in low-light vision."
+      }
+    ],
+    "source": "Atherius"
+  },
+  {
+    "index": "human",
+    "name": "Human",
+    "url": "/api/races/human",
+    "speed": 30,
+    "ability_bonuses": [],
+    "ability_bonus_options": {
+      "choose": 2,
+      "from": [
+        {"name": "STR", "bonus": 1},
+        {"name": "DEX", "bonus": 1},
+        {"name": "CON", "bonus": 1},
+        {"name": "INT", "bonus": 1},
+        {"name": "WIS", "bonus": 1},
+        {"name": "CHA", "bonus": 1}
+      ]
+    },
+    "ability_score_increase": "Two different ability scores of your choice increase by 1.",
+    "age": "Humans reach adulthood in their late teens and rarely live longer than a century.",
+    "size": "HUMANS",
+    "size_description": "Humans vary widely in height and build, from barely 5 feet to well over 6 feet tall. Your size is Medium.",
+    "language_desc": "You can speak, read, and write Common and one additional language of your choice. Humans often learn the languages of neighboring people, and their speech is famously peppered with borrowed phrases and slang.",
+    "languages": [
+      {
+        "name": "read"
+      },
+      {
+        "name": "write Common"
+      },
+      {
+        "name": "one additional language of your choice. Humans often learn the languages of neighboring people"
+      },
+      {
+        "name": "their speech is famously peppered with borrowed phrases"
+      },
+      {
+        "name": "slang"
+      }
+    ],
+    "traits": [
+      {
+        "name": "Skill Versatility"
+      },
+      {
+        "name": "Feat"
+      }
+    ],
+    "race_traits": [
+      {
+        "name": "Skill Versatility",
+        "desc": "You gain 1 additional skill point at 1st level, which you may spend on any skill of your choice. This is in addition to the skill points granted by your class and Intelligence modifier."
+      },
+      {
+        "name": "Feat",
+        "desc": "You gain one feat of your choice at 1st level. You must still meet its prerequisites.\nGoliath\nGoliaths are a proud and ancient race, their heritage rooted in the towering giants of old. Tales whispered in shadowed corners speak of mighty kingdoms where giants once roamed the earth in their glory, wielding immense power and dominion over vast swaths of land. These giant kings and queens may be long gone, but the Goliaths who remain are the descendants of those once-unmatched beings. Though they now walk among other races, their blood still carries the weight of their giant ancestors, granting them unnatural resilience and raw strength that can shake the earth itself.\nAs Goliaths grow, they often face harsh environments in remote mountain peaks or isolated valleys, places where only the strongest survive. These challenging landscapes have honed their endurance and competitive nature. To Goliaths, strength is not just physical but a mark of character, and many of their societies revolve around fierce competitions and rites of passage. For these towering humanoids, pushing the limits of their abilities is not only a matter of pride, but also a necessary means of survival in the unforgiving environments they call home.\nMany tribes of Goliath are strictly tribalistic, only associating with those of the same blood, even amongst other giant kind. Many tribes see the giants from which they descend as a type of deity, worshipping the game gods as their ancestors.\nThough their giant heritage courses through their veins, Goliaths are a people driven by the desire to prove themselves and carve out their place in the world. They may be seen as intimidating or aloof by other races, but those who earn the Goliath's respect find them to be unwavering allies. Goliaths often choose lives of adventure, seeking to test their strength in new challenges and prove their worth to themselves and others. Some claim their origins were linked to the ancient kingdoms of the giants, but whatever the truth may be, their enduring legacy continues to shape them as they walk the world, large in stature and even larger in heart."
+      }
+    ],
+    "source": "Atherius"
+  },
+  {
+    "index": "goliath",
+    "name": "Goliath",
+    "url": "/api/races/goliath",
+    "speed": 30,
+    "ability_bonuses": [
+      {
+        "ability_score": {
+          "index": "str",
+          "name": "STR",
+          "url": "/api/ability-scores/str"
+        },
+        "bonus": 2
+      },
+      {
+        "ability_score": {
+          "index": "con",
+          "name": "CON",
+          "url": "/api/ability-scores/con"
+        },
+        "bonus": 1
+      }
+    ],
+    "ability_score_increase": "Your Strength score increases by 2, and your Constitution score increases by 1.",
+    "age": "Goliaths have lifespans comparable to humans. They enter adulthood in their late teens and usually live less than a century.",
+    "size": "GOLIATHS",
+    "size_description": "Goliaths are between 7 and 8 feet tall and weigh between 280 and 340 pounds. Your size is Medium.",
+    "alignment": "Goliath society, with its clear roles and tasks, has a strong lawful bent. The goliath sense of fairness, balanced with an emphasis on self-sufficiency and personal accountability, pushes them toward neutrality.",
+    "language_desc": "You can speak, read, and write Common and Giant.",
+    "languages": [
+      {"name": "Common"},
+      {"name": "Giant"}
+    ],
+    "traits": [
+      {
+        "name": "Giant Ancestry"
+      },
+      {
+        "name": "Large Form"
+      },
+      {
+        "name": "Natural Athlete"
+      },
+      {
+        "name": "Powerful Build"
+      }
+    ],
+    "race_traits": [
+      {
+        "name": "Giant Ancestry",
+        "desc": "Your lineage traces back to the ancient giants of old, giving you access to a supernatural boon from one of their elemental lines. Choose one of the following benefits—each representing a different type of giant ancestry. You may use the chosen benefit a number of times per day equal to your Constitution modifier (minimum 1). Cloud's Jaunt (Cloud Giant): As a Bonus Action, teleport up to 30 feet. Fire's Burn (Fire Giant): Deal extra 1d10 Fire damage on a hit. Frost's Chill (Frost Giant): Deal extra 1d6 Cold damage and reduce Speed by 10 feet. Hill's Tumble (Hill Giant): Knock a Large or smaller creature Prone. Stone's Endurance (Stone Giant): Use Reaction to reduce damage by 1d12 + CON mod. Storm's Thunder (Storm Giant): Use Reaction to deal 1d8 Thunder damage to attacker within 60 feet."
+      },
+      {
+        "name": "Large Form",
+        "desc": "You have a +2 bonus to any ability check you make to end grapples or push, pull, or lift objects. You also gain a +2 bonus to Strength checks against targets the same size as you or smaller."
+      },
+      {
+        "name": "Natural Athlete",
+        "desc": "You have proficiency in the Athletics skill."
+      },
+      {
+        "name": "Powerful Build",
+        "desc": "You count as one size larger when determining your carrying capacity and the weight you can push, drag, or lift."
+      }
+    ],
+    "source": "SRD"
+  },
+  {
+    "index": "gnome",
+    "name": "Gnome",
+    "url": "/api/races/gnome",
+    "speed": 25,
+    "ability_bonuses": [
+      {
+        "ability_score": {
+          "index": "int",
+          "name": "INT",
+          "url": "/api/ability-scores/int"
+        },
+        "bonus": 2
+      }
+    ],
+    "ability_score_increase": "Your Intelligence score increases by 2.",
+    "alignment": "Gnomes are most often good. Those who tend toward law are sages, engineers, researchers, scholars, investigators, or inventors. Those who tend toward chaos are minstrels, tricksters, wanderers, or fanciful jewelers.",
+    "age": "Gnomes mature at the same rate as humans, and most are expected to settle into adult life around age 40. They can live 350 to almost 500 years.",
+    "size": "GNOMES",
+    "size_description": "Gnomes are between 3 and 4 feet tall and weigh around 40 pounds. Your size is Small.",
+    "language_desc": "You can speak, read, and write Common and Gnomish.",
+    "languages": [
+      {"name": "Common"},
+      {"name": "Gnomish"}
+    ],
+    "darkvision": 60,
+    "traits": [
+      {"name": "Darkvision"},
+      {"name": "Gnome Cunning"}
+    ],
+    "race_traits": [
+      {
+        "name": "Darkvision",
+        "desc": "Accustomed to life underground, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light."
+      },
+      {
+        "name": "Gnome Cunning",
+        "desc": "You have advantage on all Intelligence, Wisdom, and Charisma saving throws against magic."
+      }
+    ],
+    "subraces": [
+      {"name": "Forest Gnome", "url": "/api/races/forest-gnome"},
+      {"name": "Rock Gnome", "url": "/api/races/rock-gnome"}
+    ],
+    "source": "SRD"
+  },
+  {
+    "index": "forest-gnome",
+    "name": "Forest Gnome",
+    "url": "/api/races/forest-gnome",
+    "speed": 30,
+    "ability_bonuses": [
+      {
+        "ability_score": {
+          "index": "dex",
+          "name": "DEX",
+          "url": "/api/ability-scores/dex"
+        },
+        "bonus": 1
+      }
+    ],
+    "ability_score_increase": "Your Dexterity score increases by 1.",
+    "languages": [],
+    "traits": [
+      {
+        "name": "Low-Light Vision"
+      },
+      {
+        "name": "Natural Illusionist"
+      },
+      {
+        "name": "Speak with Small Beasts"
+      },
+      {
+        "name": "Rock Gnomes are known to trade their engineering skills for arms and armor from dwarves"
+      }
+    ],
+    "race_traits": [
+      {
+        "name": "Low-Light Vision",
+        "desc": "You can see in dim light as if it were bright light, up to a distance of 60 feet. You cannot see in complete darkness without a light source, but you perceive color and detail clearly in shadowed conditions."
+      },
+      {
+        "name": "Natural Illusionist",
+        "desc": "You know the minor illusion cantrip. Intelligence is your casting ability for it."
+      },
+      {
+        "name": "Speak with Small Beasts",
+        "desc": "Through sounds and gestures, you can communicate simple ideas with Small or smaller beasts. Forest gnomes often befriend foxes, badgers, squirrels, and woodland birds as lifelong companions.\nRock Gnome\nUnlike their Forest kin, a Rock gnome is much like a Dwarf, loving to mine and create industries within their warrens. They live within large boulders, hallowed out and reinforced through magic and machinery, on open plains or the foothills of mountains.\nSimilarly, they are stouter than other gnomes, lacking much of their fey grace, but are burlier. Some have speculated they may indeed descent from some fey like dwarves instead of the normal fey like their other kin, but this is speculation. In truth, they filled a similar niche as dwarves in Faerie, and prefer to spend their time around dwarves if they must be around non-gnomes."
+      },
+      {
+        "name": "Rock Gnomes are known to trade their engineering skills for arms and armor from dwarves",
+        "desc": "The two races share a strong friendship, and outside of the rocky warrens, one will only find Rock Gnomes in numbers within the Holds of the World."
+      }
+    ],
+    "source": "Atherius"
+  },
+  {
+    "index": "rock-gnome",
+    "name": "Rock Gnome",
+    "url": "/api/races/rock-gnome",
+    "speed": 30,
+    "ability_bonuses": [
+      {
+        "ability_score": {
+          "index": "con",
+          "name": "CON",
+          "url": "/api/ability-scores/con"
+        },
+        "bonus": 1
+      }
+    ],
+    "ability_score_increase": "Your Constitution score increases by 1.",
+    "languages": [],
+    "traits": [
+      {
+        "name": "Low-Light Vision"
+      },
+      {
+        "name": "Arcano-Mechanical Aptitude"
+      },
+      {
+        "name": "Clockwork Toy"
+      },
+      {
+        "name": "Firestarter"
+      },
+      {
+        "name": "Music Box"
+      },
+      {
+        "name": "Signal Flare"
+      },
+      {
+        "name": "Whirring Lens"
+      },
+      {
+        "name": "Orcs see religion as a sort of pact between them and their deities"
+      }
+    ],
+    "race_traits": [
+      {
+        "name": "Low-Light Vision",
+        "desc": "You can see clearly in dim light up to 60 feet as though it were bright light. You cannot see in complete darkness without a light source, but you retain full color and detail vision in shadowed conditions."
+      },
+      {
+        "name": "Arcano-Mechanical Aptitude",
+        "desc": "You gain a +2 racial bonus on Tinker checks made to identify magical devices, disable arcane traps, or repair broken constructs and mechanisms.\nGnomish Invention. You can create and maintain small magical or mechanical devices using Tinker. You may maintain a number of active devices equal to your Intelligence modifier (minimum 1). Each device requires 1 hour and 10 gp in components to create. A device has AC 5 and 1 hit point. It functions for 24 hours unless repaired for 10 minutes. You can dismantle a device as a bonus action to reclaim its materials.\nWhen you create a device, choose one of the following:"
+      },
+      {
+        "name": "Clockwork Toy",
+        "desc": "A wind-up figure (animal, monster, or person) that moves 5 feet each round in a random direction. While active, it grants a -2 penalty on Perception checks to hear sounds within 10 feet."
+      },
+      {
+        "name": "Firestarter",
+        "desc": "A reusable ignition tool that lights small flames—enough to ignite a torch, candle, or tinder as part of an action."
+      },
+      {
+        "name": "Music Box",
+        "desc": "Plays a short melody. The sound carries up to 30 feet and can mask soft noises or serve as a signal."
+      },
+      {
+        "name": "Signal Flare",
+        "desc": "Emits a quick burst of light, visible up to 120 feet in low-light or darkness. Activating it is a bonus action."
+      },
+      {
+        "name": "Whirring Lens",
+        "desc": "A folding lens that functions as a magnifying glass or lets you read tiny or fine script with no check required.\nOrcs\nA tribal folk, the orcs are the source of many legends and rumors within the reaches. Although they can be found within almost any cave and mountain, the only real orc society exist in what is now the Scarred Lands, thriving as warring tribes beneath powerful warlords, living a rugged live that may seem to be almost primal to others. The Scarred Land Orcs are the orcs one would find adventuring around, while the bands of marauding orcs are normally outlaws or criminals of their own societies having fled death.\nOriginally pulled from another world into that of Atherius by Luzgan the Fire Lord, a fey lord that had once claimed the ancient kingdom of Gorulmuk as his own, refashioning it into the magocracy that was Almaruil. They were fashioned into his warmachine that would roll across the western lands, destroying many civilizations that would not rise again.\nScarred and Strong\nOrcs have a grayish to green pigmentation, sloping foreheads, jutting jaws, prominent teeth with protruding canines, all features that give them a distinct porcine look. They have towering builds, standing over six feet normally, and easily weighing between 220 and 280 pounds, their bodies naturally burn calories at an accelerated rate and their muscles grow quicker as well, giving most of their race a slightly hulking look.\nThe blasted Scarred Lands are horrendously difficult to survive on, tribes competing with another savage beast on an almost daily occurrence. Thanks to this way of life Orcs regard battles scars as tokens of pride, often displaying them openly, almost ornamentally, and they are seen as a sign of beauty. Likewise, all men are expected to be warriors of some sort, those who are not shamans, and woman as well were expected to be able to fight.\nOutside of birthing children, their existed no true divide between men and women of the Orcish tribes. They all hunted, tanned hides, and fought in battles against other tribes. The way the men would leave their children and women behind has led some to believe they are heartless or cruel, but in truth they simply trust their women to be more than enough to handle any threat that might come to their children and elderly.\nWarriors of advanced age would set out on a last “crusade”, a personal quest to meet a foe on the road that will strike them down. However, they fought tooth and nail against any threat, as dying freely would be an insult to their gods. They preferred to die in one-on-one combat with another champion or warrior of renown.\nThey often tied bones into their hair, and piercings were not uncommon amongst them. Some tribes went as far as to graft metal ridges or plates into their skin.\nTribal Folk\nOrcs live within tribes, with each tribe having a ceremonial name given to them thanks to some feature or accomplishment of its foundering patron. Each of these tribes are led by a Dailuk, or a war chief, whom makes the laws and rules of the tribe. However, one warlord stands above the others, and is given the title of Dailuk-hai (Grand Warlord in their tongue) who can call the tribes together for council, court, or to initiate a great Herne-hai (Great Hunt) which say the tribes banding together to sweep across neighboring lands for resources.\nAlthough laws varied from tribe to tribe, the Dailuk-hai of old had laid down several which all tribes must adhere to. One tribe stealing from another was not tolerated, and the offending tribe’s warriors would be killed to the last, while the woman and children would be given to the tribe with the closest living relatives, if none claimed them, tribes could buy them to add to their own numbers (this was not slavery, they were treated as true members of the tribe).\nNormally tribes compete in competitions, hunts of some great beast, or single combat between champions to settle disputes. However, a tribe could war against another if they thought they could defeat the weaker tribe, for if one could be defeated then they were seen as a weakness within the Orcish Horde. Only the Dailuk-hai could interfere in these wars, other tribes were not permitted to intervene at all, not even to lend resources.\nThey saw no need for niceties, as their world did not permit such things. Their speaking was blunt, almost offensive to those who did not understand their culture and had a way of being almost ironic at times. None orcs could be taken in by a tribe if they displayed qualities that impressed them, these “nul-oruk” were second class citizens however, as they could not be true “oruk” and thus could not lead their people’s tribes nor religions.\nTribes were named in ways that described their unique features or accomplishments; skull crushers, white scales, flame eyed, while personal names were harder words, full of consonant sounds that did not flow easily off the tongue.\nDetachment from Innovation\nThey did not ride horses, for the animals were unfit for their world or jagged stone, and instead rode strange rhinoceros-like creatures with thick bone plates on their heads. They see machinery as a tool but prefer to use the animals or their world instead, although animals to them did include trolls and other dimly intelligent humanoids.\nThey had a mutual understanding with the Worg packs of their lands, not friendly nor hostile with them. However, in times of need, they would cooperate, hunting together or banding together to overcome a threat to the Scarred Lands.\nAlthough not an industries people, a few tries retained the crafting knowledge of their fallen empire, creating thick armors of black plate and wicked swords. Although this armor was only ever worn in war, normally the orcs simply wore hides and leathers. A few clans have indeed begun to repopulate the ruins of fallen Almaruil.\nReligion"
+      },
+      {
+        "name": "Orcs see religion as a sort of pact between them and their deities",
+        "desc": "If they follow the tenants laid down for their gods, the gods will continue to give them the power they need to live and grow. This belief does cause some to worship demons and devils as well, and in truth their kind does not look down upon these tribes unless they turn their back on the Orcish gods as well.\nTheir spirituality was driven by shamans, often druids devoid to fire, and their holiest of days was a lunar eclipse. It was seen as the fiery eye of their god peering down at the world, and on this day the Dailuk-hai would organize the clans and ride out to pillage neighboring lands, neither set tingling or claiming them as their own, but taking all resources they came across.\nA full moon in winter was a sign of their Goddess of fertility, beckoning them to propagate and continue their race. A vast majority of orcs would follow their sign, and most if not all women of age would bear children in the early summer."
+      }
+    ],
+    "source": "Atherius"
+  },
+  {
+    "index": "orc",
+    "name": "Orc",
+    "url": "/api/races/orc",
+    "speed": 30,
+    "ability_bonuses": [
+      {
+        "ability_score": {
+          "index": "str",
+          "name": "STR",
+          "url": "/api/ability-scores/str"
+        },
+        "bonus": 2
+      },
+      {
+        "ability_score": {
+          "index": "con",
+          "name": "CON",
+          "url": "/api/ability-scores/con"
+        },
+        "bonus": 1
+      }
+    ],
+    "ability_score_increase": "Your Strength score increases by 2, and your Constitution score increases by 1.",
+    "alignment": "Orcs are a fiercely passionate people. Most lean toward chaos, driven by instinct and tribal traditions, but individuals may follow any alignment.",
+    "age": "Orcs reach adulthood at age 15 and live up to 120 years. Their lives burn hot and fast, though those who survive into old age are revered as living legends.",
+    "size": "ORCS",
+    "size_description": "Orcs are tall and broad-shouldered, usually standing between 6 and 7 feet tall and weighing 220 to 280 pounds. Your size is Medium.",
+    "language_desc": "You can speak, read, and write Common and Orc. The Orc tongue is harsh and clipped, full of guttural sounds and used equally for barking orders and sacred chants.",
+    "languages": [
+      {
+        "name": "read"
+      },
+      {
+        "name": "write Common"
+      },
+      {
+        "name": "Orc. The Orc tongue is harsh"
+      },
+      {
+        "name": "clipped"
+      },
+      {
+        "name": "full of guttural sounds"
+      },
+      {
+        "name": "used equally for barking orders"
+      },
+      {
+        "name": "sacred chants"
+      }
+    ],
+    "traits": [
+      {
+        "name": "Primal Training"
+      }
+    ],
+    "race_traits": [
+      {
+        "name": "Primal Training",
+        "desc": "Choose two of the following skills: Animal Handling, Insight, Medicine, Nature, Perception, or Survival. You gain a +2 racial bonus on checks with those two skills.\nForgeborn\nA strange race, and one of limited number, hailing from a single city within the heart of the Shattered Peaks, the eastern mountain range of the Scarred Lands. The Forgehold is the only city claimed by them, and its history is muddled at best, once being a dwarven Hold that fell in ages past. How it fell is rumor, only whispered about in impolite conversations far out of earshot of all dwarves, as is the true nature of the Forgeborn and their connection to the dwarves themselves.\nThey are sentient constructs, born from the Soul Forge at the heart of the great city. Unlike other races they cannot procreate, age nor sleep, being truly as timeless as the material their bodies are crafted from. They cannot bleed either, instead if wounded they seem to release small sparks of fire, larger wounds releasing more dangerous gouts.\nBorn from the Forge\nAll Forgeborn was created for war it seems, fashioned as some ancient army that now lives with their city without a purpose. Their army is known as The Legion, moving together in synchronicity no living organism could match, many of them wielding spears and shields. However, rare Forgeborn have been seen with modifications to their bodies; hidden compartments, limbs with retractable weapons, and some even bear the eldritch runes of giants.\nAlthough seemingly crafted only for war, in recent years other Forgeborn have started emerging form the Forgehold, travelers and merchants. These, unlike their Legion kin, leave the boundaries of their kingdom and travel freely amongst the other lands.\nBuilt, not Born\nForgeborn was beings of metal and stone, having no wood in their composition, standing over 6‘ and weighing over 300 lbs. on average. They have only two large toes on the front of each foot, with a third protruding off the heel, giving them a remarkable stable footing.\nThe art of creating Forgeborn is known only to the Golden King, having been lost with the fall of the Hold he now occupies. The Golden King crafts their bodies along with his artificers and imbues a tiny amount of the Eternal Fire within the body, giving them life as it spreads throughout their forms. How he wields the Fire, and what the flames true nature is, is still unknown to outside scholars.\nAs of now, no Forgeborn seems to age, their bodies seemingly truly eternal in that regard. They can die however, if too much of the flame leaks from their form, they will become inert, and if not stopped they perish like all races. A forgeborn may graft pieces of fallen allies to their own body, commonly doing so with the rune that each possesses on their breast, bearing their names.\nThey do not have parents, referring to the Golden King and Soul Forge as their creators instead. Likewise, they do not understand a soul nor its concept. When a Forgeborn dies, the flame within it is sought out by others of their kind to return to the Soul Forge, to be crafted once more into physical form, a process known as “Reforged” amongst their kind. If one’s flame is not returned to the Forge, it is unknown what truly occurs to it.\nEach Forgeborn also bears a single rune on their chest, which is their true name, but they take their common names (the one others refers to them as) from items of importance to them. A bard might take the name of an instrument, while a wizard of some arcane relic. Their true names are only used in the most formal circumstances, or times of importance. A Forgeborn removing their rune is a sign of them turning away from their lord, and the Eternal Flame, forever becoming an outsider to their people.\nSeeking a Purpose\nAlthough within the Forgehold Forgeborn are like servants and soldiers to the Golden King, many whom leave the boundaries of the city find themselves suddenly wondering about the world around them, its meaning and how they fit into it. These is the cause of most adventurers of this race, although some still under their lords influence simply seek out new armors and weapons to bring back to their Legion, as well as new Rune magic and Artificer secrets they can assimilate. All Forgeborn are fascinated by Golems, finding them like kin, although they pity them for not having real life like their own."
+      }
+    ],
+    "source": "Atherius"
+  },
+  {
+    "index": "forgeborn",
+    "name": "Forgeborn",
+    "url": "/api/races/forgeborn",
+    "speed": 30,
+    "ability_bonuses": [
+      {
+        "ability_score": {
+          "index": "con",
+          "name": "CON",
+          "url": "/api/ability-scores/con"
+        },
+        "bonus": 2
+      },
+      {
+        "ability_score": {
+          "index": "str",
+          "name": "STR",
+          "url": "/api/ability-scores/str"
+        },
+        "bonus": 1
+      }
+    ],
+    "ability_score_increase": "Your Constitution score increases by 2, and your Strength score increases by 1.",
+    "alignment": "Forgeborn are typically lawful, following the commands of the Golden King and the Soul Forge. However, those who leave the city may adopt any alignment as they search for purpose or freedom.",
+    "age": "Forgeborn do not age. They are created as ageless constructs and do not require sleep, food, or drink. They can only die when their Eternal Flame is extinguished, causing them to become inert. If not returned to the Soul Forge, their fate is unknown.",
+    "size": "FORGEBORN",
+    "size_description": "Forgeborn are large and imposing, standing over 6 feet tall and weighing more than 300 lbs. Your size is Medium.",
+    "language_desc": "You can speak, read, and write Common and Forgeborn (a language of arcane runes and glyphs used to communicate among your kind).",
+    "languages": [
+      {
+        "name": "read"
+      },
+      {
+        "name": "write Common"
+      },
+      {
+        "name": "Forgeborn (a language of arcane runes"
+      },
+      {
+        "name": "glyphs used to communicate among your kind)"
+      }
+    ],
+    "traits": [
+      {
+        "name": "Your forgeborn character has a number of traits in common with all forgeborn"
+      },
+      {
+        "name": "You are immune to being poisoned and have resistance to poison damage"
+      },
+      {
+        "name": "Your metal body makes you susceptible to spells that affect metal"
+      }
+    ],
+    "race_traits": [
+      {
+        "name": "Your forgeborn character has a number of traits in common with all forgeborn",
+        "desc": "Living Construct (Ex). You are living metal and stone granted life by primordial fire, granting you several remarkable abilities:"
+      },
+      {
+        "name": "You are immune to being poisoned and have resistance to poison damage",
+        "desc": "You are also likewise immune to disease.\nYou do not eat, drink, or breath, and cannot be magically put to sleep."
+      },
+      {
+        "name": "Your metal body makes you susceptible to spells that affect metal",
+        "desc": "Example, heat metal can be cast directly onto you.\nYou are immune to exhaustion and cannot be put to sleep, as you do not sleep. Additionally, if you take damage, small sparks of fire can be seen leaking from your body as you burn through your internal Eternal Flame.\nReforged (Ex): When you die, if your Eternal Flame is not extinguished entirely, it can be retrieved and brought back to the Soul Forge to be reincarnated as a new Forgeborn. As part of this process, you are fully restored to life after being returned to the Forge, with no memory of your past experiences.\nArmored Bodies (Ex). You do not wear armor like other species, instead incorporating it into your mechanical body. Unlike most races, it takes you 1 hour to don a set of armor, as you add it to your mechanical body. Armor provides you with all the benefits of wearing it, and armor donned cannot be forcibly removed from you.\nYou may don magical armor, gaining all the benefits as normal this way. Likewise, spells and effects that would affect armor affect your armored bodies as normal.\nTool Proficiency: You gain proficiency with one set of artisan's tools of your choice (tinker’s tools, smith’s tools, or mason’s tools).\nSharak’ka\nTo many surface-dwellers, the oceans are unknowable depths, best avoided or exploited. But beneath those crushing waves and starlit shallows dwell the Sharak'ka—a people of jaws and honor, born from blood, tide, and song. Shark-bodied and steel-souled, the Sharak'ka are a people shaped by the weight of the sea and the hunger of legacy.\nThe Blood-Bound Deep\nThe Sharak'ka claim their ancestry from the first predator—A’rrgalor, the Hunger-Who-Waits, a divine beast who gnawed the roots of the world and was slain only when the ocean itself turned against him. From A’rrgalor’s teeth came the Sharak'ka, not to inherit his gluttony, but to restrain it. In their culture, hunger is sacred—not just the physical need, but all desire. To want is to live. To master that want is to become more than a beast.\nThey call themselves “The Blood-Bound” not because they love violence, but because blood is their most ancient vow—spilled in battle, sealed in kinship, shed to mark triumph. Even the sea itself responds to blood, they say, and to speak falsehood beneath the waves is to choke on salt.\nToday, many Sharak'ka dwell in Lemuria, a mist-wreathed kingdom of black coral towers and sunken avenues. A city-state hidden in the Kraken’s gale, Lemuria is ruled by a holy cult devoted to A’rrgalor. They do not shun his hunger—they revere it. In blood rituals and trance-frenzies, they seek communion with the Hunger-Who-Waits, embracing the predator within as a sacred truth. The cult claims it alone can awaken the great god dreaming beneath the abyss.\nStrength and the Tides\nTo the Sharak'ka, strength is more than physical might. It is endurance. It is clarity. It is the ability to sense the currents beneath what is spoken. In combat, they are ferocious, often wielding bone-crafted weaponry and fighting with precision and fury in equal measures. On land, their presence is felt before it is seen: broad, still, and slow-moving—until suddenly, explosively fast.\nIn their great reef-citadels or aboard nomadic tide-cruisers, Sharak'ka society is ruled by Clutch-Mothers and Blood-Speakers—elders who speak truths that have cut their way down generations. They believe in testing their young early, casting them into survival trials known as the Bloodrising, where they must earn their mark and bind their purpose.\nTruth in Teeth\nAmong the Sharak'ka, lies are worse than cowardice. A falsehood is like spoiled meat—it poisons all it touches. They speak directly, even brutally, and consider euphemism a sign of weakness. However, they are not without subtlety; the Sharak'ka honor wordplay and clever phrasing, so long as the heart of a truth remains clear.\nThey are not cruel by default, although as Lemuria is the source of many traveling the Northern Reaches, outsiders may see them as such. They simply do not soften the world. Death, loss, love, hunger—these are real, ever-present forces. They do not hide from them. They face them head-on and expect others to do the same.\nTo see a Sharak'ka warrior stalking the battlefield is to witness the ocean’s wrath in flesh. But to speak with one is to glimpse a mind as deep and ancient as the abyss itself."
+      }
+    ],
+    "source": "Atherius"
+  },
+  {
+    "index": "sharak-ka",
+    "name": "Sharak'ka",
+    "url": "/api/races/sharak-ka",
+    "speed": 30,
+    "ability_bonuses": [
+      {
+        "ability_score": {
+          "index": "str",
+          "name": "STR",
+          "url": "/api/ability-scores/str"
+        },
+        "bonus": 2
+      }
+    ],
+    "ability_bonus_options": {
+      "choose": 1,
+      "from": [
+        {"name": "WIS", "bonus": 1},
+        {"name": "CON", "bonus": 1}
+      ]
+    },
+    "ability_score_increase": "Your Strength score increases by 2. Choose either Wisdom or Constitution to increase by 1.",
+    "alignment": "Sharak'ka tend toward lawful alignments, driven by deep codes of honor, blood rite, and spiritual hunger. Those raised outside Lemuria may lean neutral or chaotic, drawn by the call of personal growth.",
+    "age": "Sharak'ka mature at around 14 years of age and can live up to 90, though most live fast and fall early due to their warrior culture.",
+    "size": "SHARAK'KA",
+    "size_description": "Sharak'ka stand between 6 and 7 feet tall and are powerfully built. Your size is Medium.",
+    "languages": [],
+    "traits": [
+      {
+        "name": "Blood Frenzy"
+      },
+      {
+        "name": "Gnashing Maw"
+      },
+      {
+        "name": "Amphibious"
+      }
+    ],
+    "race_traits": [
+      {
+        "name": "Blood Frenzy",
+        "desc": "When a creature within 5 feet of you is bloodied (at or below half its maximum hit points), you gain a +1 bonus to melee damage rolls against it.\nShark’s Senses. You have a +2 bonus on Wisdom (Perception) checks that rely on smell underwater, and you can sense the presence of creatures bleeding within 30 feet of you while underwater. This lets you know they are in the vicinity and what direction but does not immediately reveal their location if hidden."
+      },
+      {
+        "name": "Gnashing Maw",
+        "desc": "You can make an unarmed bite attack that deals 1d6 piercing damage."
+      },
+      {
+        "name": "Amphibious",
+        "desc": "You can breathe both air and water.Languages. You can speak, read, and write Common and Deepcant (a guttural, ancient aquatic dialect of Lemuria).\nTiefling\nTieflings are the descents of devils and humans, although not directly. Sometime in your families past, a human member made a pact with a devil and breed with them, creating a half-demon offspring from which your lineage arose. In most places of the world you are viewed with suspicion, for you are feared to be in the thrall of your devil ancestors power, a threat that can really occur in some cases.\nHowever, you are tolerated in most areas, although the country of Solmaria does not allow your kind within its border, although the Veil will not keep you from entering. Elves view you as an oddity, but do not pass judgement unnecessarily, while Dwarves and Gnomes distrust you as they do any outsider. Orcs see you as above a normal human, seeing your family respectfully for seeking a means to acquiring power.\nOnly a single land could be called a Tiefling country, although they are also common in Valerune, and that would be Rhun. Desolate and harsh, it is a desert land much like the infernal landscape itself. Tieflings of Rhun often tattoo themselves in Infernal glyphs to show their lineage, but some wear glamours to hide it. However, Bloodstones—small red stones implanted in the forehead—are a cultural practice in Rhun and help focus infernal power.\nInfernal Features\nAlthough largely human to behold, your kind has a distinct infernal heritage that manifest in a number of ways. All Tieflings have one of the following features, although many possess several; horns, skin of a devilish hue depending on your ancient ancestor, tails, cloven feet, the smell of brimstone, teeth like a canine, and even strange eyes of solid color. Their hair is oddly smooth, never curling, and ranges between red, blue, purple, or black.\nInfernal Features\nNormally living in small communities within the outskirts of other human cities or towns, there does exist a small land of Tieflings to the east, just below the Sea of Clouds in a strange area of the world known as the Free Lands. The city of Rhun is ruled by a Tiefling, but has earned itself a notorious reputation thanks to the allowance of an open thieves guild within its borders, as well as the Onyx Tower, a mage tower dedicated to magic concerning infernal and abyssal study.\nBloodline Feud\nUnsurprisingly Tieflings and those of celestial blood or allegiance have a natural distrust for each other, their lineages naturally finding the other to be distrustful or feared. Although this has not resulted into much bloodshed over the years, with Solmaria growing in power the Tieflings of Mu have grown fearful of a crusade against their kind."
+      }
+    ],
+    "source": "Atherius"
+  },
+  {
+    "index": "tiefling",
+    "name": "Tiefling",
+    "url": "/api/races/tiefling",
+    "speed": 30,
+    "ability_bonuses": [
+      {
+        "ability_score": {
+          "index": "cha",
+          "name": "CHA",
+          "url": "/api/ability-scores/cha"
+        },
+        "bonus": 2
+      }
+    ],
+    "ability_bonus_options": {
+      "choose": 1,
+      "from": [
+        {"name": "STR", "bonus": 1},
+        {"name": "DEX", "bonus": 1},
+        {"name": "CON", "bonus": 1},
+        {"name": "INT", "bonus": 1},
+        {"name": "WIS", "bonus": 1}
+      ]
+    },
+    "ability_score_increase": "Your Charisma score increases by 2, and another ability score of your choice increases by 1.",
+    "age": "Tieflings mature at the same rate as humans but live a few years longer, although some are known to live great lives far longer than any human.",
+    "size": "TIEFLINGS",
+    "size_description": "Tieflings are about the same size and build as humans. Your size is Medium.",
+    "languages": [],
+    "traits": [
+      {
+        "name": "Your Tiefling character has a number of traits in common with all Tiefling"
+      },
+      {
+        "name": "Darkvision"
+      },
+      {
+        "name": "Hellish Resistance"
+      },
+      {
+        "name": "Infernal Legacy"
+      },
+      {
+        "name": "Yet not all half-orcs are outcasts"
+      }
+    ],
+    "race_traits": [
+      {
+        "name": "Your Tiefling character has a number of traits in common with all Tiefling",
+        "desc": ""
+      },
+      {
+        "name": "Darkvision",
+        "desc": "Thanks to your infernal heritage, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can’t discern color in darkness, only shades of gray."
+      },
+      {
+        "name": "Hellish Resistance",
+        "desc": "You have resistance to fire damage."
+      },
+      {
+        "name": "Infernal Legacy",
+        "desc": "Your infernal blood manifest in several ways, choose 1 of the options below:\nPitborn Fury: You bear the rage of your bloodline in battle. When you are below half your maximum hit points, you gain a +1 bonus to attack and damage rolls with melee weapons. This bonus lasts until you are healed above half your hit points.\nBalor’s Gaze: Your eyes glow with an infernal light, and you can see lies like flames. You may use Insight (Wisdom) to attempt to detect lies even when there are no outward signs. Once per day, you can cast detect thoughts without material components. The spell DC equals 8 + your Charisma modifier + ½ Character level.\nScorchskin: Your skin always feels warm, and sometimes smokes when you're angry. Wa creature within 5 feet of you hits you with a melee attack, they take fire damage equal to your Charisma modifier (minimum 1). This can happen once per round.\nFiendish Charm: You exude infernal charisma. You can cast Charm Person once per day. Additionally, when you successfully use Deception or Persuasion, the target suffers a –2 penalty on Insight checks to see through your intent.\nDiabolic Endurance: You are unnaturally tough, as though forged in the Nine Hells. You gain +1 hit point per level. This stacks with your class hit die as normal. In addition, once per day, you may reroll a failed Constitution save.\nCloven Legacy: You bear prominent physical features of your infernal ancestry—horns, hooves, tail. You count as one size larger when determining your carrying capacity and push/pull/lift limits, and you may use your horns to make an unarmed melee attack that deals 1d6 bludgeoning damage. You are always considered armed.\nHalf-Orc\nThough born of two peoples, half-orcs rarely feel fully accepted by either. Their orc heritage grants them a fierce will to survive and a hardened body tempered by battle, while their human side often brings a desire for something more—more peace, more purpose, or more legacy. Whether they grow up among the tribal orcs of the Scarred Lands or within human settlements across the Reaches or the Free Cities, half-orcs walk a difficult path shaped by strength, stigma, and soul-searching.\nIn orc society, half-orcs are not shunned, but neither are they fully embraced. The warlike orcs respect strength above all else, and a half-orc who can hold their own is given space and even praise, but their blood is always a reminder of a union forged not of love, but of conquest, diplomacy, or necessity. Among humans, half-orcs often face prejudice, whispered fears, or misguided assumptions of violence. Many become mercenaries, bodyguards, or bounty hunters—not because they must, but because it is a role society is comfortable assigning them."
+      },
+      {
+        "name": "Yet not all half-orcs are outcasts",
+        "desc": "Some rise to lead, commanding respect through presence and capability. In the highlands of Barad-Dhul, there are half-orc wardens who protect border towns from beasts and raiders alike. Others find a home among adventurers or in fringe cultures like the Forgeborn caravans, where martial strength is valued more than birthright. What unites most half-orcs is an inner fire—whether smoldering or blazing—and a determination to forge their own destiny, no matter where they started."
+      }
+    ],
+    "source": "Atherius"
+  },
+  {
+    "index": "half-orc",
+    "name": "Half-Orc",
+    "url": "/api/races/half-orc",
+    "speed": 30,
+    "ability_bonuses": [
+      {
+        "ability_score": {
+          "index": "str",
+          "name": "STR",
+          "url": "/api/ability-scores/str"
+        },
+        "bonus": 2
+      },
+      {
+        "ability_score": {
+          "index": "con",
+          "name": "CON",
+          "url": "/api/ability-scores/con"
+        },
+        "bonus": 1
+      }
+    ],
+    "ability_score_increase": "Your Strength score increases by 2, and your Constitution score increases by 1.",
+    "age": "Half-orcs mature faster than humans, reaching adulthood at 14, but rarely live beyond 75.",
+    "size": "HALF-ORCS",
+    "size_description": "Half-orcs are tall and powerfully built, typically between 5 and 7 feet tall. Your size is Medium.",
+    "language_desc": "You can speak, read, and write Common and Orc. Orc is a harsh language spoken with growls and deep resonance, often written in Dwarvish script.",
+    "languages": [
+      {
+        "name": "read"
+      },
+      {
+        "name": "write Common"
+      },
+      {
+        "name": "Orc. Orc is a harsh language spoken with growls"
+      },
+      {
+        "name": "deep resonance"
+      },
+      {
+        "name": "often written in Dwarvish script"
+      }
+    ],
+    "traits": [
+      {
+        "name": "Darkvision"
+      },
+      {
+        "name": "Relentless Endurance"
+      },
+      {
+        "name": "Savage Attacks"
+      },
+      {
+        "name": "Menacing Presence"
+      },
+      {
+        "name": "Blood of Two Worlds"
+      },
+      {
+        "name": "The elven realms rarely welcome them with open arms"
+      }
+    ],
+    "race_traits": [
+      {
+        "name": "Darkvision",
+        "desc": "Thanks to your orc blood, you can see in dim light within 60 feet as if it were bright light, and in darkness as if it were dim light. You can’t discern color in darkness, only shades of gray."
+      },
+      {
+        "name": "Relentless Endurance",
+        "desc": "When you are reduced to 0 hit points but not killed outright, you may drop to 1 hit point instead. You can use this ability once per day."
+      },
+      {
+        "name": "Savage Attacks",
+        "desc": "When you score a critical hit with a melee weapon, you deal an additional die of weapon damage. This extra die is of the same type as the weapon’s normal damage."
+      },
+      {
+        "name": "Menacing Presence",
+        "desc": "You gain a +2 racial bonus to Intimidation checks."
+      },
+      {
+        "name": "Blood of Two Worlds",
+        "desc": "You gain one bonus skill of your choice from this list: Survival, Athletics, Insight, or Tactics. This reflects the versatility born of navigating two cultures.\nHalf-Elf\nNeither wholly elven nor truly human, half-elves often feel the pull of two worlds without ever fully belonging to either. Elves may see them as fleeting and coarse, too hot-blooded and impatient to be kin, while humans may envy their beauty and grace—or distrust their fey-blooded nature. This straddling of cultures can leave many half-elves feeling isolated, yet it also gifts them with a rare adaptability and independence. They learn early to navigate shifting expectations and to forge their own identity from the fragments offered by both sides.\nSome half-elves thrive as diplomats, spies, or artists, slipping between courts and cultures with the ease of those born to duality. Others take to the road, living as adventurers, traders, or scholars, drawn by wanderlust and the promise of something more than the roles they’ve been handed. In the Free Cities and in the arcane academies of Far Venthir, half-elves are sometimes praised for their talent and versatility—though behind that praise is often an undercurrent of suspicion, admiration, or both. A few form hidden enclaves where half-elves live among their own kind, sharing stories of lineage and longing."
+      },
+      {
+        "name": "The elven realms rarely welcome them with open arms",
+        "desc": "Even the more open-minded woodland elves of the Duskwood treat half-elves as curious guests, not kin. Among humans, half-elves are often seen as touched by magic or fate, and in some rural places are even called moonborn or changelings. Regardless of how they are viewed, most half-elves develop a deep sense of self-reliance—and in that, many find strength. With elven grace, human drive, and a life that spans centuries, a half-elf can become something wholly unique: a living bridge between past and future."
+      }
+    ],
+    "source": "Atherius"
+  },
+  {
+    "index": "half-elf",
+    "name": "Half-Elf",
+    "url": "/api/races/half-elf",
+    "speed": 30,
+    "ability_bonuses": [
+      {
+        "ability_score": {
+          "index": "cha",
+          "name": "CHA",
+          "url": "/api/ability-scores/cha"
+        },
+        "bonus": 2
+      }
+    ],
+    "ability_bonus_options": {
+      "choose": 2,
+      "from": [
+        {"name": "STR", "bonus": 1},
+        {"name": "DEX", "bonus": 1},
+        {"name": "CON", "bonus": 1},
+        {"name": "INT", "bonus": 1},
+        {"name": "WIS", "bonus": 1}
+      ]
+    },
+    "ability_score_increase": "Your Charisma score increases by 2, and two other ability scores of your choice increase by 1.",
+    "age": "Half-elves mature at the same rate as humans (around 20 years) but live much longer, often reaching 180 years or more.",
+    "size": "HALF-ELVES",
+    "size_description": "Half-elves are typically between 5 and 6 feet tall. Your size is Medium.",
+    "language_desc": "You can speak, read, and write Common and Elvish",
+    "languages": [
+      {
+        "name": "read"
+      },
+      {
+        "name": "write Common"
+      },
+      {
+        "name": "Elvish"
+      }
+    ],
+    "traits": [
+      {
+        "name": "Darkvision"
+      },
+      {
+        "name": "Fey Ancestry"
+      },
+      {
+        "name": "Skill Versatility"
+      },
+      {
+        "name": "Dual Heritage"
+      }
+    ],
+    "race_traits": [
+      {
+        "name": "Darkvision",
+        "desc": "Thanks to your elven blood, you can see in dim light within 60 feet as if it were bright light, and in darkness as if it were dim light. You can’t discern color in darkness, only shades of gray."
+      },
+      {
+        "name": "Fey Ancestry",
+        "desc": "You have a +2 racial bonus to saving throws against being charmed, and magic can’t put you to sleep."
+      },
+      {
+        "name": "Skill Versatility",
+        "desc": "You gain a +2 racial bonus to two skills of your choice."
+      },
+      {
+        "name": "Dual Heritage",
+        "desc": "Choose one of the following:\nElven Reflexes: You gain a +1 bonus to Dexterity saving throws.\nHuman Ingenuity: You gain a bonus feat at 1st level."
+      }
+    ],
+    "source": "Atherius"
+  }
 ]

@@ -1,0 +1,26 @@
+Aasimar
+
+Speed: 30
+Size: Medium
+Darkvision: 60
+
+Ability Bonuses:
+* CHA +2
+* +1 to STR or WIS
+
+Traits:
+* Darkvision: You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light.
+* Celestial Resistance: You have resistance to necrotic damage and radiant damage.
+* Healing Hands: As an action, you can touch a creature and cause it to regain a number of hit points equal to your level. Once you use this trait, you can't use it again until you finish a long rest.
+* Light Bearer: You know the Light cantrip. Charisma is your spellcasting ability for it.
+
+Resistances:
+* Necrotic damage
+* Radiant damage
+
+Languages: Common, Celestial
+
+Subraces:
+* Protector Aasimar: WIS +1, Radiant Soul (wings, radiant damage)
+* Scourge Aasimar: CON +1, Radiant Consumption (damaging aura)
+* Fallen Aasimar: STR +1, Necrotic Shroud (frightening presence)

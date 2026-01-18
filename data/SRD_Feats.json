@@ -1,22 +1,901 @@
 [
   {
-    "index": "grappler",
+    "name": "Alert",
+    "prerequisites": [],
+    "description": "Always on the lookout for danger, you gain the following benefits: You can't be surprised while you are conscious. You gain a +5 bonus to initiative. Other creatures don't gain advantage on attack rolls against you as a result of being unseen by you.",
+    "effects": {
+      "initiative_bonus": 5,
+      "immune_surprise": true,
+      "no_unseen_advantage": true
+    }
+  },
+  {
+    "name": "Athlete",
+    "prerequisites": [],
+    "description": "You have undergone extensive physical training. Increase your Strength or Dexterity score by 1, to a maximum of 20. When you are prone, standing up uses only 5 feet of your movement. Climbing doesn't cost you extra movement. You can make a running long jump or a running high jump after moving only 5 feet on foot.",
+    "ability_increase": {"choice": ["STR", "DEX"], "amount": 1},
+    "effects": {
+      "quick_stand": true,
+      "climbing_no_penalty": true,
+      "short_run_jump": true
+    }
+  },
+  {
+    "name": "Actor",
+    "prerequisites": [],
+    "description": "Skilled at mimicry and dramatics, you gain the following benefits: Increase your Charisma score by 1, to a maximum of 20. You have advantage on Deception and Performance checks when trying to pass yourself off as a different person. You can mimic the speech of another person or the sounds made by other creatures.",
+    "ability_increase": {"CHA": 1},
+    "effects": {
+      "mimicry": true,
+      "skill_bonuses": {"Deception": 2, "Performance": 2}
+    }
+  },
+  {
+    "name": "Charger",
+    "prerequisites": [],
+    "description": "When you use your action to Dash, you can use a bonus action to make one melee weapon attack or to shove a creature. If you move at least 10 feet in a straight line immediately before taking this bonus action, you either gain a +5 bonus to the attack's damage roll or push the target up to 10 feet away from you.",
+    "effects": {
+      "charge_attack": true,
+      "charge_damage_bonus": 5,
+      "charge_push": 10
+    }
+  },
+  {
+    "name": "Crossbow Expert",
+    "prerequisites": [],
+    "description": "Thanks to extensive practice with the crossbow, you gain the following benefits: You ignore the loading quality of crossbows with which you are proficient. Being within 5 feet of a hostile creature doesn't impose disadvantage on your ranged attack rolls. When you use the Attack action and attack with a one-handed weapon, you can use a bonus action to attack with a hand crossbow you are holding.",
+    "effects": {
+      "ignore_loading": ["crossbow"],
+      "no_close_range_penalty": true,
+      "bonus_hand_crossbow": true
+    }
+  },
+  {
+    "name": "Defensive Duelist",
+    "prerequisites": [{"DEX": 13}],
+    "description": "When you are wielding a finesse weapon with which you are proficient and another creature hits you with a melee attack, you can use your reaction to add your proficiency bonus to your AC for that attack, potentially causing the attack to miss you.",
+    "effects": {
+      "reaction_ac_bonus": "bab"
+    }
+  },
+  {
+    "name": "Dual Wielder",
+    "prerequisites": [],
+    "description": "You master fighting with two weapons, gaining the following benefits: You gain a +1 bonus to AC while you are wielding a separate melee weapon in each hand. You can use two-weapon fighting even when the one-handed melee weapons you are wielding aren't light. You can draw or stow two one-handed weapons when you would normally be able to draw or stow only one.",
+    "effects": {
+      "ac_bonus": 1,
+      "dual_wield_any_one_handed": true,
+      "quick_draw_two": true
+    }
+  },
+  {
+    "name": "Dungeon Delver",
+    "prerequisites": [],
+    "description": "Alert to the hidden traps and secret doors found in many dungeons, you gain the following benefits: You have advantage on Wisdom (Perception) and Intelligence (Investigation) checks made to detect the presence of secret doors. You have advantage on saving throws made to avoid or resist traps. You have resistance to the damage dealt by traps. Traveling at a fast pace doesn't impose the normal -5 penalty to your passive Wisdom (Perception) score.",
+    "effects": {
+      "trap_save_bonus": 2,
+      "trap_damage_resistance": true,
+      "secret_door_bonus": 2,
+      "fast_travel_perception": true
+    }
+  },
+  {
+    "name": "Durable",
+    "prerequisites": [],
+    "description": "Hardy and resilient, you gain the following benefits: Increase your Constitution score by 1, to a maximum of 20. When you roll a Hit Die to regain hit points, the minimum number of hit points you regain from the roll equals twice your Constitution modifier (minimum of 2).",
+    "ability_increase": {"CON": 1},
+    "effects": {
+      "minimum_hit_die_healing": "2x_con_mod"
+    }
+  },
+  {
+    "name": "Elemental Adept",
+    "prerequisites": [{"spellcasting": true}],
+    "description": "When you gain this feat, choose one of the following damage types: acid, cold, fire, lightning, or thunder. Spells you cast ignore resistance to damage of the chosen type. In addition, when you roll damage for a spell you cast that deals damage of that type, you can treat any 1 on a damage die as a 2. You can select this feat multiple times, choosing a different damage type each time.",
+    "effects": {
+      "ignore_resistance": "chosen_element",
+      "minimum_damage_die": 2
+    },
+    "choices": {
+      "element": ["acid", "cold", "fire", "lightning", "thunder"]
+    }
+  },
+  {
     "name": "Grappler",
-    "prerequisites": [
-      {
-        "ability_score": {
-          "index": "str",
-          "name": "STR",
-          "url": "/api/2014/ability-scores/str"
-        },
-        "minimum_score": 13
-      }
-    ],
-    "desc": [
-      "You’ve developed the Skills necessary to hold your own in close--quarters Grappling. You gain the following benefits:",
-      "- You have advantage on Attack Rolls against a creature you are Grappling.",
-      "- You can use your action to try to pin a creature Grappled by you. To do so, make another grapple check. If you succeed, you and the creature are both Restrained until the grapple ends."
-    ],
-    "url": "/api/2014/feats/grappler"
+    "prerequisites": [{"STR": 13}],
+    "description": "You've developed the skills necessary to hold your own in close-quarters grappling. You gain the following benefits: You have advantage on attack rolls against a creature you are grappling. You can use your action to try to pin a creature grappled by you. To do so, make another grapple check. If you succeed, you and the creature are both restrained until the grapple ends.",
+    "effects": {
+      "grapple_attack_bonus": 2,
+      "pin_action": true
+    }
+  },
+  {
+    "name": "Great Weapon Master",
+    "prerequisites": [],
+    "description": "You've learned to put the weight of a weapon to your advantage, letting its momentum empower your strikes. You gain the following benefits: On your turn, when you score a critical hit with a melee weapon or reduce a creature to 0 hit points with one, you can make one melee weapon attack as a bonus action. Before you make a melee attack with a heavy weapon that you are proficient with, you can choose to take a -5 penalty to the attack roll. If the attack hits, you add +10 to the attack's damage.",
+    "effects": {
+      "cleave_bonus_attack": true,
+      "power_attack": {"attack_penalty": -5, "damage_bonus": 10}
+    }
+  },
+  {
+    "name": "Healer",
+    "prerequisites": [],
+    "description": "You are an able physician, allowing you to mend wounds quickly and get your allies back in the fight. You gain the following benefits: When you use a healer's kit to stabilize a dying creature, that creature also regains 1 hit point. As an action, you can spend one use of a healer's kit to tend to a creature and restore 1d6 + 4 hit points to it, plus additional hit points equal to the creature's maximum number of Hit Dice. The creature can't regain hit points from this feat again until it finishes a short or long rest.",
+    "effects": {
+      "stabilize_heals": 1,
+      "healer_kit_healing": "1d6+4+max_hd"
+    }
+  },
+  {
+    "name": "Heavily Armored",
+    "prerequisites": [{"armor_proficiency": "medium"}],
+    "description": "You have trained to master the use of heavy armor, gaining the following benefits: Increase your Strength score by 1, to a maximum of 20. You gain proficiency with heavy armor.",
+    "ability_increase": {"STR": 1},
+    "effects": {
+      "armor_proficiency": ["heavy"]
+    }
+  },
+  {
+    "name": "Heavy Armor Master",
+    "prerequisites": [{"armor_proficiency": "heavy"}],
+    "description": "You can use your armor to deflect strikes that would kill others. You gain the following benefits: Increase your Strength score by 1, to a maximum of 20. While you are wearing heavy armor, bludgeoning, piercing, and slashing damage that you take from nonmagical attacks is reduced by 3.",
+    "ability_increase": {"STR": 1},
+    "effects": {
+      "damage_reduction": {"types": ["bludgeoning", "piercing", "slashing"], "amount": 3, "nonmagical_only": true}
+    }
+  },
+  {
+    "name": "Inspiring Leader",
+    "prerequisites": [{"CHA": 13}],
+    "description": "You can spend 10 minutes inspiring your companions, shoring up their resolve to fight. When you do so, choose up to six friendly creatures (which can include yourself) within 30 feet of you who can see or hear you and who can understand you. Each creature can gain temporary hit points equal to your level + your Charisma modifier. A creature can't gain temporary hit points from this feat again until it has finished a short or long rest.",
+    "effects": {
+      "inspire_temp_hp": "level+cha_mod",
+      "inspire_targets": 6
+    }
+  },
+  {
+    "name": "Keen Mind",
+    "prerequisites": [],
+    "description": "You have a mind that can track time, direction, and detail with uncanny precision. You gain the following benefits: Increase your Intelligence score by 1, to a maximum of 20. You always know which way is north. You always know the number of hours left before the next sunrise or sunset. You can accurately recall anything you have seen or heard within the past month.",
+    "ability_increase": {"INT": 1},
+    "effects": {
+      "perfect_recall": "1_month",
+      "direction_sense": true,
+      "time_sense": true
+    }
+  },
+  {
+    "name": "Lightly Armored",
+    "prerequisites": [],
+    "description": "You have trained to master the use of light armor, gaining the following benefits: Increase your Strength or Dexterity score by 1, to a maximum of 20. You gain proficiency with light armor.",
+    "ability_increase": {"choice": ["STR", "DEX"], "amount": 1},
+    "effects": {
+      "armor_proficiency": ["light"]
+    }
+  },
+  {
+    "name": "Linguist",
+    "prerequisites": [],
+    "description": "You have studied languages and codes, gaining the following benefits: Increase your Intelligence score by 1, to a maximum of 20. You learn three languages of your choice. You can ably create written ciphers. Others can't decipher a code you create unless you teach them, they succeed on an Intelligence check (DC equal to your Intelligence score + your proficiency bonus), or they use magic to decipher it.",
+    "ability_increase": {"INT": 1},
+    "effects": {
+      "languages": 3,
+      "create_ciphers": true
+    }
+  },
+  {
+    "name": "Lucky",
+    "prerequisites": [],
+    "description": "You have inexplicable luck that seems to kick in at just the right moment. You have 3 luck points. Whenever you make an attack roll, an ability check, or a saving throw, you can spend one luck point to roll an additional d20. You can choose to spend one of your luck points after you roll the die, but before the outcome is determined. You choose which of the d20s is used for the attack roll, ability check, or saving throw. You regain your expended luck points when you finish a long rest.",
+    "effects": {
+      "luck_points": 3,
+      "luck_reroll": true
+    }
+  },
+  {
+    "name": "Mage Slayer",
+    "prerequisites": [],
+    "description": "You have practiced techniques useful in melee combat against spellcasters, gaining the following benefits: When a creature within 5 feet of you casts a spell, you can use your reaction to make a melee weapon attack against that creature. When you damage a creature that is concentrating on a spell, that creature has disadvantage on the saving throw it makes to maintain its concentration. You have advantage on saving throws against spells cast by creatures within 5 feet of you.",
+    "effects": {
+      "reaction_attack_on_cast": true,
+      "concentration_breaker": true,
+      "close_range_spell_save_bonus": 2
+    }
+  },
+  {
+    "name": "Magic Initiate",
+    "prerequisites": [],
+    "description": "Choose a class: bard, cleric, druid, sorcerer, warlock, or wizard. You learn two cantrips of your choice from that class's spell list. In addition, choose one 1st-level spell to learn from that same list. Using this feat, you can cast the spell once at its lowest level, and you must finish a long rest before you can cast it in this way again.",
+    "effects": {
+      "cantrips": 2,
+      "spell_1st_level": 1
+    },
+    "choices": {
+      "class": ["bard", "cleric", "druid", "sorcerer", "warlock", "wizard"]
+    }
+  },
+  {
+    "name": "Martial Adept",
+    "prerequisites": [],
+    "description": "You have martial training that allows you to perform special combat maneuvers. You gain the following benefits: You learn two maneuvers of your choice from among those available to the Battle Master archetype in the fighter class. If a maneuver you use requires your target to make a saving throw to resist the maneuver's effects, the saving throw DC equals 8 + your proficiency bonus + your Strength or Dexterity modifier (your choice). You gain one superiority die, which is a d6 (this die is added to any superiority dice you have from another source). This die is used to fuel your maneuvers. A superiority die is expended when you use it. You regain your expended superiority dice when you finish a short or long rest.",
+    "effects": {
+      "maneuvers": 2,
+      "superiority_dice": 1,
+      "superiority_die_size": 6
+    }
+  },
+  {
+    "name": "Medium Armor Master",
+    "prerequisites": [{"armor_proficiency": "medium"}],
+    "description": "You have practiced moving in medium armor to gain the following benefits: Wearing medium armor doesn't impose disadvantage on your Dexterity (Stealth) checks. When you wear medium armor, you can add 3, rather than 2, to your AC if you have a Dexterity of 16 or higher.",
+    "effects": {
+      "medium_armor_stealth": true,
+      "medium_armor_dex_cap": 3
+    }
+  },
+  {
+    "name": "Mobile",
+    "prerequisites": [],
+    "description": "You are exceptionally speedy and agile. You gain the following benefits: Your speed increases by 10 feet. When you use the Dash action, difficult terrain doesn't cost you extra movement on that turn. When you make a melee attack against a creature, you don't provoke opportunity attacks from that creature for the rest of the turn, whether you hit or not.",
+    "effects": {
+      "speed_bonus": 10,
+      "ignore_difficult_terrain_dash": true,
+      "no_opportunity_after_attack": true
+    }
+  },
+  {
+    "name": "Moderately Armored",
+    "prerequisites": [{"armor_proficiency": "light"}],
+    "description": "You have trained to master the use of medium armor and shields, gaining the following benefits: Increase your Strength or Dexterity score by 1, to a maximum of 20. You gain proficiency with medium armor and shields.",
+    "ability_increase": {"choice": ["STR", "DEX"], "amount": 1},
+    "effects": {
+      "armor_proficiency": ["medium"],
+      "shield_proficiency": true
+    }
+  },
+  {
+    "name": "Mounted Combatant",
+    "prerequisites": [],
+    "description": "You are a dangerous foe to face while mounted. While you are mounted and aren't incapacitated, you gain the following benefits: You have advantage on melee attack rolls against any unmounted creature that is smaller than your mount. You can force an attack targeted at your mount to target you instead. If your mount is subjected to an effect that allows it to make a Dexterity saving throw to take only half damage, it instead takes no damage if it succeeds on the saving throw, and only half damage if it fails.",
+    "effects": {
+      "mounted_attack_bonus": 2,
+      "mount_protection": true,
+      "mount_evasion": true
+    }
+  },
+  {
+    "name": "Observant",
+    "prerequisites": [],
+    "description": "Quick to notice details of your environment, you gain the following benefits: Increase your Intelligence or Wisdom score by 1, to a maximum of 20. If you can see a creature's mouth while it is speaking a language you understand, you can interpret what it's saying by reading its lips. You have a +5 bonus to your passive Wisdom (Perception) and passive Intelligence (Investigation) scores.",
+    "ability_increase": {"choice": ["INT", "WIS"], "amount": 1},
+    "effects": {
+      "lip_reading": true,
+      "passive_perception_bonus": 5,
+      "passive_investigation_bonus": 5
+    }
+  },
+  {
+    "name": "Polearm Master",
+    "prerequisites": [],
+    "description": "You can keep your enemies at bay with reach weapons. You gain the following benefits: When you take the Attack action and attack with only a glaive, halberd, quarterstaff, or spear, you can use a bonus action to make a melee attack with the opposite end of the weapon. This attack uses the same ability modifier as the primary attack. The weapon's damage die for this attack is a d4, and it deals bludgeoning damage. While you are wielding a glaive, halberd, pike, quarterstaff, or spear, other creatures provoke an opportunity attack from you when they enter your reach.",
+    "effects": {
+      "bonus_butt_attack": {"damage": "1d4", "type": "bludgeoning"},
+      "opportunity_on_enter": true
+    }
+  },
+  {
+    "name": "Resilient",
+    "prerequisites": [],
+    "description": "Choose one ability score. You gain the following benefits: Increase the chosen ability score by 1, to a maximum of 20. You gain proficiency in saving throws using the chosen ability.",
+    "ability_increase": {"choice": ["STR", "DEX", "CON", "INT", "WIS", "CHA"], "amount": 1},
+    "effects": {
+      "save_proficiency": "chosen"
+    },
+    "choices": {
+      "ability": ["STR", "DEX", "CON", "INT", "WIS", "CHA"]
+    }
+  },
+  {
+    "name": "Ritual Caster",
+    "prerequisites": [{"INT": 13}],
+    "description": "You have learned a number of spells that you can cast as rituals. These spells are written in a ritual book, which you must have in hand while casting one of them. When you choose this feat, you acquire a ritual book holding two 1st-level spells of your choice. Choose one of the following classes: bard, cleric, druid, sorcerer, warlock, or wizard. You must choose your spells from that class's spell list, and the spells you choose must have the ritual tag.",
+    "effects": {
+      "ritual_spells": 2,
+      "ritual_book": true
+    },
+    "choices": {
+      "class": ["bard", "cleric", "druid", "sorcerer", "warlock", "wizard"]
+    }
+  },
+  {
+    "name": "Savage Attacker",
+    "prerequisites": [],
+    "description": "Once per turn when you roll damage for a melee weapon attack, you can reroll the weapon's damage dice and use either total.",
+    "effects": {
+      "reroll_melee_damage": true
+    }
+  },
+  {
+    "name": "Sentinel",
+    "prerequisites": [],
+    "description": "You have mastered techniques to take advantage of every drop in any enemy's guard, gaining the following benefits: When you hit a creature with an opportunity attack, the creature's speed becomes 0 for the rest of the turn. Creatures provoke opportunity attacks from you even if they take the Disengage action before leaving your reach. When a creature within 5 feet of you makes an attack against a target other than you (and that target doesn't have this feat), you can use your reaction to make a melee weapon attack against the attacking creature.",
+    "effects": {
+      "opportunity_stops_movement": true,
+      "ignore_disengage": true,
+      "reaction_attack_on_ally_attack": true
+    }
+  },
+  {
+    "name": "Sharpshooter",
+    "prerequisites": [],
+    "description": "You have mastered ranged weapons and can make shots that others find impossible. You gain the following benefits: Attacking at long range doesn't impose disadvantage on your ranged weapon attack rolls. Your ranged weapon attacks ignore half cover and three-quarters cover. Before you make an attack with a ranged weapon with which you are proficient, you can choose to take a -5 penalty to the attack roll. If the attack hits, you add +10 to the attack's damage.",
+    "effects": {
+      "no_long_range_penalty": true,
+      "ignore_cover": true,
+      "power_shot": {"attack_penalty": -5, "damage_bonus": 10}
+    }
+  },
+  {
+    "name": "Shield Master",
+    "prerequisites": [],
+    "description": "You use shields not just for protection but also for offense. You gain the following benefits: If you take the Attack action on your turn, you can use a bonus action to try to shove a creature within 5 feet of you with your shield. If you aren't incapacitated, you can add your shield's AC bonus to any Dexterity saving throw you make against a spell or other harmful effect that targets only you. If you are subjected to an effect that allows you to make a Dexterity saving throw to take only half damage, you can use your reaction to take no damage if you succeed on the saving throw, interposing your shield between yourself and the source of the effect.",
+    "effects": {
+      "bonus_shield_shove": true,
+      "shield_dex_save_bonus": 2,
+      "shield_evasion": true
+    }
+  },
+  {
+    "name": "Skilled",
+    "prerequisites": [],
+    "description": "You gain proficiency in any combination of three skills or tools of your choice.",
+    "effects": {
+      "skill_proficiencies": 3
+    },
+    "choices": {
+      "skills_or_tools": 3
+    }
+  },
+  {
+    "name": "Skulker",
+    "prerequisites": [{"DEX": 13}],
+    "description": "You are expert at slinking through shadows. You gain the following benefits: You can try to hide when you are lightly obscured from the creature from which you are hiding. When you are hidden from a creature and miss it with a ranged weapon attack, making the attack doesn't reveal your position. Dim light doesn't impose disadvantage on your Wisdom (Perception) checks relying on sight.",
+    "effects": {
+      "hide_lightly_obscured": true,
+      "miss_doesnt_reveal": true,
+      "dim_light_perception": true
+    }
+  },
+  {
+    "name": "Spell Sniper",
+    "prerequisites": [{"spellcasting": true}],
+    "description": "You have learned techniques to enhance your attacks with certain kinds of spells, gaining the following benefits: When you cast a spell that requires you to make an attack roll, the spell's range is doubled. Your ranged spell attacks ignore half cover and three-quarters cover. You learn one cantrip that requires an attack roll. Choose the cantrip from the bard, cleric, druid, sorcerer, warlock, or wizard spell list. Your spellcasting ability for this cantrip depends on the spell list you chose from.",
+    "effects": {
+      "double_spell_attack_range": true,
+      "ignore_cover_spells": true,
+      "bonus_cantrip": 1
+    }
+  },
+  {
+    "name": "Tavern Brawler",
+    "prerequisites": [],
+    "description": "Accustomed to rough-and-tumble fighting using whatever weapons happen to be at hand, you gain the following benefits: Increase your Strength or Constitution score by 1, to a maximum of 20. You are proficient with improvised weapons. Your unarmed strike uses a d4 for damage. When you hit a creature with an unarmed strike or an improvised weapon on your turn, you can use a bonus action to attempt to grapple the target.",
+    "ability_increase": {"choice": ["STR", "CON"], "amount": 1},
+    "effects": {
+      "improvised_weapon_proficiency": true,
+      "unarmed_damage": "1d4",
+      "bonus_grapple_on_hit": true
+    }
+  },
+  {
+    "name": "Tough",
+    "prerequisites": [],
+    "description": "Your hit point maximum increases by an amount equal to twice your level when you gain this feat. Whenever you gain a level thereafter, your hit point maximum increases by an additional 2 hit points.",
+    "effects": {
+      "hp_bonus_per_level": 2,
+      "hp_bonus_retroactive": true
+    }
+  },
+  {
+    "name": "War Caster",
+    "prerequisites": [{"spellcasting": true}],
+    "description": "You have practiced casting spells in the midst of combat, learning techniques that grant you the following benefits: You have advantage on Constitution saving throws that you make to maintain your concentration on a spell when you take damage. You can perform the somatic components of spells even when you have weapons or a shield in one or both hands. When a hostile creature's movement provokes an opportunity attack from you, you can use your reaction to cast a spell at the creature, rather than making an opportunity attack. The spell must have a casting time of 1 action and must target only that creature.",
+    "effects": {
+      "concentration_save_bonus": 2,
+      "somatic_with_hands_full": true,
+      "spell_opportunity_attack": true
+    }
+  },
+  {
+    "name": "Weapon Master",
+    "prerequisites": [],
+    "description": "You have practiced extensively with a variety of weapons, gaining the following benefits: Increase your Strength or Dexterity score by 1, to a maximum of 20. You gain proficiency with four weapons of your choice. Each one must be a simple or a martial weapon.",
+    "ability_increase": {"choice": ["STR", "DEX"], "amount": 1},
+    "effects": {
+      "weapon_proficiencies": 4
+    }
+  },
+  {
+    "name": "Arcane Archer",
+    "prerequisites": [{"spellcasting": true}],
+    "description": "You have learned to infuse your ranged attacks with magic. You gain the following benefits: You learn two Arcane Shot options of your choice. Once per turn when you fire a magic arrow from a shortbow or longbow as part of the Attack action, you can apply one of your Arcane Shot options to that arrow. You have two uses of this ability, and you regain all expended uses when you finish a short or long rest.",
+    "effects": {
+      "arcane_shot_options": 2,
+      "arcane_shot_uses": 2
+    }
+  },
+  {
+    "name": "Blade Mastery",
+    "prerequisites": [],
+    "description": "You master the shortsword, longsword, scimitar, rapier, and greatsword. You gain the following benefits when using any of them: You gain a +1 bonus to attack rolls you make with the weapon. On your turn, you can use your reaction to assume a parrying stance, provided you have the weapon in hand. Doing so grants you a +1 bonus to your AC until the start of your next turn or until you're not holding the weapon. When you make an opportunity attack with the weapon, you have advantage on the attack roll.",
+    "effects": {
+      "attack_bonus": 1,
+      "parry_ac_bonus": 1,
+      "opportunity_attack_advantage": true
+    }
+  },
+  {
+    "name": "Bountiful Luck",
+    "prerequisites": [{"race": "halfling"}],
+    "description": "Your people have extraordinary luck, which you have learned to mystically lend to your companions when you see them falter. When an ally you can see within 30 feet of you rolls a 1 on the d20 for an attack roll, an ability check, or a saving throw, you can use your reaction to let the ally reroll the die. The ally must use the new roll.",
+    "effects": {
+      "ally_reroll_ones": true
+    }
+  },
+  {
+    "name": "Dragon Fear",
+    "prerequisites": [{"race": "dragonborn"}],
+    "description": "When angered, you radiate menace. You gain the following benefits: Increase your Strength, Constitution, or Charisma score by 1, to a maximum of 20. Instead of exhaling destructive energy, you can expend a use of your Breath Weapon trait to roar, forcing each creature of your choice within 30 feet of you to make a Wisdom saving throw (DC 8 + your proficiency bonus + your Charisma modifier). A target automatically succeeds on the save if it can't hear or see you. On a failed save, a target becomes frightened of you for 1 minute. The frightened target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success.",
+    "ability_increase": {"choice": ["STR", "CON", "CHA"], "amount": 1},
+    "effects": {
+      "dragon_fear_roar": true
+    }
+  },
+  {
+    "name": "Dragon Hide",
+    "prerequisites": [{"race": "dragonborn"}],
+    "description": "You manifest scales and claws reminiscent of your draconic ancestors. You gain the following benefits: Increase your Strength, Constitution, or Charisma score by 1, to a maximum of 20. Your scales harden. While you aren't wearing armor, you can calculate your AC as 13 + your Dexterity modifier. You can use a shield and still gain this benefit. You grow retractable claws from the tips of your fingers. Extending or retracting the claws requires no action. The claws are natural weapons, which you can use to make unarmed strikes. If you hit with them, you deal slashing damage equal to 1d4 + your Strength modifier, instead of the normal bludgeoning damage for an unarmed strike.",
+    "ability_increase": {"choice": ["STR", "CON", "CHA"], "amount": 1},
+    "effects": {
+      "natural_armor": 13,
+      "claw_damage": "1d4"
+    }
+  },
+  {
+    "name": "Drow High Magic",
+    "prerequisites": [{"race": "drow"}],
+    "description": "You learn more of the magic typical of dark elves. You learn the detect magic spell and can cast it at will, without expending a spell slot. You also learn levitate and dispel magic, each of which you can cast once without expending a spell slot. You regain the ability to cast those two spells in this way when you finish a long rest. Charisma is your spellcasting ability for all three spells.",
+    "effects": {
+      "spells_at_will": ["detect magic"],
+      "spells_once_per_rest": ["levitate", "dispel magic"]
+    }
+  },
+  {
+    "name": "Dwarven Fortitude",
+    "prerequisites": [{"race": "dwarf"}],
+    "description": "You have the blood of dwarf heroes flowing through your veins. You gain the following benefits: Increase your Constitution score by 1, to a maximum of 20. Whenever you take the Dodge action in combat, you can spend one Hit Die to heal yourself. Roll the die, add your Constitution modifier, and regain a number of hit points equal to the total (minimum of 1).",
+    "ability_increase": {"CON": 1},
+    "effects": {
+      "dodge_heal": true
+    }
+  },
+  {
+    "name": "Elven Accuracy",
+    "prerequisites": [{"race": "elf"}, {"race": "half-elf"}],
+    "description": "The accuracy of elves is legendary, especially that of elf archers and spellcasters. You have uncanny aim with attacks that rely on precision rather than brute force. You gain the following benefits: Increase your Dexterity, Intelligence, Wisdom, or Charisma score by 1, to a maximum of 20. Whenever you have advantage on an attack roll using Dexterity, Intelligence, Wisdom, or Charisma, you can reroll one of the dice once.",
+    "ability_increase": {"choice": ["DEX", "INT", "WIS", "CHA"], "amount": 1},
+    "effects": {
+      "elven_accuracy": true
+    }
+  },
+  {
+    "name": "Fade Away",
+    "prerequisites": [{"race": "gnome"}],
+    "description": "Your people are clever, with a knack for illusion magic. You have learned a magical trick for fading away when you suffer harm. You gain the following benefits: Increase your Dexterity or Intelligence score by 1, to a maximum of 20. Immediately after you take damage, you can use a reaction to magically become invisible until the end of your next turn or until you attack, deal damage, or force someone to make a saving throw. Once you use this ability, you can't do so again until you finish a short or long rest.",
+    "ability_increase": {"choice": ["DEX", "INT"], "amount": 1},
+    "effects": {
+      "fade_away": true
+    }
+  },
+  {
+    "name": "Fey Teleportation",
+    "prerequisites": [{"race": "elf"}],
+    "description": "Your study of high elven lore has unlocked fey power that few other elves possess, except your eladrin cousins. Drawing on your fey ancestry, you can momentarily stride through the Feywild to shorten your path from one place to another. You gain the following benefits: Increase your Intelligence or Charisma score by 1, to a maximum of 20. You learn to speak, read, and write Sylvan. You learn the misty step spell and can cast it once without expending a spell slot. You regain the ability to cast it in this way when you finish a short or long rest.",
+    "ability_increase": {"choice": ["INT", "CHA"], "amount": 1},
+    "effects": {
+      "languages": ["Sylvan"],
+      "spells_once_per_rest": ["misty step"]
+    }
+  },
+  {
+    "name": "Flames of Phlegethos",
+    "prerequisites": [{"race": "tiefling"}],
+    "description": "You learn to call on hellfire to serve your commands. You gain the following benefits: Increase your Intelligence or Charisma score by 1, to a maximum of 20. When you roll fire damage for a spell you cast, you can reroll any roll of 1 on the fire damage dice, but you must use the new roll, even if it is another 1. Whenever you cast a spell that deals fire damage, you can cause flames to wreathe you until the end of your next turn. The flames don't harm you or your possessions, and they shed bright light out to 30 feet and dim light for an additional 30 feet. While the flames are present, any creature within 5 feet of you that hits you with a melee attack takes 1d4 fire damage.",
+    "ability_increase": {"choice": ["INT", "CHA"], "amount": 1},
+    "effects": {
+      "fire_damage_reroll_ones": true,
+      "flame_shield": "1d4"
+    }
+  },
+  {
+    "name": "Infernal Constitution",
+    "prerequisites": [{"race": "tiefling"}],
+    "description": "Fiendish blood runs strong in you, unlocking a resilience akin to that possessed by some fiends. You gain the following benefits: Increase your Constitution score by 1, to a maximum of 20. You have resistance to cold damage and poison damage. You have advantage on saving throws against being poisoned.",
+    "ability_increase": {"CON": 1},
+    "effects": {
+      "damage_resistance": ["cold", "poison"],
+      "poison_save_bonus": 2
+    }
+  },
+  {
+    "name": "Orcish Fury",
+    "prerequisites": [{"race": "half-orc"}],
+    "description": "Your inner fury burns tirelessly. You gain the following benefits: Increase your Strength or Constitution score by 1, to a maximum of 20. When you hit with an attack using a simple or martial weapon, you can roll one of the weapon's damage dice an additional time and add it as extra damage of the weapon's damage type. Once you use this ability, you can't use it again until you finish a short or long rest. Immediately after you use your Relentless Endurance trait, you can use your reaction to make one weapon attack.",
+    "ability_increase": {"choice": ["STR", "CON"], "amount": 1},
+    "effects": {
+      "fury_damage": true,
+      "relentless_counterattack": true
+    }
+  },
+  {
+    "name": "Prodigy",
+    "prerequisites": [{"race": "human"}, {"race": "half-elf"}, {"race": "half-orc"}],
+    "description": "You have a knack for learning new things. You gain the following benefits: You gain one skill proficiency of your choice, one tool proficiency of your choice, and fluency in one language of your choice. Choose one skill in which you have proficiency. You gain expertise with that skill, which means your proficiency bonus is doubled for any ability check you make with it.",
+    "effects": {
+      "skill_proficiencies": 1,
+      "tool_proficiencies": 1,
+      "languages": 1,
+      "expertise": 1
+    }
+  },
+  {
+    "name": "Second Chance",
+    "prerequisites": [{"race": "halfling"}],
+    "description": "Fortune favors you when someone tries to strike you. You gain the following benefits: Increase your Dexterity, Constitution, or Charisma score by 1, to a maximum of 20. When a creature you can see hits you with an attack roll, you can use your reaction to force that creature to reroll. Once you use this ability, you can't use it again until you roll initiative at the start of combat or until you finish a short or long rest.",
+    "ability_increase": {"choice": ["DEX", "CON", "CHA"], "amount": 1},
+    "effects": {
+      "force_attack_reroll": true
+    }
+  },
+  {
+    "name": "Squat Nimbleness",
+    "prerequisites": [{"race": "dwarf"}, {"race": "gnome"}, {"race": "halfling"}],
+    "description": "You are uncommonly nimble for your race. You gain the following benefits: Increase your Strength or Dexterity score by 1, to a maximum of 20. Increase your walking speed by 5 feet. You gain proficiency in the Acrobatics or Athletics skill (your choice). You have advantage on any Strength (Athletics) or Dexterity (Acrobatics) check you make to escape from being grappled.",
+    "ability_increase": {"choice": ["STR", "DEX"], "amount": 1},
+    "effects": {
+      "speed_bonus": 5,
+      "skill_proficiency": ["Acrobatics", "Athletics"],
+      "grapple_escape_bonus": 2
+    }
+  },
+  {
+    "name": "Wood Elf Magic",
+    "prerequisites": [{"race": "wood elf"}],
+    "description": "You learn the magic of the primeval woods, which are revered and protected by your people. You learn one druid cantrip of your choice. You also learn the longstrider and pass without trace spells, each of which you can cast once without expending a spell slot. You regain the ability to cast these two spells in this way when you finish a long rest. Wisdom is your spellcasting ability for all three spells.",
+    "effects": {
+      "cantrips": 1,
+      "spells_once_per_rest": ["longstrider", "pass without trace"]
+    }
+  },
+  {
+    "name": "Combat Reflexes",
+    "prerequisites": [],
+    "description": "You have trained your reflexes to react quickly in combat. You gain the following benefits: You may make a number of additional opportunity attacks per round equal to your Dexterity modifier (minimum 1). You still can only make one opportunity attack per triggering action.",
+    "effects": {
+      "extra_opportunity_attacks": "dex_mod"
+    }
+  },
+  {
+    "name": "Improved Critical",
+    "prerequisites": [{"BAB": 8}],
+    "description": "Your attacks score critical hits more often. Your weapon attacks score a critical hit on a roll of 19-20.",
+    "effects": {
+      "critical_range": 19
+    }
+  },
+  {
+    "name": "Power Attack",
+    "prerequisites": [{"STR": 13}, {"BAB": 1}],
+    "description": "You can make exceptionally powerful melee attacks. Before making a melee attack, you may choose to take a -1 penalty to the attack roll for every +2 bonus to damage. The maximum penalty is equal to your BAB.",
+    "effects": {
+      "power_attack_ratio": {"attack_penalty": -1, "damage_bonus": 2}
+    }
+  },
+  {
+    "name": "Cleave",
+    "prerequisites": [{"STR": 13}, {"feat": "Power Attack"}],
+    "description": "You can strike multiple foes with a single blow. If you deal a creature enough damage to make it drop (typically by dropping it to below 0 hit points or killing it), you get an immediate, extra melee attack against another creature within reach.",
+    "effects": {
+      "cleave": true
+    }
+  },
+  {
+    "name": "Great Cleave",
+    "prerequisites": [{"STR": 13}, {"feat": "Cleave"}, {"BAB": 4}],
+    "description": "You can strike multiple foes with a single blow. As Cleave, except that there is no limit to the number of times you can use it per round.",
+    "effects": {
+      "great_cleave": true
+    }
+  },
+  {
+    "name": "Dodge",
+    "prerequisites": [{"DEX": 13}],
+    "description": "You are adept at dodging blows. During your turn, you may designate an opponent and receive a +1 dodge bonus to AC against attacks from that opponent. You can select a new opponent on any action.",
+    "effects": {
+      "dodge_bonus": 1
+    }
+  },
+  {
+    "name": "Mobility",
+    "prerequisites": [{"DEX": 13}, {"feat": "Dodge"}],
+    "description": "You are skilled at moving past opponents. You get a +4 dodge bonus to AC against opportunity attacks caused when you move out of or within a threatened area.",
+    "effects": {
+      "mobility_ac_bonus": 4
+    }
+  },
+  {
+    "name": "Spring Attack",
+    "prerequisites": [{"DEX": 13}, {"feat": "Dodge"}, {"feat": "Mobility"}, {"BAB": 4}],
+    "description": "You are trained in fast melee attacks and fancy footwork. When using the attack action, you can move both before and after the attack, provided that your total distance moved is not greater than your speed.",
+    "effects": {
+      "spring_attack": true
+    }
+  },
+  {
+    "name": "Weapon Focus",
+    "prerequisites": [{"BAB": 1}],
+    "description": "Choose one type of weapon. You gain a +1 bonus to attack rolls with that weapon.",
+    "effects": {
+      "weapon_attack_bonus": 1
+    },
+    "choices": {
+      "weapon": "any"
+    }
+  },
+  {
+    "name": "Weapon Specialization",
+    "prerequisites": [{"feat": "Weapon Focus"}, {"BAB": 4}, {"class": "fighter"}],
+    "description": "Choose one type of weapon for which you have already selected Weapon Focus. You gain a +2 bonus to damage rolls with that weapon.",
+    "effects": {
+      "weapon_damage_bonus": 2
+    },
+    "choices": {
+      "weapon": "weapon_focus"
+    }
+  },
+  {
+    "name": "Greater Weapon Focus",
+    "prerequisites": [{"feat": "Weapon Focus"}, {"BAB": 8}, {"class": "fighter"}],
+    "description": "Choose one type of weapon for which you have already selected Weapon Focus. You gain an additional +1 bonus to attack rolls with that weapon.",
+    "effects": {
+      "weapon_attack_bonus": 1
+    },
+    "choices": {
+      "weapon": "weapon_focus"
+    }
+  },
+  {
+    "name": "Greater Weapon Specialization",
+    "prerequisites": [{"feat": "Weapon Specialization"}, {"feat": "Greater Weapon Focus"}, {"BAB": 12}, {"class": "fighter"}],
+    "description": "Choose one type of weapon for which you have already selected Greater Weapon Focus. You gain an additional +2 bonus to damage rolls with that weapon.",
+    "effects": {
+      "weapon_damage_bonus": 2
+    },
+    "choices": {
+      "weapon": "weapon_focus"
+    }
+  },
+  {
+    "name": "Toughness",
+    "prerequisites": [],
+    "description": "You are tougher than normal. You gain +3 hit points. For every Hit Die you possess beyond 3, you gain an additional +1 hit point. If you have more than 3 Hit Dice, you gain +1 hit points whenever you gain a Hit Die.",
+    "effects": {
+      "hp_bonus": 3,
+      "hp_bonus_per_hd_after_3": 1
+    }
+  },
+  {
+    "name": "Iron Will",
+    "prerequisites": [],
+    "description": "You have a stronger will than normal. You gain a +2 bonus on all Will saving throws.",
+    "effects": {
+      "will_save_bonus": 2
+    }
+  },
+  {
+    "name": "Lightning Reflexes",
+    "prerequisites": [],
+    "description": "You have faster reflexes than normal. You gain a +2 bonus on all Reflex saving throws.",
+    "effects": {
+      "reflex_save_bonus": 2
+    }
+  },
+  {
+    "name": "Great Fortitude",
+    "prerequisites": [],
+    "description": "You are tougher than normal. You gain a +2 bonus on all Fortitude saving throws.",
+    "effects": {
+      "fortitude_save_bonus": 2
+    }
+  },
+  {
+    "name": "Improved Initiative",
+    "prerequisites": [],
+    "description": "You can react more quickly than normal in a fight. You gain a +4 bonus on initiative checks.",
+    "effects": {
+      "initiative_bonus": 4
+    }
+  },
+  {
+    "name": "Point Blank Shot",
+    "prerequisites": [],
+    "description": "You are skilled at making well-placed shots with ranged weapons at close range. You get a +1 bonus on attack and damage rolls with ranged weapons at ranges of up to 30 feet.",
+    "effects": {
+      "close_range_attack_bonus": 1,
+      "close_range_damage_bonus": 1,
+      "close_range": 30
+    }
+  },
+  {
+    "name": "Precise Shot",
+    "prerequisites": [{"feat": "Point Blank Shot"}],
+    "description": "You are skilled at timing and aiming ranged attacks. You can shoot or throw ranged weapons at an opponent engaged in melee without taking the standard -4 penalty on your attack roll.",
+    "effects": {
+      "no_melee_penalty": true
+    }
+  },
+  {
+    "name": "Rapid Shot",
+    "prerequisites": [{"DEX": 13}, {"feat": "Point Blank Shot"}],
+    "description": "You can use ranged weapons with exceptional speed. When making a full attack with a ranged weapon, you can get one extra attack per round at your highest base attack bonus. All your attacks take a -2 penalty when using Rapid Shot.",
+    "effects": {
+      "rapid_shot": true,
+      "rapid_shot_penalty": -2
+    }
+  },
+  {
+    "name": "Manyshot",
+    "prerequisites": [{"DEX": 17}, {"feat": "Point Blank Shot"}, {"feat": "Rapid Shot"}, {"BAB": 6}],
+    "description": "You can fire multiple arrows simultaneously. As a standard action, you may fire two arrows at a single opponent within 30 feet. Both arrows use the same attack roll to determine success and deal damage normally.",
+    "effects": {
+      "manyshot": true
+    }
+  },
+  {
+    "name": "Fighting Style: Archery",
+    "prerequisites": [],
+    "description": "You gain a +2 bonus to attack rolls you make with ranged weapons.",
+    "is_fighting_style": true,
+    "effects": {
+      "ranged_attack_bonus": 2
+    }
+  },
+  {
+    "name": "Fighting Style: Defense",
+    "prerequisites": [],
+    "description": "While you are wearing armor, you gain a +1 bonus to AC.",
+    "is_fighting_style": true,
+    "effects": {
+      "armor_ac_bonus": 1
+    }
+  },
+  {
+    "name": "Fighting Style: Dueling",
+    "prerequisites": [],
+    "description": "When you are wielding a melee weapon in one hand and no other weapons, you gain a +2 bonus to damage rolls with that weapon.",
+    "is_fighting_style": true,
+    "effects": {
+      "one_handed_damage_bonus": 2
+    }
+  },
+  {
+    "name": "Fighting Style: Great Weapon Fighting",
+    "prerequisites": [],
+    "description": "When you roll a 1 or 2 on a damage die for an attack you make with a melee weapon that you are wielding with two hands, you can reroll the die and must use the new roll, even if the new roll is a 1 or a 2. The weapon must have the two-handed or versatile property for you to gain this benefit.",
+    "is_fighting_style": true,
+    "effects": {
+      "great_weapon_reroll": true
+    }
+  },
+  {
+    "name": "Fighting Style: Protection",
+    "prerequisites": [],
+    "description": "When a creature you can see attacks a target other than you that is within 5 feet of you, you can use your reaction to impose disadvantage on the attack roll. You must be wielding a shield.",
+    "is_fighting_style": true,
+    "effects": {
+      "protection_reaction": true
+    }
+  },
+  {
+    "name": "Fighting Style: Two-Weapon Fighting",
+    "prerequisites": [],
+    "description": "When you engage in two-weapon fighting, you can add your ability modifier to the damage of the second attack.",
+    "is_fighting_style": true,
+    "effects": {
+      "two_weapon_damage_bonus": true
+    }
+  },
+  {
+    "name": "Fighting Style: Blind Fighting",
+    "prerequisites": [],
+    "description": "You have blindsight with a range of 10 feet. Within that range, you can effectively see anything that isn't behind total cover, even if you're blinded or in darkness. Moreover, you can see an invisible creature within that range, unless the creature successfully hides from you.",
+    "is_fighting_style": true,
+    "effects": {
+      "blindsight": 10
+    }
+  },
+  {
+    "name": "Fighting Style: Interception",
+    "prerequisites": [],
+    "description": "When a creature you can see hits a target, other than you, within 5 feet of you with an attack, you can use your reaction to reduce the damage the target takes by 1d10 + your proficiency bonus (to a minimum of 0 damage). You must be wielding a shield or a simple or martial weapon to use this reaction.",
+    "is_fighting_style": true,
+    "effects": {
+      "interception_damage_reduction": "1d10+bab"
+    }
+  },
+  {
+    "name": "Fighting Style: Thrown Weapon Fighting",
+    "prerequisites": [],
+    "description": "You can draw a weapon that has the thrown property as part of the attack you make with the weapon. In addition, when you hit with a ranged attack using a thrown weapon, you gain a +2 bonus to the damage roll.",
+    "is_fighting_style": true,
+    "effects": {
+      "thrown_damage_bonus": 2,
+      "quick_draw_thrown": true
+    }
+  },
+  {
+    "name": "Fighting Style: Unarmed Fighting",
+    "prerequisites": [],
+    "description": "Your unarmed strikes can deal bludgeoning damage equal to 1d6 + your Strength modifier on a hit. If you aren't wielding any weapons or a shield when you make the attack roll, the d6 becomes a d8. At the start of each of your turns, you can deal 1d4 bludgeoning damage to one creature grappled by you.",
+    "is_fighting_style": true,
+    "effects": {
+      "unarmed_damage": "1d6",
+      "unarmed_damage_empty_hands": "1d8",
+      "grapple_damage": "1d4"
+    }
+  },
+  {
+    "name": "Fighting Style: Superior Technique",
+    "prerequisites": [],
+    "description": "You learn one maneuver of your choice from among those available to the Battle Master archetype. If a maneuver you use requires your target to make a saving throw to resist the maneuver's effects, the saving throw DC equals 8 + your proficiency bonus + your Strength or Dexterity modifier (your choice). You gain one superiority die, which is a d6 (this die is added to any superiority dice you have from another source). This die is used to fuel your maneuvers. A superiority die is expended when you use it. You regain your expended superiority dice when you finish a short or long rest.",
+    "is_fighting_style": true,
+    "effects": {
+      "maneuvers": 1,
+      "superiority_dice": 1,
+      "superiority_die_size": 6
+    }
+  },
+  {
+    "name": "Fighting Style: Close Quarters Shooter",
+    "prerequisites": [],
+    "description": "When making a ranged attack while you are within 5 feet of a hostile creature, you do not have disadvantage on the attack roll. Your ranged attacks ignore half cover and three-quarters cover against targets within 30 feet of you. You have a +1 bonus to attack rolls on ranged attacks.",
+    "is_fighting_style": true,
+    "effects": {
+      "no_close_range_penalty": true,
+      "ignore_cover_30ft": true,
+      "ranged_attack_bonus": 1
+    }
+  },
+  {
+    "name": "Fighting Style: Mariner",
+    "prerequisites": [],
+    "description": "As long as you are not wearing heavy armor or using a shield, you have a swimming speed and a climbing speed equal to your normal speed, and you gain a +1 bonus to AC.",
+    "is_fighting_style": true,
+    "effects": {
+      "swim_speed": "normal",
+      "climb_speed": "normal",
+      "unarmored_ac_bonus": 1
+    }
+  },
+  {
+    "name": "Fighting Style: Tunnel Fighter",
+    "prerequisites": [],
+    "description": "As a bonus action, you can enter a defensive stance that lasts until the start of your next turn. While in your defensive stance, you can make opportunity attacks without using your reaction, and you can use your reaction to make a melee attack against a creature that moves more than 5 feet while within your reach.",
+    "is_fighting_style": true,
+    "effects": {
+      "defensive_stance": true,
+      "unlimited_opportunity_attacks": true
+    }
   }
 ]

@@ -1,0 +1,28 @@
+Elf
+
+Speed: 30
+Size: Medium
+Darkvision: 60
+
+Ability Bonuses:
+* DEX +2
+
+Proficiencies:
+* Perception (skill)
+
+Resistances:
+* Charm effects
+* Magical sleep
+
+Traits:
+* Darkvision: You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light.
+* Keen Senses: You have proficiency in the Perception skill.
+* Fey Ancestry: You have resistance to being charmed, and magic can't put you to sleep.
+* Trance: Elves don't need to sleep. Instead, they meditate deeply for 4 hours a day. After resting this way, you gain the same benefit a human does from 8 hours of sleep.
+
+Languages: Common, Elvish
+
+Subraces:
+* High Elf: INT +1, One wizard cantrip, Extra language
+* Wood Elf: WIS +1, Speed 35 ft, Mask of the Wild
+* Dark Elf (Drow): CHA +1, Superior Darkvision (120 ft), Drow Magic, Sunlight Sensitivity

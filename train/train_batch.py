@@ -284,7 +284,8 @@ def train_batch(
     difficulties: list = None,
     save_dir: str = None,
     eval_freq: int = 5000,
-    verbose: int = 1
+    verbose: int = 1,
+    resume_from: str = None
 ):
     """
     Train RL agent with randomized batch scenarios.
@@ -299,15 +300,21 @@ def train_batch(
         save_dir: Directory to save models
         eval_freq: Evaluation frequency
         verbose: Verbosity level
+        resume_from: Path to existing model to continue training from
     """
     print("=" * 60)
-    print("BATCH TRAINING - Randomized Scenarios")
+    if resume_from:
+        print("BATCH TRAINING - RESUMING from previous model")
+    else:
+        print("BATCH TRAINING - Randomized Scenarios")
     print("=" * 60)
     print(f"Algorithm: {algorithm}")
     print(f"Total timesteps: {total_timesteps:,}")
     print(f"Parallel environments: {n_envs}")
     print(f"Party levels: {party_level_range}")
     print(f"Difficulties: {difficulties or ['easy', 'medium', 'hard']}")
+    if resume_from:
+        print(f"Resuming from: {resume_from}")
     print("=" * 60)
     
     # Setup directories
@@ -340,42 +347,52 @@ def train_batch(
     # Create evaluation environment
     eval_env = DummyVecEnv([make_env(999, seed + 999, **env_kwargs)])
     
-    # Create model
-    if algorithm.upper() == "PPO":
-        model = PPO(
-            "MlpPolicy",
-            envs,
-            learning_rate=3e-4,
-            n_steps=2048,
-            batch_size=64,
-            n_epochs=10,
-            gamma=0.99,
-            gae_lambda=0.95,
-            clip_range=0.2,
-            ent_coef=0.01,
-            verbose=verbose,
-            seed=seed,
-            tensorboard_log=log_dir
-        )
-    else:  # DQN
-        model = DQN(
-            "MlpPolicy",
-            envs,
-            learning_rate=1e-4,
-            buffer_size=100000,
-            learning_starts=1000,
-            batch_size=64,
-            tau=0.005,
-            gamma=0.99,
-            train_freq=4,
-            gradient_steps=1,
-            exploration_fraction=0.3,
-            exploration_initial_eps=1.0,
-            exploration_final_eps=0.05,
-            verbose=verbose,
-            seed=seed,
-            tensorboard_log=log_dir
-        )
+    # Create or load model
+    if resume_from:
+        # Load existing model and continue training
+        print(f"\nLoading model from: {resume_from}")
+        if algorithm.upper() == "PPO":
+            model = PPO.load(resume_from, env=envs, verbose=verbose, tensorboard_log=log_dir)
+        else:
+            model = DQN.load(resume_from, env=envs, verbose=verbose, tensorboard_log=log_dir)
+        print("Model loaded successfully! Continuing training...")
+    else:
+        # Create new model from scratch
+        if algorithm.upper() == "PPO":
+            model = PPO(
+                "MlpPolicy",
+                envs,
+                learning_rate=3e-4,
+                n_steps=2048,
+                batch_size=64,
+                n_epochs=10,
+                gamma=0.99,
+                gae_lambda=0.95,
+                clip_range=0.2,
+                ent_coef=0.01,
+                verbose=verbose,
+                seed=seed,
+                tensorboard_log=log_dir
+            )
+        else:  # DQN
+            model = DQN(
+                "MlpPolicy",
+                envs,
+                learning_rate=1e-4,
+                buffer_size=100000,
+                learning_starts=1000,
+                batch_size=64,
+                tau=0.005,
+                gamma=0.99,
+                train_freq=4,
+                gradient_steps=1,
+                exploration_fraction=0.3,
+                exploration_initial_eps=1.0,
+                exploration_final_eps=0.05,
+                verbose=verbose,
+                seed=seed,
+                tensorboard_log=log_dir
+            )
     
     # Callbacks
     callbacks = [
@@ -425,7 +442,8 @@ def train_batch(
         "party_level_range": party_level_range,
         "difficulties": difficulties or ["easy", "medium", "hard"],
         "training_time_seconds": elapsed,
-        "timestamp": timestamp
+        "timestamp": timestamp,
+        "resumed_from": resume_from
     }
     config_path = os.path.join(save_dir, "training_config.json")
     with open(config_path, "w") as f:
@@ -530,6 +548,60 @@ def evaluate_batch_model(
 
 
 # =============================================================================
+# AUTO-FIND LATEST MODEL
+# =============================================================================
+
+def find_latest_model(models_dir: str = None, algorithm: str = "DQN") -> str | None:
+    """
+    Find the latest/best trained model automatically.
+    
+    Search order:
+    1. Most recent batch folder's best/best_model.zip
+    2. Most recent batch folder's *_final.zip
+    3. Any .zip in most recent batch folder
+    
+    Returns path to model or None if not found.
+    """
+    if models_dir is None:
+        models_dir = os.path.join(project_root, "data", "ai", "models")
+    
+    if not os.path.exists(models_dir):
+        return None
+    
+    # Find all batch folders, sorted by name (timestamp) descending
+    batch_folders = []
+    for item in os.listdir(models_dir):
+        item_path = os.path.join(models_dir, item)
+        if os.path.isdir(item_path) and item.startswith("batch_"):
+            batch_folders.append(item_path)
+    
+    if not batch_folders:
+        return None
+    
+    # Sort by folder name (contains timestamp) - newest first
+    batch_folders.sort(reverse=True)
+    
+    for folder in batch_folders:
+        # Check for best model first
+        best_model = os.path.join(folder, "best", "best_model.zip")
+        if os.path.exists(best_model):
+            return best_model
+        
+        # Check for final model
+        alg_lower = algorithm.lower()
+        final_model = os.path.join(folder, f"{alg_lower}_batch_final.zip")
+        if os.path.exists(final_model):
+            return final_model
+        
+        # Check for any .zip file
+        for item in os.listdir(folder):
+            if item.endswith(".zip"):
+                return os.path.join(folder, item)
+    
+    return None
+
+
+# =============================================================================
 # MAIN
 # =============================================================================
 
@@ -548,9 +620,30 @@ if __name__ == "__main__":
     parser.add_argument("--eval-freq", type=int, default=5000, help="Evaluation frequency")
     parser.add_argument("--eval-only", type=str, default=None, help="Path to model for evaluation only")
     parser.add_argument("--eval-episodes", type=int, default=100, help="Number of evaluation episodes")
+    parser.add_argument("--resume", nargs="?", const="auto", default=None,
+                       help="Continue from previous model. Use --resume for auto-detect or --resume PATH for specific model")
+    parser.add_argument("--fresh", action="store_true", help="Force fresh training (ignore any existing models)")
     parser.add_argument("-v", "--verbose", type=int, default=1, help="Verbosity level")
     
     args = parser.parse_args()
+    
+    # Handle resume logic
+    resume_path = None
+    if args.resume and not args.fresh:
+        if args.resume == "auto":
+            # Auto-detect latest model
+            resume_path = find_latest_model(algorithm=args.algorithm)
+            if resume_path:
+                print(f"Auto-detected latest model: {resume_path}")
+            else:
+                print("No previous model found. Starting fresh training.")
+        else:
+            # Use specified path
+            resume_path = args.resume
+            if not os.path.exists(resume_path):
+                print(f"Warning: Specified model not found: {resume_path}")
+                print("Starting fresh training instead.")
+                resume_path = None
     
     if args.eval_only:
         # Evaluation mode
@@ -571,5 +664,6 @@ if __name__ == "__main__":
             party_level_range=(args.min_level, args.max_level),
             difficulties=args.difficulties,
             eval_freq=args.eval_freq,
-            verbose=args.verbose
+            verbose=args.verbose,
+            resume_from=resume_path
         )
