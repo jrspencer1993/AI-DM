@@ -1422,6 +1422,34 @@ def debug_validate_state() -> list:
 # ---------------- Page Config ----------------
 st.set_page_config(page_title="Virtual DM – Session Manager", layout="wide")
 
+# --- UI Scale ---
+reading_mode = st.toggle("📖 Reading Mode", value=True, help="Bigger, more readable UI text.")
+
+base_font = 20 if reading_mode else 17  # bump these up (your current 18/15 is still small)
+
+st.markdown(f"""
+<style>
+/* Global text */
+html, body, [class*="css"] {{
+  font-size: {base_font}px !important;
+}}
+
+/* Make widget labels and help text scale nicely */
+label, .stMarkdown, .stCaption, .stText, .stTooltipIcon {{
+  font-size: {base_font}px !important;
+}}
+
+/* Buttons + inputs slightly larger */
+.stButton button {{
+  font-size: {base_font}px !important;
+  padding: 0.45rem 0.8rem !important;
+}}
+.stTextInput input, .stNumberInput input, .stSelectbox select, .stTextArea textarea {{
+  font-size: {base_font}px !important;
+}}
+</style>
+""", unsafe_allow_html=True)
+
 # ---------------- Sidebar: Navigation + Settings ----------------
 with st.sidebar:
     st.markdown("# 🎲 Virtual DM")
@@ -15358,2239 +15386,2043 @@ else:
 st.divider()
 
 # ========== MAIN LAYOUT: LEFT (Party+Enemies) | CENTER (Map) | RIGHT (Tracker+Log) ==========
-left_col, mid_col, right_col = st.columns([1.1, 2.2, 1.1], gap="small")
+left_col, mid_col, tracker_col, roller_col = st.columns([1.15, 2.7, 1.35, 1.35], gap="small")
 
 # ===== LEFT COLUMN: Party + Enemies =====
 with left_col:
     # ========== PARTY SECTION ==========
     st.markdown("### 👥 Party")
-    if not st.session_state.party:
-        st.info("🧙 No party members yet. Go to **Setup** to add characters.")
-    else:
-        for i, c in enumerate(st.session_state.party):
-            box = st.container(border=True)
-            t1, t2, t3, t4, t5 = box.columns([3, 2, 2, 2, 2])
+    with st.container(height=320, border=False):
+        if not st.session_state.party:
+            st.info("🧙 No party members yet. Go to **Setup** to add characters.")
+        else:
+            for i, c in enumerate(st.session_state.party):
+                box = st.container(border=True)
+                t1, t2, t3, t4, t5 = box.columns([3, 2, 2, 2, 2])
 
-            with t1:
-                st.markdown(f"**{c.get('name','')}**")
-            with t2:
-                c["ac"] = int(
-                    st.number_input(
-                        "AC", 0, 40, int(c.get("ac", 10)), key=f"run_p_ac_{i}"
+                with t1:
+                    st.markdown(f"**{c.get('name','')}**")
+                with t2:
+                    c["ac"] = int(
+                        st.number_input(
+                            "AC", 0, 40, int(c.get("ac", 10)), key=f"run_p_ac_{i}"
+                        )
                     )
-                )
-            with t3:
-                c["hp"] = int(
-                    st.number_input(
-                        "HP", 0, 500, int(c.get("hp", 10)), key=f"run_p_hp_{i}"
+                with t3:
+                    c["hp"] = int(
+                        st.number_input(
+                            "HP", 0, 500, int(c.get("hp", 10)), key=f"run_p_hp_{i}"
+                        )
                     )
-                )
-            with t4:
-                # Position band dropdown (only during combat)
-                if st.session_state.in_combat:
-                    current_band = ensure_position_band(c)
-                    band_idx = POSITION_BANDS.index(current_band) if current_band in POSITION_BANDS else 1
-                    new_band = st.selectbox(
-                        "Pos",
-                        POSITION_BANDS,
-                        index=band_idx,
-                        key=f"run_p_band_{i}",
-                        format_func=lambda b: get_band_display(b)
-                    )
-                    c["position_band"] = new_band
-                else:
-                    st.caption("—")
-            with t5:
-                if st.button("Remove", key=f"run_p_rm_{i}"):
-                    del st.session_state.party[i]
-                    st.rerun()
-
-            # Is this the active turn PC?
-            is_active_pc = False
-            if st.session_state.in_combat:
-                ent = current_turn()
-                if ent and ent.get("kind") == "party" and ent.get("idx") == i:
-                    is_active_pc = True
-
-            # --- Attacks panel for this party member ---
-            with box.expander("Attacks"):
-                attacks = c.get("attacks") or []
-                if not attacks:
-                    st.caption("No attacks listed.")
-                else:
-                    for a in attacks:
-                        # Use helper functions for consistent field access
-                        name = a.get("name", "Attack")
-                        to_hit = get_attack_to_hit(a)
-                        dmg = get_attack_damage(a)
-                        dmg_type = get_attack_damage_type(a)
-                        if dmg_type:
-                            st.write(f"{name}: +{to_hit} to hit, {dmg} {dmg_type}")
-                        else:
-                            st.write(f"{name}: +{to_hit} to hit, {dmg}")
-
-                if st.session_state.in_combat and not is_active_pc:
-                    st.caption("Waiting for this character's turn.")
-
-            # --- Conditions panel for this party member ---
-            with box.expander("Conditions"):
-                conditions = ensure_conditions(c)
-                
-                if not conditions:
-                    st.caption("No active conditions.")
-                else:
-                    for ci, cond in enumerate(conditions):
-                        cond_col1, cond_col2 = st.columns([4, 1])
-                        with cond_col1:
-                            st.write(get_condition_display(cond))
-                        with cond_col2:
-                            if st.button("✖", key=f"rm_cond_p_{i}_{ci}"):
-                                conditions.pop(ci)
-                                st.rerun()
-                
-                # Add condition form
-                st.markdown("**Add Condition**")
-                srd_cond_names = get_srd_condition_names()
-                cond_options = srd_cond_names + ["(Custom)"]
-                
-                add_cond_col1, add_cond_col2 = st.columns([2, 1])
-                with add_cond_col1:
-                    selected_cond = st.selectbox(
-                        "Condition",
-                        cond_options,
-                        key=f"add_cond_sel_p_{i}",
-                        label_visibility="collapsed"
-                    )
-                with add_cond_col2:
-                    cond_duration = st.number_input(
-                        "Rounds",
-                        min_value=0,
-                        value=0,
-                        key=f"add_cond_dur_p_{i}",
-                        help="0 = indefinite"
-                    )
-                
-                if selected_cond == "(Custom)":
-                    custom_cond_name = st.text_input(
-                        "Custom Condition Name",
-                        key=f"add_cond_custom_p_{i}"
-                    )
-                else:
-                    custom_cond_name = None
-                
-                if st.button("Add Condition", key=f"add_cond_btn_p_{i}"):
-                    cond_name = custom_cond_name if selected_cond == "(Custom)" else selected_cond
-                    if cond_name:
-                        dur = cond_duration if cond_duration > 0 else None
-                        add_condition(c, cond_name, duration_rounds=dur)
-                        st.toast(f"Added {cond_name} to {c.get('name', 'character')}")
-                        st.rerun()
+                with t4:
+                    # Position band dropdown (only during combat)
+                    if st.session_state.in_combat:
+                        current_band = ensure_position_band(c)
+                        band_idx = POSITION_BANDS.index(current_band) if current_band in POSITION_BANDS else 1
+                        new_band = st.selectbox(
+                            "Pos",
+                            POSITION_BANDS,
+                            index=band_idx,
+                            key=f"run_p_band_{i}",
+                            format_func=lambda b: get_band_display(b)
+                        )
+                        c["position_band"] = new_band
                     else:
-                        st.warning("Please enter a condition name.")
+                        st.caption("—")
+                with t5:
+                    if st.button("Remove", key=f"run_p_rm_{i}"):
+                        del st.session_state.party[i]
+                        st.rerun()
 
-            # --- Actions & Resources ---
-            with box.expander("Actions & Resources"):
-                resources = c.get("resources", {}) or {}
-                if resources:
-                    st.markdown("**Resources**")
-                    for rname, rdata in resources.items():
-                        rc1, rc2, rc3 = st.columns([3, 2, 2])
-                        current = int(rdata.get("current", 0))
-                        max_val = int(rdata.get("max", 0))
+                # Is this the active turn PC?
+                is_active_pc = False
+                if st.session_state.in_combat:
+                    ent = current_turn()
+                    if ent and ent.get("kind") == "party" and ent.get("idx") == i:
+                        is_active_pc = True
 
-                        with rc1:
-                            st.markdown(f"{rname}: **{current} / {max_val}**")
-                        with rc2:
-                            if st.button(
-                                f"Use {rname}", key=f"use_res_{i}_{rname}"
-                            ):
-                                if current > 0:
-                                    current -= 1
-                                    st.session_state.party[i].setdefault(
-                                        "resources", {}
-                                    )[rname]["current"] = current
-                                    st.toast(
-                                        f"{c.get('name','')} uses {rname}! "
-                                        f"({current}/{max_val} left)"
-                                    )
-                                else:
-                                    st.warning(
-                                        f"{c.get('name','')} has no {rname} uses left."
-                                    )
-                        with rc3:
-                            if st.button(
-                                "Reset", key=f"reset_res_{i}_{rname}"
-                            ):
-                                st.session_state.party[i].setdefault(
-                                    "resources", {}
-                                )[rname]["current"] = max_val
-                                st.toast(
-                                    f"{rname} reset to full for {c.get('name','')}."
-                                )
+                # --- Attacks panel for this party member ---
+                with box.expander("Attacks"):
+                    attacks = c.get("attacks") or []
+                    if not attacks:
+                        st.caption("No attacks listed.")
+                    else:
+                        for a in attacks:
+                            # Use helper functions for consistent field access
+                            name = a.get("name", "Attack")
+                            to_hit = get_attack_to_hit(a)
+                            dmg = get_attack_damage(a)
+                            dmg_type = get_attack_damage_type(a)
+                            if dmg_type:
+                                st.write(f"{name}: +{to_hit} to hit, {dmg} {dmg_type}")
+                            else:
+                                st.write(f"{name}: +{to_hit} to hit, {dmg}")
 
-                actions = c.get("actions", []) or []
-                if actions:
-                    st.markdown("**Actions**")
-                    for action_idx, a in enumerate(actions):
-                        action_name = a.get('name', 'Unnamed')
-                        action_resource = a.get("resource")
-                        
-                        # Check if this is a Marshal maneuver (needs targeting)
-                        is_marshal_maneuver = action_name.startswith("Marshal:")
-                        
-                        action_col1, action_col2 = st.columns([4, 1])
-                        
-                        with action_col1:
-                            line = f"**{action_name}**"
-                            if action_resource:
-                                line += f" _(uses {action_resource})_"
-                            st.markdown(line)
-                            if a.get("description"):
-                                st.caption(a["description"])
-                        
-                        with action_col2:
-                            # Add Use button for usable actions
-                            if is_marshal_maneuver or action_resource:
-                                can_use = True
-                                if action_resource:
-                                    res_data = c.get("resources", {}).get(action_resource, {})
-                                    can_use = res_data.get("current", 0) > 0
-                                
-                                if st.button("Use", key=f"use_action_{i}_{action_idx}", disabled=not can_use):
-                                    # Handle Marshal maneuvers with targeting
-                                    if is_marshal_maneuver:
-                                        st.session_state[f"marshal_maneuver_active_{i}"] = action_name
-                                        st.rerun()
-                                    else:
-                                        # Just consume the resource
-                                        if action_resource:
-                                            c.setdefault("resources", {}).setdefault(action_resource, {})["current"] -= 1
-                                            st.toast(f"{c.get('name', '')} uses {action_name}!")
-                                            st.rerun()
-                        
-                        # Marshal maneuver targeting UI
-                        if st.session_state.get(f"marshal_maneuver_active_{i}") == action_name:
-                            with st.container(border=True):
-                                st.markdown(f"**🎯 Target Selection for {action_name}**")
-                                
-                                # Get allies in range (all party members for now)
-                                aura_range = c.get("aura_range", 30)
-                                allies = [p.get("name", f"Ally {j}") for j, p in enumerate(st.session_state.get("party", [])) if j != i]
-                                
-                                maneuver_key = action_name.replace("Marshal: ", "")
-                                maneuver_data = MARSHAL_MANEUVERS.get(maneuver_key, {})
-                                
-                                # Different targeting based on maneuver type
-                                if "Allies" in maneuver_data.get("description", "") or "allies" in maneuver_data.get("description", "").lower():
-                                    # Affects all allies - no selection needed
-                                    st.info(f"This affects all allies within {aura_range} ft.")
-                                    target_allies = allies
-                                else:
-                                    # Single target selection
-                                    target_allies = st.multiselect(
-                                        "Select target(s):",
-                                        allies,
-                                        key=f"marshal_targets_{i}_{action_idx}"
-                                    )
-                                
-                                col_apply, col_cancel = st.columns(2)
-                                with col_apply:
-                                    if st.button("✅ Apply", key=f"apply_marshal_{i}_{action_idx}"):
-                                        # Consume Martial Die
-                                        c.setdefault("resources", {}).setdefault("Martial Dice", {})["current"] = max(0, c.get("resources", {}).get("Martial Dice", {}).get("current", 0) - 1)
-                                        
-                                        # Roll the martial die
-                                        die_size = c.get("marshal_die_size", "d6")
-                                        die_value = int(die_size[1:])
-                                        roll = random.randint(1, die_value)
-                                        
-                                        # Apply effect based on maneuver
-                                        effect_msg = f"{c.get('name', '')} uses {action_name}! Rolled {roll} on {die_size}."
-                                        
-                                        if "temp HP" in maneuver_data.get("description", ""):
-                                            cha_mod = (c.get("abilities", {}).get("CHA", 10) - 10) // 2
-                                            temp_hp = cha_mod + roll
-                                            effect_msg += f" Allies gain {temp_hp} temp HP."
-                                            # Apply temp HP to targets
-                                            for ally_name in target_allies:
-                                                for p in st.session_state.get("party", []):
-                                                    if p.get("name") == ally_name:
-                                                        p["temp_hp"] = p.get("temp_hp", 0) + temp_hp
-                                        
-                                        elif "move" in maneuver_data.get("description", "").lower():
-                                            effect_msg += f" Allies can move up to 10 ft without provoking."
-                                        
-                                        elif "AC" in maneuver_data.get("description", ""):
-                                            effect_msg += f" Target gains +{roll} AC until next turn."
-                                        
-                                        st.toast(effect_msg)
-                                        del st.session_state[f"marshal_maneuver_active_{i}"]
-                                        st.rerun()
-                                
-                                with col_cancel:
-                                    if st.button("❌ Cancel", key=f"cancel_marshal_{i}_{action_idx}"):
-                                        del st.session_state[f"marshal_maneuver_active_{i}"]
-                                        st.rerun()
+                    if st.session_state.in_combat and not is_active_pc:
+                        st.caption("Waiting for this character's turn.")
 
-            # --- XP & Leveling ---
-            with box.expander("📈 XP & Leveling"):
-                # Migrate character to ensure XP and multiclass fields exist
-                migrate_character_xp(c)
-                migrate_to_multiclass(c)
-                
-                xp_info = get_xp_progress(c)
-                current_xp = xp_info["current_xp"]
-                current_level = get_total_level(c)
-                char_classes = get_classes(c)
-                class_summary = get_class_summary(c)
-                
-                # ========== CHARACTER SHEET SUMMARY ==========
-                st.markdown("#### 📋 Character Sheet")
-                
-                # Main stats row
-                stat_col1, stat_col2, stat_col3 = st.columns(3)
-                with stat_col1:
-                    st.metric("Total Level", current_level)
-                with stat_col2:
-                    st.metric("XP", f"{current_xp:,}")
-                with stat_col3:
-                    st.metric("BAB", f"+{c.get('bab', 0)}")
-                
-                # Class breakdown
-                st.markdown(f"**Classes:** {class_summary}")
-                if len(char_classes) > 1:
-                    for cls in char_classes:
-                        cls_id = cls.get('class_id', '?')
-                        cls_lvl = cls.get('level', 0)
-                        hit_die = get_hit_die_for_class(cls_id)
-                        st.caption(f"  • {cls_id} {cls_lvl} (d{hit_die} hit die)")
-                
-                # XP Progress bar
-                if not xp_info["at_max_level"]:
-                    st.progress(
-                        xp_info["progress_pct"] / 100.0,
-                        text=f"{xp_info['xp_needed']:,} XP needed for level {xp_info['next_level']}"
-                    )
-                else:
-                    st.success("🏆 Maximum Level Reached!")
-                
-                # ========== LEVEL UP AVAILABLE INDICATOR ==========
-                if c.get("level_up_pending", False):
-                    st.markdown("---")
-                    st.markdown("### ⬆️ Level Up Available!")
-                    st.info(f"**{c.get('name', 'Character')}** has enough XP to reach level {current_level + 1}!")
+                # --- Conditions panel for this party member ---
+                with box.expander("Conditions"):
+                    conditions = ensure_conditions(c)
                     
-                    # Initialize level up wizard state
-                    wizard_key = f"lvlup_wizard_{i}"
-                    if wizard_key not in st.session_state:
-                        st.session_state[wizard_key] = {"step": 1, "selected_class": None, "hp_method": None}
+                    if not conditions:
+                        st.caption("No active conditions.")
+                    else:
+                        for ci, cond in enumerate(conditions):
+                            cond_col1, cond_col2 = st.columns([4, 1])
+                            with cond_col1:
+                                st.write(get_condition_display(cond))
+                            with cond_col2:
+                                if st.button("✖", key=f"rm_cond_p_{i}_{ci}"):
+                                    conditions.pop(ci)
+                                    st.rerun()
                     
-                    wizard_state = st.session_state[wizard_key]
+                    # Add condition form
+                    st.markdown("**Add Condition**")
+                    srd_cond_names = get_srd_condition_names()
+                    cond_options = srd_cond_names + ["(Custom)"]
                     
-                    # Get available classes
-                    all_class_names = [cls.get("name", "") for cls in load_srd_classes()]
-                    available_classes = get_available_classes_for_multiclass(c, all_class_names)
-                    
-                    # Separate existing and new classes
-                    existing_options = []
-                    new_class_options = []
-                    
-                    for cls in available_classes:
-                        cls_id = cls["class_id"]
-                        if not cls_id:
-                            continue
-                        current_cls_level = cls["current_level"]
-                        
-                        if current_cls_level > 0:
-                            existing_options.append({
-                                "id": cls_id,
-                                "label": f"📈 {cls_id} (Level {current_cls_level} → {current_cls_level + 1})",
-                                "new": False,
-                                "level": current_cls_level
-                            })
-                        elif cls["can_add"]:
-                            new_class_options.append({
-                                "id": cls_id,
-                                "label": f"✨ {cls_id} (NEW - Multiclass into Level 1)",
-                                "new": True,
-                                "level": 0,
-                                "reason": cls["reason"]
-                            })
-                    
-                    # ===== STEP 1: Choose Class =====
-                    st.markdown("**Step 1: Choose Class to Level**")
-                    
-                    # Build combined options list
-                    all_options = []
-                    option_labels = []
-                    
-                    if existing_options:
-                        st.caption("Continue existing class:")
-                        for opt in existing_options:
-                            all_options.append(opt)
-                            option_labels.append(opt["label"])
-                    
-                    if new_class_options:
-                        if existing_options:
-                            option_labels.append("─── Multiclass Options ───")
-                            all_options.append(None)  # Separator
-                        for opt in new_class_options:
-                            all_options.append(opt)
-                            option_labels.append(opt["label"])
-                    
-                    if option_labels:
-                        selected_idx = st.selectbox(
-                            "Select class",
-                            range(len(option_labels)),
-                            format_func=lambda x: option_labels[x],
-                            key=f"lvlup_class_select_{i}",
+                    add_cond_col1, add_cond_col2 = st.columns([2, 1])
+                    with add_cond_col1:
+                        selected_cond = st.selectbox(
+                            "Condition",
+                            cond_options,
+                            key=f"add_cond_sel_p_{i}",
                             label_visibility="collapsed"
                         )
-                        
-                        selected_option = all_options[selected_idx] if selected_idx < len(all_options) else None
-                        
-                        # Skip separator
-                        if selected_option is None:
-                            st.warning("Please select a valid class option")
-                        else:
-                            selected_class = selected_option["id"]
-                            is_new_class = selected_option["new"]
-                            new_class_level = selected_option["level"] + 1
-                            
-                            # Show class info
-                            hit_die = get_hit_die_for_class(selected_class)
-                            con_mod = (c.get("abilities", {}).get("CON", 10) - 10) // 2
-                            avg_hp = (hit_die // 2) + 1 + con_mod
-                            
-                            st.markdown("---")
-                            st.markdown(f"**Step 2: HP Increase for {selected_class} Level {new_class_level}**")
-                            
-                            info_col1, info_col2 = st.columns(2)
-                            with info_col1:
-                                st.caption(f"Hit Die: d{hit_die}")
-                                st.caption(f"CON Modifier: {'+' if con_mod >= 0 else ''}{con_mod}")
-                            with info_col2:
-                                st.caption(f"Average HP: {avg_hp}")
-                                st.caption(f"Roll Range: {max(1, 1 + con_mod)} - {hit_die + con_mod}")
-                            
-                            # ===== STEP 2: HP Method =====
-                            hp_method = st.radio(
-                                "Choose HP method:",
-                                ["average", "roll"],
-                                format_func=lambda x: f"📊 Take Average ({avg_hp} HP)" if x == "average" else f"🎲 Roll d{hit_die}",
-                                key=f"lvlup_hp_method_{i}",
-                                horizontal=True
-                            )
-                            
-                            # ===== STEP 3: Preview Features =====
-                            st.markdown("---")
-                            st.markdown(f"**Step 3: Features at {selected_class} Level {new_class_level}**")
-                            
-                            # Look up class features for this level
-                            srd_classes = load_srd_classes()
-                            class_data = next((cls for cls in srd_classes if cls.get("name", "").lower() == selected_class.lower()), None)
-                            
-                            features_at_level = []
-                            level_has_asi = False
-                            if class_data:
-                                levels_data = class_data.get("levels", {})
-                                level_info = levels_data.get(str(new_class_level), {})
-                                features_at_level = level_info.get("features_at_level", [])
-                                level_has_asi = bool(level_info.get("asi_or_feat"))
-                                
-                                if features_at_level:
-                                    for feat in features_at_level:
-                                        if isinstance(feat, str):
-                                            st.markdown(f"  • **{feat}**")
-                                        elif isinstance(feat, dict):
-                                            st.markdown(f"  • **{feat.get('name', 'Feature')}**")
-                                            if feat.get("description"):
-                                                st.caption(f"    {feat.get('description')}")
-                                else:
-                                    st.caption("No new features at this level.")
-                                
-                                # Show ASI/Feat if applicable
-                                if level_has_asi:
-                                    st.markdown(f"  • **Ability Score Improvement or Feat**")
-                            else:
-                                st.caption("Class data not found.")
-                            
-                            # If multiclassing, show proficiencies gained
-                            if is_new_class:
-                                st.markdown("---")
-                                st.markdown(f"**Multiclass Proficiencies (from {selected_class}):**")
-                                mc_profs = get_multiclass_proficiencies(selected_class)
-                                
-                                if mc_profs.get("armor"):
-                                    st.caption(f"  Armor: {', '.join(mc_profs['armor'])}")
-                                if mc_profs.get("weapons"):
-                                    st.caption(f"  Weapons: {', '.join(mc_profs['weapons'])}")
-                                if mc_profs.get("skills", 0) > 0:
-                                    st.caption(f"  Skills: Choose {mc_profs['skills']} skill(s)")
-                                if not any([mc_profs.get("armor"), mc_profs.get("weapons"), mc_profs.get("skills", 0)]):
-                                    st.caption("  No additional proficiencies.")
-                            
-                            # ===== STEP 4: Apply Level Up =====
-                            st.markdown("---")
-                            st.markdown("**Step 4: Apply Level Up**")
-                            
-                            # Calculate skill points
-                            from src.leveling import get_skill_points_for_level, is_asi_level, get_new_spells_at_level, is_caster_class
-                            int_mod = (c.get("abilities", {}).get("INT", 10) - 10) // 2
-                            skill_points = get_skill_points_for_level(selected_class, int_mod)
-                            
-                            # Barbarian Illiteracy bonus: +1 skill point while illiterate
-                            if selected_class.lower() == "barbarian" and not c.get("is_literate", False):
-                                skill_points += 1
-                            
-                            # Check for spells
-                            spell_info = get_new_spells_at_level(selected_class, selected_option["level"], new_class_level)
-                            
-                            # Summary of what will be gained
-                            st.caption(f"**Summary of gains:**")
-                            st.caption(f"  • HP: +{avg_hp if hp_method == 'average' else f'1d{hit_die}+{con_mod}'}")
-                            st.caption(f"  • Skill Points: +{skill_points}")
-                            
-                            if spell_info["new_cantrips"] > 0:
-                                st.caption(f"  • New Cantrips: +{spell_info['new_cantrips']}")
-                            if spell_info["new_spells"] > 0:
-                                st.caption(f"  • New Spells: +{spell_info['new_spells']} (max level {spell_info['max_spell_level']})")
-                            if level_has_asi or is_asi_level(selected_class, new_class_level):
-                                st.caption(f"  • ASI/Feat: +1 choice")
-                            
-                            apply_col1, apply_col2 = st.columns([3, 1])
-                            with apply_col1:
-                                st.caption(f"This will increase {c.get('name', 'Character')}'s {selected_class} to level {new_class_level}.")
-                            with apply_col2:
-                                if st.button("✅ Apply", key=f"lvlup_apply_{i}", type="primary", use_container_width=True):
-                                    roll_hp = (hp_method == "roll")
-                                    result = level_up_character_multiclass(c, selected_class, roll_hp=roll_hp)
-                                    
-                                    if result["success"]:
-                                        # Apply class features
-                                        from src.leveling import apply_class_features
-                                        if features_at_level:
-                                            apply_class_features(c, features_at_level)
-                                        
-                                        # Clear wizard state
-                                        if wizard_key in st.session_state:
-                                            del st.session_state[wizard_key]
-                                        
-                                        # Show success message with pending choices
-                                        from src.leveling import has_pending_choices, get_pending_summary
-                                        pending = has_pending_choices(c)
-                                        msg = f"🎉 {c.get('name', 'Character')} is now {get_class_summary(c)}! +{result['hp_gained']} HP"
-                                        if pending["any"]:
-                                            msg += f" — {get_pending_summary(c)}"
-                                        st.toast(msg)
-                                        
-                                        if roll_hp:
-                                            st.balloons()
-                                        
-                                        st.rerun()
-                                    else:
-                                        st.error(result.get("message", "Level up failed"))
+                    with add_cond_col2:
+                        cond_duration = st.number_input(
+                            "Rounds",
+                            min_value=0,
+                            value=0,
+                            key=f"add_cond_dur_p_{i}",
+                            help="0 = indefinite"
+                        )
+                    
+                    if selected_cond == "(Custom)":
+                        custom_cond_name = st.text_input(
+                            "Custom Condition Name",
+                            key=f"add_cond_custom_p_{i}"
+                        )
                     else:
-                        st.error("No classes available for level up. Check multiclass prerequisites.")
-                
-                # ========== PENDING CHOICES (Skill Points, Spells, ASI/Feat) ==========
-                from src.leveling import has_pending_choices, apply_skill_ranks, apply_spell_selection, apply_asi, apply_feat
-                pending = has_pending_choices(c)
-                
-                if pending["any"]:
-                    st.markdown("---")
-                    st.markdown("### 📋 Pending Level-Up Choices")
+                        custom_cond_name = None
                     
-                    # ===== BARBARIAN ILLITERACY =====
-                    # Barbarians can spend 2 skill points to become literate
-                    if c.get("class", "").lower() == "barbarian" and not c.get("is_literate", False):
-                        skill_points_for_literacy = c.get("pending_skill_points", 0)
-                        if skill_points_for_literacy >= 2:
-                            with st.expander("📖 Learn to Read & Write (Barbarian)", expanded=False):
-                                st.info(
-                                    "As a Barbarian, you are illiterate by default. "
-                                    "You can spend **2 skill points** to learn to read and write. "
-                                    "While illiterate, you gain +1 skill point per level."
-                                )
-                                if st.button("Spend 2 Skill Points to Become Literate", key=f"literacy_{i}"):
-                                    c["is_literate"] = True
-                                    c["pending_skill_points"] = skill_points_for_literacy - 2
-                                    # Remove the bonus skill point feature
-                                    c.pop("illiteracy_skill_bonus", None)
-                                    # Update features
-                                    features = c.get("features", [])
-                                    # Remove old illiteracy feature and add new one
-                                    c["features"] = [f for f in features if "Illiteracy" not in f]
-                                    c["features"].append("Illiteracy (Removed): You spent 2 skill points to learn to read and write.")
-                                    st.toast("📖 You have learned to read and write!")
-                                    st.rerun()
-                    
-                    # ===== SKILL POINTS =====
-                    if pending["skill_points"]:
-                        with st.expander(f"🎯 Skill Points ({c.get('pending_skill_points', 0)} to allocate)", expanded=True):
-                            skill_points_available = c.get("pending_skill_points", 0)
-                            
-                            # Get class skills
-                            srd_classes = load_srd_classes()
-                            char_classes = c.get("classes", [{"class_id": c.get("class", "fighter"), "level": c.get("level", 1)}])
-                            class_skills = set()
-                            for cc in char_classes:
-                                cls_data = next((cls for cls in srd_classes if cls.get("name", "").lower() == cc.get("class_id", "").lower()), None)
-                                if cls_data:
-                                    class_skills.update(cls_data.get("skill_list", []))
-                            
-                            # All skills from SRD
-                            all_skills = [s.get("name", "") for s in load_srd_skills()]
-                            
-                            # Current skill ranks
-                            current_skills = c.get("skills", {})
-                            max_ranks = c.get("level", 1) + 3  # Max ranks = level + 3
-                            
-                            # Skill allocation UI
-                            skill_alloc_key = f"skill_alloc_{i}"
-                            if skill_alloc_key not in st.session_state:
-                                st.session_state[skill_alloc_key] = {}
-                            
-                            alloc = st.session_state[skill_alloc_key]
-                            total_allocated = sum(alloc.values())
-                            remaining = skill_points_available - total_allocated
-                            
-                            st.caption(f"Points remaining: **{remaining}** / {skill_points_available}")
-                            st.caption(f"Max ranks per skill: {max_ranks}")
-                            
-                            # Show class skills first, then others
-                            st.markdown("**Class Skills:**")
-                            skill_cols = st.columns(3)
-                            col_idx = 0
-                            for skill in sorted(class_skills):
-                                if skill in all_skills:
-                                    current = current_skills.get(skill, 0)
-                                    adding = alloc.get(skill, 0)
-                                    with skill_cols[col_idx % 3]:
-                                        new_val = st.number_input(
-                                            f"{skill} ({current}+)",
-                                            min_value=0,
-                                            max_value=min(remaining + adding, max_ranks - current),
-                                            value=adding,
-                                            key=f"skill_{i}_{skill}",
-                                            help=f"Current: {current}, Max: {max_ranks}"
+                    if st.button("Add Condition", key=f"add_cond_btn_p_{i}"):
+                        cond_name = custom_cond_name if selected_cond == "(Custom)" else selected_cond
+                        if cond_name:
+                            dur = cond_duration if cond_duration > 0 else None
+                            add_condition(c, cond_name, duration_rounds=dur)
+                            st.toast(f"Added {cond_name} to {c.get('name', 'character')}")
+                            st.rerun()
+                        else:
+                            st.warning("Please enter a condition name.")
+
+                # --- Actions & Resources ---
+                with box.expander("Actions & Resources"):
+                    resources = c.get("resources", {}) or {}
+                    if resources:
+                        st.markdown("**Resources**")
+                        for rname, rdata in resources.items():
+                            rc1, rc2, rc3 = st.columns([3, 2, 2])
+                            current = int(rdata.get("current", 0))
+                            max_val = int(rdata.get("max", 0))
+
+                            with rc1:
+                                st.markdown(f"{rname}: **{current} / {max_val}**")
+                            with rc2:
+                                if st.button(
+                                    f"Use {rname}", key=f"use_res_{i}_{rname}"
+                                ):
+                                    if current > 0:
+                                        current -= 1
+                                        st.session_state.party[i].setdefault(
+                                            "resources", {}
+                                        )[rname]["current"] = current
+                                        st.toast(
+                                            f"{c.get('name','')} uses {rname}! "
+                                            f"({current}/{max_val} left)"
                                         )
-                                        alloc[skill] = new_val
-                                    col_idx += 1
-                            
-                            # Cross-class skills (cost 2 points per rank)
-                            with st.expander("Cross-Class Skills (2 points per rank)"):
-                                cross_class = [s for s in all_skills if s not in class_skills]
-                                skill_cols2 = st.columns(3)
-                                col_idx2 = 0
-                                for skill in sorted(cross_class):
-                                    current = current_skills.get(skill, 0)
-                                    adding = alloc.get(skill, 0)
-                                    with skill_cols2[col_idx2 % 3]:
-                                        new_val = st.number_input(
-                                            f"{skill} ({current}+)",
-                                            min_value=0,
-                                            max_value=min((remaining + adding) // 2, (max_ranks // 2) - current),
-                                            value=adding,
-                                            key=f"skill_cc_{i}_{skill}",
-                                            help=f"Current: {current}, Max: {max_ranks // 2} (cross-class)"
+                                    else:
+                                        st.warning(
+                                            f"{c.get('name','')} has no {rname} uses left."
                                         )
-                                        alloc[skill] = new_val * 2  # Double cost for cross-class
-                                    col_idx2 += 1
+                            with rc3:
+                                if st.button(
+                                    "Reset", key=f"reset_res_{i}_{rname}"
+                                ):
+                                    st.session_state.party[i].setdefault(
+                                        "resources", {}
+                                    )[rname]["current"] = max_val
+                                    st.toast(
+                                        f"{rname} reset to full for {c.get('name','')}."
+                                    )
+
+                    actions = c.get("actions", []) or []
+                    if actions:
+                        st.markdown("**Actions**")
+                        for action_idx, a in enumerate(actions):
+                            action_name = a.get('name', 'Unnamed')
+                            action_resource = a.get("resource")
                             
-                            # Recalculate total
-                            total_allocated = sum(alloc.values())
-                            remaining = skill_points_available - total_allocated
+                            # Check if this is a Marshal maneuver (needs targeting)
+                            is_marshal_maneuver = action_name.startswith("Marshal:")
                             
-                            if st.button("Apply Skill Points", key=f"apply_skills_{i}", disabled=total_allocated == 0):
-                                # Convert allocation to actual ranks (cross-class already doubled in cost)
-                                actual_ranks = {}
-                                for skill, cost in alloc.items():
-                                    if cost > 0:
-                                        if skill in class_skills:
-                                            actual_ranks[skill] = cost
+                            action_col1, action_col2 = st.columns([4, 1])
+                            
+                            with action_col1:
+                                line = f"**{action_name}**"
+                                if action_resource:
+                                    line += f" _(uses {action_resource})_"
+                                st.markdown(line)
+                                if a.get("description"):
+                                    st.caption(a["description"])
+                            
+                            with action_col2:
+                                # Add Use button for usable actions
+                                if is_marshal_maneuver or action_resource:
+                                    can_use = True
+                                    if action_resource:
+                                        res_data = c.get("resources", {}).get(action_resource, {})
+                                        can_use = res_data.get("current", 0) > 0
+                                    
+                                    if st.button("Use", key=f"use_action_{i}_{action_idx}", disabled=not can_use):
+                                        # Handle Marshal maneuvers with targeting
+                                        if is_marshal_maneuver:
+                                            st.session_state[f"marshal_maneuver_active_{i}"] = action_name
+                                            st.rerun()
                                         else:
-                                            actual_ranks[skill] = cost // 2  # Cross-class gives half ranks
-                                
-                                result = apply_skill_ranks(c, actual_ranks)
-                                if result["success"]:
-                                    st.session_state[skill_alloc_key] = {}
-                                    st.toast(f"✅ Allocated {result['allocated']} skill points!")
-                                    st.rerun()
-                                else:
-                                    st.error(result["message"])
-                    
-                    # ===== CANTRIPS =====
-                    if pending["cantrips"]:
-                        with st.expander(f"✨ Cantrips ({c.get('pending_cantrips', 0)} to choose)", expanded=True):
-                            cantrips_available = c.get("pending_cantrips", 0)
+                                            # Just consume the resource
+                                            if action_resource:
+                                                c.setdefault("resources", {}).setdefault(action_resource, {})["current"] -= 1
+                                                st.toast(f"{c.get('name', '')} uses {action_name}!")
+                                                st.rerun()
                             
-                            # Get class spell list
-                            char_classes = c.get("classes", [{"class_id": c.get("class", "wizard"), "level": 1}])
-                            spell_classes = [cc.get("class_id", "").lower() for cc in char_classes]
-                            
-                            # Load all spells
-                            all_spells = load_srd_spells()
-                            cantrips = [s for s in all_spells if s.get("level", 0) == 0]
-                            
-                            # Filter to class cantrips
-                            class_cantrips = []
-                            for cantrip in cantrips:
-                                spell_classes_list = [sc.lower() for sc in cantrip.get("classes", [])]
-                                if any(sc in spell_classes_list for sc in spell_classes):
-                                    class_cantrips.append(cantrip.get("name", ""))
-                            
-                            # Already known cantrips
-                            known_cantrips = c.get("spells", {}).get("cantrips", [])
-                            available_cantrips = [ct for ct in class_cantrips if ct not in known_cantrips]
-                            
-                            if available_cantrips:
-                                selected_cantrips = st.multiselect(
-                                    f"Choose {cantrips_available} cantrip(s):",
-                                    available_cantrips,
-                                    max_selections=cantrips_available,
-                                    key=f"cantrip_select_{i}"
-                                )
-                                
-                                if st.button("Learn Cantrips", key=f"learn_cantrips_{i}", disabled=len(selected_cantrips) == 0):
-                                    result = apply_spell_selection(c, "cantrip", selected_cantrips)
-                                    if result["success"]:
-                                        st.toast(f"✅ Learned {len(selected_cantrips)} cantrip(s)!")
-                                        st.rerun()
+                            # Marshal maneuver targeting UI
+                            if st.session_state.get(f"marshal_maneuver_active_{i}") == action_name:
+                                with st.container(border=True):
+                                    st.markdown(f"**🎯 Target Selection for {action_name}**")
+                                    
+                                    # Get allies in range (all party members for now)
+                                    aura_range = c.get("aura_range", 30)
+                                    allies = [p.get("name", f"Ally {j}") for j, p in enumerate(st.session_state.get("party", [])) if j != i]
+                                    
+                                    maneuver_key = action_name.replace("Marshal: ", "")
+                                    maneuver_data = MARSHAL_MANEUVERS.get(maneuver_key, {})
+                                    
+                                    # Different targeting based on maneuver type
+                                    if "Allies" in maneuver_data.get("description", "") or "allies" in maneuver_data.get("description", "").lower():
+                                        # Affects all allies - no selection needed
+                                        st.info(f"This affects all allies within {aura_range} ft.")
+                                        target_allies = allies
                                     else:
-                                        st.error(result["message"])
-                            else:
-                                st.caption("No more cantrips available to learn.")
+                                        # Single target selection
+                                        target_allies = st.multiselect(
+                                            "Select target(s):",
+                                            allies,
+                                            key=f"marshal_targets_{i}_{action_idx}"
+                                        )
+                                    
+                                    col_apply, col_cancel = st.columns(2)
+                                    with col_apply:
+                                        if st.button("✅ Apply", key=f"apply_marshal_{i}_{action_idx}"):
+                                            # Consume Martial Die
+                                            c.setdefault("resources", {}).setdefault("Martial Dice", {})["current"] = max(0, c.get("resources", {}).get("Martial Dice", {}).get("current", 0) - 1)
+                                            
+                                            # Roll the martial die
+                                            die_size = c.get("marshal_die_size", "d6")
+                                            die_value = int(die_size[1:])
+                                            roll = random.randint(1, die_value)
+                                            
+                                            # Apply effect based on maneuver
+                                            effect_msg = f"{c.get('name', '')} uses {action_name}! Rolled {roll} on {die_size}."
+                                            
+                                            if "temp HP" in maneuver_data.get("description", ""):
+                                                cha_mod = (c.get("abilities", {}).get("CHA", 10) - 10) // 2
+                                                temp_hp = cha_mod + roll
+                                                effect_msg += f" Allies gain {temp_hp} temp HP."
+                                                # Apply temp HP to targets
+                                                for ally_name in target_allies:
+                                                    for p in st.session_state.get("party", []):
+                                                        if p.get("name") == ally_name:
+                                                            p["temp_hp"] = p.get("temp_hp", 0) + temp_hp
+                                            
+                                            elif "move" in maneuver_data.get("description", "").lower():
+                                                effect_msg += f" Allies can move up to 10 ft without provoking."
+                                            
+                                            elif "AC" in maneuver_data.get("description", ""):
+                                                effect_msg += f" Target gains +{roll} AC until next turn."
+                                            
+                                            st.toast(effect_msg)
+                                            del st.session_state[f"marshal_maneuver_active_{i}"]
+                                            st.rerun()
+                                    
+                                    with col_cancel:
+                                        if st.button("❌ Cancel", key=f"cancel_marshal_{i}_{action_idx}"):
+                                            del st.session_state[f"marshal_maneuver_active_{i}"]
+                                            st.rerun()
+
+                # --- XP & Leveling ---
+                with box.expander("📈 XP & Leveling"):
+                    # Migrate character to ensure XP and multiclass fields exist
+                    migrate_character_xp(c)
+                    migrate_to_multiclass(c)
                     
-                    # ===== SPELLS =====
-                    if pending["spells"]:
-                        with st.expander(f"📖 Spells ({c.get('pending_spells', 0)} to choose)", expanded=True):
-                            spells_available = c.get("pending_spells", 0)
-                            max_spell_level = c.get("max_spell_level", 1)
-                            
-                            # Get class spell list
-                            char_classes = c.get("classes", [{"class_id": c.get("class", "wizard"), "level": 1}])
-                            spell_classes = [cc.get("class_id", "").lower() for cc in char_classes]
-                            
-                            # Load all spells
-                            all_spells = load_srd_spells()
-                            
-                            # Filter to class spells of appropriate level
-                            class_spells = []
-                            for spell in all_spells:
-                                spell_level = spell.get("level", 0)
-                                if spell_level > 0 and spell_level <= max_spell_level:
-                                    spell_classes_list = [sc.lower() for sc in spell.get("classes", [])]
-                                    if any(sc in spell_classes_list for sc in spell_classes):
-                                        class_spells.append(spell.get("name", ""))
-                            
-                            # Already known spells
-                            known_spells = c.get("spells", {}).get("known", [])
-                            available_spells = [sp for sp in class_spells if sp not in known_spells]
-                            
-                            if available_spells:
-                                st.caption(f"Max spell level: {max_spell_level}")
-                                selected_spells = st.multiselect(
-                                    f"Choose {spells_available} spell(s):",
-                                    sorted(available_spells),
-                                    max_selections=spells_available,
-                                    key=f"spell_select_{i}"
-                                )
-                                
-                                if st.button("Learn Spells", key=f"learn_spells_{i}", disabled=len(selected_spells) == 0):
-                                    result = apply_spell_selection(c, "spell", selected_spells)
-                                    if result["success"]:
-                                        st.toast(f"✅ Learned {len(selected_spells)} spell(s)!")
-                                        st.rerun()
-                                    else:
-                                        st.error(result["message"])
-                            else:
-                                st.caption("No more spells available to learn.")
+                    xp_info = get_xp_progress(c)
+                    current_xp = xp_info["current_xp"]
+                    current_level = get_total_level(c)
+                    char_classes = get_classes(c)
+                    class_summary = get_class_summary(c)
                     
-                    # ===== ASI / FEAT =====
-                    if pending["asi_or_feat"]:
-                        with st.expander(f"⬆️ Ability Score Improvement / Feat ({c.get('pending_asi', 0)} choice(s))", expanded=True):
-                            asi_choice = st.radio(
-                                "Choose:",
-                                ["asi", "feat"],
-                                format_func=lambda x: "📊 Ability Score Improvement (+2 to one / +1 to two)" if x == "asi" else "🏅 Feat",
-                                key=f"asi_choice_{i}",
-                                horizontal=True
+                    # ========== CHARACTER SHEET SUMMARY ==========
+                    st.markdown("#### 📋 Character Sheet")
+                    
+                    # Main stats row
+                    stat_col1, stat_col2, stat_col3 = st.columns(3)
+                    with stat_col1:
+                        st.metric("Total Level", current_level)
+                    with stat_col2:
+                        st.metric("XP", f"{current_xp:,}")
+                    with stat_col3:
+                        st.metric("BAB", f"+{c.get('bab', 0)}")
+                    
+                    # Class breakdown
+                    st.markdown(f"**Classes:** {class_summary}")
+                    if len(char_classes) > 1:
+                        for cls in char_classes:
+                            cls_id = cls.get('class_id', '?')
+                            cls_lvl = cls.get('level', 0)
+                            hit_die = get_hit_die_for_class(cls_id)
+                            st.caption(f"  • {cls_id} {cls_lvl} (d{hit_die} hit die)")
+                    
+                    # XP Progress bar
+                    if not xp_info["at_max_level"]:
+                        st.progress(
+                            xp_info["progress_pct"] / 100.0,
+                            text=f"{xp_info['xp_needed']:,} XP needed for level {xp_info['next_level']}"
+                        )
+                    else:
+                        st.success("🏆 Maximum Level Reached!")
+                    
+                    # ========== LEVEL UP AVAILABLE INDICATOR ==========
+                    if c.get("level_up_pending", False):
+                        st.markdown("---")
+                        st.markdown("### ⬆️ Level Up Available!")
+                        st.info(f"**{c.get('name', 'Character')}** has enough XP to reach level {current_level + 1}!")
+                        
+                        # Initialize level up wizard state
+                        wizard_key = f"lvlup_wizard_{i}"
+                        if wizard_key not in st.session_state:
+                            st.session_state[wizard_key] = {"step": 1, "selected_class": None, "hp_method": None}
+                        
+                        wizard_state = st.session_state[wizard_key]
+                        
+                        # Get available classes
+                        all_class_names = [cls.get("name", "") for cls in load_srd_classes()]
+                        available_classes = get_available_classes_for_multiclass(c, all_class_names)
+                        
+                        # Separate existing and new classes
+                        existing_options = []
+                        new_class_options = []
+                        
+                        for cls in available_classes:
+                            cls_id = cls["class_id"]
+                            if not cls_id:
+                                continue
+                            current_cls_level = cls["current_level"]
+                            
+                            if current_cls_level > 0:
+                                existing_options.append({
+                                    "id": cls_id,
+                                    "label": f"📈 {cls_id} (Level {current_cls_level} → {current_cls_level + 1})",
+                                    "new": False,
+                                    "level": current_cls_level
+                                })
+                            elif cls["can_add"]:
+                                new_class_options.append({
+                                    "id": cls_id,
+                                    "label": f"✨ {cls_id} (NEW - Multiclass into Level 1)",
+                                    "new": True,
+                                    "level": 0,
+                                    "reason": cls["reason"]
+                                })
+                        
+                        # ===== STEP 1: Choose Class =====
+                        st.markdown("**Step 1: Choose Class to Level**")
+                        
+                        # Build combined options list
+                        all_options = []
+                        option_labels = []
+                        
+                        if existing_options:
+                            st.caption("Continue existing class:")
+                            for opt in existing_options:
+                                all_options.append(opt)
+                                option_labels.append(opt["label"])
+                        
+                        if new_class_options:
+                            if existing_options:
+                                option_labels.append("─── Multiclass Options ───")
+                                all_options.append(None)  # Separator
+                            for opt in new_class_options:
+                                all_options.append(opt)
+                                option_labels.append(opt["label"])
+                        
+                        if option_labels:
+                            selected_idx = st.selectbox(
+                                "Select class",
+                                range(len(option_labels)),
+                                format_func=lambda x: option_labels[x],
+                                key=f"lvlup_class_select_{i}",
+                                label_visibility="collapsed"
                             )
                             
-                            if asi_choice == "asi":
-                                abilities = ["STR", "DEX", "CON", "INT", "WIS", "CHA"]
-                                current_abilities = c.get("abilities", {})
+                            selected_option = all_options[selected_idx] if selected_idx < len(all_options) else None
+                            
+                            # Skip separator
+                            if selected_option is None:
+                                st.warning("Please select a valid class option")
+                            else:
+                                selected_class = selected_option["id"]
+                                is_new_class = selected_option["new"]
+                                new_class_level = selected_option["level"] + 1
                                 
-                                asi_method = st.radio(
-                                    "Method:",
-                                    ["+2_one", "+1_two"],
-                                    format_func=lambda x: "+2 to one ability" if x == "+2_one" else "+1 to two abilities",
-                                    key=f"asi_method_{i}",
+                                # Show class info
+                                hit_die = get_hit_die_for_class(selected_class)
+                                con_mod = (c.get("abilities", {}).get("CON", 10) - 10) // 2
+                                avg_hp = (hit_die // 2) + 1 + con_mod
+                                
+                                st.markdown("---")
+                                st.markdown(f"**Step 2: HP Increase for {selected_class} Level {new_class_level}**")
+                                
+                                info_col1, info_col2 = st.columns(2)
+                                with info_col1:
+                                    st.caption(f"Hit Die: d{hit_die}")
+                                    st.caption(f"CON Modifier: {'+' if con_mod >= 0 else ''}{con_mod}")
+                                with info_col2:
+                                    st.caption(f"Average HP: {avg_hp}")
+                                    st.caption(f"Roll Range: {max(1, 1 + con_mod)} - {hit_die + con_mod}")
+                                
+                                # ===== STEP 2: HP Method =====
+                                hp_method = st.radio(
+                                    "Choose HP method:",
+                                    ["average", "roll"],
+                                    format_func=lambda x: f"📊 Take Average ({avg_hp} HP)" if x == "average" else f"🎲 Roll d{hit_die}",
+                                    key=f"lvlup_hp_method_{i}",
                                     horizontal=True
                                 )
                                 
-                                if asi_method == "+2_one":
-                                    ability1 = st.selectbox(
-                                        "Increase by +2:",
-                                        abilities,
-                                        format_func=lambda x: f"{x} ({current_abilities.get(x, 10)} → {min(20, current_abilities.get(x, 10) + 2)})",
-                                        key=f"asi_ability1_{i}"
-                                    )
-                                    ability2 = None
-                                else:
-                                    col1, col2 = st.columns(2)
-                                    with col1:
-                                        ability1 = st.selectbox(
-                                            "First +1:",
-                                            abilities,
-                                            format_func=lambda x: f"{x} ({current_abilities.get(x, 10)} → {min(20, current_abilities.get(x, 10) + 1)})",
-                                            key=f"asi_ability1_{i}"
-                                        )
-                                    with col2:
-                                        ability2 = st.selectbox(
-                                            "Second +1:",
-                                            [a for a in abilities if a != ability1],
-                                            format_func=lambda x: f"{x} ({current_abilities.get(x, 10)} → {min(20, current_abilities.get(x, 10) + 1)})",
-                                            key=f"asi_ability2_{i}"
-                                        )
+                                # ===== STEP 3: Preview Features =====
+                                st.markdown("---")
+                                st.markdown(f"**Step 3: Features at {selected_class} Level {new_class_level}**")
                                 
-                                if st.button("Apply ASI", key=f"apply_asi_{i}"):
-                                    result = apply_asi(c, ability1, ability2)
+                                # Look up class features for this level
+                                srd_classes = load_srd_classes()
+                                class_data = next((cls for cls in srd_classes if cls.get("name", "").lower() == selected_class.lower()), None)
+                                
+                                features_at_level = []
+                                level_has_asi = False
+                                if class_data:
+                                    levels_data = class_data.get("levels", {})
+                                    level_info = levels_data.get(str(new_class_level), {})
+                                    features_at_level = level_info.get("features_at_level", [])
+                                    level_has_asi = bool(level_info.get("asi_or_feat"))
+                                    
+                                    if features_at_level:
+                                        for feat in features_at_level:
+                                            if isinstance(feat, str):
+                                                st.markdown(f"  • **{feat}**")
+                                            elif isinstance(feat, dict):
+                                                st.markdown(f"  • **{feat.get('name', 'Feature')}**")
+                                                if feat.get("description"):
+                                                    st.caption(f"    {feat.get('description')}")
+                                    else:
+                                        st.caption("No new features at this level.")
+                                    
+                                    # Show ASI/Feat if applicable
+                                    if level_has_asi:
+                                        st.markdown(f"  • **Ability Score Improvement or Feat**")
+                                else:
+                                    st.caption("Class data not found.")
+                                
+                                # If multiclassing, show proficiencies gained
+                                if is_new_class:
+                                    st.markdown("---")
+                                    st.markdown(f"**Multiclass Proficiencies (from {selected_class}):**")
+                                    mc_profs = get_multiclass_proficiencies(selected_class)
+                                    
+                                    if mc_profs.get("armor"):
+                                        st.caption(f"  Armor: {', '.join(mc_profs['armor'])}")
+                                    if mc_profs.get("weapons"):
+                                        st.caption(f"  Weapons: {', '.join(mc_profs['weapons'])}")
+                                    if mc_profs.get("skills", 0) > 0:
+                                        st.caption(f"  Skills: Choose {mc_profs['skills']} skill(s)")
+                                    if not any([mc_profs.get("armor"), mc_profs.get("weapons"), mc_profs.get("skills", 0)]):
+                                        st.caption("  No additional proficiencies.")
+                                
+                                # ===== STEP 4: Apply Level Up =====
+                                st.markdown("---")
+                                st.markdown("**Step 4: Apply Level Up**")
+                                
+                                # Calculate skill points
+                                from src.leveling import get_skill_points_for_level, is_asi_level, get_new_spells_at_level, is_caster_class
+                                int_mod = (c.get("abilities", {}).get("INT", 10) - 10) // 2
+                                skill_points = get_skill_points_for_level(selected_class, int_mod)
+                                
+                                # Barbarian Illiteracy bonus: +1 skill point while illiterate
+                                if selected_class.lower() == "barbarian" and not c.get("is_literate", False):
+                                    skill_points += 1
+                                
+                                # Check for spells
+                                spell_info = get_new_spells_at_level(selected_class, selected_option["level"], new_class_level)
+                                
+                                # Summary of what will be gained
+                                st.caption(f"**Summary of gains:**")
+                                st.caption(f"  • HP: +{avg_hp if hp_method == 'average' else f'1d{hit_die}+{con_mod}'}")
+                                st.caption(f"  • Skill Points: +{skill_points}")
+                                
+                                if spell_info["new_cantrips"] > 0:
+                                    st.caption(f"  • New Cantrips: +{spell_info['new_cantrips']}")
+                                if spell_info["new_spells"] > 0:
+                                    st.caption(f"  • New Spells: +{spell_info['new_spells']} (max level {spell_info['max_spell_level']})")
+                                if level_has_asi or is_asi_level(selected_class, new_class_level):
+                                    st.caption(f"  • ASI/Feat: +1 choice")
+                                
+                                apply_col1, apply_col2 = st.columns([3, 1])
+                                with apply_col1:
+                                    st.caption(f"This will increase {c.get('name', 'Character')}'s {selected_class} to level {new_class_level}.")
+                                with apply_col2:
+                                    if st.button("✅ Apply", key=f"lvlup_apply_{i}", type="primary", use_container_width=True):
+                                        roll_hp = (hp_method == "roll")
+                                        result = level_up_character_multiclass(c, selected_class, roll_hp=roll_hp)
+                                        
+                                        if result["success"]:
+                                            # Apply class features
+                                            from src.leveling import apply_class_features
+                                            if features_at_level:
+                                                apply_class_features(c, features_at_level)
+                                            
+                                            # Clear wizard state
+                                            if wizard_key in st.session_state:
+                                                del st.session_state[wizard_key]
+                                            
+                                            # Show success message with pending choices
+                                            from src.leveling import has_pending_choices, get_pending_summary
+                                            pending = has_pending_choices(c)
+                                            msg = f"🎉 {c.get('name', 'Character')} is now {get_class_summary(c)}! +{result['hp_gained']} HP"
+                                            if pending["any"]:
+                                                msg += f" — {get_pending_summary(c)}"
+                                            st.toast(msg)
+                                            
+                                            if roll_hp:
+                                                st.balloons()
+                                            
+                                            st.rerun()
+                                        else:
+                                            st.error(result.get("message", "Level up failed"))
+                        else:
+                            st.error("No classes available for level up. Check multiclass prerequisites.")
+                    
+                    # ========== PENDING CHOICES (Skill Points, Spells, ASI/Feat) ==========
+                    from src.leveling import has_pending_choices, apply_skill_ranks, apply_spell_selection, apply_asi, apply_feat
+                    pending = has_pending_choices(c)
+                    
+                    if pending["any"]:
+                        st.markdown("---")
+                        st.markdown("### 📋 Pending Level-Up Choices")
+                        
+                        # ===== BARBARIAN ILLITERACY =====
+                        # Barbarians can spend 2 skill points to become literate
+                        if c.get("class", "").lower() == "barbarian" and not c.get("is_literate", False):
+                            skill_points_for_literacy = c.get("pending_skill_points", 0)
+                            if skill_points_for_literacy >= 2:
+                                with st.expander("📖 Learn to Read & Write (Barbarian)", expanded=False):
+                                    st.info(
+                                        "As a Barbarian, you are illiterate by default. "
+                                        "You can spend **2 skill points** to learn to read and write. "
+                                        "While illiterate, you gain +1 skill point per level."
+                                    )
+                                    if st.button("Spend 2 Skill Points to Become Literate", key=f"literacy_{i}"):
+                                        c["is_literate"] = True
+                                        c["pending_skill_points"] = skill_points_for_literacy - 2
+                                        # Remove the bonus skill point feature
+                                        c.pop("illiteracy_skill_bonus", None)
+                                        # Update features
+                                        features = c.get("features", [])
+                                        # Remove old illiteracy feature and add new one
+                                        c["features"] = [f for f in features if "Illiteracy" not in f]
+                                        c["features"].append("Illiteracy (Removed): You spent 2 skill points to learn to read and write.")
+                                        st.toast("📖 You have learned to read and write!")
+                                        st.rerun()
+                        
+                        # ===== SKILL POINTS =====
+                        if pending["skill_points"]:
+                            with st.expander(f"🎯 Skill Points ({c.get('pending_skill_points', 0)} to allocate)", expanded=True):
+                                skill_points_available = c.get("pending_skill_points", 0)
+                                
+                                # Get class skills
+                                srd_classes = load_srd_classes()
+                                char_classes = c.get("classes", [{"class_id": c.get("class", "fighter"), "level": c.get("level", 1)}])
+                                class_skills = set()
+                                for cc in char_classes:
+                                    cls_data = next((cls for cls in srd_classes if cls.get("name", "").lower() == cc.get("class_id", "").lower()), None)
+                                    if cls_data:
+                                        class_skills.update(cls_data.get("skill_list", []))
+                                
+                                # All skills from SRD
+                                all_skills = [s.get("name", "") for s in load_srd_skills()]
+                                
+                                # Current skill ranks
+                                current_skills = c.get("skills", {})
+                                max_ranks = c.get("level", 1) + 3  # Max ranks = level + 3
+                                
+                                # Skill allocation UI
+                                skill_alloc_key = f"skill_alloc_{i}"
+                                if skill_alloc_key not in st.session_state:
+                                    st.session_state[skill_alloc_key] = {}
+                                
+                                alloc = st.session_state[skill_alloc_key]
+                                total_allocated = sum(alloc.values())
+                                remaining = skill_points_available - total_allocated
+                                
+                                st.caption(f"Points remaining: **{remaining}** / {skill_points_available}")
+                                st.caption(f"Max ranks per skill: {max_ranks}")
+                                
+                                # Show class skills first, then others
+                                st.markdown("**Class Skills:**")
+                                skill_cols = st.columns(3)
+                                col_idx = 0
+                                for skill in sorted(class_skills):
+                                    if skill in all_skills:
+                                        current = current_skills.get(skill, 0)
+                                        adding = alloc.get(skill, 0)
+                                        with skill_cols[col_idx % 3]:
+                                            new_val = st.number_input(
+                                                f"{skill} ({current}+)",
+                                                min_value=0,
+                                                max_value=min(remaining + adding, max_ranks - current),
+                                                value=adding,
+                                                key=f"skill_{i}_{skill}",
+                                                help=f"Current: {current}, Max: {max_ranks}"
+                                            )
+                                            alloc[skill] = new_val
+                                        col_idx += 1
+                                
+                                # Cross-class skills (cost 2 points per rank)
+                                with st.expander("Cross-Class Skills (2 points per rank)"):
+                                    cross_class = [s for s in all_skills if s not in class_skills]
+                                    skill_cols2 = st.columns(3)
+                                    col_idx2 = 0
+                                    for skill in sorted(cross_class):
+                                        current = current_skills.get(skill, 0)
+                                        adding = alloc.get(skill, 0)
+                                        with skill_cols2[col_idx2 % 3]:
+                                            new_val = st.number_input(
+                                                f"{skill} ({current}+)",
+                                                min_value=0,
+                                                max_value=min((remaining + adding) // 2, (max_ranks // 2) - current),
+                                                value=adding,
+                                                key=f"skill_cc_{i}_{skill}",
+                                                help=f"Current: {current}, Max: {max_ranks // 2} (cross-class)"
+                                            )
+                                            alloc[skill] = new_val * 2  # Double cost for cross-class
+                                        col_idx2 += 1
+                                
+                                # Recalculate total
+                                total_allocated = sum(alloc.values())
+                                remaining = skill_points_available - total_allocated
+                                
+                                if st.button("Apply Skill Points", key=f"apply_skills_{i}", disabled=total_allocated == 0):
+                                    # Convert allocation to actual ranks (cross-class already doubled in cost)
+                                    actual_ranks = {}
+                                    for skill, cost in alloc.items():
+                                        if cost > 0:
+                                            if skill in class_skills:
+                                                actual_ranks[skill] = cost
+                                            else:
+                                                actual_ranks[skill] = cost // 2  # Cross-class gives half ranks
+                                    
+                                    result = apply_skill_ranks(c, actual_ranks)
                                     if result["success"]:
-                                        st.toast(f"✅ {result['message']}")
+                                        st.session_state[skill_alloc_key] = {}
+                                        st.toast(f"✅ Allocated {result['allocated']} skill points!")
                                         st.rerun()
                                     else:
                                         st.error(result["message"])
-                            
-                            else:  # Feat
-                                # Load feats
-                                feats = load_srd_feats()
-                                feat_names = [f.get("name", "") for f in feats]
-                                current_feats = c.get("feats", [])
+                        
+                        # ===== CANTRIPS =====
+                        if pending["cantrips"]:
+                            with st.expander(f"✨ Cantrips ({c.get('pending_cantrips', 0)} to choose)", expanded=True):
+                                cantrips_available = c.get("pending_cantrips", 0)
                                 
-                                # Filter feats - exclude ones already taken (except repeatable ones)
-                                repeatable_feats = ["Elemental Adept", "Weapon Focus", "Weapon Specialization", 
-                                                   "Greater Weapon Focus", "Greater Weapon Specialization"]
-                                available_feats = [f for f in feat_names if f not in current_feats or f in repeatable_feats]
+                                # Get class spell list
+                                char_classes = c.get("classes", [{"class_id": c.get("class", "wizard"), "level": 1}])
+                                spell_classes = [cc.get("class_id", "").lower() for cc in char_classes]
                                 
-                                # Also check prerequisites
-                                char_abilities = c.get("abilities", {})
-                                char_bab = c.get("bab", 0)
-                                char_feats = c.get("feats", [])
+                                # Load all spells
+                                all_spells = load_srd_spells()
+                                cantrips = [s for s in all_spells if s.get("level", 0) == 0]
                                 
-                                def check_prereqs(feat_data):
-                                    prereqs = feat_data.get("prerequisites", [])
-                                    if not prereqs:
-                                        return True
-                                    for prereq in prereqs:
-                                        if isinstance(prereq, dict):
-                                            for key, val in prereq.items():
-                                                if key in ["STR", "DEX", "CON", "INT", "WIS", "CHA"]:
-                                                    if char_abilities.get(key, 10) < val:
-                                                        return False
-                                                elif key == "BAB":
-                                                    if char_bab < val:
-                                                        return False
-                                                elif key == "feat":
-                                                    if val not in char_feats:
-                                                        return False
-                                                elif key == "spellcasting":
-                                                    # Check if character has any spellcasting
-                                                    has_spells = bool(c.get("spells", {}).get("known") or c.get("spells", {}).get("cantrips"))
-                                                    if val and not has_spells:
-                                                        return False
-                                    return True
+                                # Filter to class cantrips
+                                class_cantrips = []
+                                for cantrip in cantrips:
+                                    spell_classes_list = [sc.lower() for sc in cantrip.get("classes", [])]
+                                    if any(sc in spell_classes_list for sc in spell_classes):
+                                        class_cantrips.append(cantrip.get("name", ""))
                                 
-                                # Filter by prerequisites
-                                valid_feats = []
-                                for fname in available_feats:
-                                    fdata = next((f for f in feats if f.get("name") == fname), None)
-                                    if fdata and check_prereqs(fdata):
-                                        valid_feats.append(fname)
+                                # Already known cantrips
+                                known_cantrips = c.get("spells", {}).get("cantrips", [])
+                                available_cantrips = [ct for ct in class_cantrips if ct not in known_cantrips]
                                 
-                                if valid_feats:
-                                    selected_feat = st.selectbox(
-                                        "Choose a feat:",
-                                        sorted(valid_feats),
-                                        key=f"feat_select_{i}"
+                                if available_cantrips:
+                                    selected_cantrips = st.multiselect(
+                                        f"Choose {cantrips_available} cantrip(s):",
+                                        available_cantrips,
+                                        max_selections=cantrips_available,
+                                        key=f"cantrip_select_{i}"
                                     )
                                     
-                                    # Show feat description
-                                    feat_data = next((f for f in feats if f.get("name") == selected_feat), None)
-                                    if feat_data:
-                                        st.caption(feat_data.get("description", "No description available."))
-                                        
-                                        # Show prerequisites if any
+                                    if st.button("Learn Cantrips", key=f"learn_cantrips_{i}", disabled=len(selected_cantrips) == 0):
+                                        result = apply_spell_selection(c, "cantrip", selected_cantrips)
+                                        if result["success"]:
+                                            st.toast(f"✅ Learned {len(selected_cantrips)} cantrip(s)!")
+                                            st.rerun()
+                                        else:
+                                            st.error(result["message"])
+                                else:
+                                    st.caption("No more cantrips available to learn.")
+                        
+                        # ===== SPELLS =====
+                        if pending["spells"]:
+                            with st.expander(f"📖 Spells ({c.get('pending_spells', 0)} to choose)", expanded=True):
+                                spells_available = c.get("pending_spells", 0)
+                                max_spell_level = c.get("max_spell_level", 1)
+                                
+                                # Get class spell list
+                                char_classes = c.get("classes", [{"class_id": c.get("class", "wizard"), "level": 1}])
+                                spell_classes = [cc.get("class_id", "").lower() for cc in char_classes]
+                                
+                                # Load all spells
+                                all_spells = load_srd_spells()
+                                
+                                # Filter to class spells of appropriate level
+                                class_spells = []
+                                for spell in all_spells:
+                                    spell_level = spell.get("level", 0)
+                                    if spell_level > 0 and spell_level <= max_spell_level:
+                                        spell_classes_list = [sc.lower() for sc in spell.get("classes", [])]
+                                        if any(sc in spell_classes_list for sc in spell_classes):
+                                            class_spells.append(spell.get("name", ""))
+                                
+                                # Already known spells
+                                known_spells = c.get("spells", {}).get("known", [])
+                                available_spells = [sp for sp in class_spells if sp not in known_spells]
+                                
+                                if available_spells:
+                                    st.caption(f"Max spell level: {max_spell_level}")
+                                    selected_spells = st.multiselect(
+                                        f"Choose {spells_available} spell(s):",
+                                        sorted(available_spells),
+                                        max_selections=spells_available,
+                                        key=f"spell_select_{i}"
+                                    )
+                                    
+                                    if st.button("Learn Spells", key=f"learn_spells_{i}", disabled=len(selected_spells) == 0):
+                                        result = apply_spell_selection(c, "spell", selected_spells)
+                                        if result["success"]:
+                                            st.toast(f"✅ Learned {len(selected_spells)} spell(s)!")
+                                            st.rerun()
+                                        else:
+                                            st.error(result["message"])
+                                else:
+                                    st.caption("No more spells available to learn.")
+                        
+                        # ===== ASI / FEAT =====
+                        if pending["asi_or_feat"]:
+                            with st.expander(f"⬆️ Ability Score Improvement / Feat ({c.get('pending_asi', 0)} choice(s))", expanded=True):
+                                asi_choice = st.radio(
+                                    "Choose:",
+                                    ["asi", "feat"],
+                                    format_func=lambda x: "📊 Ability Score Improvement (+2 to one / +1 to two)" if x == "asi" else "🏅 Feat",
+                                    key=f"asi_choice_{i}",
+                                    horizontal=True
+                                )
+                                
+                                if asi_choice == "asi":
+                                    abilities = ["STR", "DEX", "CON", "INT", "WIS", "CHA"]
+                                    current_abilities = c.get("abilities", {})
+                                    
+                                    asi_method = st.radio(
+                                        "Method:",
+                                        ["+2_one", "+1_two"],
+                                        format_func=lambda x: "+2 to one ability" if x == "+2_one" else "+1 to two abilities",
+                                        key=f"asi_method_{i}",
+                                        horizontal=True
+                                    )
+                                    
+                                    if asi_method == "+2_one":
+                                        ability1 = st.selectbox(
+                                            "Increase by +2:",
+                                            abilities,
+                                            format_func=lambda x: f"{x} ({current_abilities.get(x, 10)} → {min(20, current_abilities.get(x, 10) + 2)})",
+                                            key=f"asi_ability1_{i}"
+                                        )
+                                        ability2 = None
+                                    else:
+                                        col1, col2 = st.columns(2)
+                                        with col1:
+                                            ability1 = st.selectbox(
+                                                "First +1:",
+                                                abilities,
+                                                format_func=lambda x: f"{x} ({current_abilities.get(x, 10)} → {min(20, current_abilities.get(x, 10) + 1)})",
+                                                key=f"asi_ability1_{i}"
+                                            )
+                                        with col2:
+                                            ability2 = st.selectbox(
+                                                "Second +1:",
+                                                [a for a in abilities if a != ability1],
+                                                format_func=lambda x: f"{x} ({current_abilities.get(x, 10)} → {min(20, current_abilities.get(x, 10) + 1)})",
+                                                key=f"asi_ability2_{i}"
+                                            )
+                                    
+                                    if st.button("Apply ASI", key=f"apply_asi_{i}"):
+                                        result = apply_asi(c, ability1, ability2)
+                                        if result["success"]:
+                                            st.toast(f"✅ {result['message']}")
+                                            st.rerun()
+                                        else:
+                                            st.error(result["message"])
+                                
+                                else:  # Feat
+                                    # Load feats
+                                    feats = load_srd_feats()
+                                    feat_names = [f.get("name", "") for f in feats]
+                                    current_feats = c.get("feats", [])
+                                    
+                                    # Filter feats - exclude ones already taken (except repeatable ones)
+                                    repeatable_feats = ["Elemental Adept", "Weapon Focus", "Weapon Specialization", 
+                                                    "Greater Weapon Focus", "Greater Weapon Specialization"]
+                                    available_feats = [f for f in feat_names if f not in current_feats or f in repeatable_feats]
+                                    
+                                    # Also check prerequisites
+                                    char_abilities = c.get("abilities", {})
+                                    char_bab = c.get("bab", 0)
+                                    char_feats = c.get("feats", [])
+                                    
+                                    def check_prereqs(feat_data):
                                         prereqs = feat_data.get("prerequisites", [])
-                                        if prereqs:
-                                            prereq_strs = []
-                                            for p in prereqs:
-                                                if isinstance(p, dict):
-                                                    for k, v in p.items():
-                                                        prereq_strs.append(f"{k} {v}")
-                                            if prereq_strs:
-                                                st.caption(f"**Prerequisites:** {', '.join(prereq_strs)}")
+                                        if not prereqs:
+                                            return True
+                                        for prereq in prereqs:
+                                            if isinstance(prereq, dict):
+                                                for key, val in prereq.items():
+                                                    if key in ["STR", "DEX", "CON", "INT", "WIS", "CHA"]:
+                                                        if char_abilities.get(key, 10) < val:
+                                                            return False
+                                                    elif key == "BAB":
+                                                        if char_bab < val:
+                                                            return False
+                                                    elif key == "feat":
+                                                        if val not in char_feats:
+                                                            return False
+                                                    elif key == "spellcasting":
+                                                        # Check if character has any spellcasting
+                                                        has_spells = bool(c.get("spells", {}).get("known") or c.get("spells", {}).get("cantrips"))
+                                                        if val and not has_spells:
+                                                            return False
+                                        return True
+                                    
+                                    # Filter by prerequisites
+                                    valid_feats = []
+                                    for fname in available_feats:
+                                        fdata = next((f for f in feats if f.get("name") == fname), None)
+                                        if fdata and check_prereqs(fdata):
+                                            valid_feats.append(fname)
+                                    
+                                    if valid_feats:
+                                        selected_feat = st.selectbox(
+                                            "Choose a feat:",
+                                            sorted(valid_feats),
+                                            key=f"feat_select_{i}"
+                                        )
+                                        
+                                        # Show feat description
+                                        feat_data = next((f for f in feats if f.get("name") == selected_feat), None)
+                                        if feat_data:
+                                            st.caption(feat_data.get("description", "No description available."))
+                                            
+                                            # Show prerequisites if any
+                                            prereqs = feat_data.get("prerequisites", [])
+                                            if prereqs:
+                                                prereq_strs = []
+                                                for p in prereqs:
+                                                    if isinstance(p, dict):
+                                                        for k, v in p.items():
+                                                            prereq_strs.append(f"{k} {v}")
+                                                if prereq_strs:
+                                                    st.caption(f"**Prerequisites:** {', '.join(prereq_strs)}")
+                                            
+                                            # Show effects
+                                            effects = feat_data.get("effects", {})
+                                            if effects:
+                                                effect_strs = []
+                                                if "initiative_bonus" in effects:
+                                                    effect_strs.append(f"+{effects['initiative_bonus']} Initiative")
+                                                if "speed_bonus" in effects:
+                                                    effect_strs.append(f"+{effects['speed_bonus']} ft. Speed")
+                                                if "hp_bonus_per_level" in effects:
+                                                    effect_strs.append(f"+{effects['hp_bonus_per_level']} HP/level")
+                                                if "ac_bonus" in effects:
+                                                    effect_strs.append(f"+{effects['ac_bonus']} AC")
+                                                if effect_strs:
+                                                    st.caption(f"**Effects:** {', '.join(effect_strs)}")
+                                            
+                                            # Handle ability increase choice
+                                            ability_choice = None
+                                            ability_increase = feat_data.get("ability_increase", {})
+                                            if ability_increase and "choice" in ability_increase:
+                                                choices = ability_increase["choice"]
+                                                amount = ability_increase.get("amount", 1)
+                                                ability_choice = st.selectbox(
+                                                    f"Choose ability to increase (+{amount}):",
+                                                    choices,
+                                                    format_func=lambda x: f"{x} ({char_abilities.get(x, 10)} → {min(20, char_abilities.get(x, 10) + amount)})",
+                                                    key=f"feat_ability_choice_{i}"
+                                                )
+                                            elif ability_increase:
+                                                # Show fixed ability increases
+                                                fixed_increases = []
+                                                for ab, amt in ability_increase.items():
+                                                    if ab in ["STR", "DEX", "CON", "INT", "WIS", "CHA"]:
+                                                        fixed_increases.append(f"+{amt} {ab}")
+                                                if fixed_increases:
+                                                    st.caption(f"**Ability Increase:** {', '.join(fixed_increases)}")
+                                        
+                                        if st.button("Take Feat", key=f"take_feat_{i}"):
+                                            result = apply_feat(c, selected_feat, feat_data, ability_choice=ability_choice)
+                                            if result["success"]:
+                                                st.toast(f"✅ {result['message']}")
+                                                st.rerun()
+                                            else:
+                                                st.error(result["message"])
+                                    else:
+                                        st.caption("No feats available (prerequisites not met or all taken).")
+                        
+                        # ===== FIGHTING STYLE =====
+                        if pending.get("fighting_style"):
+                            with st.expander(f"⚔️ Fighting Style ({c.get('pending_fighting_style', 0)} to choose)", expanded=True):
+                                from src.leveling import get_available_fighting_styles, apply_fighting_style
+                                
+                                feats = load_srd_feats()
+                                available_styles = get_available_fighting_styles(c, feats)
+                                
+                                if available_styles:
+                                    style_names = [s["name"] for s in available_styles]
+                                    selected_style = st.selectbox(
+                                        "Choose a Fighting Style:",
+                                        sorted(style_names),
+                                        key=f"fighting_style_select_{i}"
+                                    )
+                                    
+                                    # Show description
+                                    style_data = next((s for s in available_styles if s["name"] == selected_style), None)
+                                    if style_data:
+                                        st.caption(style_data.get("description", ""))
                                         
                                         # Show effects
-                                        effects = feat_data.get("effects", {})
+                                        effects = style_data.get("effects", {})
                                         if effects:
                                             effect_strs = []
-                                            if "initiative_bonus" in effects:
-                                                effect_strs.append(f"+{effects['initiative_bonus']} Initiative")
-                                            if "speed_bonus" in effects:
-                                                effect_strs.append(f"+{effects['speed_bonus']} ft. Speed")
-                                            if "hp_bonus_per_level" in effects:
-                                                effect_strs.append(f"+{effects['hp_bonus_per_level']} HP/level")
-                                            if "ac_bonus" in effects:
-                                                effect_strs.append(f"+{effects['ac_bonus']} AC")
+                                            if "ranged_attack_bonus" in effects:
+                                                effect_strs.append(f"+{effects['ranged_attack_bonus']} ranged attack")
+                                            if "armor_ac_bonus" in effects:
+                                                effect_strs.append(f"+{effects['armor_ac_bonus']} AC (in armor)")
+                                            if "one_handed_damage_bonus" in effects:
+                                                effect_strs.append(f"+{effects['one_handed_damage_bonus']} damage (one-handed)")
+                                            if "thrown_damage_bonus" in effects:
+                                                effect_strs.append(f"+{effects['thrown_damage_bonus']} thrown damage")
                                             if effect_strs:
                                                 st.caption(f"**Effects:** {', '.join(effect_strs)}")
-                                        
-                                        # Handle ability increase choice
-                                        ability_choice = None
-                                        ability_increase = feat_data.get("ability_increase", {})
-                                        if ability_increase and "choice" in ability_increase:
-                                            choices = ability_increase["choice"]
-                                            amount = ability_increase.get("amount", 1)
-                                            ability_choice = st.selectbox(
-                                                f"Choose ability to increase (+{amount}):",
-                                                choices,
-                                                format_func=lambda x: f"{x} ({char_abilities.get(x, 10)} → {min(20, char_abilities.get(x, 10) + amount)})",
-                                                key=f"feat_ability_choice_{i}"
-                                            )
-                                        elif ability_increase:
-                                            # Show fixed ability increases
-                                            fixed_increases = []
-                                            for ab, amt in ability_increase.items():
-                                                if ab in ["STR", "DEX", "CON", "INT", "WIS", "CHA"]:
-                                                    fixed_increases.append(f"+{amt} {ab}")
-                                            if fixed_increases:
-                                                st.caption(f"**Ability Increase:** {', '.join(fixed_increases)}")
                                     
-                                    if st.button("Take Feat", key=f"take_feat_{i}"):
-                                        result = apply_feat(c, selected_feat, feat_data, ability_choice=ability_choice)
+                                    if st.button("Choose Fighting Style", key=f"apply_fighting_style_{i}"):
+                                        result = apply_fighting_style(c, selected_style, style_data)
                                         if result["success"]:
                                             st.toast(f"✅ {result['message']}")
                                             st.rerun()
                                         else:
                                             st.error(result["message"])
                                 else:
-                                    st.caption("No feats available (prerequisites not met or all taken).")
-                    
-                    # ===== FIGHTING STYLE =====
-                    if pending.get("fighting_style"):
-                        with st.expander(f"⚔️ Fighting Style ({c.get('pending_fighting_style', 0)} to choose)", expanded=True):
-                            from src.leveling import get_available_fighting_styles, apply_fighting_style
-                            
-                            feats = load_srd_feats()
-                            available_styles = get_available_fighting_styles(c, feats)
-                            
-                            if available_styles:
-                                style_names = [s["name"] for s in available_styles]
-                                selected_style = st.selectbox(
-                                    "Choose a Fighting Style:",
-                                    sorted(style_names),
-                                    key=f"fighting_style_select_{i}"
-                                )
-                                
-                                # Show description
-                                style_data = next((s for s in available_styles if s["name"] == selected_style), None)
-                                if style_data:
-                                    st.caption(style_data.get("description", ""))
-                                    
-                                    # Show effects
-                                    effects = style_data.get("effects", {})
-                                    if effects:
-                                        effect_strs = []
-                                        if "ranged_attack_bonus" in effects:
-                                            effect_strs.append(f"+{effects['ranged_attack_bonus']} ranged attack")
-                                        if "armor_ac_bonus" in effects:
-                                            effect_strs.append(f"+{effects['armor_ac_bonus']} AC (in armor)")
-                                        if "one_handed_damage_bonus" in effects:
-                                            effect_strs.append(f"+{effects['one_handed_damage_bonus']} damage (one-handed)")
-                                        if "thrown_damage_bonus" in effects:
-                                            effect_strs.append(f"+{effects['thrown_damage_bonus']} thrown damage")
-                                        if effect_strs:
-                                            st.caption(f"**Effects:** {', '.join(effect_strs)}")
-                                
-                                if st.button("Choose Fighting Style", key=f"apply_fighting_style_{i}"):
-                                    result = apply_fighting_style(c, selected_style, style_data)
-                                    if result["success"]:
-                                        st.toast(f"✅ {result['message']}")
-                                        st.rerun()
-                                    else:
-                                        st.error(result["message"])
-                            else:
-                                st.caption("You already have all available fighting styles.")
-                    
-                    # ===== BONUS FEAT =====
-                    if pending.get("bonus_feat"):
-                        with st.expander(f"🎖️ Bonus Feat ({c.get('pending_bonus_feat', 0)} to choose)", expanded=True):
-                            from src.leveling import get_available_bonus_feats, apply_bonus_feat, check_feat_prerequisites
-                            
-                            feats = load_srd_feats()
-                            available_bonus = get_available_bonus_feats(c, feats)
-                            
-                            # Sort by whether prerequisites are met
-                            available_bonus.sort(key=lambda x: (not x["meets_prerequisites"], x["feat"]["name"]))
-                            
-                            if available_bonus:
-                                # Show feats with prerequisites met first
-                                valid_feats = [f for f in available_bonus if f["meets_prerequisites"]]
-                                invalid_feats = [f for f in available_bonus if not f["meets_prerequisites"]]
-                                
-                                st.markdown("**Feats you qualify for:**")
-                                if valid_feats:
-                                    feat_options = [f["feat"]["name"] for f in valid_feats]
-                                    selected_feat = st.selectbox(
-                                        "Choose a feat:",
-                                        feat_options,
-                                        key=f"bonus_feat_select_{i}"
-                                    )
-                                    
-                                    # Show feat details
-                                    feat_entry = next((f for f in valid_feats if f["feat"]["name"] == selected_feat), None)
-                                    if feat_entry:
-                                        feat_data = feat_entry["feat"]
-                                        st.caption(feat_data.get("description", ""))
-                                        
-                                        # Show prerequisites
-                                        prereqs = feat_data.get("prerequisites", [])
-                                        if prereqs:
-                                            prereq_strs = []
-                                            for p in prereqs:
-                                                if isinstance(p, dict):
-                                                    for k, v in p.items():
-                                                        prereq_strs.append(f"{k} {v}")
-                                            if prereq_strs:
-                                                st.caption(f"✅ **Prerequisites:** {', '.join(prereq_strs)}")
-                                        
-                                        # Handle ability choice if needed
-                                        ability_choice = None
-                                        ability_increase = feat_data.get("ability_increase", {})
-                                        if ability_increase and "choice" in ability_increase:
-                                            choices = ability_increase["choice"]
-                                            amount = ability_increase.get("amount", 1)
-                                            char_abilities = c.get("abilities", {})
-                                            ability_choice = st.selectbox(
-                                                f"Choose ability to increase (+{amount}):",
-                                                choices,
-                                                format_func=lambda x: f"{x} ({char_abilities.get(x, 10)} → {min(20, char_abilities.get(x, 10) + amount)})",
-                                                key=f"bonus_feat_ability_{i}"
-                                            )
-                                        
-                                        if st.button("Take Bonus Feat", key=f"apply_bonus_feat_{i}"):
-                                            result = apply_bonus_feat(c, selected_feat, feat_data, ability_choice)
-                                            if result["success"]:
-                                                st.toast(f"✅ {result['message']}")
-                                                st.rerun()
-                                            else:
-                                                st.error(result["message"])
-                                else:
-                                    st.caption("No feats available that you qualify for.")
-                                
-                                # Show unavailable feats
-                                if invalid_feats:
-                                    with st.expander("Feats you don't qualify for"):
-                                        for f in invalid_feats[:10]:  # Show first 10
-                                            st.markdown(f"**{f['feat']['name']}** - Missing: {', '.join(f['unmet_prerequisites'])}")
-                            else:
-                                st.caption("No bonus feats available.")
-                    
-                    # ===== WARLOCK INVOCATIONS =====
-                    if pending.get("invocations"):
-                        with st.expander(f"🌙 Eldritch Invocations ({c.get('pending_invocations', 0)} to choose)", expanded=True):
-                            invocations_to_choose = c.get("pending_invocations", 0)
-                            current_invocations = c.get("warlock_invocations", [])
-                            char_level = c.get("level", 1)
-                            pact_boon = c.get("warlock_pact_boon", "")
-                            
-                            # Get available invocations based on level and prerequisites
-                            available_invocations = []
-                            for inv_name, inv_data in WARLOCK_INVOCATIONS.items():
-                                # Skip if already known
-                                if inv_name in current_invocations:
-                                    continue
-                                
-                                # Check level requirement
-                                if char_level < inv_data.get("level", 1):
-                                    continue
-                                
-                                # Check prerequisites
-                                prereq = inv_data.get("prereq")
-                                if prereq:
-                                    if "Eldritch Blast" in prereq:
-                                        # Check if character has Eldritch Blast
-                                        known_cantrips = c.get("spells", {}).get("cantrips", [])
-                                        if "Eldritch Blast" not in known_cantrips and "Eldritch Blast" not in c.get("spells", []):
-                                            continue
-                                    if "Pact of the Blade" in prereq and pact_boon != "Blade":
-                                        continue
-                                    if "Pact of the Chain" in prereq and pact_boon != "Chain":
-                                        continue
-                                    if "Pact of the Tome" in prereq and pact_boon != "Tome":
-                                        continue
-                                
-                                available_invocations.append((inv_name, inv_data))
-                            
-                            if available_invocations:
-                                inv_names = [inv[0] for inv in available_invocations]
-                                
-                                selected_invocations = st.multiselect(
-                                    f"Choose {invocations_to_choose} invocation(s):",
-                                    inv_names,
-                                    max_selections=invocations_to_choose,
-                                    key=f"invocation_select_{i}"
-                                )
-                                
-                                # Show descriptions for selected
-                                if selected_invocations:
-                                    for inv_name in selected_invocations:
-                                        inv_data = WARLOCK_INVOCATIONS.get(inv_name, {})
-                                        prereq_text = f" *(Requires: {inv_data.get('prereq')})*" if inv_data.get("prereq") else ""
-                                        st.caption(f"**{inv_name}**: {inv_data.get('description', '')}{prereq_text}")
-                                
-                                if st.button("Learn Invocations", key=f"learn_invocations_{i}", 
-                                           disabled=len(selected_invocations) != invocations_to_choose):
-                                    # Apply invocations
-                                    current_invocations.extend(selected_invocations)
-                                    c["warlock_invocations"] = current_invocations
-                                    c["pending_invocations"] = 0
-                                    
-                                    # Re-apply invocation effects
-                                    add_level1_class_resources_and_actions(c)
-                                    
-                                    st.toast(f"✅ Learned {len(selected_invocations)} invocation(s)!")
-                                    st.rerun()
-                            else:
-                                st.caption("No invocations available (check prerequisites or level).")
-                    
-                    # ===== PACT BOON =====
-                    if pending.get("pact_boon"):
-                        with st.expander("📜 Pact Boon (Level 3)", expanded=True):
-                            pact_options = ["Blade", "Chain", "Tome", "Talisman"]
-                            
-                            selected_pact = st.radio(
-                                "Choose your Pact Boon:",
-                                pact_options,
-                                format_func=lambda x: {
-                                    "Blade": "⚔️ Pact of the Blade - Create magical pact weapons",
-                                    "Chain": "🐉 Pact of the Chain - Enhanced familiar (imp, pseudodragon, etc.)",
-                                    "Tome": "📖 Pact of the Tome - Book with 3 cantrips from any class",
-                                    "Talisman": "🔮 Pact of the Talisman - Amulet that aids ability checks"
-                                }.get(x, x),
-                                key=f"pact_boon_select_{i}",
-                                horizontal=False
-                            )
-                            
-                            if st.button("Choose Pact Boon", key=f"apply_pact_boon_{i}"):
-                                c["warlock_pact_boon"] = selected_pact
-                                c["pending_pact_boon"] = False
-                                
-                                # Apply pact boon effects
-                                add_level1_class_resources_and_actions(c)
-                                
-                                st.toast(f"✅ Chose Pact of the {selected_pact}!")
-                                st.rerun()
-                    
-                    # ===== FIGHTER MANEUVERS =====
-                    if pending.get("maneuvers"):
-                        with st.expander(f"⚔️ Combat Maneuvers ({c.get('pending_maneuvers', 0)} to choose)", expanded=True):
-                            maneuvers_to_choose = c.get("pending_maneuvers", 0)
-                            current_maneuvers = c.get("fighter_maneuvers", [])
-                            
-                            # Get available maneuvers
-                            available_maneuvers = []
-                            for maneuver_name, maneuver_data in FIGHTER_MANEUVERS.items():
-                                if maneuver_name not in current_maneuvers:
-                                    available_maneuvers.append((maneuver_name, maneuver_data))
-                            
-                            if available_maneuvers:
-                                maneuver_names = [m[0] for m in available_maneuvers]
-                                
-                                selected_maneuvers = st.multiselect(
-                                    f"Choose {maneuvers_to_choose} maneuver(s):",
-                                    maneuver_names,
-                                    max_selections=maneuvers_to_choose,
-                                    key=f"maneuver_select_{i}"
-                                )
-                                
-                                # Show descriptions for selected
-                                if selected_maneuvers:
-                                    st.markdown("**Selected Maneuvers:**")
-                                    for m_name in selected_maneuvers:
-                                        m_data = FIGHTER_MANEUVERS.get(m_name, {})
-                                        st.caption(f"• **{m_name}** ({m_data.get('type', 'attack')}): {m_data.get('description', '')}")
-                                
-                                if st.button("Learn Maneuvers", key=f"learn_maneuvers_{i}", 
-                                           disabled=len(selected_maneuvers) != maneuvers_to_choose):
-                                    # Apply maneuvers
-                                    current_maneuvers.extend(selected_maneuvers)
-                                    c["fighter_maneuvers"] = current_maneuvers
-                                    c["pending_maneuvers"] = 0
-                                    
-                                    # Re-apply maneuver actions
-                                    add_level1_class_resources_and_actions(c)
-                                    
-                                    st.toast(f"✅ Learned {len(selected_maneuvers)} maneuver(s)!")
-                                    st.rerun()
-                            else:
-                                st.caption("All maneuvers already learned.")
-                    
-                    # ===== SORCERER METAMAGIC =====
-                    if pending.get("metamagic"):
-                        with st.expander(f"✨ Metamagic ({c.get('pending_metamagic', 0)} to choose)", expanded=True):
-                            metamagic_to_choose = c.get("pending_metamagic", 0)
-                            current_metamagic = c.get("sorcerer_metamagic", [])
-                            
-                            # Get available metamagic
-                            available_metamagic = []
-                            for meta_name, meta_data in SORCERER_METAMAGIC.items():
-                                if meta_name not in current_metamagic:
-                                    available_metamagic.append((meta_name, meta_data))
-                            
-                            if available_metamagic:
-                                meta_names = [m[0] for m in available_metamagic]
-                                
-                                selected_metamagic = st.multiselect(
-                                    f"Choose {metamagic_to_choose} metamagic option(s):",
-                                    meta_names,
-                                    max_selections=metamagic_to_choose,
-                                    key=f"metamagic_select_{i}"
-                                )
-                                
-                                # Show descriptions for selected
-                                if selected_metamagic:
-                                    st.markdown("**Selected Metamagic:**")
-                                    for m_name in selected_metamagic:
-                                        m_data = SORCERER_METAMAGIC.get(m_name, {})
-                                        cost = m_data.get("cost", 1)
-                                        cost_str = f"{cost} SP" if isinstance(cost, int) else "Spell level SP"
-                                        st.caption(f"• **{m_name}** ({cost_str}): {m_data.get('description', '')}")
-                                
-                                if st.button("Learn Metamagic", key=f"learn_metamagic_{i}", 
-                                           disabled=len(selected_metamagic) != metamagic_to_choose):
-                                    # Apply metamagic
-                                    current_metamagic.extend(selected_metamagic)
-                                    c["sorcerer_metamagic"] = current_metamagic
-                                    c["pending_metamagic"] = 0
-                                    
-                                    # Re-apply metamagic actions
-                                    add_level1_class_resources_and_actions(c)
-                                    
-                                    st.toast(f"✅ Learned {len(selected_metamagic)} metamagic option(s)!")
-                                    st.rerun()
-                            else:
-                                st.caption("All metamagic options already learned.")
-                    
-                    # ===== WIZARD SCHOOL =====
-                    if pending.get("wizard_school"):
-                        with st.expander(f"📚 Arcane School (Choose 1)", expanded=True):
-                            st.markdown("**Choose Your School of Magic:**")
-                            
-                            school_names = list(WIZARD_SCHOOLS.keys())
-                            selected_school = st.selectbox(
-                                "Arcane School:",
-                                school_names,
-                                key=f"wizard_school_select_{i}"
-                            )
-                            
-                            # Show school details
-                            school_data = WIZARD_SCHOOLS.get(selected_school, {})
-                            st.caption(school_data.get("description", ""))
-                            
-                            if st.button("Choose School", key=f"choose_school_{i}"):
-                                c["wizard_school"] = selected_school
-                                c["pending_wizard_school"] = False
-                                
-                                # Re-apply school effects
-                                add_level1_class_resources_and_actions(c)
-                                
-                                st.toast(f"✅ Specialized in {selected_school}!")
-                                st.rerun()
-                    
-                    # ===== PALADIN DIVINE VOW =====
-                    if pending.get("divine_vow"):
-                        with st.expander(f"⚔️ Divine Vow (Choose 1)", expanded=True):
-                            st.markdown("**Choose Your Sacred Oath:**")
-                            
-                            vow_names = list(PALADIN_DIVINE_VOWS.keys())
-                            selected_vow = st.selectbox(
-                                "Divine Vow:",
-                                vow_names,
-                                key=f"divine_vow_select_{i}"
-                            )
-                            
-                            # Show vow details
-                            vow_data = PALADIN_DIVINE_VOWS.get(selected_vow, {})
-                            st.caption(vow_data.get("description", ""))
-                            
-                            st.markdown("**Features:**")
-                            for feat in vow_data.get("features", []):
-                                st.caption(f"• {feat}")
-                            
-                            if st.button("Take Vow", key=f"take_vow_{i}"):
-                                c["paladin_divine_vow"] = selected_vow
-                                c["pending_divine_vow"] = False
-                                
-                                # Re-apply vow effects
-                                add_level1_class_resources_and_actions(c)
-                                
-                                st.toast(f"✅ Swore the Vow of {selected_vow}!")
-                                st.rerun()
-                    
-                    # ===== BARBARIAN PRIMAL TALENTS =====
-                    if pending.get("primal_talents"):
-                        with st.expander(f"💪 Primal Talents ({c.get('pending_primal_talents', 0)} to choose)", expanded=True):
-                            talents_to_choose = c.get("pending_primal_talents", 0)
-                            current_talents = c.get("barbarian_primal_talents", [])
-                            
-                            # Get available talents (check prerequisites)
-                            available_talents = []
-                            for talent_name, talent_data in BARBARIAN_PRIMAL_TALENTS.items():
-                                if talent_name not in current_talents:
-                                    prereq = talent_data.get("prerequisite")
-                                    if prereq is None or prereq in current_talents:
-                                        available_talents.append((talent_name, talent_data))
-                            
-                            if available_talents:
-                                talent_names = [t[0] for t in available_talents]
-                                
-                                selected_talents = st.multiselect(
-                                    f"Choose {talents_to_choose} primal talent(s):",
-                                    talent_names,
-                                    max_selections=talents_to_choose,
-                                    key=f"primal_talent_select_{i}"
-                                )
-                                
-                                # Show descriptions for selected
-                                if selected_talents:
-                                    st.markdown("**Selected Talents:**")
-                                    for t_name in selected_talents:
-                                        t_data = BARBARIAN_PRIMAL_TALENTS.get(t_name, {})
-                                        prereq = t_data.get("prerequisite")
-                                        prereq_str = f" (Requires: {prereq})" if prereq else ""
-                                        st.caption(f"• **{t_name}**{prereq_str}: {t_data.get('description', '')}")
-                                
-                                if st.button("Learn Primal Talents", key=f"learn_talents_{i}", 
-                                           disabled=len(selected_talents) != talents_to_choose):
-                                    # Apply talents
-                                    current_talents.extend(selected_talents)
-                                    c["barbarian_primal_talents"] = current_talents
-                                    c["pending_primal_talents"] = 0
-                                    
-                                    # Re-apply talent effects
-                                    add_level1_class_resources_and_actions(c)
-                                    
-                                    st.toast(f"✅ Learned {len(selected_talents)} primal talent(s)!")
-                                    st.rerun()
-                            else:
-                                st.caption("All primal talents already learned or prerequisites not met.")
-                    
-                    # ===== MARSHAL MANEUVERS =====
-                    if pending.get("marshal_maneuvers"):
-                        with st.expander(f"🎖️ Marshal Maneuvers ({c.get('pending_marshal_maneuvers', 0)} to choose)", expanded=True):
-                            maneuvers_to_choose = c.get("pending_marshal_maneuvers", 0)
-                            current_maneuvers = c.get("marshal_maneuvers", [])
-                            
-                            # Get available maneuvers
-                            available_maneuvers = []
-                            for maneuver_name, maneuver_data in MARSHAL_MANEUVERS.items():
-                                if maneuver_name not in current_maneuvers:
-                                    available_maneuvers.append((maneuver_name, maneuver_data))
-                            
-                            if available_maneuvers:
-                                maneuver_names = [m[0] for m in available_maneuvers]
-                                
-                                selected_maneuvers = st.multiselect(
-                                    f"Choose {maneuvers_to_choose} maneuver(s):",
-                                    maneuver_names,
-                                    max_selections=maneuvers_to_choose,
-                                    key=f"marshal_maneuver_select_{i}"
-                                )
-                                
-                                # Show descriptions for selected
-                                if selected_maneuvers:
-                                    st.markdown("**Selected Maneuvers:**")
-                                    for m_name in selected_maneuvers:
-                                        m_data = MARSHAL_MANEUVERS.get(m_name, {})
-                                        mtype = m_data.get("type", "action").capitalize()
-                                        st.caption(f"• **{m_name}** ({mtype}): {m_data.get('description', '')}")
-                                
-                                if st.button("Learn Maneuvers", key=f"learn_marshal_maneuvers_{i}", 
-                                           disabled=len(selected_maneuvers) != maneuvers_to_choose):
-                                    # Apply maneuvers
-                                    current_maneuvers.extend(selected_maneuvers)
-                                    c["marshal_maneuvers"] = current_maneuvers
-                                    c["pending_marshal_maneuvers"] = 0
-                                    
-                                    # Re-apply maneuver effects
-                                    add_level1_class_resources_and_actions(c)
-                                    
-                                    st.toast(f"✅ Learned {len(selected_maneuvers)} maneuver(s)!")
-                                    st.rerun()
-                            else:
-                                st.caption("All marshal maneuvers already learned.")
-                    
-                    # ===== KNIGHT MANEUVERS =====
-                    if pending.get("knight_maneuvers"):
-                        with st.expander(f"🛡️ Knight Maneuvers ({c.get('pending_knight_maneuvers', 0)} to choose)", expanded=True):
-                            maneuvers_to_choose = c.get("pending_knight_maneuvers", 0)
-                            current_maneuvers = c.get("knight_maneuvers", [])
-                            
-                            # Get available maneuvers
-                            available_maneuvers = []
-                            for maneuver_name, maneuver_data in KNIGHT_MANEUVERS.items():
-                                if maneuver_name not in current_maneuvers:
-                                    available_maneuvers.append((maneuver_name, maneuver_data))
-                            
-                            if available_maneuvers:
-                                maneuver_names = [m[0] for m in available_maneuvers]
-                                
-                                selected_maneuvers = st.multiselect(
-                                    f"Choose {maneuvers_to_choose} maneuver(s):",
-                                    maneuver_names,
-                                    max_selections=maneuvers_to_choose,
-                                    key=f"knight_maneuver_select_{i}"
-                                )
-                                
-                                # Show descriptions for selected
-                                if selected_maneuvers:
-                                    st.markdown("**Selected Maneuvers:**")
-                                    for m_name in selected_maneuvers:
-                                        m_data = KNIGHT_MANEUVERS.get(m_name, {})
-                                        requires_mounted = " (Mounted only)" if m_data.get("requires_mounted") else ""
-                                        st.caption(f"• **{m_name}** ({m_data.get('type', 'attack')}){requires_mounted}: {m_data.get('description', '')}")
-                                
-                                if st.button("Learn Maneuvers", key=f"learn_knight_maneuvers_{i}", 
-                                           disabled=len(selected_maneuvers) != maneuvers_to_choose):
-                                    # Apply maneuvers
-                                    current_maneuvers.extend(selected_maneuvers)
-                                    c["knight_maneuvers"] = current_maneuvers
-                                    c["pending_knight_maneuvers"] = 0
-                                    
-                                    # Re-apply maneuver effects
-                                    add_level1_class_resources_and_actions(c)
-                                    
-                                    st.toast(f"✅ Learned {len(selected_maneuvers)} knight maneuver(s)!")
-                                    st.rerun()
-                            else:
-                                st.caption("All knight maneuvers already learned.")
-                    
-                    # ===== WEAPON EXPERTISE (Fighter Level 6) =====
-                    if pending.get("weapon_expertise"):
-                        with st.expander("⚔️ Weapon Expertise (Choose 1 Weapon)", expanded=True):
-                            st.markdown("**Choose a weapon for Weapon Expertise:**")
-                            st.caption("You gain +1 to attack rolls and can reroll 1s on damage dice with this weapon.")
-                            
-                            # Get weapons from equipment
-                            equipment = c.get("equipment", [])
-                            attacks = c.get("attacks", [])
-                            
-                            # Collect weapon names from attacks that are from weapons
-                            weapon_names = []
-                            for atk in attacks:
-                                if atk.get("source") == "weapon":
-                                    weapon_names.append(atk.get("name", "Unknown"))
-                            
-                            # Also add common martial weapons if no weapons equipped
-                            if not weapon_names:
-                                weapon_names = [
-                                    "Longsword", "Greatsword", "Battleaxe", "Greataxe",
-                                    "Warhammer", "Maul", "Rapier", "Scimitar", "Shortsword",
-                                    "Longbow", "Shortbow", "Crossbow", "Halberd", "Glaive",
-                                    "Pike", "Lance", "Flail", "Morningstar", "Trident"
-                                ]
-                            
-                            selected_weapon = st.selectbox(
-                                "Weapon:",
-                                weapon_names,
-                                key=f"weapon_expertise_select_{i}"
-                            )
-                            
-                            if selected_weapon:
-                                st.success(f"✅ **{selected_weapon}**: +1 attack, reroll 1s on damage")
-                                
-                                if st.button("Confirm Weapon Expertise", key=f"confirm_expertise_{i}"):
-                                    c["weapon_expertise"] = selected_weapon
-                                    c["pending_weapon_expertise"] = False
-                                    
-                                    # Re-apply class features to update bonuses
-                                    add_level1_class_resources_and_actions(c)
-                                    
-                                    # Refresh attacks to apply expertise bonus
-                                    refresh_attacks_from_equipment(c)
-                                    
-                                    st.toast(f"✅ Gained Weapon Expertise with {selected_weapon}!")
-                                    st.rerun()
-            
-            # ========== COMPANIONS & WILD SHAPE SECTION ==========
-            companions = c.get("companions", [])
-            wild_shape_active = c.get("wild_shape_active", False)
-            
-            # Show companions section if character has any or can have them
-            char_class = c.get("class", "").lower()
-            char_classes_list = [cc.get("class_id", "").lower() for cc in c.get("classes", [])]
-            has_companion_class = "ranger" in char_classes_list or "wizard" in char_classes_list or char_class in ["ranger", "wizard"]
-            has_wild_shape = "druid" in char_classes_list or char_class == "druid"
-            
-            if companions or has_companion_class or has_wild_shape:
-                with box.expander("🐾 Companions & Wild Shape"):
-                    
-                    # ===== WILD SHAPE (Druid) =====
-                    if has_wild_shape:
-                        st.markdown("#### 🌿 Wild Shape")
+                                    st.caption("You already have all available fighting styles.")
                         
-                        if wild_shape_active:
-                            # Currently in Wild Shape
-                            form_name = c.get("wild_shape_form", "Unknown")
-                            ws_hp = c.get("wild_shape_hp", c.get("hp", 1))
-                            ws_max_hp = c.get("wild_shape_max_hp", ws_hp)
-                            
-                            st.success(f"**Currently transformed into: {form_name}**")
-                            
-                            ws_col1, ws_col2, ws_col3 = st.columns([2, 2, 2])
-                            with ws_col1:
-                                st.metric("Beast HP", f"{ws_hp}/{ws_max_hp}")
-                            with ws_col2:
-                                st.metric("AC", c.get("ac", 10))
-                            with ws_col3:
-                                st.metric("Speed", f"{c.get('speed_ft', 30)} ft")
-                            
-                            # Show beast attacks
-                            beast_attacks = c.get("attacks", [])
-                            if beast_attacks:
-                                st.markdown("**Beast Attacks:**")
-                                for atk in beast_attacks:
-                                    st.caption(f"• {atk.get('name', 'Attack')}: +{atk.get('to_hit', 0)} to hit, {atk.get('damage', '1d4')} {atk.get('damage_type', '')}")
-                            
-                            if st.button("🔄 Revert to Normal Form", key=f"revert_ws_{i}"):
-                                revert_wild_shape(c)
-                                st.toast(f"{c.get('name', 'Character')} reverts to their normal form!")
-                                st.rerun()
-                        else:
-                            # Can transform
-                            ws_uses = c.get("resources", {}).get("Wild Shape", {}).get("current", 0)
-                            max_cr = c.get("wild_shape_max_cr", 0.25)
-                            druid_level = c.get("level", 1)
-                            
-                            # Determine restrictions
-                            allow_fly = druid_level >= 8
-                            allow_swim = druid_level >= 3
-                            
-                            st.caption(f"Uses: {ws_uses} | Max CR: {max_cr} | {'Fly allowed' if allow_fly else 'No fly'} | {'Swim allowed' if allow_swim else 'No swim'}")
-                            
-                            if ws_uses > 0:
-                                # Get available beasts
-                                available_beasts = get_beasts_by_cr(max_cr, allow_fly, allow_swim)
-                                beast_names = [b.get("name", "") for b in available_beasts]
+                        # ===== BONUS FEAT =====
+                        if pending.get("bonus_feat"):
+                            with st.expander(f"🎖️ Bonus Feat ({c.get('pending_bonus_feat', 0)} to choose)", expanded=True):
+                                from src.leveling import get_available_bonus_feats, apply_bonus_feat, check_feat_prerequisites
                                 
-                                if beast_names:
-                                    selected_beast = st.selectbox(
-                                        "Transform into:",
-                                        beast_names,
-                                        key=f"ws_beast_select_{i}"
-                                    )
+                                feats = load_srd_feats()
+                                available_bonus = get_available_bonus_feats(c, feats)
+                                
+                                # Sort by whether prerequisites are met
+                                available_bonus.sort(key=lambda x: (not x["meets_prerequisites"], x["feat"]["name"]))
+                                
+                                if available_bonus:
+                                    # Show feats with prerequisites met first
+                                    valid_feats = [f for f in available_bonus if f["meets_prerequisites"]]
+                                    invalid_feats = [f for f in available_bonus if not f["meets_prerequisites"]]
                                     
-                                    # Show preview
-                                    selected_beast_data = next((b for b in available_beasts if b.get("name") == selected_beast), None)
-                                    if selected_beast_data:
-                                        preview_col1, preview_col2 = st.columns(2)
-                                        with preview_col1:
-                                            hp_str = selected_beast_data.get("Hit Points", selected_beast_data.get("hp", "10"))
-                                            hp_match = re.match(r"(\d+)", str(hp_str))
-                                            preview_hp = int(hp_match.group(1)) if hp_match else 10
-                                            st.caption(f"HP: {preview_hp}")
+                                    st.markdown("**Feats you qualify for:**")
+                                    if valid_feats:
+                                        feat_options = [f["feat"]["name"] for f in valid_feats]
+                                        selected_feat = st.selectbox(
+                                            "Choose a feat:",
+                                            feat_options,
+                                            key=f"bonus_feat_select_{i}"
+                                        )
+                                        
+                                        # Show feat details
+                                        feat_entry = next((f for f in valid_feats if f["feat"]["name"] == selected_feat), None)
+                                        if feat_entry:
+                                            feat_data = feat_entry["feat"]
+                                            st.caption(feat_data.get("description", ""))
                                             
-                                            ac_str = selected_beast_data.get("Armor Class", selected_beast_data.get("ac", "10"))
-                                            ac_match = re.match(r"(\d+)", str(ac_str))
-                                            preview_ac = int(ac_match.group(1)) if ac_match else 10
-                                            st.caption(f"AC: {preview_ac}")
-                                        with preview_col2:
-                                            st.caption(f"Speed: {selected_beast_data.get('Speed', selected_beast_data.get('speed', '30 ft.'))}")
-                                            st.caption(f"STR: {selected_beast_data.get('STR', 10)} DEX: {selected_beast_data.get('DEX', 10)}")
+                                            # Show prerequisites
+                                            prereqs = feat_data.get("prerequisites", [])
+                                            if prereqs:
+                                                prereq_strs = []
+                                                for p in prereqs:
+                                                    if isinstance(p, dict):
+                                                        for k, v in p.items():
+                                                            prereq_strs.append(f"{k} {v}")
+                                                if prereq_strs:
+                                                    st.caption(f"✅ **Prerequisites:** {', '.join(prereq_strs)}")
+                                            
+                                            # Handle ability choice if needed
+                                            ability_choice = None
+                                            ability_increase = feat_data.get("ability_increase", {})
+                                            if ability_increase and "choice" in ability_increase:
+                                                choices = ability_increase["choice"]
+                                                amount = ability_increase.get("amount", 1)
+                                                char_abilities = c.get("abilities", {})
+                                                ability_choice = st.selectbox(
+                                                    f"Choose ability to increase (+{amount}):",
+                                                    choices,
+                                                    format_func=lambda x: f"{x} ({char_abilities.get(x, 10)} → {min(20, char_abilities.get(x, 10) + amount)})",
+                                                    key=f"bonus_feat_ability_{i}"
+                                                )
+                                            
+                                            if st.button("Take Bonus Feat", key=f"apply_bonus_feat_{i}"):
+                                                result = apply_bonus_feat(c, selected_feat, feat_data, ability_choice)
+                                                if result["success"]:
+                                                    st.toast(f"✅ {result['message']}")
+                                                    st.rerun()
+                                                else:
+                                                    st.error(result["message"])
+                                    else:
+                                        st.caption("No feats available that you qualify for.")
                                     
-                                    if st.button("🐻 Transform!", key=f"transform_ws_{i}"):
-                                        apply_wild_shape(c, selected_beast)
-                                        # Use a Wild Shape resource
-                                        c.setdefault("resources", {}).setdefault("Wild Shape", {})["current"] = ws_uses - 1
-                                        st.toast(f"{c.get('name', 'Character')} transforms into a {selected_beast}!")
+                                    # Show unavailable feats
+                                    if invalid_feats:
+                                        with st.expander("Feats you don't qualify for"):
+                                            for f in invalid_feats[:10]:  # Show first 10
+                                                st.markdown(f"**{f['feat']['name']}** - Missing: {', '.join(f['unmet_prerequisites'])}")
+                                else:
+                                    st.caption("No bonus feats available.")
+                        
+                        # ===== WARLOCK INVOCATIONS =====
+                        if pending.get("invocations"):
+                            with st.expander(f"🌙 Eldritch Invocations ({c.get('pending_invocations', 0)} to choose)", expanded=True):
+                                invocations_to_choose = c.get("pending_invocations", 0)
+                                current_invocations = c.get("warlock_invocations", [])
+                                char_level = c.get("level", 1)
+                                pact_boon = c.get("warlock_pact_boon", "")
+                                
+                                # Get available invocations based on level and prerequisites
+                                available_invocations = []
+                                for inv_name, inv_data in WARLOCK_INVOCATIONS.items():
+                                    # Skip if already known
+                                    if inv_name in current_invocations:
+                                        continue
+                                    
+                                    # Check level requirement
+                                    if char_level < inv_data.get("level", 1):
+                                        continue
+                                    
+                                    # Check prerequisites
+                                    prereq = inv_data.get("prereq")
+                                    if prereq:
+                                        if "Eldritch Blast" in prereq:
+                                            # Check if character has Eldritch Blast
+                                            known_cantrips = c.get("spells", {}).get("cantrips", [])
+                                            if "Eldritch Blast" not in known_cantrips and "Eldritch Blast" not in c.get("spells", []):
+                                                continue
+                                        if "Pact of the Blade" in prereq and pact_boon != "Blade":
+                                            continue
+                                        if "Pact of the Chain" in prereq and pact_boon != "Chain":
+                                            continue
+                                        if "Pact of the Tome" in prereq and pact_boon != "Tome":
+                                            continue
+                                    
+                                    available_invocations.append((inv_name, inv_data))
+                                
+                                if available_invocations:
+                                    inv_names = [inv[0] for inv in available_invocations]
+                                    
+                                    selected_invocations = st.multiselect(
+                                        f"Choose {invocations_to_choose} invocation(s):",
+                                        inv_names,
+                                        max_selections=invocations_to_choose,
+                                        key=f"invocation_select_{i}"
+                                    )
+                                    
+                                    # Show descriptions for selected
+                                    if selected_invocations:
+                                        for inv_name in selected_invocations:
+                                            inv_data = WARLOCK_INVOCATIONS.get(inv_name, {})
+                                            prereq_text = f" *(Requires: {inv_data.get('prereq')})*" if inv_data.get("prereq") else ""
+                                            st.caption(f"**{inv_name}**: {inv_data.get('description', '')}{prereq_text}")
+                                    
+                                    if st.button("Learn Invocations", key=f"learn_invocations_{i}", 
+                                            disabled=len(selected_invocations) != invocations_to_choose):
+                                        # Apply invocations
+                                        current_invocations.extend(selected_invocations)
+                                        c["warlock_invocations"] = current_invocations
+                                        c["pending_invocations"] = 0
+                                        
+                                        # Re-apply invocation effects
+                                        add_level1_class_resources_and_actions(c)
+                                        
+                                        st.toast(f"✅ Learned {len(selected_invocations)} invocation(s)!")
                                         st.rerun()
                                 else:
-                                    st.caption("No valid beast forms available.")
-                            else:
-                                st.warning("No Wild Shape uses remaining. Rest to regain uses.")
+                                    st.caption("No invocations available (check prerequisites or level).")
                         
-                        st.markdown("---")
-                    
-                    # ===== COMPANIONS (Ranger/Wizard) =====
-                    if companions:
-                        st.markdown("#### 🐺 Active Companions")
-                        
-                        for comp_idx, comp in enumerate(companions):
-                            comp_type = comp.get("companion_type", "companion")
-                            comp_name = comp.get("name", "Unknown")
-                            comp_hp = comp.get("hp", 1)
-                            comp_max_hp = comp.get("max_hp", comp_hp)
-                            
-                            comp_box = st.container(border=True)
-                            with comp_box:
-                                comp_col1, comp_col2, comp_col3, comp_col4 = st.columns([3, 2, 2, 1])
+                        # ===== PACT BOON =====
+                        if pending.get("pact_boon"):
+                            with st.expander("📜 Pact Boon (Level 3)", expanded=True):
+                                pact_options = ["Blade", "Chain", "Tome", "Talisman"]
                                 
-                                with comp_col1:
-                                    icon = "🦉" if comp_type == "familiar" else "🐺"
-                                    st.markdown(f"{icon} **{comp_name}**")
-                                    st.caption(f"({comp.get('base_creature', 'Unknown')})")
-                                
-                                with comp_col2:
-                                    new_hp = st.number_input(
-                                        "HP",
-                                        min_value=0,
-                                        max_value=comp_max_hp,
-                                        value=comp_hp,
-                                        key=f"comp_hp_{i}_{comp_idx}"
-                                    )
-                                    comp["hp"] = new_hp
-                                
-                                with comp_col3:
-                                    st.metric("AC", comp.get("ac", 10))
-                                
-                                with comp_col4:
-                                    if st.button("❌", key=f"rm_comp_{i}_{comp_idx}"):
-                                        c["companions"].remove(comp)
-                                        st.rerun()
-                                
-                                # Show companion attacks
-                                comp_attacks = comp.get("attacks", [])
-                                if comp_attacks:
-                                    st.markdown("**Attacks:**")
-                                    for atk in comp_attacks:
-                                        st.caption(f"• {atk.get('name', 'Attack')}: +{atk.get('to_hit', 0)} to hit, {atk.get('damage', '1d4')} {atk.get('damage_type', '')}")
-                    
-                    # ===== ADD COMPANION (if eligible) =====
-                    if has_companion_class and not any(comp.get("companion_type") in ["animal_companion", "familiar"] for comp in companions):
-                        st.markdown("#### ➕ Summon Companion")
-                        
-                        if "ranger" in char_classes_list or char_class == "ranger":
-                            # Ranger Animal Companion selection
-                            ranger_level = next((cc.get("level", 0) for cc in c.get("classes", []) if cc.get("class_id", "").lower() == "ranger"), c.get("level", 1))
-                            if ranger_level >= 3:
-                                max_cr = max(1, ranger_level // 3)
-                                available_beasts = get_beasts_by_cr(max_cr, allow_fly=True, allow_swim=True)
-                                beast_names = [b.get("name", "") for b in available_beasts]
-                                
-                                selected_companion = st.selectbox(
-                                    "Choose Animal Companion:",
-                                    beast_names,
-                                    key=f"select_animal_comp_{i}"
+                                selected_pact = st.radio(
+                                    "Choose your Pact Boon:",
+                                    pact_options,
+                                    format_func=lambda x: {
+                                        "Blade": "⚔️ Pact of the Blade - Create magical pact weapons",
+                                        "Chain": "🐉 Pact of the Chain - Enhanced familiar (imp, pseudodragon, etc.)",
+                                        "Tome": "📖 Pact of the Tome - Book with 3 cantrips from any class",
+                                        "Talisman": "🔮 Pact of the Talisman - Amulet that aids ability checks"
+                                    }.get(x, x),
+                                    key=f"pact_boon_select_{i}",
+                                    horizontal=False
                                 )
                                 
-                                if st.button("🐺 Summon Companion", key=f"summon_comp_{i}"):
-                                    new_comp = create_animal_companion(c, selected_companion)
-                                    if new_comp:
-                                        c.setdefault("companions", []).append(new_comp)
-                                        c["ranger_companion_type"] = selected_companion
-                                        st.toast(f"Summoned {new_comp.get('name', 'companion')}!")
-                                        st.rerun()
-                            else:
-                                st.caption("Reach Ranger level 3 to gain an Animal Companion.")
-                        
-                        if "wizard" in char_classes_list or char_class == "wizard":
-                            # Wizard Familiar selection
-                            familiar_options = get_familiar_options()
-                            familiar_names = [f.get("name", "") for f in familiar_options]
-                            
-                            selected_familiar = st.selectbox(
-                                "Choose Familiar:",
-                                familiar_names,
-                                key=f"select_familiar_{i}"
-                            )
-                            
-                            if st.button("🦉 Summon Familiar", key=f"summon_fam_{i}"):
-                                new_fam = create_familiar(c, selected_familiar)
-                                if new_fam:
-                                    c.setdefault("companions", []).append(new_fam)
-                                    c["wizard_familiar_type"] = selected_familiar
-                                    st.toast(f"Summoned {new_fam.get('name', 'familiar')}!")
+                                if st.button("Choose Pact Boon", key=f"apply_pact_boon_{i}"):
+                                    c["warlock_pact_boon"] = selected_pact
+                                    c["pending_pact_boon"] = False
+                                    
+                                    # Apply pact boon effects
+                                    add_level1_class_resources_and_actions(c)
+                                    
+                                    st.toast(f"✅ Chose Pact of the {selected_pact}!")
                                     st.rerun()
+                        
+                        # ===== FIGHTER MANEUVERS =====
+                        if pending.get("maneuvers"):
+                            with st.expander(f"⚔️ Combat Maneuvers ({c.get('pending_maneuvers', 0)} to choose)", expanded=True):
+                                maneuvers_to_choose = c.get("pending_maneuvers", 0)
+                                current_maneuvers = c.get("fighter_maneuvers", [])
+                                
+                                # Get available maneuvers
+                                available_maneuvers = []
+                                for maneuver_name, maneuver_data in FIGHTER_MANEUVERS.items():
+                                    if maneuver_name not in current_maneuvers:
+                                        available_maneuvers.append((maneuver_name, maneuver_data))
+                                
+                                if available_maneuvers:
+                                    maneuver_names = [m[0] for m in available_maneuvers]
+                                    
+                                    selected_maneuvers = st.multiselect(
+                                        f"Choose {maneuvers_to_choose} maneuver(s):",
+                                        maneuver_names,
+                                        max_selections=maneuvers_to_choose,
+                                        key=f"maneuver_select_{i}"
+                                    )
+                                    
+                                    # Show descriptions for selected
+                                    if selected_maneuvers:
+                                        st.markdown("**Selected Maneuvers:**")
+                                        for m_name in selected_maneuvers:
+                                            m_data = FIGHTER_MANEUVERS.get(m_name, {})
+                                            st.caption(f"• **{m_name}** ({m_data.get('type', 'attack')}): {m_data.get('description', '')}")
+                                    
+                                    if st.button("Learn Maneuvers", key=f"learn_maneuvers_{i}", 
+                                            disabled=len(selected_maneuvers) != maneuvers_to_choose):
+                                        # Apply maneuvers
+                                        current_maneuvers.extend(selected_maneuvers)
+                                        c["fighter_maneuvers"] = current_maneuvers
+                                        c["pending_maneuvers"] = 0
+                                        
+                                        # Re-apply maneuver actions
+                                        add_level1_class_resources_and_actions(c)
+                                        
+                                        st.toast(f"✅ Learned {len(selected_maneuvers)} maneuver(s)!")
+                                        st.rerun()
+                                else:
+                                    st.caption("All maneuvers already learned.")
+                        
+                        # ===== SORCERER METAMAGIC =====
+                        if pending.get("metamagic"):
+                            with st.expander(f"✨ Metamagic ({c.get('pending_metamagic', 0)} to choose)", expanded=True):
+                                metamagic_to_choose = c.get("pending_metamagic", 0)
+                                current_metamagic = c.get("sorcerer_metamagic", [])
+                                
+                                # Get available metamagic
+                                available_metamagic = []
+                                for meta_name, meta_data in SORCERER_METAMAGIC.items():
+                                    if meta_name not in current_metamagic:
+                                        available_metamagic.append((meta_name, meta_data))
+                                
+                                if available_metamagic:
+                                    meta_names = [m[0] for m in available_metamagic]
+                                    
+                                    selected_metamagic = st.multiselect(
+                                        f"Choose {metamagic_to_choose} metamagic option(s):",
+                                        meta_names,
+                                        max_selections=metamagic_to_choose,
+                                        key=f"metamagic_select_{i}"
+                                    )
+                                    
+                                    # Show descriptions for selected
+                                    if selected_metamagic:
+                                        st.markdown("**Selected Metamagic:**")
+                                        for m_name in selected_metamagic:
+                                            m_data = SORCERER_METAMAGIC.get(m_name, {})
+                                            cost = m_data.get("cost", 1)
+                                            cost_str = f"{cost} SP" if isinstance(cost, int) else "Spell level SP"
+                                            st.caption(f"• **{m_name}** ({cost_str}): {m_data.get('description', '')}")
+                                    
+                                    if st.button("Learn Metamagic", key=f"learn_metamagic_{i}", 
+                                            disabled=len(selected_metamagic) != metamagic_to_choose):
+                                        # Apply metamagic
+                                        current_metamagic.extend(selected_metamagic)
+                                        c["sorcerer_metamagic"] = current_metamagic
+                                        c["pending_metamagic"] = 0
+                                        
+                                        # Re-apply metamagic actions
+                                        add_level1_class_resources_and_actions(c)
+                                        
+                                        st.toast(f"✅ Learned {len(selected_metamagic)} metamagic option(s)!")
+                                        st.rerun()
+                                else:
+                                    st.caption("All metamagic options already learned.")
+                        
+                        # ===== WIZARD SCHOOL =====
+                        if pending.get("wizard_school"):
+                            with st.expander(f"📚 Arcane School (Choose 1)", expanded=True):
+                                st.markdown("**Choose Your School of Magic:**")
+                                
+                                school_names = list(WIZARD_SCHOOLS.keys())
+                                selected_school = st.selectbox(
+                                    "Arcane School:",
+                                    school_names,
+                                    key=f"wizard_school_select_{i}"
+                                )
+                                
+                                # Show school details
+                                school_data = WIZARD_SCHOOLS.get(selected_school, {})
+                                st.caption(school_data.get("description", ""))
+                                
+                                if st.button("Choose School", key=f"choose_school_{i}"):
+                                    c["wizard_school"] = selected_school
+                                    c["pending_wizard_school"] = False
+                                    
+                                    # Re-apply school effects
+                                    add_level1_class_resources_and_actions(c)
+                                    
+                                    st.toast(f"✅ Specialized in {selected_school}!")
+                                    st.rerun()
+                        
+                        # ===== PALADIN DIVINE VOW =====
+                        if pending.get("divine_vow"):
+                            with st.expander(f"⚔️ Divine Vow (Choose 1)", expanded=True):
+                                st.markdown("**Choose Your Sacred Oath:**")
+                                
+                                vow_names = list(PALADIN_DIVINE_VOWS.keys())
+                                selected_vow = st.selectbox(
+                                    "Divine Vow:",
+                                    vow_names,
+                                    key=f"divine_vow_select_{i}"
+                                )
+                                
+                                # Show vow details
+                                vow_data = PALADIN_DIVINE_VOWS.get(selected_vow, {})
+                                st.caption(vow_data.get("description", ""))
+                                
+                                st.markdown("**Features:**")
+                                for feat in vow_data.get("features", []):
+                                    st.caption(f"• {feat}")
+                                
+                                if st.button("Take Vow", key=f"take_vow_{i}"):
+                                    c["paladin_divine_vow"] = selected_vow
+                                    c["pending_divine_vow"] = False
+                                    
+                                    # Re-apply vow effects
+                                    add_level1_class_resources_and_actions(c)
+                                    
+                                    st.toast(f"✅ Swore the Vow of {selected_vow}!")
+                                    st.rerun()
+                        
+                        # ===== BARBARIAN PRIMAL TALENTS =====
+                        if pending.get("primal_talents"):
+                            with st.expander(f"💪 Primal Talents ({c.get('pending_primal_talents', 0)} to choose)", expanded=True):
+                                talents_to_choose = c.get("pending_primal_talents", 0)
+                                current_talents = c.get("barbarian_primal_talents", [])
+                                
+                                # Get available talents (check prerequisites)
+                                available_talents = []
+                                for talent_name, talent_data in BARBARIAN_PRIMAL_TALENTS.items():
+                                    if talent_name not in current_talents:
+                                        prereq = talent_data.get("prerequisite")
+                                        if prereq is None or prereq in current_talents:
+                                            available_talents.append((talent_name, talent_data))
+                                
+                                if available_talents:
+                                    talent_names = [t[0] for t in available_talents]
+                                    
+                                    selected_talents = st.multiselect(
+                                        f"Choose {talents_to_choose} primal talent(s):",
+                                        talent_names,
+                                        max_selections=talents_to_choose,
+                                        key=f"primal_talent_select_{i}"
+                                    )
+                                    
+                                    # Show descriptions for selected
+                                    if selected_talents:
+                                        st.markdown("**Selected Talents:**")
+                                        for t_name in selected_talents:
+                                            t_data = BARBARIAN_PRIMAL_TALENTS.get(t_name, {})
+                                            prereq = t_data.get("prerequisite")
+                                            prereq_str = f" (Requires: {prereq})" if prereq else ""
+                                            st.caption(f"• **{t_name}**{prereq_str}: {t_data.get('description', '')}")
+                                    
+                                    if st.button("Learn Primal Talents", key=f"learn_talents_{i}", 
+                                            disabled=len(selected_talents) != talents_to_choose):
+                                        # Apply talents
+                                        current_talents.extend(selected_talents)
+                                        c["barbarian_primal_talents"] = current_talents
+                                        c["pending_primal_talents"] = 0
+                                        
+                                        # Re-apply talent effects
+                                        add_level1_class_resources_and_actions(c)
+                                        
+                                        st.toast(f"✅ Learned {len(selected_talents)} primal talent(s)!")
+                                        st.rerun()
+                                else:
+                                    st.caption("All primal talents already learned or prerequisites not met.")
+                        
+                        # ===== MARSHAL MANEUVERS =====
+                        if pending.get("marshal_maneuvers"):
+                            with st.expander(f"🎖️ Marshal Maneuvers ({c.get('pending_marshal_maneuvers', 0)} to choose)", expanded=True):
+                                maneuvers_to_choose = c.get("pending_marshal_maneuvers", 0)
+                                current_maneuvers = c.get("marshal_maneuvers", [])
+                                
+                                # Get available maneuvers
+                                available_maneuvers = []
+                                for maneuver_name, maneuver_data in MARSHAL_MANEUVERS.items():
+                                    if maneuver_name not in current_maneuvers:
+                                        available_maneuvers.append((maneuver_name, maneuver_data))
+                                
+                                if available_maneuvers:
+                                    maneuver_names = [m[0] for m in available_maneuvers]
+                                    
+                                    selected_maneuvers = st.multiselect(
+                                        f"Choose {maneuvers_to_choose} maneuver(s):",
+                                        maneuver_names,
+                                        max_selections=maneuvers_to_choose,
+                                        key=f"marshal_maneuver_select_{i}"
+                                    )
+                                    
+                                    # Show descriptions for selected
+                                    if selected_maneuvers:
+                                        st.markdown("**Selected Maneuvers:**")
+                                        for m_name in selected_maneuvers:
+                                            m_data = MARSHAL_MANEUVERS.get(m_name, {})
+                                            mtype = m_data.get("type", "action").capitalize()
+                                            st.caption(f"• **{m_name}** ({mtype}): {m_data.get('description', '')}")
+                                    
+                                    if st.button("Learn Maneuvers", key=f"learn_marshal_maneuvers_{i}", 
+                                            disabled=len(selected_maneuvers) != maneuvers_to_choose):
+                                        # Apply maneuvers
+                                        current_maneuvers.extend(selected_maneuvers)
+                                        c["marshal_maneuvers"] = current_maneuvers
+                                        c["pending_marshal_maneuvers"] = 0
+                                        
+                                        # Re-apply maneuver effects
+                                        add_level1_class_resources_and_actions(c)
+                                        
+                                        st.toast(f"✅ Learned {len(selected_maneuvers)} maneuver(s)!")
+                                        st.rerun()
+                                else:
+                                    st.caption("All marshal maneuvers already learned.")
+                        
+                        # ===== KNIGHT MANEUVERS =====
+                        if pending.get("knight_maneuvers"):
+                            with st.expander(f"🛡️ Knight Maneuvers ({c.get('pending_knight_maneuvers', 0)} to choose)", expanded=True):
+                                maneuvers_to_choose = c.get("pending_knight_maneuvers", 0)
+                                current_maneuvers = c.get("knight_maneuvers", [])
+                                
+                                # Get available maneuvers
+                                available_maneuvers = []
+                                for maneuver_name, maneuver_data in KNIGHT_MANEUVERS.items():
+                                    if maneuver_name not in current_maneuvers:
+                                        available_maneuvers.append((maneuver_name, maneuver_data))
+                                
+                                if available_maneuvers:
+                                    maneuver_names = [m[0] for m in available_maneuvers]
+                                    
+                                    selected_maneuvers = st.multiselect(
+                                        f"Choose {maneuvers_to_choose} maneuver(s):",
+                                        maneuver_names,
+                                        max_selections=maneuvers_to_choose,
+                                        key=f"knight_maneuver_select_{i}"
+                                    )
+                                    
+                                    # Show descriptions for selected
+                                    if selected_maneuvers:
+                                        st.markdown("**Selected Maneuvers:**")
+                                        for m_name in selected_maneuvers:
+                                            m_data = KNIGHT_MANEUVERS.get(m_name, {})
+                                            requires_mounted = " (Mounted only)" if m_data.get("requires_mounted") else ""
+                                            st.caption(f"• **{m_name}** ({m_data.get('type', 'attack')}){requires_mounted}: {m_data.get('description', '')}")
+                                    
+                                    if st.button("Learn Maneuvers", key=f"learn_knight_maneuvers_{i}", 
+                                            disabled=len(selected_maneuvers) != maneuvers_to_choose):
+                                        # Apply maneuvers
+                                        current_maneuvers.extend(selected_maneuvers)
+                                        c["knight_maneuvers"] = current_maneuvers
+                                        c["pending_knight_maneuvers"] = 0
+                                        
+                                        # Re-apply maneuver effects
+                                        add_level1_class_resources_and_actions(c)
+                                        
+                                        st.toast(f"✅ Learned {len(selected_maneuvers)} knight maneuver(s)!")
+                                        st.rerun()
+                                else:
+                                    st.caption("All knight maneuvers already learned.")
+                        
+                        # ===== WEAPON EXPERTISE (Fighter Level 6) =====
+                        if pending.get("weapon_expertise"):
+                            with st.expander("⚔️ Weapon Expertise (Choose 1 Weapon)", expanded=True):
+                                st.markdown("**Choose a weapon for Weapon Expertise:**")
+                                st.caption("You gain +1 to attack rolls and can reroll 1s on damage dice with this weapon.")
+                                
+                                # Get weapons from equipment
+                                equipment = c.get("equipment", [])
+                                attacks = c.get("attacks", [])
+                                
+                                # Collect weapon names from attacks that are from weapons
+                                weapon_names = []
+                                for atk in attacks:
+                                    if atk.get("source") == "weapon":
+                                        weapon_names.append(atk.get("name", "Unknown"))
+                                
+                                # Also add common martial weapons if no weapons equipped
+                                if not weapon_names:
+                                    weapon_names = [
+                                        "Longsword", "Greatsword", "Battleaxe", "Greataxe",
+                                        "Warhammer", "Maul", "Rapier", "Scimitar", "Shortsword",
+                                        "Longbow", "Shortbow", "Crossbow", "Halberd", "Glaive",
+                                        "Pike", "Lance", "Flail", "Morningstar", "Trident"
+                                    ]
+                                
+                                selected_weapon = st.selectbox(
+                                    "Weapon:",
+                                    weapon_names,
+                                    key=f"weapon_expertise_select_{i}"
+                                )
+                                
+                                if selected_weapon:
+                                    st.success(f"✅ **{selected_weapon}**: +1 attack, reroll 1s on damage")
+                                    
+                                    if st.button("Confirm Weapon Expertise", key=f"confirm_expertise_{i}"):
+                                        c["weapon_expertise"] = selected_weapon
+                                        c["pending_weapon_expertise"] = False
+                                        
+                                        # Re-apply class features to update bonuses
+                                        add_level1_class_resources_and_actions(c)
+                                        
+                                        # Refresh attacks to apply expertise bonus
+                                        refresh_attacks_from_equipment(c)
+                                        
+                                        st.toast(f"✅ Gained Weapon Expertise with {selected_weapon}!")
+                                        st.rerun()
                 
-                # ========== AWARD XP SECTION ==========
-                st.markdown("---")
-                st.markdown("#### 🎁 Award XP")
+                # ========== COMPANIONS & WILD SHAPE SECTION ==========
+                companions = c.get("companions", [])
+                wild_shape_active = c.get("wild_shape_active", False)
                 
-                # XP Amount
-                xp_amount = st.number_input(
-                    "XP Amount",
-                    min_value=0,
-                    value=0,
-                    step=50,
-                    key=f"award_xp_amt_{i}",
-                    help="Amount of experience points to award"
-                )
+                # Show companions section if character has any or can have them
+                char_class = c.get("class", "").lower()
+                char_classes_list = [cc.get("class_id", "").lower() for cc in c.get("classes", [])]
+                has_companion_class = "ranger" in char_classes_list or "wizard" in char_classes_list or char_class in ["ranger", "wizard"]
+                has_wild_shape = "druid" in char_classes_list or char_class == "druid"
                 
-                # Source dropdown and reason
-                xp_src_col, xp_reason_col = st.columns([1, 2])
-                with xp_src_col:
-                    xp_source = st.selectbox(
-                        "Source",
-                        ["combat", "quest", "milestone", "roleplay", "manual"],
-                        format_func=lambda x: {
-                            "combat": "⚔️ Combat",
-                            "quest": "📜 Quest",
-                            "milestone": "🏆 Milestone",
-                            "roleplay": "🎭 Roleplay",
-                            "manual": "✏️ Manual"
-                        }.get(x, x),
-                        key=f"award_xp_src_{i}"
-                    )
-                with xp_reason_col:
-                    xp_reason = st.text_input(
-                        "Reason/Description",
-                        placeholder="e.g., Defeated goblin ambush",
-                        key=f"award_xp_reason_{i}",
-                        label_visibility="collapsed"
-                    )
-                
-                # Award button
-                if st.button("Award XP", key=f"award_xp_btn_{i}", disabled=xp_amount <= 0, use_container_width=True):
-                    result = award_xp(c, xp_amount, reason=xp_reason or xp_source.capitalize(), source=xp_source)
-                    if result["leveled_up"]:
-                        st.toast(f"🎉 {c.get('name', 'Character')} gained {xp_amount:,} XP and can now level up!")
-                    else:
-                        st.toast(f"✨ {c.get('name', 'Character')} gained {xp_amount:,} XP!")
-                    st.rerun()
-                
-                # ========== XP HISTORY ==========
-                xp_log = c.get("xp_log", [])
-                if xp_log:
-                    with st.expander("📜 XP History", expanded=False):
-                        for entry in reversed(xp_log[-10:]):
-                            ts = entry.get("timestamp", "")[:10]
-                            amt = entry.get("amount", 0)
-                            reason = entry.get("reason", "")
-                            source = entry.get("source", "")
-                            sign = "+" if amt >= 0 else ""
+                if companions or has_companion_class or has_wild_shape:
+                    with box.expander("🐾 Companions & Wild Shape"):
+                        
+                        # ===== WILD SHAPE (Druid) =====
+                        if has_wild_shape:
+                            st.markdown("#### 🌿 Wild Shape")
                             
-                            source_icon = {
-                                "combat": "⚔️",
-                                "quest": "📜",
-                                "milestone": "🏆",
-                                "roleplay": "🎭",
-                                "manual": "✏️",
-                                "dm_award": "👑"
-                            }.get(source, "•")
+                            if wild_shape_active:
+                                # Currently in Wild Shape
+                                form_name = c.get("wild_shape_form", "Unknown")
+                                ws_hp = c.get("wild_shape_hp", c.get("hp", 1))
+                                ws_max_hp = c.get("wild_shape_max_hp", ws_hp)
+                                
+                                st.success(f"**Currently transformed into: {form_name}**")
+                                
+                                ws_col1, ws_col2, ws_col3 = st.columns([2, 2, 2])
+                                with ws_col1:
+                                    st.metric("Beast HP", f"{ws_hp}/{ws_max_hp}")
+                                with ws_col2:
+                                    st.metric("AC", c.get("ac", 10))
+                                with ws_col3:
+                                    st.metric("Speed", f"{c.get('speed_ft', 30)} ft")
+                                
+                                # Show beast attacks
+                                beast_attacks = c.get("attacks", [])
+                                if beast_attacks:
+                                    st.markdown("**Beast Attacks:**")
+                                    for atk in beast_attacks:
+                                        st.caption(f"• {atk.get('name', 'Attack')}: +{atk.get('to_hit', 0)} to hit, {atk.get('damage', '1d4')} {atk.get('damage_type', '')}")
+                                
+                                if st.button("🔄 Revert to Normal Form", key=f"revert_ws_{i}"):
+                                    revert_wild_shape(c)
+                                    st.toast(f"{c.get('name', 'Character')} reverts to their normal form!")
+                                    st.rerun()
+                            else:
+                                # Can transform
+                                ws_uses = c.get("resources", {}).get("Wild Shape", {}).get("current", 0)
+                                max_cr = c.get("wild_shape_max_cr", 0.25)
+                                druid_level = c.get("level", 1)
+                                
+                                # Determine restrictions
+                                allow_fly = druid_level >= 8
+                                allow_swim = druid_level >= 3
+                                
+                                st.caption(f"Uses: {ws_uses} | Max CR: {max_cr} | {'Fly allowed' if allow_fly else 'No fly'} | {'Swim allowed' if allow_swim else 'No swim'}")
+                                
+                                if ws_uses > 0:
+                                    # Get available beasts
+                                    available_beasts = get_beasts_by_cr(max_cr, allow_fly, allow_swim)
+                                    beast_names = [b.get("name", "") for b in available_beasts]
+                                    
+                                    if beast_names:
+                                        selected_beast = st.selectbox(
+                                            "Transform into:",
+                                            beast_names,
+                                            key=f"ws_beast_select_{i}"
+                                        )
+                                        
+                                        # Show preview
+                                        selected_beast_data = next((b for b in available_beasts if b.get("name") == selected_beast), None)
+                                        if selected_beast_data:
+                                            preview_col1, preview_col2 = st.columns(2)
+                                            with preview_col1:
+                                                hp_str = selected_beast_data.get("Hit Points", selected_beast_data.get("hp", "10"))
+                                                hp_match = re.match(r"(\d+)", str(hp_str))
+                                                preview_hp = int(hp_match.group(1)) if hp_match else 10
+                                                st.caption(f"HP: {preview_hp}")
+                                                
+                                                ac_str = selected_beast_data.get("Armor Class", selected_beast_data.get("ac", "10"))
+                                                ac_match = re.match(r"(\d+)", str(ac_str))
+                                                preview_ac = int(ac_match.group(1)) if ac_match else 10
+                                                st.caption(f"AC: {preview_ac}")
+                                            with preview_col2:
+                                                st.caption(f"Speed: {selected_beast_data.get('Speed', selected_beast_data.get('speed', '30 ft.'))}")
+                                                st.caption(f"STR: {selected_beast_data.get('STR', 10)} DEX: {selected_beast_data.get('DEX', 10)}")
+                                        
+                                        if st.button("🐻 Transform!", key=f"transform_ws_{i}"):
+                                            apply_wild_shape(c, selected_beast)
+                                            # Use a Wild Shape resource
+                                            c.setdefault("resources", {}).setdefault("Wild Shape", {})["current"] = ws_uses - 1
+                                            st.toast(f"{c.get('name', 'Character')} transforms into a {selected_beast}!")
+                                            st.rerun()
+                                    else:
+                                        st.caption("No valid beast forms available.")
+                                else:
+                                    st.warning("No Wild Shape uses remaining. Rest to regain uses.")
                             
-                            st.caption(f"{source_icon} {ts}: {sign}{amt:,} XP — {reason}")
-
-    # ========== ENEMIES SECTION (still in left_col) ==========
-    st.markdown("---")
-    st.markdown("### 👹 Enemies")
-    
-    if not st.session_state.enemies:
-        st.info("🕊️ No enemies in encounter. Add enemies from Setup or use the controls below.")
-        # reminder: if this grows large, consider paging or filters by type/CR.
-    else:
-        for i, e in enumerate(st.session_state.enemies):
-            card = st.container(border=True)
-            h1, h2, h3, h4, h5 = card.columns([3,2,2,2,2])
-            with h1: st.markdown(f"**{e.get('name','')}**")
-            with h2: e["ac"] = int(st.number_input("AC", 0, 40, int(e.get("ac",10)), key=f"e_ac_{i}"))
-            with h3: e["hp"] = int(st.number_input("HP", 0, 500, int(e.get("hp",10)), key=f"e_hp_{i}"))
-            with h4:
-                # Position band dropdown (only during combat)
-                if st.session_state.in_combat:
-                    current_band = ensure_position_band(e)
-                    band_idx = POSITION_BANDS.index(current_band) if current_band in POSITION_BANDS else 1
-                    new_band = st.selectbox(
-                        "Pos",
-                        POSITION_BANDS,
-                        index=band_idx,
-                        key=f"e_band_{i}",
-                        format_func=lambda b: get_band_display(b)
-                    )
-                    e["position_band"] = new_band
-                else:
-                    st.caption("—")
-            with h5:
-                if st.button("Remove", key=f"e_rm_{i}"):
-                    # Track defeated enemy for XP calculation
-                    if st.session_state.in_combat:
-                        if "combat_defeated_enemies" not in st.session_state:
-                            st.session_state.combat_defeated_enemies = []
-                        st.session_state.combat_defeated_enemies.append(e.copy())
-                    del st.session_state.enemies[i]
-                    st.rerun()
-            with card.expander("Stat & Actions"):
-                name = e.get("name", "Enemy")
-                ac = e.get("ac", 10)
-                hp = e.get("hp", 10)
-                st.write(f"{name}: AC {ac}, HP {hp}")
-
-                # Check if already hydrated - avoids expensive SRD lookup every render
-                is_hydrated = e.get("_hydrated", False)
-                
-                # Show Sync button if not hydrated
-                if not is_hydrated:
-                    # Look up SRD entry (by name or src)
-                    base_name = str(name).split("#")[0].strip()
-                    srd = next(
-                        (
-                            m for m in st.session_state.get("srd_enemies", [])
-                            if m.get("name") == name
-                            or m.get("name") == e.get("src")
-                            or m.get("name") == base_name
-                        ),
-                        None,
-                    )
-
-                    if srd:
-                        if st.button("🔄 Sync From SRD", key=f"sync_srd_{i}"):
-                            # Hydrate this encounter enemy from SRD
-                            keep_name = e.get("name", srd.get("name", "Enemy"))
-                            keep_conditions = e.get("conditions", [])
-                            keep_position = e.get("position_band", "near")
-                            st.session_state.enemies[i] = {
-                                **srd,
-                                "name": keep_name,
-                                "hp": int(e.get("hp", srd.get("hp", 10))),
-                                "max_hp": int(e.get("max_hp", srd.get("max_hp", srd.get("hp", 10)))),
-                                "ac": int(e.get("ac", srd.get("ac", 10))),
-                                "conditions": keep_conditions,
-                                "position_band": keep_position,
-                                "_hydrated": True,  # Mark as hydrated
-                            }
-                            st.toast(f"Synced {keep_name} from SRD")
-                            st.rerun()
-                        st.caption("Click to load full stats from SRD")
-                    else:
-                        st.caption("No SRD data found for this monster.")
-                
-                # Display actions/attacks if available (whether hydrated or not)
-                actions = e.get("actions", []) or []
-                attacks = e.get("attacks", []) or []
-
-                if actions:
-                    st.markdown("**Actions**")
-                    for a in actions:
-                        nm = a.get("name", "Action")
-                        desc = a.get("description", a.get("desc", ""))
-                        if desc:
-                            st.markdown(f"- **{nm}**: {desc}")
-                        else:
-                            st.markdown(f"- **{nm}**")
-
-                if attacks:
-                    st.markdown("**Attacks**")
-                    for a in attacks:
-                        nm = a.get("name", "Attack")
-                        th = get_attack_to_hit(a)
-                        dmg = get_attack_damage(a)
-                        dt = get_attack_damage_type(a)
-                        line = f"- **{nm}** (+{th} to hit) — {dmg}"
-                        if dt:
-                            line += f" {dt}"
-                        st.markdown(line)
-
-                specials = e.get("special_abilities", []) or []
-                if specials:
-                    st.markdown("**Special Abilities**")
-                    for sa in specials:
-                        st.markdown(f"- **{sa.get('name','')}**: {sa.get('desc','')}")
-            
-            # --- Conditions panel for this enemy ---
-            with card.expander("Conditions"):
-                conditions = ensure_conditions(e)
-                
-                if not conditions:
-                    st.caption("No active conditions.")
-                else:
-                    for ci, cond in enumerate(conditions):
-                        cond_col1, cond_col2 = st.columns([4, 1])
-                        with cond_col1:
-                            st.write(get_condition_display(cond))
-                        with cond_col2:
-                            if st.button("✖", key=f"rm_cond_e_{i}_{ci}"):
-                                conditions.pop(ci)
-                                st.rerun()
-                
-                # Add condition form
-                st.markdown("**Add Condition**")
-                srd_cond_names = get_srd_condition_names()
-                cond_options = srd_cond_names + ["(Custom)"]
-                
-                add_cond_col1, add_cond_col2 = st.columns([2, 1])
-                with add_cond_col1:
-                    selected_cond = st.selectbox(
-                        "Condition",
-                        cond_options,
-                        key=f"add_cond_sel_e_{i}",
-                        label_visibility="collapsed"
-                    )
-                with add_cond_col2:
-                    cond_duration = st.number_input(
-                        "Rounds",
+                            st.markdown("---")
+                        
+                        # ===== COMPANIONS (Ranger/Wizard) =====
+                        if companions:
+                            st.markdown("#### 🐺 Active Companions")
+                            
+                            for comp_idx, comp in enumerate(companions):
+                                comp_type = comp.get("companion_type", "companion")
+                                comp_name = comp.get("name", "Unknown")
+                                comp_hp = comp.get("hp", 1)
+                                comp_max_hp = comp.get("max_hp", comp_hp)
+                                
+                                comp_box = st.container(border=True)
+                                with comp_box:
+                                    comp_col1, comp_col2, comp_col3, comp_col4 = st.columns([3, 2, 2, 1])
+                                    
+                                    with comp_col1:
+                                        icon = "🦉" if comp_type == "familiar" else "🐺"
+                                        st.markdown(f"{icon} **{comp_name}**")
+                                        st.caption(f"({comp.get('base_creature', 'Unknown')})")
+                                    
+                                    with comp_col2:
+                                        new_hp = st.number_input(
+                                            "HP",
+                                            min_value=0,
+                                            max_value=comp_max_hp,
+                                            value=comp_hp,
+                                            key=f"comp_hp_{i}_{comp_idx}"
+                                        )
+                                        comp["hp"] = new_hp
+                                    
+                                    with comp_col3:
+                                        st.metric("AC", comp.get("ac", 10))
+                                    
+                                    with comp_col4:
+                                        if st.button("❌", key=f"rm_comp_{i}_{comp_idx}"):
+                                            c["companions"].remove(comp)
+                                            st.rerun()
+                                    
+                                    # Show companion attacks
+                                    comp_attacks = comp.get("attacks", [])
+                                    if comp_attacks:
+                                        st.markdown("**Attacks:**")
+                                        for atk in comp_attacks:
+                                            st.caption(f"• {atk.get('name', 'Attack')}: +{atk.get('to_hit', 0)} to hit, {atk.get('damage', '1d4')} {atk.get('damage_type', '')}")
+                        
+                        # ===== ADD COMPANION (if eligible) =====
+                        if has_companion_class and not any(comp.get("companion_type") in ["animal_companion", "familiar"] for comp in companions):
+                            st.markdown("#### ➕ Summon Companion")
+                            
+                            if "ranger" in char_classes_list or char_class == "ranger":
+                                # Ranger Animal Companion selection
+                                ranger_level = next((cc.get("level", 0) for cc in c.get("classes", []) if cc.get("class_id", "").lower() == "ranger"), c.get("level", 1))
+                                if ranger_level >= 3:
+                                    max_cr = max(1, ranger_level // 3)
+                                    available_beasts = get_beasts_by_cr(max_cr, allow_fly=True, allow_swim=True)
+                                    beast_names = [b.get("name", "") for b in available_beasts]
+                                    
+                                    selected_companion = st.selectbox(
+                                        "Choose Animal Companion:",
+                                        beast_names,
+                                        key=f"select_animal_comp_{i}"
+                                    )
+                                    
+                                    if st.button("🐺 Summon Companion", key=f"summon_comp_{i}"):
+                                        new_comp = create_animal_companion(c, selected_companion)
+                                        if new_comp:
+                                            c.setdefault("companions", []).append(new_comp)
+                                            c["ranger_companion_type"] = selected_companion
+                                            st.toast(f"Summoned {new_comp.get('name', 'companion')}!")
+                                            st.rerun()
+                                else:
+                                    st.caption("Reach Ranger level 3 to gain an Animal Companion.")
+                            
+                            if "wizard" in char_classes_list or char_class == "wizard":
+                                # Wizard Familiar selection
+                                familiar_options = get_familiar_options()
+                                familiar_names = [f.get("name", "") for f in familiar_options]
+                                
+                                selected_familiar = st.selectbox(
+                                    "Choose Familiar:",
+                                    familiar_names,
+                                    key=f"select_familiar_{i}"
+                                )
+                                
+                                if st.button("🦉 Summon Familiar", key=f"summon_fam_{i}"):
+                                    new_fam = create_familiar(c, selected_familiar)
+                                    if new_fam:
+                                        c.setdefault("companions", []).append(new_fam)
+                                        c["wizard_familiar_type"] = selected_familiar
+                                        st.toast(f"Summoned {new_fam.get('name', 'familiar')}!")
+                                        st.rerun()
+                    
+                    # ========== AWARD XP SECTION ==========
+                    st.markdown("---")
+                    st.markdown("#### 🎁 Award XP")
+                    
+                    # XP Amount
+                    xp_amount = st.number_input(
+                        "XP Amount",
                         min_value=0,
                         value=0,
-                        key=f"add_cond_dur_e_{i}",
-                        help="0 = indefinite"
+                        step=50,
+                        key=f"award_xp_amt_{i}",
+                        help="Amount of experience points to award"
                     )
-                
-                if selected_cond == "(Custom)":
-                    custom_cond_name = st.text_input(
-                        "Custom Condition Name",
-                        key=f"add_cond_custom_e_{i}"
-                    )
-                else:
-                    custom_cond_name = None
-                
-                if st.button("Add Condition", key=f"add_cond_btn_e_{i}"):
-                    cond_name = custom_cond_name if selected_cond == "(Custom)" else selected_cond
-                    if cond_name:
-                        dur = cond_duration if cond_duration > 0 else None
-                        add_condition(e, cond_name, duration_rounds=dur)
-                        st.toast(f"Added {cond_name} to {e.get('name', 'enemy')}")
+                    
+                    # Source dropdown and reason
+                    xp_src_col, xp_reason_col = st.columns([1, 2])
+                    with xp_src_col:
+                        xp_source = st.selectbox(
+                            "Source",
+                            ["combat", "quest", "milestone", "roleplay", "manual"],
+                            format_func=lambda x: {
+                                "combat": "⚔️ Combat",
+                                "quest": "📜 Quest",
+                                "milestone": "🏆 Milestone",
+                                "roleplay": "🎭 Roleplay",
+                                "manual": "✏️ Manual"
+                            }.get(x, x),
+                            key=f"award_xp_src_{i}"
+                        )
+                    with xp_reason_col:
+                        xp_reason = st.text_input(
+                            "Reason/Description",
+                            placeholder="e.g., Defeated goblin ambush",
+                            key=f"award_xp_reason_{i}",
+                            label_visibility="collapsed"
+                        )
+                    
+                    # Award button
+                    if st.button("Award XP", key=f"award_xp_btn_{i}", disabled=xp_amount <= 0, use_container_width=True):
+                        result = award_xp(c, xp_amount, reason=xp_reason or xp_source.capitalize(), source=xp_source)
+                        if result["leveled_up"]:
+                            st.toast(f"🎉 {c.get('name', 'Character')} gained {xp_amount:,} XP and can now level up!")
+                        else:
+                            st.toast(f"✨ {c.get('name', 'Character')} gained {xp_amount:,} XP!")
                         st.rerun()
-                    else:
-                        st.warning("Please enter a condition name.")
-    
-    # Quick Add Enemy (in left column)
-    with st.expander("➕ Quick Add Enemy", expanded=False):
-        add_mode = st.radio("Add Mode", ["From SRD", "Manual"], horizontal=True, key="left_add_mode")
-        
-        if add_mode == "From SRD":
-            if not st.session_state.get("srd_enemies"):
-                st.warning("SRD bestiary not loaded.")
-            else:
-                srd_names = [m["name"] for m in st.session_state.srd_enemies]
-                srd_pick = st.selectbox("Monster", srd_names, key="left_srd_pick")
-                srd_qty = st.number_input("Quantity", 1, 10, 1, key="left_srd_qty")
-                if st.button("Add", key="left_add_srd_btn"):
-                    src = next((m for m in st.session_state.srd_enemies if m["name"] == srd_pick), None)
-                    if src:
-                        for i in range(int(srd_qty)):
-                            blob = json.loads(json.dumps(src))
-                            blob["name"] = f"{src['name']}" if srd_qty == 1 else f"{src['name']} #{i+1}"
-                            blob["src"] = src["name"]
-                            blob["_hydrated"] = True
-                            st.session_state.enemies.append(blob)
-                        st.toast(f"Added {srd_qty}× {srd_pick}")
-                        st.rerun()
-        else:
-            e_name = st.text_input("Name", key="left_e_name")
-            e_ac = st.number_input("AC", 0, 40, 13, key="left_e_ac")
-            e_hp = st.number_input("HP", 0, 500, 11, key="left_e_hp")
-            if st.button("Add", key="left_add_manual_btn"):
-                if e_name.strip():
-                    st.session_state.enemies.append({
-                        "name": e_name.strip(),
-                        "ac": int(e_ac),
-                        "hp": int(e_hp),
-                        "attacks": [{"name": "Attack", "to_hit": 0, "damage": "1d6"}]
-                    })
-                    st.toast(f"Added {e_name}")
-                    st.rerun()
+                    
+                    # ========== XP HISTORY ==========
+                    xp_log = c.get("xp_log", [])
+                    if xp_log:
+                        with st.expander("📜 XP History", expanded=False):
+                            for entry in reversed(xp_log[-10:]):
+                                ts = entry.get("timestamp", "")[:10]
+                                amt = entry.get("amount", 0)
+                                reason = entry.get("reason", "")
+                                source = entry.get("source", "")
+                                sign = "+" if amt >= 0 else ""
+                                
+                                source_icon = {
+                                    "combat": "⚔️",
+                                    "quest": "📜",
+                                    "milestone": "🏆",
+                                    "roleplay": "🎭",
+                                    "manual": "✏️",
+                                    "dm_award": "👑"
+                                }.get(source, "•")
+                                
+                                st.caption(f"{source_icon} {ts}: {sign}{amt:,} XP — {reason}")
 
-    # ========== ENCOUNTER XP CALCULATOR ==========
-    with st.expander("🧮 Encounter XP Calculator", expanded=False):
+        # ========== ENEMIES SECTION (still in left_col) ==========
+    st.markdown("### 👹 Enemies")
+    with st.container(height=320, border=True):  
         if not st.session_state.enemies:
-            st.info("Add enemies to calculate encounter XP.")
+            st.info("🕊️ No enemies in encounter. Add enemies from Setup or use the controls below.")
+            # reminder: if this grows large, consider paging or filters by type/CR.
         else:
-            # Get party levels
-            party_levels = []
-            for char in st.session_state.party:
-                migrate_character_xp(char)
-                migrate_to_multiclass(char)
-                party_levels.append(get_total_level(char))
-            
-            party_size = len(party_levels) if party_levels else 4
-            
-            # Calculate encounter XP
-            encounter_result = calc_encounter_xp(
-                st.session_state.enemies, 
-                party_size=party_size,
-                apply_multiplier=True
-            )
-            
-            # Assess difficulty
-            if party_levels:
-                difficulty_result = assess_encounter_difficulty(
-                    st.session_state.enemies,
-                    party_levels
-                )
-                difficulty = difficulty_result["difficulty"]
-                difficulty_emoji = get_difficulty_emoji(difficulty)
-            else:
-                difficulty = "unknown"
-                difficulty_emoji = "❓"
-                difficulty_result = {"thresholds": {}}
-            
-            # Display encounter summary
-            st.markdown(f"### {difficulty_emoji} {difficulty.capitalize()} Encounter")
-            
-            # XP metrics
-            xp_col1, xp_col2, xp_col3 = st.columns(3)
-            with xp_col1:
-                st.metric("Base XP", format_xp(encounter_result["base_xp"]))
-            with xp_col2:
-                st.metric("Adjusted XP", format_xp(encounter_result["adjusted_xp"]), 
-                         help=f"×{encounter_result['multiplier']:.1f} multiplier for {encounter_result['monster_count']} monsters")
-            with xp_col3:
-                st.metric("XP per Member", format_xp(encounter_result["xp_per_member"]))
-            
-            # Monster breakdown
-            st.markdown("**Monster Breakdown:**")
-            for mon in encounter_result["monsters_breakdown"]:
-                st.caption(f"  • {mon['name']}: {format_xp(mon['xp'])} XP")
-            
-            # Difficulty thresholds
-            if party_levels and difficulty_result.get("thresholds"):
-                thresholds = difficulty_result["thresholds"]
-                st.markdown("**Party Difficulty Thresholds:**")
-                threshold_text = f"Easy: {format_xp(thresholds.get('easy', 0))} | Medium: {format_xp(thresholds.get('medium', 0))} | Hard: {format_xp(thresholds.get('hard', 0))} | Deadly: {format_xp(thresholds.get('deadly', 0))}"
-                st.caption(threshold_text)
-            
-            # Award XP button
-            st.markdown("---")
-            st.markdown("**Award Encounter XP to Party**")
-            
-            xp_to_award = encounter_result["xp_per_member"]
-            st.caption(f"Each party member will receive {format_xp(xp_to_award)} XP")
-            
-            if st.button("🎁 Award Encounter XP", key="award_encounter_xp_btn", disabled=xp_to_award <= 0 or not st.session_state.party, use_container_width=True):
-                level_ups = []
-                enemy_names = [e.get("name", "Enemy") for e in st.session_state.enemies]
-                reason = f"Defeated: {', '.join(enemy_names[:3])}" + ("..." if len(enemy_names) > 3 else "")
-                
-                for char in st.session_state.party:
-                    migrate_character_xp(char)
-                    result = award_xp(char, xp_to_award, reason=reason, source="combat")
-                    if result["leveled_up"]:
-                        level_ups.append(char.get("name", "Character"))
-                
-                if level_ups:
-                    st.toast(f"🎉 Awarded {format_xp(xp_to_award)} XP each! Level ups: {', '.join(level_ups)}")
-                else:
-                    st.toast(f"✨ Awarded {format_xp(xp_to_award)} XP to each party member!")
-                st.rerun()
-    
-    # ========== QUEST/MILESTONE XP ==========
-    with st.expander("🏆 Quest & Milestone XP", expanded=False):
-        st.markdown("Award XP for completing quests or reaching milestones.")
-        
-        # Get party info
-        party_levels = []
-        for char in st.session_state.party:
-            migrate_character_xp(char)
-            migrate_to_multiclass(char)
-            party_levels.append(get_total_level(char))
-        
-        if not party_levels:
-            party_levels = [1]  # Default for calculation preview
-            st.caption("No party members - using level 1 for preview")
-        
-        # Quest type selection
-        quest_types = get_quest_types()
-        quest_options = {
-            "minor": "📝 Minor (Simple task, fetch quest)",
-            "moderate": "📋 Moderate (Multi-step quest, some danger)",
-            "major": "📜 Major (Significant story quest)",
-            "epic": "🏆 Epic (Campaign-defining quest)"
-        }
-        
-        selected_quest = st.selectbox(
-            "Quest Type",
-            list(quest_options.keys()),
-            format_func=lambda x: quest_options.get(x, x),
-            key="quest_type_select"
-        )
-        
-        # Custom multiplier
-        custom_mult = st.slider(
-            "XP Multiplier",
-            min_value=0.5,
-            max_value=2.0,
-            value=1.0,
-            step=0.1,
-            key="quest_xp_mult",
-            help="Adjust XP based on quest difficulty or party performance"
-        )
-        
-        # Calculate quest XP
-        quest_result = calc_quest_xp(selected_quest, party_levels, custom_mult)
-        
-        # Display
-        quest_col1, quest_col2 = st.columns(2)
-        with quest_col1:
-            st.metric("Total Quest XP", format_xp(quest_result["total_xp"]))
-        with quest_col2:
-            st.metric("XP per Member", format_xp(quest_result["xp_per_member"]))
-        
-        st.caption(f"Based on party of {quest_result.get('party_size', len(party_levels))} at average level {quest_result.get('avg_party_level', 1):.1f}")
-        
-        # Reason input
-        quest_reason = st.text_input(
-            "Quest Description",
-            placeholder="e.g., Rescued the village elder",
-            key="quest_reason_input"
-        )
-        
-        # Award button
-        xp_to_award = quest_result["xp_per_member"]
-        if st.button("🎁 Award Quest XP", key="award_quest_xp_btn", disabled=xp_to_award <= 0 or not st.session_state.party, use_container_width=True):
-            level_ups = []
-            reason = quest_reason or f"{selected_quest.capitalize()} quest completed"
-            
-            for char in st.session_state.party:
-                migrate_character_xp(char)
-                result = award_xp(char, xp_to_award, reason=reason, source="quest")
-                if result["leveled_up"]:
-                    level_ups.append(char.get("name", "Character"))
-            
-            if level_ups:
-                st.toast(f"🎉 Awarded {format_xp(xp_to_award)} XP each! Level ups: {', '.join(level_ups)}")
-            else:
-                st.toast(f"✨ Awarded {format_xp(xp_to_award)} XP to each party member!")
-            st.rerun()
+            for i, e in enumerate(st.session_state.enemies):
+                card = st.container(border=True)
+                h1, h2, h3, h4, h5 = card.columns([3,2,2,2,2])
+                with h1: st.markdown(f"**{e.get('name','')}**")
+                with h2: e["ac"] = int(st.number_input("AC", 0, 40, int(e.get("ac",10)), key=f"e_ac_{i}"))
+                with h3: e["hp"] = int(st.number_input("HP", 0, 500, int(e.get("hp",10)), key=f"e_hp_{i}"))
+                with h4:
+                    # Position band dropdown (only during combat)
+                    if st.session_state.in_combat:
+                        current_band = ensure_position_band(e)
+                        band_idx = POSITION_BANDS.index(current_band) if current_band in POSITION_BANDS else 1
+                        new_band = st.selectbox(
+                            "Pos",
+                            POSITION_BANDS,
+                            index=band_idx,
+                            key=f"e_band_{i}",
+                            format_func=lambda b: get_band_display(b)
+                        )
+                        e["position_band"] = new_band
+                    else:
+                        st.caption("—")
+                with h5:
+                    if st.button("Remove", key=f"e_rm_{i}"):
+                        # Track defeated enemy for XP calculation
+                        if st.session_state.in_combat:
+                            if "combat_defeated_enemies" not in st.session_state:
+                                st.session_state.combat_defeated_enemies = []
+                            st.session_state.combat_defeated_enemies.append(e.copy())
+                        del st.session_state.enemies[i]
+                        st.rerun()
+                with card.expander("Stat & Actions"):
+                    name = e.get("name", "Enemy")
+                    ac = e.get("ac", 10)
+                    hp = e.get("hp", 10)
+                    st.write(f"{name}: AC {ac}, HP {hp}")
 
+                    # Check if already hydrated - avoids expensive SRD lookup every render
+                    is_hydrated = e.get("_hydrated", False)
+                    
+                    # Show Sync button if not hydrated
+                    if not is_hydrated:
+                        # Look up SRD entry (by name or src)
+                        base_name = str(name).split("#")[0].strip()
+                        srd = next(
+                            (
+                                m for m in st.session_state.get("srd_enemies", [])
+                                if m.get("name") == name
+                                or m.get("name") == e.get("src")
+                                or m.get("name") == base_name
+                            ),
+                            None,
+                        )
+
+                        if srd:
+                            if st.button("🔄 Sync From SRD", key=f"sync_srd_{i}"):
+                                # Hydrate this encounter enemy from SRD
+                                keep_name = e.get("name", srd.get("name", "Enemy"))
+                                keep_conditions = e.get("conditions", [])
+                                keep_position = e.get("position_band", "near")
+                                st.session_state.enemies[i] = {
+                                    **srd,
+                                    "name": keep_name,
+                                    "hp": int(e.get("hp", srd.get("hp", 10))),
+                                    "max_hp": int(e.get("max_hp", srd.get("max_hp", srd.get("hp", 10)))),
+                                    "ac": int(e.get("ac", srd.get("ac", 10))),
+                                    "conditions": keep_conditions,
+                                    "position_band": keep_position,
+                                    "_hydrated": True,  # Mark as hydrated
+                                }
+                                st.toast(f"Synced {keep_name} from SRD")
+                                st.rerun()
+                            st.caption("Click to load full stats from SRD")
+                        else:
+                            st.caption("No SRD data found for this monster.")
+                    
+                    # Display actions/attacks if available (whether hydrated or not)
+                    actions = e.get("actions", []) or []
+                    attacks = e.get("attacks", []) or []
+
+                    if actions:
+                        st.markdown("**Actions**")
+                        for a in actions:
+                            nm = a.get("name", "Action")
+                            desc = a.get("description", a.get("desc", ""))
+                            if desc:
+                                st.markdown(f"- **{nm}**: {desc}")
+                            else:
+                                st.markdown(f"- **{nm}**")
+
+                    if attacks:
+                        st.markdown("**Attacks**")
+                        for a in attacks:
+                            nm = a.get("name", "Attack")
+                            th = get_attack_to_hit(a)
+                            dmg = get_attack_damage(a)
+                            dt = get_attack_damage_type(a)
+                            line = f"- **{nm}** (+{th} to hit) — {dmg}"
+                            if dt:
+                                line += f" {dt}"
+                            st.markdown(line)
+
+                    specials = e.get("special_abilities", []) or []
+                    if specials:
+                        st.markdown("**Special Abilities**")
+                        for sa in specials:
+                            st.markdown(f"- **{sa.get('name','')}**: {sa.get('desc','')}")
+                
+                # --- Conditions panel for this enemy ---
+                with card.expander("Conditions"):
+                    conditions = ensure_conditions(e)
+                    
+                    if not conditions:
+                        st.caption("No active conditions.")
+                    else:
+                        for ci, cond in enumerate(conditions):
+                            cond_col1, cond_col2 = st.columns([4, 1])
+                            with cond_col1:
+                                st.write(get_condition_display(cond))
+                            with cond_col2:
+                                if st.button("✖", key=f"rm_cond_e_{i}_{ci}"):
+                                    conditions.pop(ci)
+                                    st.rerun()
+                    
+                    # Add condition form
+                    st.markdown("**Add Condition**")
+                    srd_cond_names = get_srd_condition_names()
+                    cond_options = srd_cond_names + ["(Custom)"]
+                    
+                    add_cond_col1, add_cond_col2 = st.columns([2, 1])
+                    with add_cond_col1:
+                        selected_cond = st.selectbox(
+                            "Condition",
+                            cond_options,
+                            key=f"add_cond_sel_e_{i}",
+                            label_visibility="collapsed"
+                        )
+                    with add_cond_col2:
+                        cond_duration = st.number_input(
+                            "Rounds",
+                            min_value=0,
+                            value=0,
+                            key=f"add_cond_dur_e_{i}",
+                            help="0 = indefinite"
+                        )
+                    
+                    if selected_cond == "(Custom)":
+                        custom_cond_name = st.text_input(
+                            "Custom Condition Name",
+                            key=f"add_cond_custom_e_{i}"
+                        )
+                    else:
+                        custom_cond_name = None
+                    
+                    if st.button("Add Condition", key=f"add_cond_btn_e_{i}"):
+                        cond_name = custom_cond_name if selected_cond == "(Custom)" else selected_cond
+                        if cond_name:
+                            dur = cond_duration if cond_duration > 0 else None
+                            add_condition(e, cond_name, duration_rounds=dur)
+                            st.toast(f"Added {cond_name} to {e.get('name', 'enemy')}")
+                            st.rerun()
+                        else:
+                            st.warning("Please enter a condition name.")
+        
 # ===== RIGHT COLUMN: Combat Tracker + Attack Roller =====
-with right_col:
+with tracker_col:
 # ---------------- Combat / Turn Tracker ----------------
-    st.markdown("### ⚔️ Combat Tracker")
+    with st.container(height=360, border=False):
+        st.markdown("### ⚔️ Combat Tracker")
 
-    cA, cB, cC, cD = st.columns([2,1,1,1])
+        cA, cB, cC, cD = st.columns([2,1,1,1])
 
-    with cA:
-        if not st.session_state.in_combat:
-            if st.button("Start Combat (Roll Initiative)"):
-                if not st.session_state.party or not st.session_state.enemies:
-                    st.warning("Need at least one party member and one enemy.")
-                else:
-                    start_combat()
-                    st.success("Combat started. Initiative rolled.")
-        else:
-            ent = current_turn()
-            if ent:
-                st.markdown(
-                    f"**Round {st.session_state.combat_round}** — "
-                    f"Turn: **{ent['name']}** ({ent['kind']}, Init {ent['init']})"
-                )
+        with cA:
+            if not st.session_state.in_combat:
+                if st.button("Start Combat (Roll Initiative)"):
+                    if not st.session_state.party or not st.session_state.enemies:
+                        st.warning("Need at least one party member and one enemy.")
+                    else:
+                        start_combat()
+                        st.success("Combat started. Initiative rolled.")
             else:
-                st.markdown("Combat active, but no valid turn entry.")
-
-    with cB:
-        if st.session_state.in_combat and st.button("Next Turn"):
-            # Prevent a pending map click from applying to the next turn owner
-            if st.query_params.get("grid_click_t") is not None:
-                st.query_params.clear()
-            next_turn()
-
-    with cC:
-        # Auto-resolve enemy turn button
-        if st.session_state.in_combat:
-            ent = current_turn()
-            is_enemy_turn = ent and ent.get("kind") == "enemy"
-            
-            if st.button("🤖 Auto Enemy", disabled=not is_enemy_turn, help="Auto-resolve enemy turn"):
-                if is_enemy_turn:
-                    # Get enemy info for logging
-                    enemy_idx = ent.get("idx", 0)
-                    enemy = st.session_state.enemies[enemy_idx] if enemy_idx < len(st.session_state.enemies) else None
-                    
-                    # Capture state snapshot for logging
-                    state_snapshot = None
-                    if st.session_state.get("ai_logging_enabled", False) and AI_LOGGING_AVAILABLE:
-                        enemy_pos = enemy.get("pos") if enemy else None
-                        targets = [p for p in st.session_state.party if int(p.get("hp", 0)) > 0]
-                        nearest_dist = None
-                        if enemy_pos and targets:
-                            from ai.featurize import get_grid_distance
-                            nearest_dist = min(get_grid_distance(enemy_pos, t.get("pos", {})) for t in targets)
-                        state_snapshot = {
-                            "round": st.session_state.get("combat_round", 1),
-                            "enemy_hp": enemy.get("hp") if enemy else None,
-                            "enemy_pos": enemy_pos,
-                            "target_count": len(targets),
-                            "nearest_target_dist": nearest_dist,
-                        }
-                    
-                    # Execute AI turn
-                    ai_messages = ai_resolve_enemy_turn()
-                    
-                    # Log all messages to chat
-                    for msg in ai_messages:
-                        st.session_state.chat_log.append(("System", msg))
-                    
-                    # Log to AI telemetry if enabled
-                    if st.session_state.get("ai_logging_enabled", False) and AI_LOGGING_AVAILABLE and state_snapshot:
-                        logger = get_ui_logger()
-                        if logger:
-                            logger.log_ui_decision(
-                                enemy_name=enemy.get("name", "Enemy") if enemy else "Unknown",
-                                enemy_idx=enemy_idx,
-                                state_snapshot=state_snapshot,
-                                action_chosen={"messages": ai_messages[:3]},  # First 3 messages summarize action
-                                outcome={"message_count": len(ai_messages)}
-                            )
-                    
-                    # Show results in a toast
-                    st.toast(f"Enemy turn resolved: {len(ai_messages)} actions")
-                    st.rerun()
-
-    with cD:
-        if st.session_state.in_combat and st.button("End Combat"):
-            xp_awarded = end_combat(award_combat_xp=True)
-            if xp_awarded > 0:
-                st.success(f"Combat ended! Party awarded {xp_awarded:,} XP total.")
-            else:
-                st.info("Combat ended.")
-
-    # Initiative Order display
-    if st.session_state.initiative_order:
-        st.markdown("**Initiative Order**")
-        for i, ent in enumerate(st.session_state.initiative_order):
-            marker = "➡️" if (i == st.session_state.turn_index and st.session_state.in_combat) else ""
-            st.write(f"{marker} {ent['name']} — Init {ent['init']} (DEX mod {ent['dex_mod']})")
-
-    # Display action economy state during combat
-    if st.session_state.in_combat:
-        st.markdown("**Action Economy**")
-        st.caption(explain_action_state())
-    
-    # AI Telemetry expander
-    with st.expander("🤖 AI Telemetry", expanded=False):
-        if AI_LOGGING_AVAILABLE:
-            # Initialize logging state
-            if "ai_logging_enabled" not in st.session_state:
-                st.session_state.ai_logging_enabled = False
-            
-            logging_enabled = st.toggle(
-                "Enable AI Logging",
-                value=st.session_state.ai_logging_enabled,
-                key="ai_logging_toggle",
-                help="Log enemy AI decisions to JSONL files for training data"
-            )
-            
-            if logging_enabled != st.session_state.ai_logging_enabled:
-                st.session_state.ai_logging_enabled = logging_enabled
-                set_ui_logging_enabled(logging_enabled)
-                if logging_enabled:
-                    st.success("AI logging enabled. Decisions will be saved to data/ai/rollout_logs/")
+                ent = current_turn()
+                if ent:
+                    st.markdown(
+                        f"**Round {st.session_state.combat_round}** — "
+                        f"Turn: **{ent['name']}** ({ent['kind']}, Init {ent['init']})"
+                    )
                 else:
-                    st.info("AI logging disabled.")
-            
-            if st.session_state.ai_logging_enabled:
-                st.caption("📊 Logging active - enemy decisions are being recorded")
+                    st.markdown("Combat active, but no valid turn entry.")
+
+        with cB:
+            if st.session_state.in_combat and st.button("Next Turn"):
+                # Prevent a pending map click from applying to the next turn owner
+                if st.query_params.get("grid_click_t") is not None:
+                    st.query_params.clear()
+                next_turn()
+
+        with cC:
+            # Auto-resolve enemy turn button
+            if st.session_state.in_combat:
+                ent = current_turn()
+                is_enemy_turn = ent and ent.get("kind") == "enemy"
                 
-                # Show log directory
-                log_dir = os.path.join(_project_root, "data", "ai", "rollout_logs")
-                if os.path.exists(log_dir):
-                    log_files = [f for f in os.listdir(log_dir) if f.endswith(".jsonl")]
-                    st.caption(f"Log files: {len(log_files)} in data/ai/rollout_logs/")
-        else:
-            st.info("AI logging module not available. Install ai/ module for telemetry.")
-            st.caption("The UI works fine without it - this is for RL training data collection.")
-    
+                if st.button("🤖 Auto Enemy", disabled=not is_enemy_turn, help="Auto-resolve enemy turn"):
+                    if is_enemy_turn:
+                        # Get enemy info for logging
+                        enemy_idx = ent.get("idx", 0)
+                        enemy = st.session_state.enemies[enemy_idx] if enemy_idx < len(st.session_state.enemies) else None
+                        
+                        # Capture state snapshot for logging
+                        state_snapshot = None
+                        if st.session_state.get("ai_logging_enabled", False) and AI_LOGGING_AVAILABLE:
+                            enemy_pos = enemy.get("pos") if enemy else None
+                            targets = [p for p in st.session_state.party if int(p.get("hp", 0)) > 0]
+                            nearest_dist = None
+                            if enemy_pos and targets:
+                                from ai.featurize import get_grid_distance
+                                nearest_dist = min(get_grid_distance(enemy_pos, t.get("pos", {})) for t in targets)
+                            state_snapshot = {
+                                "round": st.session_state.get("combat_round", 1),
+                                "enemy_hp": enemy.get("hp") if enemy else None,
+                                "enemy_pos": enemy_pos,
+                                "target_count": len(targets),
+                                "nearest_target_dist": nearest_dist,
+                            }
+                        
+                        # Execute AI turn
+                        ai_messages = ai_resolve_enemy_turn()
+                        
+                        # Log all messages to chat
+                        for msg in ai_messages:
+                            st.session_state.chat_log.append(("System", msg))
+                        
+                        # Log to AI telemetry if enabled
+                        if st.session_state.get("ai_logging_enabled", False) and AI_LOGGING_AVAILABLE and state_snapshot:
+                            logger = get_ui_logger()
+                            if logger:
+                                logger.log_ui_decision(
+                                    enemy_name=enemy.get("name", "Enemy") if enemy else "Unknown",
+                                    enemy_idx=enemy_idx,
+                                    state_snapshot=state_snapshot,
+                                    action_chosen={"messages": ai_messages[:3]},  # First 3 messages summarize action
+                                    outcome={"message_count": len(ai_messages)}
+                                )
+                        
+                        # Show results in a toast
+                        st.toast(f"Enemy turn resolved: {len(ai_messages)} actions")
+                        st.rerun()
+
+        with cD:
+            if st.session_state.in_combat and st.button("End Combat"):
+                xp_awarded = end_combat(award_combat_xp=True)
+                if xp_awarded > 0:
+                    st.success(f"Combat ended! Party awarded {xp_awarded:,} XP total.")
+                else:
+                    st.info("Combat ended.")
+
+        # Initiative Order display
+        if st.session_state.initiative_order:
+            st.markdown("**Initiative Order**")
+            for i, ent in enumerate(st.session_state.initiative_order):
+                marker = "➡️" if (i == st.session_state.turn_index and st.session_state.in_combat) else ""
+                st.write(f"{marker} {ent['name']} — Init {ent['init']} (DEX mod {ent['dex_mod']})")
+
+        # Display action economy state during combat
+        if st.session_state.in_combat:
+            st.markdown("**Action Economy**")
+            st.caption(explain_action_state())
+        
+        # AI Telemetry expander
+        with st.expander("🤖 AI Telemetry", expanded=False):
+            if AI_LOGGING_AVAILABLE:
+                # Initialize logging state
+                if "ai_logging_enabled" not in st.session_state:
+                    st.session_state.ai_logging_enabled = False
+                
+                logging_enabled = st.toggle(
+                    "Enable AI Logging",
+                    value=st.session_state.ai_logging_enabled,
+                    key="ai_logging_toggle",
+                    help="Log enemy AI decisions to JSONL files for training data"
+                )
+                
+                if logging_enabled != st.session_state.ai_logging_enabled:
+                    st.session_state.ai_logging_enabled = logging_enabled
+                    set_ui_logging_enabled(logging_enabled)
+                    if logging_enabled:
+                        st.success("AI logging enabled. Decisions will be saved to data/ai/rollout_logs/")
+                    else:
+                        st.info("AI logging disabled.")
+                
+                if st.session_state.ai_logging_enabled:
+                    st.caption("📊 Logging active - enemy decisions are being recorded")
+                    
+                    # Show log directory
+                    log_dir = os.path.join(_project_root, "data", "ai", "rollout_logs")
+                    if os.path.exists(log_dir):
+                        log_files = [f for f in os.listdir(log_dir) if f.endswith(".jsonl")]
+                        st.caption(f"Log files: {len(log_files)} in data/ai/rollout_logs/")
+            else:
+                st.info("AI logging module not available. Install ai/ module for telemetry.")
+                st.caption("The UI works fine without it - this is for RL training data collection.")
+
+with roller_col:   
+    # Attack Roller
     st.markdown("### 🎯 Attack Roller")
 
     # Only active during combat, and only for the active combatant (PC or enemy)
@@ -17598,538 +17430,606 @@ with right_col:
     if not (st.session_state.in_combat and ent):
         st.info("🎲 Attack Roller is only available during combat. Start combat to use this feature.")
     else:
-        kind = ent.get("kind")
-        idx = ent.get("idx")
+            kind = ent.get("kind")
+            idx = ent.get("idx")
 
-        # Resolve attacker (party or enemy) + target list
-        # NOTE: kind must be "party" or "enemy" (never "pc")
-        att = None
-        targets = []
-        target_kind = None
-        
-        if kind == "party":
-            if idx is None or idx >= len(st.session_state.party):
-                st.warning("Active party member not found in party list.")
+            # Resolve attacker (party or enemy) + target list
+            # NOTE: kind must be "party" or "enemy" (never "pc")
+            att = None
+            targets = []
+            target_kind = None
+            
+            if kind == "party":
+                if idx is None or idx >= len(st.session_state.party):
+                    st.warning("Active party member not found in party list.")
+                else:
+                    att = st.session_state.party[idx]
+                    targets = st.session_state.enemies
+                    target_kind = "enemy"
+            elif kind == "enemy":
+                if idx is None or idx >= len(st.session_state.enemies):
+                    st.warning("Active enemy not found in enemies list.")
+                else:
+                    att = st.session_state.enemies[idx]
+                    targets = st.session_state.party
+                    target_kind = "party"
             else:
-                att = st.session_state.party[idx]
-                targets = st.session_state.enemies
-                target_kind = "enemy"
-        elif kind == "enemy":
-            if idx is None or idx >= len(st.session_state.enemies):
-                st.warning("Active enemy not found in enemies list.")
-            else:
-                att = st.session_state.enemies[idx]
-                targets = st.session_state.party
-                target_kind = "party"
-        else:
-            st.caption("Unknown active combatant type.")
+                st.caption("Unknown active combatant type.")
 
-        if att:
-            # Display action economy state for this actor
-            st.caption(f"**Actions Available:** {explain_action_state()}")
-            
-            # ===== ACTION SURGE (Fighter) =====
-            action_surge_resource = att.get("resources", {}).get("Action Surge", {})
-            action_surge_current = action_surge_resource.get("current", 0)
-            if action_surge_current > 0 and not can_spend("standard"):
-                st.markdown("---")
-                col_surge1, col_surge2 = st.columns([3, 1])
-                with col_surge1:
-                    st.warning(f"⚡ **Action Surge** available! ({action_surge_current} use{'s' if action_surge_current > 1 else ''} remaining)")
-                with col_surge2:
-                    if st.button("Use Action Surge", key=f"action_surge_{kind}_{idx}"):
-                        result = use_action_surge(att)
-                        st.session_state.chat_log.append(("System", result))
-                        st.toast(result)
-                        st.rerun()
-                st.markdown("---")
-            
-            # ===== UNMATCHED COMBATANT (Fighter 20) =====
-            unmatched_resource = att.get("resources", {}).get("Unmatched Combatant", {})
-            unmatched_current = unmatched_resource.get("current", 0)
-            if unmatched_current > 0:
-                # Store pending reroll state
-                if "pending_unmatched_reroll" not in st.session_state:
-                    st.session_state.pending_unmatched_reroll = None
+            if att:
+                # Display action economy state for this actor
+                st.caption(f"**Actions Available:** {explain_action_state()}")
                 
-                with st.expander(f"🏆 **Unmatched Combatant** ({unmatched_current} use remaining)", expanded=False):
-                    st.info("Once per day: Reroll any attack roll, saving throw, or damage roll. Must use the new result.")
-                    st.caption("Use this when you want to reroll a bad result. The reroll will be applied to your next roll of that type.")
-            
-            # ===== BARBARIAN RAGE =====
-            rage_resource = att.get("resources", {}).get("Rage", {})
-            rage_current = rage_resource.get("current", 0)
-            is_currently_raging = att.get("is_raging", False)
-            
-            if rage_current > 0 or is_currently_raging:
-                st.markdown("---")
-                col_rage1, col_rage2 = st.columns([3, 1])
-                with col_rage1:
-                    if is_currently_raging:
-                        rage_bonus = att.get("rage_bonus", 2)
-                        rage_details = f"+{rage_bonus} melee damage, +{rage_bonus} STR/CON/WIS saves, -2 AC, resist B/P/S"
-                        
-                        # Show additional rage features
-                        extra_features = []
-                        if att.get("rage_damage_reduction", 0) > 0:
-                            extra_features.append(f"DR {att['rage_damage_reduction']}/-")
-                        if att.get("endless_rage"):
-                            extra_features.append("Endless")
-                        if att.get("has_unyielding_force"):
-                            extra_features.append("Can't be restrained")
-                        
-                        if extra_features:
-                            rage_details += f" | {', '.join(extra_features)}"
-                        
-                        st.success(f"🔥 **RAGING!** ({rage_details})")
-                    else:
-                        st.info(f"🔥 **Rage** available! ({rage_current} use{'s' if rage_current > 1 else ''} remaining)")
-                with col_rage2:
-                    if is_currently_raging:
-                        if st.button("End Rage", key=f"end_rage_{kind}_{idx}"):
-                            result = toggle_rage(att, activate=False)
+                # ===== ACTION SURGE (Fighter) =====
+                action_surge_resource = att.get("resources", {}).get("Action Surge", {})
+                action_surge_current = action_surge_resource.get("current", 0)
+                if action_surge_current > 0 and not can_spend("standard"):
+                    st.markdown("---")
+                    col_surge1, col_surge2 = st.columns([3, 1])
+                    with col_surge1:
+                        st.warning(f"⚡ **Action Surge** available! ({action_surge_current} use{'s' if action_surge_current > 1 else ''} remaining)")
+                    with col_surge2:
+                        if st.button("Use Action Surge", key=f"action_surge_{kind}_{idx}"):
+                            result = use_action_surge(att)
                             st.session_state.chat_log.append(("System", result))
                             st.toast(result)
                             st.rerun()
-                    else:
-                        if st.button("Enter Rage", key=f"start_rage_{kind}_{idx}"):
-                            result = toggle_rage(att, activate=True)
-                            st.session_state.chat_log.append(("System", result))
-                            st.toast(result)
-                            st.rerun()
-                st.markdown("---")
-            
-            # ===== RELENTLESS ASSAULT (Barbarian 16+) =====
-            if att.get("relentless_assault_pending"):
-                st.warning("⚔️ **Relentless Assault!** You killed an enemy - make a free melee attack against another creature within reach!")
-                # List available melee targets
-                melee_targets = []
-                for ei, enemy in enumerate(st.session_state.get("enemies", [])):
-                    if enemy.get("hp", 0) > 0:
-                        melee_targets.append((ei, enemy.get("name", f"Enemy {ei+1}")))
+                    st.markdown("---")
                 
-                if melee_targets:
-                    target_names = [t[1] for t in melee_targets]
-                    selected_target = st.selectbox("Target for Relentless Assault:", target_names, key=f"relentless_target_{kind}_{idx}")
+                # ===== UNMATCHED COMBATANT (Fighter 20) =====
+                unmatched_resource = att.get("resources", {}).get("Unmatched Combatant", {})
+                unmatched_current = unmatched_resource.get("current", 0)
+                if unmatched_current > 0:
+                    # Store pending reroll state
+                    if "pending_unmatched_reroll" not in st.session_state:
+                        st.session_state.pending_unmatched_reroll = None
                     
-                    if st.button("⚔️ Execute Relentless Assault", key=f"relentless_attack_{kind}_{idx}"):
-                        # Find target index
-                        target_idx = next((t[0] for t in melee_targets if t[1] == selected_target), 0)
-                        target = st.session_state.enemies[target_idx]
-                        
-                        # Get a melee attack
-                        melee_attacks = [a for a in (att.get("attacks") or []) if a.get("reach")]
-                        if melee_attacks:
-                            chosen_attack = melee_attacks[0]
-                            lines = resolve_single_attack(att, target, target_idx, chosen_attack, 1, 1)
-                            result_msg = "\n".join(lines)
-                            st.session_state.chat_log.append(("System", f"**Relentless Assault:**\n{result_msg}"))
-                            st.toast("⚔️ Relentless Assault executed!")
+                    with st.expander(f"🏆 **Unmatched Combatant** ({unmatched_current} use remaining)", expanded=False):
+                        st.info("Once per day: Reroll any attack roll, saving throw, or damage roll. Must use the new result.")
+                        st.caption("Use this when you want to reroll a bad result. The reroll will be applied to your next roll of that type.")
+                
+                # ===== BARBARIAN RAGE =====
+                rage_resource = att.get("resources", {}).get("Rage", {})
+                rage_current = rage_resource.get("current", 0)
+                is_currently_raging = att.get("is_raging", False)
+                
+                if rage_current > 0 or is_currently_raging:
+                    st.markdown("---")
+                    col_rage1, col_rage2 = st.columns([3, 1])
+                    with col_rage1:
+                        if is_currently_raging:
+                            rage_bonus = att.get("rage_bonus", 2)
+                            rage_details = f"+{rage_bonus} melee damage, +{rage_bonus} STR/CON/WIS saves, -2 AC, resist B/P/S"
+                            
+                            # Show additional rage features
+                            extra_features = []
+                            if att.get("rage_damage_reduction", 0) > 0:
+                                extra_features.append(f"DR {att['rage_damage_reduction']}/-")
+                            if att.get("endless_rage"):
+                                extra_features.append("Endless")
+                            if att.get("has_unyielding_force"):
+                                extra_features.append("Can't be restrained")
+                            
+                            if extra_features:
+                                rage_details += f" | {', '.join(extra_features)}"
+                            
+                            st.success(f"🔥 **RAGING!** ({rage_details})")
                         else:
-                            st.session_state.chat_log.append(("System", "No melee attack available for Relentless Assault."))
+                            st.info(f"🔥 **Rage** available! ({rage_current} use{'s' if rage_current > 1 else ''} remaining)")
+                    with col_rage2:
+                        if is_currently_raging:
+                            if st.button("End Rage", key=f"end_rage_{kind}_{idx}"):
+                                result = toggle_rage(att, activate=False)
+                                st.session_state.chat_log.append(("System", result))
+                                st.toast(result)
+                                st.rerun()
+                        else:
+                            if st.button("Enter Rage", key=f"start_rage_{kind}_{idx}"):
+                                result = toggle_rage(att, activate=True)
+                                st.session_state.chat_log.append(("System", result))
+                                st.toast(result)
+                                st.rerun()
+                    st.markdown("---")
+                
+                # ===== RELENTLESS ASSAULT (Barbarian 16+) =====
+                if att.get("relentless_assault_pending"):
+                    st.warning("⚔️ **Relentless Assault!** You killed an enemy - make a free melee attack against another creature within reach!")
+                    # List available melee targets
+                    melee_targets = []
+                    for ei, enemy in enumerate(st.session_state.get("enemies", [])):
+                        if enemy.get("hp", 0) > 0:
+                            melee_targets.append((ei, enemy.get("name", f"Enemy {ei+1}")))
+                    
+                    if melee_targets:
+                        target_names = [t[1] for t in melee_targets]
+                        selected_target = st.selectbox("Target for Relentless Assault:", target_names, key=f"relentless_target_{kind}_{idx}")
                         
-                        # Clear the pending flag
+                        if st.button("⚔️ Execute Relentless Assault", key=f"relentless_attack_{kind}_{idx}"):
+                            # Find target index
+                            target_idx = next((t[0] for t in melee_targets if t[1] == selected_target), 0)
+                            target = st.session_state.enemies[target_idx]
+                            
+                            # Get a melee attack
+                            melee_attacks = [a for a in (att.get("attacks") or []) if a.get("reach")]
+                            if melee_attacks:
+                                chosen_attack = melee_attacks[0]
+                                lines = resolve_single_attack(att, target, target_idx, chosen_attack, 1, 1)
+                                result_msg = "\n".join(lines)
+                                st.session_state.chat_log.append(("System", f"**Relentless Assault:**\n{result_msg}"))
+                                st.toast("⚔️ Relentless Assault executed!")
+                            else:
+                                st.session_state.chat_log.append(("System", "No melee attack available for Relentless Assault."))
+                            
+                            # Clear the pending flag
+                            att["relentless_assault_pending"] = False
+                            st.rerun()
+                    else:
+                        st.caption("No valid targets remaining.")
                         att["relentless_assault_pending"] = False
-                        st.rerun()
-                else:
-                    st.caption("No valid targets remaining.")
-                    att["relentless_assault_pending"] = False
-                st.markdown("---")
-            
-            # reminder: enemies added from SRD are already normalized into our schema
-            actions = att.get("attacks") or att.get("actions") or []
-            action_names = [a.get("name", "Action") for a in actions] + ["(Custom)"]
-
-            # Unique widget keys per-turn/actor so Streamlit never duplicates keys
-            actor_key = f"{kind}_{idx}"
-
-            act = st.selectbox(
-                "Action",
-                action_names,
-                key=f"atk_act_sel_{actor_key}",
-            )
-            
-            # ===== MANEUVER SELECTION (Fighter/Marshal) =====
-            available_maneuvers = att.get("available_maneuvers", [])
-            selected_maneuver = None
-            maneuver_data = None
-            
-            if available_maneuvers:
-                # Get attack-type maneuvers that can be used with this attack
-                attack_maneuvers = ["(None)"]
-                for m_name in available_maneuvers:
-                    m_data = FIGHTER_MANEUVERS.get(m_name, {})
-                    if m_data.get("type") == "attack_modifier":
-                        attack_maneuvers.append(m_name)
-                
-                if len(attack_maneuvers) > 1:
-                    # Check if we have martial dice available
-                    martial_dice = att.get("resources", {}).get("Martial Dice", {}).get("current", 0)
-                    die_size = att.get("fighter_die_size", att.get("marshal_die_size", "d6"))
-                    
                     st.markdown("---")
-                    st.markdown(f"**⚔️ Combat Maneuver** (Martial Dice: {martial_dice})")
+                
+                # reminder: enemies added from SRD are already normalized into our schema
+                actions = att.get("attacks") or att.get("actions") or []
+                action_names = [a.get("name", "Action") for a in actions] + ["(Custom)"]
+
+                # Unique widget keys per-turn/actor so Streamlit never duplicates keys
+                actor_key = f"{kind}_{idx}"
+
+                act = st.selectbox(
+                    "Action",
+                    action_names,
+                    key=f"atk_act_sel_{actor_key}",
+                )
+                
+                # ===== MANEUVER SELECTION (Fighter/Marshal) =====
+                available_maneuvers = att.get("available_maneuvers", [])
+                selected_maneuver = None
+                maneuver_data = None
+                
+                if available_maneuvers:
+                    # Get attack-type maneuvers that can be used with this attack
+                    attack_maneuvers = ["(None)"]
+                    for m_name in available_maneuvers:
+                        m_data = FIGHTER_MANEUVERS.get(m_name, {})
+                        if m_data.get("type") == "attack_modifier":
+                            attack_maneuvers.append(m_name)
                     
-                    selected_maneuver = st.selectbox(
-                        "Apply Maneuver:",
-                        attack_maneuvers,
-                        key=f"maneuver_sel_{actor_key}",
-                        disabled=martial_dice <= 0
+                    if len(attack_maneuvers) > 1:
+                        # Check if we have martial dice available
+                        martial_dice = att.get("resources", {}).get("Martial Dice", {}).get("current", 0)
+                        die_size = att.get("fighter_die_size", att.get("marshal_die_size", "d6"))
+                        
+                        st.markdown("---")
+                        st.markdown(f"**⚔️ Combat Maneuver** (Martial Dice: {martial_dice})")
+                        
+                        selected_maneuver = st.selectbox(
+                            "Apply Maneuver:",
+                            attack_maneuvers,
+                            key=f"maneuver_sel_{actor_key}",
+                            disabled=martial_dice <= 0
+                        )
+                        
+                        if selected_maneuver and selected_maneuver != "(None)":
+                            maneuver_data = FIGHTER_MANEUVERS.get(selected_maneuver, {})
+                            st.caption(f"📜 {maneuver_data.get('description', '')} (Uses 1 Martial Die, {die_size})")
+                            
+                            # Show maneuver effects preview
+                            if maneuver_data.get("reach_bonus"):
+                                st.success(f"✅ +{maneuver_data['reach_bonus']} ft reach for this attack!")
+                            if maneuver_data.get("effect") == "to_hit_bonus":
+                                st.success(f"✅ Add {die_size} to attack roll!")
+                            if "damage" in maneuver_data.get("effect", ""):
+                                st.success(f"✅ Add {die_size} to damage!")
+                            if maneuver_data.get("save"):
+                                dc = att.get("maneuver_dc", 8 + (att.get("abilities", {}).get("STR", 10) - 10) // 2 + att.get("bab", 0))
+                                st.info(f"🎯 Target must make DC {dc} {maneuver_data['save']} save or suffer additional effect!")
+                        
+                        st.markdown("---")
+            
+                # Determine action type and get action object
+                aobj = None
+                required_action_type = "standard"  # default for attacks
+
+                if act == "(Custom)":
+                    to_hit = st.number_input(
+                        "To-Hit Bonus",
+                        -10,
+                        20,
+                        0,
+                        key=f"atk_custom_to_{actor_key}",
                     )
-                    
-                    if selected_maneuver and selected_maneuver != "(None)":
-                        maneuver_data = FIGHTER_MANEUVERS.get(selected_maneuver, {})
-                        st.caption(f"📜 {maneuver_data.get('description', '')} (Uses 1 Martial Die, {die_size})")
-                        
-                        # Show maneuver effects preview
-                        if maneuver_data.get("reach_bonus"):
-                            st.success(f"✅ +{maneuver_data['reach_bonus']} ft reach for this attack!")
-                        if maneuver_data.get("effect") == "to_hit_bonus":
-                            st.success(f"✅ Add {die_size} to attack roll!")
-                        if "damage" in maneuver_data.get("effect", ""):
-                            st.success(f"✅ Add {die_size} to damage!")
-                        if maneuver_data.get("save"):
-                            dc = att.get("maneuver_dc", 8 + (att.get("abilities", {}).get("STR", 10) - 10) // 2 + att.get("bab", 0))
-                            st.info(f"🎯 Target must make DC {dc} {maneuver_data['save']} save or suffer additional effect!")
-                    
-                    st.markdown("---")
-        
-            # Determine action type and get action object
-            aobj = None
-            required_action_type = "standard"  # default for attacks
-
-            if act == "(Custom)":
-                to_hit = st.number_input(
-                    "To-Hit Bonus",
-                    -10,
-                    20,
-                    0,
-                    key=f"atk_custom_to_{actor_key}",
-                )
-                dmg = st.text_input(
-                    "Damage Dice",
-                    value="1d6",
-                    key=f"atk_custom_dmg_{actor_key}",
-                )
-                dmg_type = st.text_input(
-                    "Damage Type (optional)",
-                    value="",
-                    key=f"atk_custom_dt_{actor_key}",
-                )
-                # Custom attacks default to standard action
-                required_action_type = "standard"
-            else:
-                aobj = next((a for a in actions if a.get("name") == act), None)
-                # Use helper functions for consistent field access
-                to_hit = get_attack_to_hit(aobj) if aobj else 0
-                dmg = get_attack_damage(aobj) if aobj else "1d6"
-                dmg_type = get_attack_damage_type(aobj) if aobj else ""
-                # Check if action has a specific action_type from ACTION_SCHEMA
-                required_action_type = get_action_type_for_attack(aobj)
-        
-            # Detect if this is a spell save action
-            is_spell_save = aobj and aobj.get("save") and aobj.get("dc")
-            is_spell_attack = aobj and aobj.get("type") == "spell_attack"
-            spell_dc = aobj.get("dc") if aobj else None
-            spell_save = aobj.get("save") if aobj else None
-        
-            # Show what action type this will consume and range info
-            st.caption(f"This action requires: **{required_action_type.capitalize()}** action")
-            
-            # Show spell info if applicable
-            if is_spell_save:
-                st.caption(f"🔮 **Spell Save:** DC {spell_dc} {spell_save}")
-            elif is_spell_attack:
-                st.caption(f"🔮 **Spell Attack:** +{to_hit} to hit")
-            
-            # Show attack range requirement
-            if aobj:
-                st.caption(f"Attack range: {explain_band_requirement(aobj)}")
-            
-            # Show attacker's current position
-            attacker_band = get_position_band(att)
-            st.caption(f"Your position: **{get_band_display(attacker_band)}**")
-
-            if not targets:
-                st.caption("No valid targets available.")
-            else:
-                # Target picker with position info
-                def format_target(i):
-                    t = targets[i]
-                    t_band = get_position_band(t)
-                    return f"{t.get('name', f'Target #{i+1}')} ({t_band})"
-                
-                target_idx = st.selectbox(
-                    "Target",
-                    list(range(len(targets))),
-                    format_func=format_target,
-                    key=f"atk_target_{actor_key}",
-                )
-
-                target = targets[target_idx]
-                target_ac = int(target.get("ac", 10))
-                target_band = get_position_band(target)
-                st.caption(f"Target AC: {target_ac} | Position: **{get_band_display(target_band)}**")
-
-                # Check if the required action type is available
-                action_available = can_spend(required_action_type)
-                
-                # Check range band validity - use grid-based range check if available
-                attack_for_range = aobj if aobj else {"reach": 5}  # Custom attacks default to melee with 5ft reach
-                
-                # Apply maneuver reach bonus (e.g., Lunging Attack)
-                if selected_maneuver and selected_maneuver != "(None)" and maneuver_data:
-                    reach_bonus = maneuver_data.get("reach_bonus", 0)
-                    if reach_bonus > 0:
-                        attack_for_range = dict(attack_for_range) if attack_for_range else {}
-                        current_reach = attack_for_range.get("reach", 5)
-                        attack_for_range["reach"] = current_reach + reach_bonus
-                
-                # Try grid-based range check first
-                att_pos = att.get("pos")
-                tgt_pos = target.get("pos")
-
-                has_grid_pos = (
-                    isinstance(att_pos, dict) and "x" in att_pos and "y" in att_pos and
-                    isinstance(tgt_pos, dict) and "x" in tgt_pos and "y" in tgt_pos
-                )
-
-                if has_grid_pos:
-                    range_valid = is_target_in_attack_range(att, target, attack_for_range)
+                    dmg = st.text_input(
+                        "Damage Dice",
+                        value="1d6",
+                        key=f"atk_custom_dmg_{actor_key}",
+                    )
+                    dmg_type = st.text_input(
+                        "Damage Type (optional)",
+                        value="",
+                        key=f"atk_custom_dt_{actor_key}",
+                    )
+                    # Custom attacks default to standard action
+                    required_action_type = "standard"
                 else:
-                    range_valid = can_attack_at_band(attack_for_range, target_band)
+                    aobj = next((a for a in actions if a.get("name") == act), None)
+                    # Use helper functions for consistent field access
+                    to_hit = get_attack_to_hit(aobj) if aobj else 0
+                    dmg = get_attack_damage(aobj) if aobj else "1d6"
+                    dmg_type = get_attack_damage_type(aobj) if aobj else ""
+                    # Check if action has a specific action_type from ACTION_SCHEMA
+                    required_action_type = get_action_type_for_attack(aobj)
+            
+                # Detect if this is a spell save action
+                is_spell_save = aobj and aobj.get("save") and aobj.get("dc")
+                is_spell_attack = aobj and aobj.get("type") == "spell_attack"
+                spell_dc = aobj.get("dc") if aobj else None
+                spell_save = aobj.get("save") if aobj else None
+            
+                # Show what action type this will consume and range info
+                st.caption(f"This action requires: **{required_action_type.capitalize()}** action")
                 
+                # Show spell info if applicable
+                if is_spell_save:
+                    st.caption(f"🔮 **Spell Save:** DC {spell_dc} {spell_save}")
+                elif is_spell_attack:
+                    st.caption(f"🔮 **Spell Attack:** +{to_hit} to hit")
                 
-                # Button label changes based on action type
-                button_label = "Cast Spell" if (is_spell_save or is_spell_attack) else "Roll Attack"
+                # Show attack range requirement
+                if aobj:
+                    st.caption(f"Attack range: {explain_band_requirement(aobj)}")
                 
-                if not action_available:
-                    st.error(f"❌ {required_action_type.capitalize()} action already used this turn!")
-                    st.button(button_label, key=f"atk_roll_{actor_key}", disabled=True)
-                elif not range_valid:
-                    attack_range = get_attack_range_squares(attack_for_range)
-                    distance = get_grid_distance(att.get("pos"), target.get("pos"))
-                    st.error(f"❌ Target is {distance} squares away, but this attack only reaches {attack_range} squares! Move closer or choose a different attack.")
-                    st.button(button_label, key=f"atk_roll_{actor_key}", disabled=True)
-                elif st.button(button_label, key=f"atk_roll_{actor_key}"):
-                    # Spend the action
-                    spend(required_action_type)
+                # Show attacker's current position
+                attacker_band = get_position_band(att)
+                st.caption(f"Your position: **{get_band_display(attacker_band)}**")
+
+                if not targets:
+                    st.caption("No valid targets available.")
+                else:
+                    # Target picker with position info
+                    def format_target(i):
+                        t = targets[i]
+                        t_band = get_position_band(t)
+                        return f"{t.get('name', f'Target #{i+1}')} ({t_band})"
                     
-                    # ========== MANEUVER SETUP ==========
-                    maneuver_to_hit_bonus = 0
-                    maneuver_damage_bonus = 0
-                    maneuver_die_roll = 0
-                    maneuver_effect_text = ""
+                    target_idx = st.selectbox(
+                        "Target",
+                        list(range(len(targets))),
+                        format_func=format_target,
+                        key=f"atk_target_{actor_key}",
+                    )
+
+                    target = targets[target_idx]
+                    target_ac = int(target.get("ac", 10))
+                    target_band = get_position_band(target)
+                    st.caption(f"Target AC: {target_ac} | Position: **{get_band_display(target_band)}**")
+
+                    # Check if the required action type is available
+                    action_available = can_spend(required_action_type)
                     
+                    # Check range band validity - use grid-based range check if available
+                    attack_for_range = aobj if aobj else {"reach": 5}  # Custom attacks default to melee with 5ft reach
+                    
+                    # Apply maneuver reach bonus (e.g., Lunging Attack)
                     if selected_maneuver and selected_maneuver != "(None)" and maneuver_data:
-                        # Consume a Martial Die
-                        martial_dice_res = att.get("resources", {}).get("Martial Dice", {})
-                        if martial_dice_res.get("current", 0) > 0:
-                            att.setdefault("resources", {}).setdefault("Martial Dice", {})["current"] -= 1
-                            
-                            # Roll the martial die
-                            die_size = att.get("fighter_die_size", att.get("marshal_die_size", "d6"))
-                            die_value = int(die_size[1:])
-                            maneuver_die_roll = random.randint(1, die_value)
-                            
-                            st.info(f"⚔️ **{selected_maneuver}** - Martial Die: {die_size} → **{maneuver_die_roll}**")
-                            
-                            # Apply maneuver effects based on timing
-                            effect = maneuver_data.get("effect", "")
-                            timing = maneuver_data.get("timing", "on_hit")
-                            
-                            if timing == "before_attack":
-                                if effect == "to_hit_bonus":
-                                    maneuver_to_hit_bonus = maneuver_die_roll
-                                    st.success(f"✅ +{maneuver_die_roll} to attack roll!")
-                                elif effect == "reach_and_damage":
-                                    maneuver_damage_bonus = maneuver_die_roll
-                                    st.success(f"✅ +5 ft reach and +{maneuver_die_roll} damage on hit!")
-                            elif timing == "on_hit":
-                                # These bonuses apply only if we hit
-                                maneuver_damage_bonus = maneuver_die_roll
-                                maneuver_effect_text = f" (+{maneuver_die_roll} from {selected_maneuver})"
+                        reach_bonus = maneuver_data.get("reach_bonus", 0)
+                        if reach_bonus > 0:
+                            attack_for_range = dict(attack_for_range) if attack_for_range else {}
+                            current_reach = attack_for_range.get("reach", 5)
+                            attack_for_range["reach"] = current_reach + reach_bonus
                     
-                    # ========== SPELL SAVE RESOLUTION ==========
-                    if is_spell_save:
-                        # Target makes saving throw
-                        d20 = random.randint(1, 20)
-                        
-                        # Get target's save modifier (if available)
-                        save_mod = get_total_save(target, spell_save) if target_kind == "party" else 0
-                        if save_mod == 0:
-                            target_abilities = target.get("abilities", {})
-                            if spell_save and spell_save in target_abilities:
-                                save_mod = (int(target_abilities[spell_save]) - 10) // 2
-                        
-                        save_total = d20 + save_mod
-                        save_success = save_total >= spell_dc
-                        
-                        st.write(
-                            f"🎯 **{target.get('name', 'Target')}** makes a **{spell_save}** save: "
-                            f"d20({d20}) + {save_mod} = **{save_total}** vs DC {spell_dc} → "
-                            f"{'**SAVED!**' if save_success else '**FAILED!**'}"
-                        )
-                        
-                        # ===== INDOMITABLE / INDOMITABLE WILL REROLL OPTIONS =====
-                        if not save_success and target_kind == "party":
-                            # Check for Indomitable Will (WIS/CHA saves, free reroll)
-                            if can_use_indomitable_will(target, spell_save):
-                                if st.button(f"💪 Use Indomitable Will (reroll {spell_save} save)", key=f"indom_will_{target_idx}"):
-                                    new_success, msg = use_indomitable_will(target, d20, spell_save, spell_dc)
-                                    st.write(msg)
-                                    st.session_state.chat_log.append(("System", msg))
-                                    if new_success:
-                                        save_success = True
-                            
-                            # Check for Indomitable (any save, uses resource)
-                            if not save_success and can_use_indomitable(target):
-                                indom_uses = target.get("resources", {}).get("Indomitable", {}).get("current", 0)
-                                if st.button(f"🔄 Use Indomitable ({indom_uses} use{'s' if indom_uses > 1 else ''} left)", key=f"indom_{target_idx}"):
-                                    new_success, msg = use_indomitable(target, d20, spell_save, spell_dc)
-                                    st.write(msg)
-                                    st.session_state.chat_log.append(("System", msg))
-                                    if new_success:
-                                        save_success = True
-                        
-                        st.session_state.chat_log.append(
-                            (
-                                "System",
-                                f"{att.get('name','Caster')} casts {act} on {target.get('name','Target')} → "
-                                f"{spell_save} save: {save_total} vs DC {spell_dc} → {'SAVED' if save_success else 'FAILED'} "
-                                f"({required_action_type.capitalize()} action spent)",
-                            )
-                        )
-                        
-                        # Apply damage on failed save (or half on success for some spells)
-                        if not save_success:
-                            if dmg and dmg != "—":
-                                dmg_total, breakdown = roll_dice(dmg)
-                                st.write(f"💥 Damage: {dmg} → **{dmg_total}** ({breakdown})")
-                                if dmg_type:
-                                    st.caption(f"Damage Type: {dmg_type}")
-                                
-                                # Apply damage
-                                if target_kind == "enemy":
-                                    before = int(st.session_state.enemies[target_idx].get("hp", 0))
-                                    after = max(0, before - int(dmg_total))
-                                    st.session_state.enemies[target_idx]["hp"] = after
-                                else:
-                                    before = int(st.session_state.party[target_idx].get("hp", 0))
-                                    after = max(0, before - int(dmg_total))
-                                    st.session_state.party[target_idx]["hp"] = after
-                                
-                                st.write(
-                                    f"{target.get('name','Target')} takes **{dmg_total}** damage "
-                                    f"and is now at **{after} HP** (was {before})."
-                                )
-                                
-                                st.session_state.chat_log.append(
-                                    (
-                                        "System",
-                                        f"{att.get('name','Caster')} deals {dmg_total} {dmg_type or ''} damage to "
-                                        f"{target.get('name','Target')} ({before} → {after} HP).",
-                                    )
-                                )
-                            else:
-                                st.write("Spell effect applied (no damage).")
-                        else:
-                            st.write("Target resists the spell effect!")
-                    
-                    # ========== SPELL ATTACK / REGULAR ATTACK RESOLUTION ==========
+                    # Try grid-based range check first
+                    att_pos = att.get("pos")
+                    tgt_pos = target.get("pos")
+
+                    has_grid_pos = (
+                        isinstance(att_pos, dict) and "x" in att_pos and "y" in att_pos and
+                        isinstance(tgt_pos, dict) and "x" in tgt_pos and "y" in tgt_pos
+                    )
+
+                    if has_grid_pos:
+                        range_valid = is_target_in_attack_range(att, target, attack_for_range)
                     else:
-                        d20 = random.randint(1, 20)
-                        total = d20 + int(to_hit) + maneuver_to_hit_bonus
-                        hit = total >= target_ac
-
-                        attack_type = "🔮 Spell attack" if is_spell_attack else "To-Hit"
-                        maneuver_str = f" + {maneuver_to_hit_bonus} (maneuver)" if maneuver_to_hit_bonus > 0 else ""
-                        st.write(
-                            f"{attack_type}: d20({d20}) + {to_hit}{maneuver_str} = **{total}** "
-                            f"vs AC {target_ac} → {'**HIT**' if hit else '**MISS**'}"
-                        )
-
-                        st.session_state.chat_log.append(
-                            (
-                                "System",
-                                f"{att.get('name','Attacker')} {'casts' if is_spell_attack else 'attacks'} {target.get('name','Target')} with {act}"
-                                f"{' using ' + selected_maneuver if selected_maneuver and selected_maneuver != '(None)' else ''} → "
-                                f"{total} vs AC {target_ac} → {'HIT' if hit else 'MISS'} "
-                                f"({required_action_type.capitalize()} action spent)",
-                            )
-                        )
-
-                        if hit:
-                            # Defensive: handle missing or invalid damage
-                            if dmg == "—" or not dmg:
-                                st.write("Damage: **—** (no damage specified)")
-                                dmg_total = 0
-                            else:
-                                base_dmg_total, breakdown = roll_dice(dmg)
-                                dmg_total = base_dmg_total + maneuver_damage_bonus
+                        range_valid = can_attack_at_band(attack_for_range, target_band)
+                    
+                    
+                    # Button label changes based on action type
+                    button_label = "Cast Spell" if (is_spell_save or is_spell_attack) else "Roll Attack"
+                    
+                    if not action_available:
+                        st.error(f"❌ {required_action_type.capitalize()} action already used this turn!")
+                        st.button(button_label, key=f"atk_roll_{actor_key}", disabled=True)
+                    elif not range_valid:
+                        attack_range = get_attack_range_squares(attack_for_range)
+                        distance = get_grid_distance(att.get("pos"), target.get("pos"))
+                        st.error(f"❌ Target is {distance} squares away, but this attack only reaches {attack_range} squares! Move closer or choose a different attack.")
+                        st.button(button_label, key=f"atk_roll_{actor_key}", disabled=True)
+                    elif st.button(button_label, key=f"atk_roll_{actor_key}"):
+                        # Spend the action
+                        spend(required_action_type)
+                        
+                        # ========== MANEUVER SETUP ==========
+                        maneuver_to_hit_bonus = 0
+                        maneuver_damage_bonus = 0
+                        maneuver_die_roll = 0
+                        maneuver_effect_text = ""
+                        
+                        if selected_maneuver and selected_maneuver != "(None)" and maneuver_data:
+                            # Consume a Martial Die
+                            martial_dice_res = att.get("resources", {}).get("Martial Dice", {})
+                            if martial_dice_res.get("current", 0) > 0:
+                                att.setdefault("resources", {}).setdefault("Martial Dice", {})["current"] -= 1
                                 
-                                if maneuver_damage_bonus > 0:
-                                    st.write(f"Damage: {dmg} → {base_dmg_total} + {maneuver_damage_bonus} (maneuver) = **{dmg_total}**{maneuver_effect_text}")
-                                else:
-                                    st.write(f"Damage: {dmg} → **{dmg_total}** ({breakdown})")
+                                # Roll the martial die
+                                die_size = att.get("fighter_die_size", att.get("marshal_die_size", "d6"))
+                                die_value = int(die_size[1:])
+                                maneuver_die_roll = random.randint(1, die_value)
                                 
-                                if dmg_type:
-                                    st.caption(f"Damage Type: {dmg_type}")
-                            
-                            # ========== MANEUVER SECONDARY EFFECTS ==========
-                            if selected_maneuver and selected_maneuver != "(None)" and maneuver_data:
+                                st.info(f"⚔️ **{selected_maneuver}** - Martial Die: {die_size} → **{maneuver_die_roll}**")
+                                
+                                # Apply maneuver effects based on timing
                                 effect = maneuver_data.get("effect", "")
-                                save_type = maneuver_data.get("save")
+                                timing = maneuver_data.get("timing", "on_hit")
                                 
-                                if save_type:
-                                    # Target must make a save
-                                    dc = att.get("maneuver_dc", 8 + (att.get("abilities", {}).get("STR", 10) - 10) // 2 + att.get("bab", 0))
-                                    save_roll = random.randint(1, 20)
-                                    target_save_mod = (target.get("abilities", {}).get(save_type, 10) - 10) // 2
-                                    save_total = save_roll + target_save_mod
-                                    save_success = save_total >= dc
-                                    
-                                    st.write(f"🎯 {target.get('name', 'Target')} {save_type} save: d20({save_roll}) + {target_save_mod} = {save_total} vs DC {dc} → {'**SAVED**' if save_success else '**FAILED**'}")
-                                    
-                                    if not save_success:
-                                        if "prone" in effect:
-                                            add_condition(target, "Prone", duration_rounds=None)
-                                            st.warning(f"💥 {target.get('name', 'Target')} is knocked **Prone**!")
-                                        elif "disarm" in effect:
-                                            st.warning(f"💥 {target.get('name', 'Target')} drops their weapon!")
-                                        elif "frighten" in effect:
-                                            add_condition(target, "Frightened", duration_rounds=1)
-                                            st.warning(f"💥 {target.get('name', 'Target')} is **Frightened** until end of next turn!")
-                                        elif "push" in effect:
-                                            push_dist = maneuver_data.get("push_distance", 10)
-                                            st.warning(f"💥 {target.get('name', 'Target')} is pushed {push_dist} ft!")
+                                if timing == "before_attack":
+                                    if effect == "to_hit_bonus":
+                                        maneuver_to_hit_bonus = maneuver_die_roll
+                                        st.success(f"✅ +{maneuver_die_roll} to attack roll!")
+                                    elif effect == "reach_and_damage":
+                                        maneuver_damage_bonus = maneuver_die_roll
+                                        st.success(f"✅ +5 ft reach and +{maneuver_die_roll} damage on hit!")
+                                elif timing == "on_hit":
+                                    # These bonuses apply only if we hit
+                                    maneuver_damage_bonus = maneuver_die_roll
+                                    maneuver_effect_text = f" (+{maneuver_die_roll} from {selected_maneuver})"
+                        
+                        # ========== SPELL SAVE RESOLUTION ==========
+                        if is_spell_save:
+                            # Target makes saving throw
+                            d20 = random.randint(1, 20)
+                            
+                            # Get target's save modifier (if available)
+                            save_mod = get_total_save(target, spell_save) if target_kind == "party" else 0
+                            if save_mod == 0:
+                                target_abilities = target.get("abilities", {})
+                                if spell_save and spell_save in target_abilities:
+                                    save_mod = (int(target_abilities[spell_save]) - 10) // 2
+                            
+                            save_total = d20 + save_mod
+                            save_success = save_total >= spell_dc
+                            
+                            st.write(
+                                f"🎯 **{target.get('name', 'Target')}** makes a **{spell_save}** save: "
+                                f"d20({d20}) + {save_mod} = **{save_total}** vs DC {spell_dc} → "
+                                f"{'**SAVED!**' if save_success else '**FAILED!**'}"
+                            )
+                            
+                            # ===== INDOMITABLE / INDOMITABLE WILL REROLL OPTIONS =====
+                            if not save_success and target_kind == "party":
+                                # Check for Indomitable Will (WIS/CHA saves, free reroll)
+                                if can_use_indomitable_will(target, spell_save):
+                                    if st.button(f"💪 Use Indomitable Will (reroll {spell_save} save)", key=f"indom_will_{target_idx}"):
+                                        new_success, msg = use_indomitable_will(target, d20, spell_save, spell_dc)
+                                        st.write(msg)
+                                        st.session_state.chat_log.append(("System", msg))
+                                        if new_success:
+                                            save_success = True
                                 
-                                # Cleave effect (Sweeping Motion)
-                                if effect == "cleave" and maneuver_die_roll > 0:
-                                    st.info(f"⚔️ Sweeping Motion: Can deal {maneuver_die_roll} damage to another creature within 5ft if attack roll ({total}) would hit them.")
-
-                                # Apply damage to the correct list in session state
-                                if target_kind == "enemy":
-                                    before = int(st.session_state.enemies[target_idx].get("hp", 0))
-                                    after = max(0, before - int(dmg_total))
-                                    st.session_state.enemies[target_idx]["hp"] = after
-                                else:
-                                    before = int(st.session_state.party[target_idx].get("hp", 0))
-                                    after = max(0, before - int(dmg_total))
-                                    st.session_state.party[target_idx]["hp"] = after
-
-                                st.write(
-                                    f"{target.get('name','Target')} takes **{dmg_total}** damage "
-                                    f"and is now at **{after} HP** (was {before})."
+                                # Check for Indomitable (any save, uses resource)
+                                if not save_success and can_use_indomitable(target):
+                                    indom_uses = target.get("resources", {}).get("Indomitable", {}).get("current", 0)
+                                    if st.button(f"🔄 Use Indomitable ({indom_uses} use{'s' if indom_uses > 1 else ''} left)", key=f"indom_{target_idx}"):
+                                        new_success, msg = use_indomitable(target, d20, spell_save, spell_dc)
+                                        st.write(msg)
+                                        st.session_state.chat_log.append(("System", msg))
+                                        if new_success:
+                                            save_success = True
+                            
+                            st.session_state.chat_log.append(
+                                (
+                                    "System",
+                                    f"{att.get('name','Caster')} casts {act} on {target.get('name','Target')} → "
+                                    f"{spell_save} save: {save_total} vs DC {spell_dc} → {'SAVED' if save_success else 'FAILED'} "
+                                    f"({required_action_type.capitalize()} action spent)",
                                 )
-
-                                st.session_state.chat_log.append(
-                                    (
-                                        "System",
-                                        f"{att.get('name','Attacker')} deals {dmg_total} damage to "
-                                        f"{target.get('name','Target')} ({before} → {after} HP).",
+                            )
+                            
+                            # Apply damage on failed save (or half on success for some spells)
+                            if not save_success:
+                                if dmg and dmg != "—":
+                                    dmg_total, breakdown = roll_dice(dmg)
+                                    st.write(f"💥 Damage: {dmg} → **{dmg_total}** ({breakdown})")
+                                    if dmg_type:
+                                        st.caption(f"Damage Type: {dmg_type}")
+                                    
+                                    # Apply damage
+                                    if target_kind == "enemy":
+                                        before = int(st.session_state.enemies[target_idx].get("hp", 0))
+                                        after = max(0, before - int(dmg_total))
+                                        st.session_state.enemies[target_idx]["hp"] = after
+                                    else:
+                                        before = int(st.session_state.party[target_idx].get("hp", 0))
+                                        after = max(0, before - int(dmg_total))
+                                        st.session_state.party[target_idx]["hp"] = after
+                                    
+                                    st.write(
+                                        f"{target.get('name','Target')} takes **{dmg_total}** damage "
+                                        f"and is now at **{after} HP** (was {before})."
                                     )
+                                    
+                                    st.session_state.chat_log.append(
+                                        (
+                                            "System",
+                                            f"{att.get('name','Caster')} deals {dmg_total} {dmg_type or ''} damage to "
+                                            f"{target.get('name','Target')} ({before} → {after} HP).",
+                                        )
+                                    )
+                                else:
+                                    st.write("Spell effect applied (no damage).")
+                            else:
+                                st.write("Target resists the spell effect!")
+                        
+                        # ========== SPELL ATTACK / REGULAR ATTACK RESOLUTION ==========
+                        else:
+                            d20 = random.randint(1, 20)
+                            total = d20 + int(to_hit) + maneuver_to_hit_bonus
+                            hit = total >= target_ac
+
+                            attack_type = "🔮 Spell attack" if is_spell_attack else "To-Hit"
+                            maneuver_str = f" + {maneuver_to_hit_bonus} (maneuver)" if maneuver_to_hit_bonus > 0 else ""
+                            st.write(
+                                f"{attack_type}: d20({d20}) + {to_hit}{maneuver_str} = **{total}** "
+                                f"vs AC {target_ac} → {'**HIT**' if hit else '**MISS**'}"
+                            )
+
+                            st.session_state.chat_log.append(
+                                (
+                                    "System",
+                                    f"{att.get('name','Attacker')} {'casts' if is_spell_attack else 'attacks'} {target.get('name','Target')} with {act}"
+                                    f"{' using ' + selected_maneuver if selected_maneuver and selected_maneuver != '(None)' else ''} → "
+                                    f"{total} vs AC {target_ac} → {'HIT' if hit else 'MISS'} "
+                                    f"({required_action_type.capitalize()} action spent)",
                                 )
+                            )
+
+                            if hit:
+                                # Defensive: handle missing or invalid damage
+                                if dmg == "—" or not dmg:
+                                    st.write("Damage: **—** (no damage specified)")
+                                    dmg_total = 0
+                                else:
+                                    base_dmg_total, breakdown = roll_dice(dmg)
+                                    dmg_total = base_dmg_total + maneuver_damage_bonus
+                                    
+                                    if maneuver_damage_bonus > 0:
+                                        st.write(f"Damage: {dmg} → {base_dmg_total} + {maneuver_damage_bonus} (maneuver) = **{dmg_total}**{maneuver_effect_text}")
+                                    else:
+                                        st.write(f"Damage: {dmg} → **{dmg_total}** ({breakdown})")
+                                    
+                                    if dmg_type:
+                                        st.caption(f"Damage Type: {dmg_type}")
+                                
+                                # ========== MANEUVER SECONDARY EFFECTS ==========
+                                if selected_maneuver and selected_maneuver != "(None)" and maneuver_data:
+                                    effect = maneuver_data.get("effect", "")
+                                    save_type = maneuver_data.get("save")
+                                    
+                                    if save_type:
+                                        # Target must make a save
+                                        dc = att.get("maneuver_dc", 8 + (att.get("abilities", {}).get("STR", 10) - 10) // 2 + att.get("bab", 0))
+                                        save_roll = random.randint(1, 20)
+                                        target_save_mod = (target.get("abilities", {}).get(save_type, 10) - 10) // 2
+                                        save_total = save_roll + target_save_mod
+                                        save_success = save_total >= dc
+                                        
+                                        st.write(f"🎯 {target.get('name', 'Target')} {save_type} save: d20({save_roll}) + {target_save_mod} = {save_total} vs DC {dc} → {'**SAVED**' if save_success else '**FAILED**'}")
+                                        
+                                        if not save_success:
+                                            if "prone" in effect:
+                                                add_condition(target, "Prone", duration_rounds=None)
+                                                st.warning(f"💥 {target.get('name', 'Target')} is knocked **Prone**!")
+                                            elif "disarm" in effect:
+                                                st.warning(f"💥 {target.get('name', 'Target')} drops their weapon!")
+                                            elif "frighten" in effect:
+                                                add_condition(target, "Frightened", duration_rounds=1)
+                                                st.warning(f"💥 {target.get('name', 'Target')} is **Frightened** until end of next turn!")
+                                            elif "push" in effect:
+                                                push_dist = maneuver_data.get("push_distance", 10)
+                                                st.warning(f"💥 {target.get('name', 'Target')} is pushed {push_dist} ft!")
+                                    
+                                    # Cleave effect (Sweeping Motion)
+                                    if effect == "cleave" and maneuver_die_roll > 0:
+                                        st.info(f"⚔️ Sweeping Motion: Can deal {maneuver_die_roll} damage to another creature within 5ft if attack roll ({total}) would hit them.")
+
+                                    # Apply damage to the correct list in session state
+                                    if target_kind == "enemy":
+                                        before = int(st.session_state.enemies[target_idx].get("hp", 0))
+                                        after = max(0, before - int(dmg_total))
+                                        st.session_state.enemies[target_idx]["hp"] = after
+                                    else:
+                                        before = int(st.session_state.party[target_idx].get("hp", 0))
+                                        after = max(0, before - int(dmg_total))
+                                        st.session_state.party[target_idx]["hp"] = after
+
+                                    st.write(
+                                        f"{target.get('name','Target')} takes **{dmg_total}** damage "
+                                        f"and is now at **{after} HP** (was {before})."
+                                    )
+
+                                    st.session_state.chat_log.append(
+                                        (
+                                            "System",
+                                            f"{att.get('name','Attacker')} deals {dmg_total} damage to "
+                                            f"{target.get('name','Target')} ({before} → {after} HP).",
+                                        )
+                                    )
+
+    # Chat Log
+    with st.container(height=360, border=False):    
+        st.markdown("### 💬 Chat Log")
+        
+        # Chat input at top
+        c1, c2 = st.columns([6,1])
+        with c1:
+            user_msg = st.text_input(
+                "Type a message (e.g., 'attack the goblin', '/roll 2d6+1')",
+                key="chat_input",
+                label_visibility="collapsed",
+                placeholder="Type a message..."
+            )
+        with c2:
+            send = st.button("Send", use_container_width=True)
+
+        # Handle chat submission
+        if send:
+            msg = (user_msg or "").strip()
+            if msg:
+                st.session_state.chat_log.append(("Player", msg))
+
+                # 1) Move intent (consumes Move action on the active turn)
+                move_result = resolve_move_action(msg)
+                if move_result is not None:
+                    st.session_state.chat_log.append(("System", move_result))
+                else:
+                    # 2) Attack intent
+                    result = resolve_attack(msg)
+                    if result is not None:
+                        st.session_state.chat_log.append(("System", result))
+                    else:
+                        # 3) Skill check intent
+                        skill_result = resolve_skill_check(msg)
+                        if skill_result is not None:
+                            st.session_state.chat_log.append(("System", skill_result))
+                        else:
+                            # 4) Default DM reply
+                            reply = reply_for(msg)
+                            if not msg.lower().startswith("/roll") and "roll " in msg.lower():
+                                more = extract_inline_rolls(msg)
+                                if more:
+                                    lines = []
+                                    for d in more:
+                                        t, br = roll_dice(d)
+                                        lines.append(f"• {d}: {br}")
+                                    reply += "\n\nInline rolls:\n" + "\n".join(lines)
+                            st.session_state.chat_log.append(("DM", reply))
+
+                st.rerun()
+
+        # Chat message display
+        chat_box = st.container(border=True, height=240)
+
+        # Display chat messages
+        if not st.session_state.chat_log:
+            st.caption("💭 No messages yet. Type below to interact with the Virtual DM.")
+        else:
+            for speaker, text in st.session_state.chat_log[-30:]:
+                if speaker == "System":
+                    st.caption(f"🎲 {text}")
+                elif speaker == "DM":
+                    st.info(f"🎭 **DM:** {text}")
+                elif speaker == "Player":
+                    st.success(f"👤 **You:** {text}")
+            else:
+                st.markdown(f"**{speaker}:** {text}")
 
 # ===== Middle COLUMN: TACTICAL MAP SECTION =====
 with mid_col:
@@ -18155,7 +18055,7 @@ with mid_col:
     auto_place_actors()
 
     # Map controls
-    map_ctrl_col1, map_ctrl_col2, map_ctrl_col3, map_ctrl_col4 = st.columns([2, 2, 2, 2])
+    map_ctrl_col1, map_ctrl_col2, map_ctrl_col3 = st.columns([2, 2, 2]) 
 
     with map_ctrl_col1:
         grid_width = st.number_input("Grid Width", min_value=5, max_value=30, value=st.session_state.grid.get("width", 20), key="map_width")
@@ -18183,7 +18083,6 @@ with mid_col:
             st.toast(f"Generated {selected_biome} map (seed: {map_seed})")
             st.rerun()
 
-    with map_ctrl_col4:
         # Use callback to ensure edit mode state is set BEFORE click handling
         def on_edit_toggle():
             st.session_state.map_edit_mode = st.session_state.map_edit_toggle
@@ -18194,24 +18093,23 @@ with mid_col:
         st.toggle("📍 Show Coords", value=st.session_state.map_show_coords, key="map_coords_toggle", on_change=on_coords_toggle)
 
         # --- Move click arming (only refresh when we are waiting for a move destination) ---
-    if "awaiting_move_click" not in st.session_state:
-        st.session_state.awaiting_move_click = False
+        if "awaiting_move_click" not in st.session_state:
+            st.session_state.awaiting_move_click = False
 
-        from streamlit_autorefresh import st_autorefresh
+            from streamlit_autorefresh import st_autorefresh
 
-        # Only refresh while we're armed and waiting for the destination click
-        if st.session_state.awaiting_move_click:
-            st_autorefresh(interval=250, key="await_move_refresh", limit=40)
+            # Only refresh while we're armed and waiting for the destination click
+            if st.session_state.awaiting_move_click:
+                st_autorefresh(interval=250, key="await_move_refresh", limit=40)
 
-    # Only show/allow this in combat and not in edit mode
-    if st.session_state.get("in_combat", False) and not st.session_state.get("map_edit_mode", False):
-        # Optional: only arm if the current actor still has a move available
-        can_arm = can_spend("move")
+        # Only show/allow this in combat and not in edit mode
+        if st.session_state.get("in_combat", False) and not st.session_state.get("map_edit_mode", False):
+            # Optional: only arm if the current actor still has a move available
+            can_arm = can_spend("move")
 
-        if st.button("🏃 Move (Click Destination)", disabled=not can_arm, key="arm_move_click"):
-            st.session_state.awaiting_move_click = True
-            st.toast("Click a destination square within your movement range.", icon="🏃")
-
+            if st.button("🏃 Move (Click Destination)", disabled=not can_arm, key="arm_move_click"):
+                st.session_state.awaiting_move_click = True
+                st.toast("Click a destination square within your movement range.", icon="🏃")
 
     # Handle grid clicks via query params
     # IMPORTANT: Check edit mode state BEFORE processing clicks to avoid race conditions
@@ -18477,10 +18375,10 @@ with mid_col:
             else:
                 st.session_state.map_hazard_paint = "None"
 
-# ========== BOTTOM SECTION: DM Notes + Chat ==========
+# ========== BOTTOM SECTION: DM Panel ==========
 st.divider()
 
-dm_notes_col, chat_col = st.columns([4, 8])
+dm_notes_col, tools_col, refs_col = st.columns([4, 6, 4])
 
 # ---- DM Notes (separate from chat) ----
 with dm_notes_col:
@@ -18492,6 +18390,9 @@ with dm_notes_col:
         placeholder="Use this area for:\n• Session planning\n• NPC motivations\n• Plot hooks\n• Secret information"
     )
     
+
+with tools_col:
+    st.markdown("### 🧰 Tools")
     # Party XP Award section
     with st.expander("🎁 Award Party XP", expanded=False):
         st.caption("Award XP to all party members at once")
@@ -18566,134 +18467,265 @@ with dm_notes_col:
                 st.toast(f"✨ Awarded {party_xp_amt:,} XP to each party member!")
             st.rerun()
 
-# ---- Chat Log ----
-with chat_col:
-    st.markdown("### 💬 Chat Log")
-    
-    # Chat input at top
-    c1, c2 = st.columns([6,1])
-    with c1:
-        user_msg = st.text_input(
-            "Type a message (e.g., 'attack the goblin', '/roll 2d6+1')",
-            key="chat_input",
-            label_visibility="collapsed",
-            placeholder="Type a message..."
-        )
-    with c2:
-        send = st.button("Send", use_container_width=True)
-
-    # Handle chat submission
-    if send:
-        msg = (user_msg or "").strip()
-        if msg:
-            st.session_state.chat_log.append(("Player", msg))
-
-            # 1) Move intent (consumes Move action on the active turn)
-            move_result = resolve_move_action(msg)
-            if move_result is not None:
-                st.session_state.chat_log.append(("System", move_result))
+    # Quick Add Enemy (in left column)
+    with st.expander("➕ Quick Add Enemy", expanded=False):
+        add_mode = st.radio("Add Mode", ["From SRD", "Manual"], horizontal=True, key="left_add_mode")
+        
+        if add_mode == "From SRD":
+            if not st.session_state.get("srd_enemies"):
+                st.warning("SRD bestiary not loaded.")
             else:
-                # 2) Attack intent
-                result = resolve_attack(msg)
-                if result is not None:
-                    st.session_state.chat_log.append(("System", result))
-                else:
-                    # 3) Skill check intent
-                    skill_result = resolve_skill_check(msg)
-                    if skill_result is not None:
-                        st.session_state.chat_log.append(("System", skill_result))
-                    else:
-                        # 4) Default DM reply
-                        reply = reply_for(msg)
-                        if not msg.lower().startswith("/roll") and "roll " in msg.lower():
-                            more = extract_inline_rolls(msg)
-                            if more:
-                                lines = []
-                                for d in more:
-                                    t, br = roll_dice(d)
-                                    lines.append(f"• {d}: {br}")
-                                reply += "\n\nInline rolls:\n" + "\n".join(lines)
-                        st.session_state.chat_log.append(("DM", reply))
-
-            st.rerun()
-
-    # Chat message display
-    chat_box = st.container(border=True, height=250)
-
-    # Display chat messages
-    if not st.session_state.chat_log:
-        st.caption("💭 No messages yet. Type below to interact with the Virtual DM.")
-    else:
-        for speaker, text in st.session_state.chat_log[-30:]:
-            if speaker == "System":
-                st.caption(f"🎲 {text}")
-            elif speaker == "DM":
-                st.info(f"🎭 **DM:** {text}")
-            elif speaker == "Player":
-                st.success(f"👤 **You:** {text}")
+                srd_names = [m["name"] for m in st.session_state.srd_enemies]
+                srd_pick = st.selectbox("Monster", srd_names, key="left_srd_pick")
+                srd_qty = st.number_input("Quantity", 1, 10, 1, key="left_srd_qty")
+                if st.button("Add", key="left_add_srd_btn"):
+                    src = next((m for m in st.session_state.srd_enemies if m["name"] == srd_pick), None)
+                    if src:
+                        for i in range(int(srd_qty)):
+                            blob = json.loads(json.dumps(src))
+                            blob["name"] = f"{src['name']}" if srd_qty == 1 else f"{src['name']} #{i+1}"
+                            blob["src"] = src["name"]
+                            blob["_hydrated"] = True
+                            st.session_state.enemies.append(blob)
+                        st.toast(f"Added {srd_qty}× {srd_pick}")
+                        st.rerun()
         else:
-            st.markdown(f"**{speaker}:** {text}")               
+            e_name = st.text_input("Name", key="left_e_name")
+            e_ac = st.number_input("AC", 0, 40, 13, key="left_e_ac")
+            e_hp = st.number_input("HP", 0, 500, 11, key="left_e_hp")
+            if st.button("Add", key="left_add_manual_btn"):
+                if e_name.strip():
+                    st.session_state.enemies.append({
+                        "name": e_name.strip(),
+                        "ac": int(e_ac),
+                        "hp": int(e_hp),
+                        "attacks": [{"name": "Attack", "to_hit": 0, "damage": "1d6"}]
+                    })
+                    st.toast(f"Added {e_name}")
+                    st.rerun()
+
+    # ========== ENCOUNTER XP CALCULATOR ==========
+    with st.expander("🧮 Encounter XP Calculator", expanded=False):
+        if not st.session_state.enemies:
+            st.info("Add enemies to calculate encounter XP.")
+        else:
+            # Get party levels
+            party_levels = []
+            for char in st.session_state.party:
+                migrate_character_xp(char)
+                migrate_to_multiclass(char)
+                party_levels.append(get_total_level(char))
+            
+            party_size = len(party_levels) if party_levels else 4
+            
+            # Calculate encounter XP
+            encounter_result = calc_encounter_xp(
+                st.session_state.enemies, 
+                party_size=party_size,
+                apply_multiplier=True
+            )
+            
+            # Assess difficulty
+            if party_levels:
+                difficulty_result = assess_encounter_difficulty(
+                    st.session_state.enemies,
+                    party_levels
+                )
+                difficulty = difficulty_result["difficulty"]
+                difficulty_emoji = get_difficulty_emoji(difficulty)
+            else:
+                difficulty = "unknown"
+                difficulty_emoji = "❓"
+                difficulty_result = {"thresholds": {}}
+            
+            # Display encounter summary
+            st.markdown(f"### {difficulty_emoji} {difficulty.capitalize()} Encounter")
+            
+            # XP metrics
+            xp_col1, xp_col2, xp_col3 = st.columns(3)
+            with xp_col1:
+                st.metric("Base XP", format_xp(encounter_result["base_xp"]))
+            with xp_col2:
+                st.metric("Adjusted XP", format_xp(encounter_result["adjusted_xp"]), 
+                         help=f"×{encounter_result['multiplier']:.1f} multiplier for {encounter_result['monster_count']} monsters")
+            with xp_col3:
+                st.metric("XP per Member", format_xp(encounter_result["xp_per_member"]))
+            
+            # Monster breakdown
+            st.markdown("**Monster Breakdown:**")
+            for mon in encounter_result["monsters_breakdown"]:
+                st.caption(f"  • {mon['name']}: {format_xp(mon['xp'])} XP")
+            
+            # Difficulty thresholds
+            if party_levels and difficulty_result.get("thresholds"):
+                thresholds = difficulty_result["thresholds"]
+                st.markdown("**Party Difficulty Thresholds:**")
+                threshold_text = f"Easy: {format_xp(thresholds.get('easy', 0))} | Medium: {format_xp(thresholds.get('medium', 0))} | Hard: {format_xp(thresholds.get('hard', 0))} | Deadly: {format_xp(thresholds.get('deadly', 0))}"
+                st.caption(threshold_text)
+            
+            # Award XP button
+            st.markdown("---")
+            st.markdown("**Award Encounter XP to Party**")
+            
+            xp_to_award = encounter_result["xp_per_member"]
+            st.caption(f"Each party member will receive {format_xp(xp_to_award)} XP")
+            
+            if st.button("🎁 Award Encounter XP", key="award_encounter_xp_btn", disabled=xp_to_award <= 0 or not st.session_state.party, use_container_width=True):
+                level_ups = []
+                enemy_names = [e.get("name", "Enemy") for e in st.session_state.enemies]
+                reason = f"Defeated: {', '.join(enemy_names[:3])}" + ("..." if len(enemy_names) > 3 else "")
+                
+                for char in st.session_state.party:
+                    migrate_character_xp(char)
+                    result = award_xp(char, xp_to_award, reason=reason, source="combat")
+                    if result["leveled_up"]:
+                        level_ups.append(char.get("name", "Character"))
+                
+                if level_ups:
+                    st.toast(f"🎉 Awarded {format_xp(xp_to_award)} XP each! Level ups: {', '.join(level_ups)}")
+                else:
+                    st.toast(f"✨ Awarded {format_xp(xp_to_award)} XP to each party member!")
+                st.rerun()
     
-# ========== FOOTER: Bestiary Reference ==========
-st.divider()
-st.markdown("### 📖 Reference")
+    # ========== QUEST/MILESTONE XP ==========
+    with st.expander("🏆 Quest & Milestone XP", expanded=False):
+        st.markdown("Award XP for completing quests or reaching milestones.")
+        
+        # Get party info
+        party_levels = []
+        for char in st.session_state.party:
+            migrate_character_xp(char)
+            migrate_to_multiclass(char)
+            party_levels.append(get_total_level(char))
+        
+        if not party_levels:
+            party_levels = [1]  # Default for calculation preview
+            st.caption("No party members - using level 1 for preview")
+        
+        # Quest type selection
+        quest_types = get_quest_types()
+        quest_options = {
+            "minor": "📝 Minor (Simple task, fetch quest)",
+            "moderate": "📋 Moderate (Multi-step quest, some danger)",
+            "major": "📜 Major (Significant story quest)",
+            "epic": "🏆 Epic (Campaign-defining quest)"
+        }
+        
+        selected_quest = st.selectbox(
+            "Quest Type",
+            list(quest_options.keys()),
+            format_func=lambda x: quest_options.get(x, x),
+            key="quest_type_select"
+        )
+        
+        # Custom multiplier
+        custom_mult = st.slider(
+            "XP Multiplier",
+            min_value=0.5,
+            max_value=2.0,
+            value=1.0,
+            step=0.1,
+            key="quest_xp_mult",
+            help="Adjust XP based on quest difficulty or party performance"
+        )
+        
+        # Calculate quest XP
+        quest_result = calc_quest_xp(selected_quest, party_levels, custom_mult)
+        
+        # Display
+        quest_col1, quest_col2 = st.columns(2)
+        with quest_col1:
+            st.metric("Total Quest XP", format_xp(quest_result["total_xp"]))
+        with quest_col2:
+            st.metric("XP per Member", format_xp(quest_result["xp_per_member"]))
+        
+        st.caption(f"Based on party of {quest_result.get('party_size', len(party_levels))} at average level {quest_result.get('avg_party_level', 1):.1f}")
+        
+        # Reason input
+        quest_reason = st.text_input(
+            "Quest Description",
+            placeholder="e.g., Rescued the village elder",
+            key="quest_reason_input"
+        )
+        
+        # Award button
+        xp_to_award = quest_result["xp_per_member"]
+        if st.button("🎁 Award Quest XP", key="award_quest_xp_btn", disabled=xp_to_award <= 0 or not st.session_state.party, use_container_width=True):
+            level_ups = []
+            reason = quest_reason or f"{selected_quest.capitalize()} quest completed"
+            
+            for char in st.session_state.party:
+                migrate_character_xp(char)
+                result = award_xp(char, xp_to_award, reason=reason, source="quest")
+                if result["leveled_up"]:
+                    level_ups.append(char.get("name", "Character"))
+            
+            if level_ups:
+                st.toast(f"🎉 Awarded {format_xp(xp_to_award)} XP each! Level ups: {', '.join(level_ups)}")
+            else:
+                st.toast(f"✨ Awarded {format_xp(xp_to_award)} XP to each party member!")
+            st.rerun()
+                  
+# ========== Bestiary Reference ==========
+with refs_col:
+    st.markdown("### 📖 Reference")
 
-with st.expander("🐉 Browse Bestiary", expanded=False):
-    if not st.session_state.get("srd_enemies"):
-        st.info("📚 SRD Bestiary not loaded. Check that SRD_Monsters.json exists in the data folder.")
-    else:
-        names = [m["name"] for m in st.session_state.srd_enemies]
-        pick = st.selectbox("View statblock", names, key="bestiary_pick")
-        sb = next((m for m in st.session_state.srd_enemies if m["name"] == pick), None)
-        if sb:
-                # Tolerant full stat renderer
-                name = sb.get("name","Unknown")
-                size = sb.get("size","—"); typ = sb.get("type","—"); ali = sb.get("alignment","—")
-                ac = sb.get("ac","—"); hp = sb.get("hp","—"); hd = sb.get("hit_dice","—"); spd = sb.get("speed","—")
-                st.markdown(f"**{name}** — {size} {typ}, {ali}")
-                st.markdown(f"**Armor Class** {ac}  •  **Hit Points** {hp} ({hd})  •  **Speed** {spd}")
+    with st.expander("🐉 Browse Bestiary", expanded=False):
+        if not st.session_state.get("srd_enemies"):
+            st.info("📚 SRD Bestiary not loaded. Check that SRD_Monsters.json exists in the data folder.")
+        else:
+            names = [m["name"] for m in st.session_state.srd_enemies]
+            pick = st.selectbox("View statblock", names, key="bestiary_pick")
+            sb = next((m for m in st.session_state.srd_enemies if m["name"] == pick), None)
+            if sb:
+                    # Tolerant full stat renderer
+                    name = sb.get("name","Unknown")
+                    size = sb.get("size","—"); typ = sb.get("type","—"); ali = sb.get("alignment","—")
+                    ac = sb.get("ac","—"); hp = sb.get("hp","—"); hd = sb.get("hit_dice","—"); spd = sb.get("speed","—")
+                    st.markdown(f"**{name}** — {size} {typ}, {ali}")
+                    st.markdown(f"**Armor Class** {ac}  •  **Hit Points** {hp} ({hd})  •  **Speed** {spd}")
 
-                abil = sb.get("abilities", {})
-                if abil:
-                    STR = abil.get("STR","—"); DEX = abil.get("DEX","—"); CON = abil.get("CON","—")
-                    INT = abil.get("INT","—"); WIS = abil.get("WIS","—"); CHA = abil.get("CHA","—")
-                    st.markdown(f"STR {STR}  |  DEX {DEX}  |  CON {CON}  |  INT {INT}  |  WIS {WIS}  |  CHA {CHA}")
+                    abil = sb.get("abilities", {})
+                    if abil:
+                        STR = abil.get("STR","—"); DEX = abil.get("DEX","—"); CON = abil.get("CON","—")
+                        INT = abil.get("INT","—"); WIS = abil.get("WIS","—"); CHA = abil.get("CHA","—")
+                        st.markdown(f"STR {STR}  |  DEX {DEX}  |  CON {CON}  |  INT {INT}  |  WIS {WIS}  |  CHA {CHA}")
 
-                saves = sb.get("saves", {}); skills = sb.get("skills", {})
-                s_saves  = ", ".join(f"{k} {v}" for k,v in saves.items()) if saves else "—"
-                s_skills = ", ".join(f"{k} {v}" for k,v in skills.items()) if skills else "—"
-                senses = sb.get("senses","—"); langs = sb.get("languages","—"); cr = sb.get("cr","—")
-                st.caption(f"Saves: {s_saves}  •  Skills: {s_skills}")
-                st.caption(f"Senses: {senses}  •  Languages: {langs}  •  CR: {cr}")
+                    saves = sb.get("saves", {}); skills = sb.get("skills", {})
+                    s_saves  = ", ".join(f"{k} {v}" for k,v in saves.items()) if saves else "—"
+                    s_skills = ", ".join(f"{k} {v}" for k,v in skills.items()) if skills else "—"
+                    senses = sb.get("senses","—"); langs = sb.get("languages","—"); cr = sb.get("cr","—")
+                    st.caption(f"Saves: {s_saves}  •  Skills: {s_skills}")
+                    st.caption(f"Senses: {senses}  •  Languages: {langs}  •  CR: {cr}")
 
-                traits = sb.get("traits", [])
-                if traits:
-                    with st.expander("Traits"):
-                        for t in traits:
-                            tname = t.get("name","Trait"); ttxt = t.get("text","")
-                            st.markdown(f"- **{tname}.** {ttxt}")
+                    traits = sb.get("traits", [])
+                    if traits:
+                        with st.expander("Traits"):
+                            for t in traits:
+                                tname = t.get("name","Trait"); ttxt = t.get("text","")
+                                st.markdown(f"- **{tname}.** {ttxt}")
 
-                actions = sb.get("actions", [])
-                if actions:
-                    with st.expander("Actions"):
-                        for a in actions:
-                            nm = a.get("name","Action")
-                            th = a.get("to_hit")
-                            reach = a.get("reach"); rng = a.get("range")
-                            targets = a.get("targets","one")
-                            dmg = a.get("damage","—")
-                            line = f"**{nm}.**"
-                            if th is not None: line += f" +{th} to hit"
-                            if reach: line += f", reach {reach}"
-                            if rng:   line += f", range {rng}"
-                            line += f"; {targets} target. Hit: {dmg}."
-                            st.markdown(f"- {line}")
+                    actions = sb.get("actions", [])
+                    if actions:
+                        with st.expander("Actions"):
+                            for a in actions:
+                                nm = a.get("name","Action")
+                                th = a.get("to_hit")
+                                reach = a.get("reach"); rng = a.get("range")
+                                targets = a.get("targets","one")
+                                dmg = a.get("damage","—")
+                                line = f"**{nm}.**"
+                                if th is not None: line += f" +{th} to hit"
+                                if reach: line += f", reach {reach}"
+                                if rng:   line += f", range {rng}"
+                                line += f"; {targets} target. Hit: {dmg}."
+                                st.markdown(f"- {line}")
 
-# ---------------- Performance Debug: Display Timings ----------------
-if st.session_state.get("perf_debug", False):
-    timings = get_perf_timings()
-    placeholder = st.session_state.get("_perf_timing_placeholder")
-    if placeholder and timings:
-        with placeholder.container():
-            for name, ms in sorted(timings.items(), key=lambda x: -x[1]):
-                st.caption(f"⏱️ {name}: {ms:.2f} ms")
+    # ---------------- Performance Debug: Display Timings ----------------
+    if st.session_state.get("perf_debug", False):
+        timings = get_perf_timings()
+        placeholder = st.session_state.get("_perf_timing_placeholder")
+        if placeholder and timings:
+            with placeholder.container():
+                for name, ms in sorted(timings.items(), key=lambda x: -x[1]):
+                    st.caption(f"⏱️ {name}: {ms:.2f} ms")
